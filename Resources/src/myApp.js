@@ -73,11 +73,18 @@ var MyLayer = cc.Layer.extend({
         this.addChild(this.helloLabel, 5);
 
         // add "Helloworld" splash screen"
-        this.sprite = cc.Sprite.create("res/HelloWorld.png");
+        this.sprite = cc.Sprite.create("res/ducks.png");
         this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
-        this.sprite.setPosition(cc.p(size.width / 2, size.height / 2));
-
+        this.sprite.setPosition(cc.p(0, 0));
         this.addChild(this.sprite, 0);
+                              
+        var bezier = [cc.p(0,size.height/2),cc.p(800,size.height/2),cc.p(800,100)];
+        var sprite_action = cc.BezierTo.create(8,bezier);
+        this.sprite.runAction(sprite_action);
+        
+        
+        
+                              
 
         return true;
     }
