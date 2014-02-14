@@ -41,6 +41,15 @@ var MyLayer = cc.Layer.extend({
         //////////////////////////////
         // 1. super init first
         this._super();
+                              
+        if('touches' in sys.capabilities)
+        {
+        
+             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
+             this.setTouchEnabled(true);
+        
+        }
+                              
 
         /////////////////////////////
         // 2. add a menu item with "X" image, which is clicked to quit the program
@@ -75,24 +84,53 @@ var MyLayer = cc.Layer.extend({
         // add "Helloworld" splash screen"
         this.sprite = cc.Sprite.create("res/ducks.png");
         this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
-        this.sprite.setPosition(cc.p(0, 0));
+        this.sprite.setPosition(cc.p(100, 300));
         this.addChild(this.sprite, 0);
                               
                               
-        var sprite_action = cc.Place.create(cc.p(0,300));
-        this.sprite.runAction(sprite_action);
-                              
+        //var sprite_action = cc.Place.create(cc.p(0,300));
+        //this.sprite.runAction(sprite_action);
+         
+        /*
         var bezier = [cc.p(0,size.height/2),cc.p(500,size.height/2),cc.p(600,100)];
-        var sprite_action2 = cc.BezierTo.create(8,bezier);
+        var sprite_action2 = cc.RepeatForever.create(cc.BezierTo.create(8,bezier));
         this.sprite.runAction(sprite_action2);
-                              
-        var sprite_action3 = cc.RotateBy.create(2,180);
-        var repeate_action = cc.Repeat.create(sprite_action3,3);
+          */
+        /*
+        var sprite_action3 = cc.RotateTo.create(2,180);
+        var repeate_action = cc.Repeat.create(sprite_action3,10);
         this.sprite.runAction(repeate_action);
-                              
+        */
+                            
+       /* var sprite_action3 = cc.SkewTo.create(2,2,2);
+        this.sprite.runAction(sprite_action3);
+        */
 
         return true;
-    }
+    },
+
+     
+     onTouchesBegan:function(touches,event)
+     {
+         cc.log("Single touch has occured");
+        var x = touches[0].getLocation().x;
+        var y = touches[0].getLocation().y;
+        
+        var sprite_action = cc.MoveTo.create(2,cc.p(x,y));
+        this.sprite.runAction(sprite_action);
+
+     },
+                              
+     onTouchesMoved: function(touches,event)
+     {
+     var x = touches[0].getLocation().x;
+     var y = touches[0].getLocation().y;
+     
+     var sprite_action = cc.MoveTo.create(2,cc.p(x,y));
+     this.sprite.runAction(sprite_action);
+     
+     
+     }
 
 });
 
