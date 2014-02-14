@@ -30,6 +30,7 @@ var MyLayer = cc.Layer.extend({
                               circle: null,
                               sprite: null,
                               river_Background: null,
+                              tap_sprite:null,
                               
                               ctor: function () {
                               this._super();
@@ -89,9 +90,13 @@ var MyLayer = cc.Layer.extend({
                               // add "Helloworld" splash screen"
                               this.sprite = cc.Sprite.create("res/ducksmall.png");
                               this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
-                              this.sprite.setPosition(cc.p(100, 300));
+                              this.sprite.setPosition(cc.p(85, 300));
                               this.addChild(this.sprite, 0);
                               
+                              this.tap_sprite = cc.Sprite.create("res/tap.png");
+                              this.tap_sprite.setAnchorPoint(cc.p(0.5,0.5));
+                              this.tap_sprite.setPosition(cc.p(185,250));
+                              this.addChild(this.tap_sprite,0);
                               
                               
                               
