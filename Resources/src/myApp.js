@@ -30,6 +30,7 @@ var MyLayer = cc.Layer.extend({
     helloLabel:null,
     circle:null,
     sprite:null,
+    river_Background: null,
 
     ctor:function() {
         this._super();
@@ -49,6 +50,12 @@ var MyLayer = cc.Layer.extend({
              this.setTouchEnabled(true);
         
         }
+                              
+        //add background image (river)
+        this.sprite = cc.Sprite.create("res/RiverBackground-static.png");
+        this.sprite.setAnchorPoint(cc.p(0, 0));
+        this.sprite.setPosition(cc.p(0, 0));
+        this.addChild(this.sprite, 0);
                               
 
         /////////////////////////////
@@ -75,17 +82,20 @@ var MyLayer = cc.Layer.extend({
         // 3. add your codes below...
         // add a label shows "Hello World"
         // create and initialize a label
-        this.helloLabel = cc.LabelTTF.create("Bath Duck", "Arial", 38);
+        this.helloLabel = cc.LabelTTF.create("Bath Duck", "Arial", 30);
         // position the label on the center of the screen
-        this.helloLabel.setPosition(cc.p(size.width / 2, size.height - 40));
+        this.helloLabel.setPosition(cc.p(size.width / 2, size.height - 100));
         // add the label as a child to this layer
         this.addChild(this.helloLabel, 5);
 
         // add "Helloworld" splash screen"
-        this.sprite = cc.Sprite.create("res/ducks.png");
+        this.sprite = cc.Sprite.create("res/ducksmall.png");
         this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
         this.sprite.setPosition(cc.p(100, 300));
         this.addChild(this.sprite, 0);
+         
+                              
+        
                               
                               
         //var sprite_action = cc.Place.create(cc.p(0,300));
