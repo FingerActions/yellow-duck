@@ -66,7 +66,7 @@ var MyLayer = cc.Layer.extend({
         // 3. add your codes below...
         // add a label shows "Hello World"
         // create and initialize a label
-        this.helloLabel = cc.LabelTTF.create("Hello World", "Arial", 38);
+        this.helloLabel = cc.LabelTTF.create("Bath Duck", "Arial", 38);
         // position the label on the center of the screen
         this.helloLabel.setPosition(cc.p(size.width / 2, size.height - 40));
         // add the label as a child to this layer
@@ -78,12 +78,17 @@ var MyLayer = cc.Layer.extend({
         this.sprite.setPosition(cc.p(0, 0));
         this.addChild(this.sprite, 0);
                               
-        var bezier = [cc.p(0,size.height/2),cc.p(800,size.height/2),cc.p(800,100)];
-        var sprite_action = cc.BezierTo.create(8,bezier);
+                              
+        var sprite_action = cc.Place.create(cc.p(0,300));
         this.sprite.runAction(sprite_action);
-        
-        
-        
+                              
+        var bezier = [cc.p(0,size.height/2),cc.p(500,size.height/2),cc.p(600,100)];
+        var sprite_action2 = cc.BezierTo.create(8,bezier);
+        this.sprite.runAction(sprite_action2);
+                              
+        var sprite_action3 = cc.RotateBy.create(2,180);
+        var repeate_action = cc.Repeat.create(sprite_action3,3);
+        this.sprite.runAction(repeate_action);
                               
 
         return true;
