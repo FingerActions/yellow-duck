@@ -25,10 +25,11 @@
  ****************************************************************************/
 
 
-var INITIALIZED_MYAPP=false;
+
+var INITIALIZED_PLAYSCENE=false;
 
 
-var MyLayer = cc.Layer.extend({
+var PlayLayer = cc.Layer.extend({
                               
         isMouseDown: false,
         helloImg: null,
@@ -90,33 +91,14 @@ var MyLayer = cc.Layer.extend({
         // 3. add your codes below...
         // add a label shows "Hello World"
         // create and initialize a label
-        this.helloLabel = cc.LabelTTF.create("Bath Duck", "Arial", 30);
-        // position the label on the center of the screen
-        this.helloLabel.setPosition(cc.p(size.width / 2, size.height - 100));
-        // add the label as a child to this layer
-        this.addChild(this.helloLabel, 5);
-        
+                
         // add "Helloworld" splash screen"
         this.sprite = cc.Sprite.create("res/ducksmall.png");
         this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
         this.sprite.setPosition(cc.p(65,size.height/2));
         this.addChild(this.sprite, 0);
-        this.tap_sprite = cc.Sprite.create("res/tap.png");
-        this.tap_sprite.setAnchorPoint(cc.p(0.5, 0.5));
-        this.tap_sprite.setPosition(cc.p(195, (size.height/2)-40));
-        this.addChild(this.tap_sprite, 0);
-        
-        
-        //var sprite_action = cc.Place.create(cc.p(0,300));
-        //this.sprite.runAction(sprite_action);
-        var bezier = [cc.p(0,100),cc.p(0,-100),cc.p(0,0)];
-        var sprite_action = cc.BezierBy.create(5,bezier);
-        //var sprite_fly_up = cc.MoveBy.create(2,cc.p(0,50));
-        //var sprite_fly_down = cc.MoveBy.create(2,cc.p(0,-50));
-        //var sequence_action = cc.Sequence.create(sprite_fly_up,sprite_fly_down);
-        var sprite_action_2 = cc.RepeatForever.create(sprite_action);
-        this.sprite.runAction(sprite_action_2);
-        
+                
+                
         
         /*
          var sprite_action3 = cc.RotateTo.create(2,180);
@@ -129,23 +111,19 @@ var MyLayer = cc.Layer.extend({
          */
         
         return true;
-                              
         },
         
         
         onTouchesBegan: function (touches, event) {
                               
                 cc.log("Single touch has occured");
-                this.PlayScene();
+                PlayScene();
         
         },
          
         PlayScene: function(){
          
-         var scene = cc.Scene.create();
-         var layer = new PlayScene();
-         scene.addChild(layer);
-         director.pushScene(scene);
+                              
          
                               
         }
@@ -153,7 +131,7 @@ var MyLayer = cc.Layer.extend({
         
 });
 
-var MyScene = cc.Scene.extend({
+var PlayScene = cc.Scene.extend({
                               
    ctor: function () {
    this._super();
@@ -162,16 +140,16 @@ var MyScene = cc.Scene.extend({
    },
    
    onEnter: function () {
-             
-    if(INITIALIZED_MYAPP==false)
+    
+    if(INITIALIZED_PLAYSCENE==false)
     {
-        INITIALIZED_MYAPP=true;
-        this._super();
-        var layer = new MyLayer();
-        this.addChild(layer);
-         layer.init();
+       INITIALIZED_PLAYSCENE = true;
+       this._super();
+       var layer = new PlayLayer();
+       this.addChild(layer);
+       layer.init();
     }
-                              
+                                
    }
                               
 });

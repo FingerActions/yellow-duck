@@ -30,7 +30,8 @@ require("jsb.js");
 
 var appFiles = [
     'src/resource.js',
-    'src/myApp.js'
+    'src/myApp.js',
+    'src/playscene.js',
 ];
 
 cc.dumpConfig();
@@ -40,7 +41,7 @@ for( var i=0; i < appFiles.length; i++) {
 }
 
 var director = cc.Director.getInstance();
-director.setDisplayStats(true);
+director.setDisplayStats(false);
 
 // set FPS. the default value is 1.0/60 if you don't call this
 director.setAnimationInterval(1.0 / 60);
