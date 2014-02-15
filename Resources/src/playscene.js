@@ -28,7 +28,6 @@
 
 var INITIALIZED_PLAYSCENE=false;
 
-
 var PlayLayer = cc.Layer.extend({
                               
         isMouseDown: false,
@@ -39,6 +38,7 @@ var PlayLayer = cc.Layer.extend({
         river_Background: null,
         tap_sprite: null,
 		riverSprite: null,
+        game_status:null,
         
         ctor: function () {
         this._super();
@@ -122,13 +122,38 @@ var PlayLayer = cc.Layer.extend({
         
         
         onTouchesBegan: function (touches, event) {
+                                
+                                
+            this.sprite.stopAllActions();
                               
-                cc.log("Jump");
+            cc.log("Jump");
             var jump = cc.JumpBy.create(1, cc.p(0, 0), 100, 1);
 			this.sprite.runAction(jump);
         
         },
+        
+         onTouchesEnded:function(touches,event){
+        
+         //this.sprite.stopAllActions();
          
+         this.Duck_fall();
+         
+         
+         },
+         
+         Duck_fall:function(){
+        
+         
+         var action_fall = cc.MoveBy.create(1,cc.p(0,-200));
+         
+         var sprite_action_2 = cc.RepeatForever.create(action_fall);
+         
+         this.sprite.runAction(sprite_action_2);
+         
+         
+         },
+                                
+                                
         PlayScene: function(){
          
                               
