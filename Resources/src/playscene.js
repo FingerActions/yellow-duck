@@ -110,8 +110,7 @@ var PlayLayer = cc.Layer.extend({
         this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
         this.sprite.setPosition(cc.p(65,size.height/2));
         this.addChild(this.sprite, 0);
-                                
-        this.createWall();
+                           
         
         /*
          var sprite_action3 = cc.RotateTo.create(2,180);
@@ -128,7 +127,8 @@ var PlayLayer = cc.Layer.extend({
         
         
         onTouchesBegan: function (touches, event) {
-                                
+            
+            this.createWall();
                                 
             this.sprite.stopAllActions();
                               
