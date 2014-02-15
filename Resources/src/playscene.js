@@ -38,6 +38,7 @@ var PlayLayer = cc.Layer.extend({
         sprite: null,
         river_Background: null,
         tap_sprite: null,
+		riverSprite: null,
         
         ctor: function () {
         this._super();
@@ -91,15 +92,22 @@ var PlayLayer = cc.Layer.extend({
         // 3. add your codes below...
         // add a label shows "Hello World"
         // create and initialize a label
-                
+                 
+		this.riverSprite = cc.Sprite.create("res/river.png");
+        this.riverSprite.setAnchorPoint(cc.p(0.5, 0.5));
+        this.riverSprite.setPosition(cc.p(350,size.height/2));
+        this.addChild(this.riverSprite, 0);
+		
+		var sprite_action = cc.MoveTo.create(10, cc.p(-100, size.height/2));
+		this.riverSprite.runAction(sprite_action);
+		
         // add "Helloworld" splash screen"
         this.sprite = cc.Sprite.create("res/ducksmall.png");
         this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
         this.sprite.setPosition(cc.p(65,size.height/2));
         this.addChild(this.sprite, 0);
-                
-                
-        
+               
+			  
         /*
          var sprite_action3 = cc.RotateTo.create(2,180);
          var repeate_action = cc.Repeat.create(sprite_action3,10);
