@@ -37,9 +37,9 @@ var PlayLayer = cc.Layer.extend({
         circle: null,
         sprite: null,
         river_Background: null,
-        physicsWorld:null,
-                                
-                                
+        tap_sprite: null,
+		riverSprite: null,
+        
         ctor: function () {
         this._super();
         cc.associateWithNative(this, cc.Layer);
@@ -64,20 +64,50 @@ var PlayLayer = cc.Layer.extend({
         this.sprite.setPosition(cc.p(0, 0));
         this.addChild(this.sprite, 0);
         
-                                
-
-                                
+        
+        /////////////////////////////
+        // 2. add a menu item with "X" image, which is clicked to quit the program
+        //    you may modify it.
+        // ask director the window size
         var size = cc.Director.getInstance().getWinSize();
-                
+        
+        // add a "close" icon to exit the progress. it's an autorelease object
+        
+        /*
+        var closeItem = cc.MenuItemImage.create(
+                                                "res/CloseNormal.png",
+                                                "res/CloseSelected.png",
+                                                function () {
+                                                cc.log("close button was clicked.");
+                                                }, this);
+        closeItem.setAnchorPoint(cc.p(0.5, 0.5));
+        
+        var menu = cc.Menu.create(closeItem);
+        menu.setPosition(cc.p(0, 0));
+        this.addChild(menu, 1);
+        closeItem.setPosition(cc.p(size.width - 20, 20));
+        */
+        
+        /////////////////////////////
+        // 3. add your codes below...
+        // add a label shows "Hello World"
+        // create and initialize a label
+                 
+		this.riverSprite = cc.Sprite.create("res/river.png");
+        this.riverSprite.setAnchorPoint(cc.p(0.5, 0.5));
+        this.riverSprite.setPosition(cc.p(350,size.height/2));
+        this.addChild(this.riverSprite, 0);
+		
+		var sprite_action = cc.MoveTo.create(10, cc.p(-100, size.height/2));
+		this.riverSprite.runAction(sprite_action);
+		
         // add "Helloworld" splash screen"
         this.sprite = cc.Sprite.create("res/ducksmall.png");
         this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
         this.sprite.setPosition(cc.p(65,size.height/2));
         this.addChild(this.sprite, 0);
-                
-        
-        
-        
+               
+			  
         /*
          var sprite_action3 = cc.RotateTo.create(2,180);
          var repeate_action = cc.Repeat.create(sprite_action3,10);
@@ -105,13 +135,6 @@ var PlayLayer = cc.Layer.extend({
          
                               
         }
-                                
-        BirdFall: function(){
-           
-           
-           
-           
-         }
     
         
 });
