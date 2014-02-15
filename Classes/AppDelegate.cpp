@@ -16,6 +16,7 @@
 #include "XMLHTTPRequest.h"
 #include "jsb_websocket.h"
 
+
 USING_NS_CC;
 using namespace CocosDenshion;
 
