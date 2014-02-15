@@ -93,11 +93,11 @@ var MyLayer = cc.Layer.extend({
                               // add "Helloworld" splash screen"
                               this.sprite = cc.Sprite.create("res/ducksmall.png");
                               this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
-                              this.sprite.setPosition(cc.p(85,size.height/2));
+                              this.sprite.setPosition(cc.p(65,size.height/2));
                               this.addChild(this.sprite, 0);
                               this.tap_sprite = cc.Sprite.create("res/tap.png");
                               this.tap_sprite.setAnchorPoint(cc.p(0.5, 0.5));
-                              this.tap_sprite.setPosition(cc.p(185, (size.height/2)-50));
+                              this.tap_sprite.setPosition(cc.p(195, (size.height/2)-40));
                               this.addChild(this.tap_sprite, 0);
                               
                               
