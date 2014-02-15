@@ -106,8 +106,7 @@ var PlayLayer = cc.Layer.extend({
         this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
         this.sprite.setPosition(cc.p(65,size.height/2));
         this.addChild(this.sprite, 0);
-               
-			  
+        
         /*
          var sprite_action3 = cc.RotateTo.create(2,180);
          var repeate_action = cc.Repeat.create(sprite_action3,10);
@@ -124,8 +123,9 @@ var PlayLayer = cc.Layer.extend({
         
         onTouchesBegan: function (touches, event) {
                               
-                cc.log("Single touch has occured");
-                PlayScene();
+                cc.log("Jump");
+            var jump = cc.JumpBy.create(1, cc.p(0, 0), 100, 1);
+			this.sprite.runAction(jump);
         
         },
          
