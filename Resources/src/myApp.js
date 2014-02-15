@@ -30,7 +30,7 @@ var MyLayer = cc.Layer.extend({
                               circle: null,
                               sprite: null,
                               river_Background: null,
-                              tap_sprite:null,
+                              tap_sprite: null,
                               
                               ctor: function () {
                               this._super();
@@ -64,6 +64,8 @@ var MyLayer = cc.Layer.extend({
                               var size = cc.Director.getInstance().getWinSize();
                               
                               // add a "close" icon to exit the progress. it's an autorelease object
+                              
+                              /*
                               var closeItem = cc.MenuItemImage.create(
                                                                       "res/CloseNormal.png",
                                                                       "res/CloseSelected.png",
@@ -76,6 +78,7 @@ var MyLayer = cc.Layer.extend({
                               menu.setPosition(cc.p(0, 0));
                               this.addChild(menu, 1);
                               closeItem.setPosition(cc.p(size.width - 20, 20));
+                              */
                               
                               /////////////////////////////
                               // 3. add your codes below...
@@ -90,24 +93,25 @@ var MyLayer = cc.Layer.extend({
                               // add "Helloworld" splash screen"
                               this.sprite = cc.Sprite.create("res/ducksmall.png");
                               this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
-                              this.sprite.setPosition(cc.p(85, 300));
+                              this.sprite.setPosition(cc.p(85,size.height/2));
                               this.addChild(this.sprite, 0);
-                              
                               this.tap_sprite = cc.Sprite.create("res/tap.png");
-                              this.tap_sprite.setAnchorPoint(cc.p(0.5,0.5));
-                              this.tap_sprite.setPosition(cc.p(185,250));
-                              this.addChild(this.tap_sprite,0);
-                              
+                              this.tap_sprite.setAnchorPoint(cc.p(0.5, 0.5));
+                              this.tap_sprite.setPosition(cc.p(185, 250));
+                              this.addChild(this.tap_sprite, 0);
                               
                               
                               //var sprite_action = cc.Place.create(cc.p(0,300));
                               //this.sprite.runAction(sprite_action);
+                              var bezier = [cc.p(0,100),cc.p(0,-100),cc.p(0,0)];
+                              var sprite_action = cc.BezierBy.create(5,bezier);
+                              //var sprite_fly_up = cc.MoveBy.create(2,cc.p(0,50));
+                              //var sprite_fly_down = cc.MoveBy.create(2,cc.p(0,-50));
+                              //var sequence_action = cc.Sequence.create(sprite_fly_up,sprite_fly_down);
+                              var sprite_action_2 = cc.RepeatForever.create(sprite_action);
+                              this.sprite.runAction(sprite_action_2);
                               
-                              /*
-                               var bezier = [cc.p(0,size.height/2),cc.p(500,size.height/2),cc.p(600,100)];
-                               var sprite_action2 = cc.RepeatForever.create(cc.BezierTo.create(8,bezier));
-                               this.sprite.runAction(sprite_action2);
-                               */
+                              
                               /*
                                var sprite_action3 = cc.RotateTo.create(2,180);
                                var repeate_action = cc.Repeat.create(sprite_action3,10);
