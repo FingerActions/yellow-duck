@@ -22,11 +22,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     freopen("CONOUT$", "w", stderr);
 #endif
 
+	const int WIDTH = 640 / 2;
+	const int HEIGHT = 1136 / 2;
     // create the application instance
     AppDelegate app;
     CCEGLView* eglView = CCEGLView::sharedOpenGLView();
     eglView->setViewName("HelloJavascript");
-    eglView->setFrameSize(480, 320);
+    eglView->setFrameSize(WIDTH, HEIGHT);
 
     int ret = CCApplication::sharedApplication()->run();
 
