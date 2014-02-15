@@ -110,7 +110,9 @@ var PlayLayer = cc.Layer.extend({
         this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
         this.sprite.setPosition(cc.p(65,size.height/2));
         this.addChild(this.sprite, 0);
-                           
+        
+                                this.createWall();
+                    
         
         /*
          var sprite_action3 = cc.RotateTo.create(2,180);
@@ -127,8 +129,7 @@ var PlayLayer = cc.Layer.extend({
         
         
         onTouchesBegan: function (touches, event) {
-            
-            this.createWall();
+                                
                                 
             this.sprite.stopAllActions();
                               
@@ -157,6 +158,34 @@ var PlayLayer = cc.Layer.extend({
          this.sprite.runAction(sprite_action_2);
         
          },
+        
+         update:function(delta){
+         
+         cc.log("updat!!!!!!!!!!");
+         
+         this.wall_up = cc.Sprite.create("res/wall-up.png");
+         this.wall_up.setAnchorPoint(cc.p(0.5, 0.5));
+         this.wall_up.setPosition(cc.p(350,SCREENSIZE.height-50));
+         this.addChild(this.wall_up, 0);
+         
+         this.wall_down = cc.Sprite.create("res/wall-down.png");
+         this.wall_down.setAnchorPoint(cc.p(0.5, 0.5));
+         this.wall_down.setPosition(cc.p(350,50));
+         this.addChild(this.wall_down, 0);
+         
+         var scroll_up = cc.MoveBy.create(2,cc.p(-200,0));
+         var scroll_down = cc.MoveBy.create(2,cc.p(-200,0));
+         
+         
+         var sprite_action = cc.RepeatForever.create(scroll_up);
+         var sprite_action2 = cc.RepeatForever.create(scroll_down);
+         //var sprite_action2 = cc.MoveBy.create(-10, 0);
+         this.wall_up.runAction(sprite_action);
+         this.wall_down.runAction(sprite_action2);
+
+         
+         
+         },
                                 
          createWall: function(){
             
@@ -180,6 +209,11 @@ var PlayLayer = cc.Layer.extend({
              this.wall_up.runAction(sprite_action);
              this.wall_down.runAction(sprite_action2);
              //this.wall_down.runAction(sprite_action2);
+                                
+                                
+              this.unscheduleUpdate();
+              this.scheduleUpdate();
+                                
          },
         
 });
