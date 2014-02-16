@@ -115,12 +115,12 @@ var PlayLayer = cc.Layer.extend({
     createWall: function(){
         var wallTop = cc.Sprite.create("res/n-wall-up.png");
         wallTop.setAnchorPoint(cc.p(0.5, 0.5));
-        wallTop.setPosition(cc.p(this._screenSize.width, this._screenSize.height));
+        wallTop.setPosition(cc.p(this._screenSize.width, this._screenSize.height+130));
         this.addChild(wallTop, 0);
 
         var wallBottom = cc.Sprite.create("res/n-wall-down.png");
         wallBottom.setAnchorPoint(cc.p(0.5, 0.5));
-        wallBottom.setPosition(cc.p(this._screenSize.width, 0));
+        wallBottom.setPosition(cc.p(this._screenSize.width, -130));
         this.addChild(wallBottom, 0);
 
         var topFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width, 0));
