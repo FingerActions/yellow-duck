@@ -4,9 +4,8 @@ var PlayLayer = cc.Layer.extend({
     _duck: null,
     _background: null,
     _river: null,
-    _wave: null,
-    _wallTop: null,
-    _wallBottom: null,
+    _waves: null,
+    _walls: null,
     _screenSize: null,
     _timer: null,
     _duckVelocity: null,
@@ -39,26 +38,31 @@ var PlayLayer = cc.Layer.extend({
         //screen size
         this._screenSize = cc.Director.getInstance().getWinSize();
 
+        //duck
         this._duck = cc.Sprite.create("res/ducksmall.png");
         this._duck.setAnchorPoint(cc.p(0.5, 0.5));
         this._duck.setPosition(cc.p(65, this._screenSize.height / 2));
         this.addChild(this._duck);
         this._duckVelocity = 0;
 
-        //wave
-        this._wave = [];
+        //waves
+        this._waves = [];
+
+        //walls
+        this._walls = [];
         return true;
     },
 
     spawnWave: function(){
-        this._wave[this._wave.length] = cc.Sprite.create("res/wave.png");
+        var wave = cc.Sprite.create("res/wave.png");
 
         var waveSpawnPositionY = Math.floor(Math.random() * this._screenSize.height);
-        this._wave[this._wave.length - 1].setPosition(cc.p(400, waveSpawnPositionY));
-        this.addChild(this._wave[this._wave.length - 1]);
+        wave.setPosition(cc.p(400, waveSpawnPositionY));
+        this.addChild(wave);
 
         var flow = cc.MoveBy.create(10, cc.p(-500, -600));
-        this._wave[this._wave.length - 1].runAction(flow);
+        wave.runAction(flow);
+        this._waves.push(wave);
     },
 
     onTouchesBegan: function (touches, event){
@@ -79,27 +83,46 @@ var PlayLayer = cc.Layer.extend({
     },
 
     createWall: function(){
-        this._wallTop = cc.Sprite.create("res/wall-up.png");
-        this._wallTop.setAnchorPoint(cc.p(0.5, 0.5));
-        this._wallTop.setPosition(cc.p(this._screenSize.width, this._screenSize.height));
-        this.addChild(this._wallTop, 0);
+        var wallTop = cc.Sprite.create("res/wall-up.png");
+        wallTop.setAnchorPoint(cc.p(0.5, 0.5));
+        wallTop.setPosition(cc.p(this._screenSize.width, this._screenSize.height));
+        this.addChild(wallTop, 0);
 
-        this._wallBottom = cc.Sprite.create("res/wall-down.png");
-        this._wallBottom.setAnchorPoint(cc.p(0.5, 0.5));
-        this._wallBottom.setPosition(cc.p(this._screenSize.width, 0));
-        this.addChild(this._wallBottom, 0);
+        var wallBottom = cc.Sprite.create("res/wall-down.png");
+        wallBottom.setAnchorPoint(cc.p(0.5, 0.5));
+        wallBottom.setPosition(cc.p(this._screenSize.width, 0));
+        this.addChild(wallBottom, 0);
 
         var topFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width, 0));
-        this._wallTop.runAction(topFlow);
+        wallTop.runAction(topFlow);
 
         var bottomFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width, 0));
-        this._wallBottom.runAction(bottomFlow);
+        wallBottom.runAction(bottomFlow);
 
-        var topSpaw = cc.MoveBy.create(0.5, cc.p(0, - 100));
-        var bottomSpaw = cc.MoveBy.create(0.5, cc.p(0, 50));
+        //random spawning position
+        var topSpawn, bottomSpawn;
+        var dice = Math.floor(Math.random() * 3);
+
+        if(dice === 0){
+            topSpawn = cc.MoveBy.create(0.5, cc.p(0, -100));
+            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, 50));
+        }
+
+        else if(dice === 1){
+            topSpawn = cc.MoveBy.create(0.5, cc.p(0, - 160));
+            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, -10));
+        }
+
+        else{
+            topSpawn = cc.MoveBy.create(0.5, cc.p(0, -40));
+            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, 110));
+        }
         
-        this._wallTop.runAction(topSpaw);
-        this._wallBottom.runAction(bottomSpaw);
+        wallTop.runAction(topSpawn);
+        wallBottom.runAction(bottomSpawn);
+
+        this._walls.push(wallTop);
+        this._walls.push(wallBottom);
     },
 
     gameOver: function(){
