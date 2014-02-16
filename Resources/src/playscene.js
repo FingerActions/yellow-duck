@@ -81,23 +81,29 @@ var PlayLayer = cc.Layer.extend({
     createWall: function(){
         this._wallTop = cc.Sprite.create("res/wall-up.png");
         this._wallTop.setAnchorPoint(cc.p(0.5, 0.5));
-        this._wallTop.setPosition(cc.p(350, this._screenSize.height - 50));
+        this._wallTop.setPosition(cc.p(this._screenSize.width, this._screenSize.height));
         this.addChild(this._wallTop, 0);
 
         this._wallBottom = cc.Sprite.create("res/wall-down.png");
         this._wallBottom.setAnchorPoint(cc.p(0.5, 0.5));
-        this._wallBottom.setPosition(cc.p(350,50));
+        this._wallBottom.setPosition(cc.p(this._screenSize.width, 0));
         this.addChild(this._wallBottom, 0);
 
-        var scroll_up = cc.MoveBy.create(2,cc.p(-200,0));
-        var scroll_down = cc.MoveBy.create(2,cc.p(-200,0));
+        var topFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width, 0));
+        this._wallTop.runAction(topFlow);
 
-        var sprite_action = cc.RepeatForever.create(scroll_up);
-        var sprite_action2 = cc.RepeatForever.create(scroll_down);
+        var bottomFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width, 0));
+        this._wallBottom.runAction(bottomFlow);
+
+        var topSpaw = cc.MoveBy.create(0.5, cc.p(0, - 100));
+        var bottomSpaw = cc.MoveBy.create(0.5, cc.p(0, 50));
         
-        this._wallTop.runAction(sprite_action);
-        this._wallBottom.runAction(sprite_action2);
-                     
+        this._wallTop.runAction(topSpaw);
+        this._wallBottom.runAction(bottomSpaw);
+    },
+
+    gameOver: function(){
+
     }
 });
 
