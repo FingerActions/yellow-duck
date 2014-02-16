@@ -11,7 +11,7 @@ var PlayLayer = cc.Layer.extend({
     _scoreLabel:null,
 
     //const
-    GRAVITY: 0.3,
+    GRAVITY: 0.8,
     JUMP_VELOCITY: 7,
 
     ctor: function () {
@@ -113,12 +113,12 @@ var PlayLayer = cc.Layer.extend({
     },
 
     createWall: function(){
-        var wallTop = cc.Sprite.create("res/wall-up.png");
+        var wallTop = cc.Sprite.create("res/n-wall-up.png");
         wallTop.setAnchorPoint(cc.p(0.5, 0.5));
         wallTop.setPosition(cc.p(this._screenSize.width, this._screenSize.height));
         this.addChild(wallTop, 0);
 
-        var wallBottom = cc.Sprite.create("res/wall-down.png");
+        var wallBottom = cc.Sprite.create("res/n-wall-down.png");
         wallBottom.setAnchorPoint(cc.p(0.5, 0.5));
         wallBottom.setPosition(cc.p(this._screenSize.width, 0));
         this.addChild(wallBottom, 0);
