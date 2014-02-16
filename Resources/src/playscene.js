@@ -128,10 +128,10 @@ var PlayLayer = cc.Layer.extend({
         wallBottom.setPosition(cc.p(this._screenSize.width, -130));
         this.addChild(wallBottom, 0);
 
-        var topFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width, 0));
+        var topFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width-22.5, 0));
         wallTop.runAction(topFlow);
 
-        var bottomFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width, 0));
+        var bottomFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width-22.5, 0));
         wallBottom.runAction(bottomFlow);
 
         //random spawning position
