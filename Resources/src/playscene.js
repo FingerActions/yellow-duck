@@ -131,7 +131,7 @@ var PlayLayer = cc.Layer.extend({
 
         //random spawning position
         var topSpawn, bottomSpawn;
-        var dice = Math.floor(Math.random() * 3);
+        var dice = Math.floor(Math.random() * 7);
 
         if(dice === 0){
             topSpawn = cc.MoveBy.create(0.5, cc.p(0, -100));
@@ -143,10 +143,30 @@ var PlayLayer = cc.Layer.extend({
             bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, -10));
         }
 
-        else{
+        else if(dice === 2){
             topSpawn = cc.MoveBy.create(0.5, cc.p(0, -40));
             bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, 110));
         }
+                                
+       else if(dice === 3){
+            topSpawn = cc.MoveBy.create(0.5, cc.p(0, -20));
+            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, 130));
+       }
+       
+       else if(dice === 4){
+            topSpawn = cc.MoveBy.create(0.5, cc.p(0, -60));
+            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, 90));
+       }
+       
+       else if(dice === 5){
+            topSpawn = cc.MoveBy.create(0.5, cc.p(0, -200));
+            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, -50));
+       }
+       
+       else {
+            topSpawn = cc.MoveBy.create(0.5, cc.p(0, -180));
+            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, -30));
+       }
         
         wallTop.runAction(topSpawn);
         wallBottom.runAction(bottomSpawn);
