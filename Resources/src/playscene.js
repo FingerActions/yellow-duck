@@ -9,6 +9,8 @@ var PlayLayer = cc.Layer.extend({
     _score: null,
     _scoreLabel:null,
     _waves: null,
+    _scoreTimer:null,
+    _passFirstWall:false,
 
     //sound
     audioEngin: null,
@@ -113,6 +115,7 @@ var PlayLayer = cc.Layer.extend({
     _waveTimer: 0,
     update: function(delta){
         this._timer += delta;
+        this._scoreTimer += delta;
         if(this._timer > 2){
             this.createWall();
             this._timer = 0;
@@ -123,7 +126,7 @@ var PlayLayer = cc.Layer.extend({
             this.spawnWave();
             this._waveTimer = 0;
         }
-        
+      
         var duckPrePosition = this._duck.getPosition();
         if(duckPrePosition.y > this._screenSize.height){
             this._duckVelocity = 0;
@@ -141,26 +144,47 @@ var PlayLayer = cc.Layer.extend({
 
         this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
         this.checkGameOver();
-
         this._scoreLabel.setString(this._score);
-        this._score++;
+                                
+        
+        //update score based on time gap
+        if(!this._passFirstWall && this._scoreTimer > 6)
+        {
+           this._score++;
+           this._passFirstWall = true;
+           this._scoreTimer-=6;
+        }
+        if(this._passFirstWall && this._scoreTimer > 2)
+        {
+             this._score++;
+            this._scoreTimer -=2;
+                                
+        }
+           
     },
 
     createWall: function(){
+        
         var wallTop = cc.Sprite.create("res/n-wall-up.png");
         wallTop.setAnchorPoint(cc.p(0.5, 0.5));
         wallTop.setPosition(cc.p(this._screenSize.width, this._screenSize.height+130));
+
         this.addChild(wallTop, 2);
+
+        var top_wall_Width = wallTop.getContentSize().width;
 
         var wallBottom = cc.Sprite.create("res/n-wall-down.png");
         wallBottom.setAnchorPoint(cc.p(0.5, 0.5));
         wallBottom.setPosition(cc.p(this._screenSize.width, -130));
+
         this.addChild(wallBottom, 2);
 
-        var topFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width-22.5, 0));
+         var bottom_wall_Width = wallBottom.getContentSize().width
+
+        var topFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width - (top_wall_Width/2), 0));
         wallTop.runAction(topFlow);
 
-        var bottomFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width-22.5, 0));
+        var bottomFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width - (bottom_wall_Width/2), 0));
         wallBottom.runAction(bottomFlow);
 
         //random spawning position
