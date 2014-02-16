@@ -10,8 +10,13 @@ var PlayLayer = cc.Layer.extend({
     _score: null,
     _scoreLabel:null,
 
+    //sound
+    audioEngin: null,
+    //SPLASH_EFFECT_FILE: 'res/water_splash.mp3',
+    POP_EFFECT_FILE: 'res/pop.wav',
+
     //const
-    GRAVITY: 0.8,
+    GRAVITY: 0.3,
     JUMP_VELOCITY: 7,
 
     ctor: function () {
@@ -204,6 +209,7 @@ var PlayLayer = cc.Layer.extend({
         var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width, secondObjSize.height);
 
         if(cc.rectIntersectsRect(firstCollideRect, secondCollideRect)){
+            audioEngin.playEffect(this.POP_EFFECT_FILE);
             return true;
         }
     }
@@ -217,6 +223,7 @@ var PlayScene = cc.Scene.extend({
 
     onEnter: function () {
         this._super();
+        audioEngin = cc.AudioEngine.getInstance();
         var layer = new PlayLayer();
         this.addChild(layer);
         layer.init();
