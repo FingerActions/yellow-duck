@@ -145,7 +145,7 @@ var MyLayer = cc.Layer.extend({
          var scene = cc.Scene.create();
          var layer = new PlayScene();
          scene.addChild(layer);
-         director.pushScene(scene);
+         director.pushScene(cc.TransitionFade.create(0.1, scene));
                          
         }
     

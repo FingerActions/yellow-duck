@@ -7,6 +7,12 @@ var PlayLayer = cc.Layer.extend({
     _screenSize: null,
     _timer: null,
     _duckVelocity: null,
+    _score: null,
+    _scoreLabel:null,
+
+    //const
+    GRAVITY: 0.3,
+    JUMP_VELOCITY: 7,
 
     ctor: function () {
         this._super();
@@ -40,31 +46,50 @@ var PlayLayer = cc.Layer.extend({
         this._duck = cc.Sprite.create("res/ducksmall.png");
         this._duck.setAnchorPoint(cc.p(0.5, 0.5));
         this._duck.setPosition(cc.p(65, this._screenSize.height / 2));
-        this.addChild(this._duck);
+        this.addChild(this._duck, 1000);
         this._duckVelocity = 0;
-
-        //waves
-        this._waves = [];
 
         //walls
         this._walls = [];
+
+        //score
+        this._score = 0;
+        this._scoreLabel = cc.LabelTTF.create(this._score, "Marker Felt", 33);
+        this._scoreLabel.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 100));
+        this.addChild(this._scoreLabel, 500);
+
+        //effects
+        this._waves = [];
+        this.spawnMermaid();
+
         return true;
     },
 
     spawnWave: function(){
-        var wave = cc.Sprite.create("res/wave.png");
-
+        var wave = cc.Sprite.create("res/bubble.png");
+        wave.setScale(0.1);
         var waveSpawnPositionY = Math.floor(Math.random() * this._screenSize.height);
+        //var waveSpawnPositionX = Math.floor(Math.random() * this._screenSize.width);
+
         wave.setPosition(cc.p(400, waveSpawnPositionY));
         this.addChild(wave);
 
-        var flow = cc.MoveBy.create(10, cc.p(-500, -600));
+        var flow = cc.MoveTo.create(Math.floor(Math.random() * 5) + 5, cc.p(0, (Math.floor(Math.random() * this._screenSize.height))));
         wave.runAction(flow);
         this._waves.push(wave);
     },
 
+    spawnMermaid: function(){
+        var mermaid = cc.Sprite.create("res/mermaid.png");
+        mermaid.setScale(0.7);
+        mermaid.setPosition(cc.p(500, 200));
+        this.addChild(mermaid, 0);
+        var flow = cc.MoveTo.create(20, cc.p(0, 200));
+        mermaid.runAction(flow);
+    },
+
     onTouchesBegan: function (touches, event){
-        this._duckVelocity = 5;
+        this._duckVelocity = this.JUMP_VELOCITY;
     },
 
     update: function(delta){
@@ -76,10 +101,15 @@ var PlayLayer = cc.Layer.extend({
         }
         
         var duckPrePosition = this._duck.getPosition();
+        if(duckPrePosition.y > this._screenSize.height){
+            this._duckVelocity = 0;
+        }
+        this._duckVelocity -= this.GRAVITY;
         this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
-        this._duckVelocity -= 0.5;
         this.checkGameOver();
 
+        this._scoreLabel.setString(this._score);
+        this._score++;
     },
 
     createWall: function(){
