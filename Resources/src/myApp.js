@@ -146,8 +146,7 @@ var MyLayer = cc.Layer.extend({
          var layer = new PlayScene();
          scene.addChild(layer);
          director.pushScene(scene);
-         
-                              
+                         
         }
     
         

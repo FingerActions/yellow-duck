@@ -1,5 +1,3 @@
-var INITIALIZED_PLAYSCENE = false;
-
 var PlayLayer = cc.Layer.extend({
     _duck: null,
     _background: null,
@@ -66,12 +64,12 @@ var PlayLayer = cc.Layer.extend({
     },
 
     onTouchesBegan: function (touches, event){
-        this._duckVelocity = 10;
+        this._duckVelocity = 5;
     },
 
     update: function(delta){
         this._timer += delta;
-        if(this._timer > 1){
+        if(this._timer > 2){
             this.createWall();
             this.spawnWave();
             this._timer = 0;
@@ -80,6 +78,8 @@ var PlayLayer = cc.Layer.extend({
         var duckPrePosition = this._duck.getPosition();
         this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
         this._duckVelocity -= 0.5;
+        this.checkGameOver();
+
     },
 
     createWall: function(){
@@ -125,8 +125,37 @@ var PlayLayer = cc.Layer.extend({
         this._walls.push(wallBottom);
     },
 
-    gameOver: function(){
+    checkGameOver: function(){
+        if(this._duck.getPosition().y < 0){
+            this.gameOver();
+        }
+        var walls = this._walls;
+        for(var i = 0; i < walls.length; i++){
+            if(this.isObjTouched(this._duck, this._walls[i])){
+                this.gameOver();
+            }
+        }
+    },
 
+    gameOver: function(){
+        var scene = cc.Scene.create();
+        var layer = new MyScene();
+        scene.addChild(layer);
+        director.popScene();
+    },
+
+    isObjTouched :function(firstObj, secondObj){
+        var firstObjSize = firstObj.getContentSize();
+        var firstObjPos = firstObj.getPosition();
+        var firstCollideRect = cc.rect(firstObjPos.x - firstObjSize.width / 2, firstObjPos.y - firstObjSize.height / 2, firstObjSize.width, firstObjSize.height);
+
+        var secondObjSize = secondObj.getContentSize();
+        var secondObjPos = secondObj.getPosition();
+        var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width, secondObjSize.height);
+
+        if(cc.rectIntersectsRect(firstCollideRect, secondCollideRect)){
+            return true;
+        }
     }
 });
 
@@ -137,12 +166,9 @@ var PlayScene = cc.Scene.extend({
     },
 
     onEnter: function () {
-        if(INITIALIZED_PLAYSCENE==false){
-            INITIALIZED_PLAYSCENE = true;
-            this._super();
-            var layer = new PlayLayer();
-            this.addChild(layer);
-            layer.init();
-        }
+        this._super();
+        var layer = new PlayLayer();
+        this.addChild(layer);
+        layer.init();
     }
 });
