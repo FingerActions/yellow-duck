@@ -9,6 +9,8 @@ var PlayLayer = cc.Layer.extend({
     _duckVelocity: null,
     _score: null,
     _scoreLabel:null,
+    _scoreTimer:null,
+    _passFirstWall:false,
 
     //sound
     audioEngin: null,
@@ -99,12 +101,13 @@ var PlayLayer = cc.Layer.extend({
 
     update: function(delta){
         this._timer += delta;
+        this._scoreTimer += delta;
         if(this._timer > 2){
             this.createWall();
             this.spawnWave();
             this._timer = 0;
         }
-        
+                                
         var duckPrePosition = this._duck.getPosition();
         if(duckPrePosition.y > this._screenSize.height){
             this._duckVelocity = 0;
@@ -112,9 +115,23 @@ var PlayLayer = cc.Layer.extend({
         this._duckVelocity -= this.GRAVITY;
         this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
         this.checkGameOver();
-
         this._scoreLabel.setString(this._score);
-        this._score++;
+                                
+        
+        //update score based on time gap
+        if(!this._passFirstWall && this._scoreTimer > 6)
+        {
+           this._score++;
+           this._passFirstWall = true;
+           this._scoreTimer-=6;
+        }
+        if(this._passFirstWall && this._scoreTimer > 2)
+        {
+             this._score++;
+            this._scoreTimer -=2;
+                                
+        }
+           
     },
 
     createWall: function(){
