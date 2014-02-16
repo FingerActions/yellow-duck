@@ -2,13 +2,13 @@ var PlayLayer = cc.Layer.extend({
     _duck: null,
     _background: null,
     _river: null,
-    _waves: null,
     _walls: null,
     _screenSize: null,
     _timer: null,
     _duckVelocity: null,
     _score: null,
     _scoreLabel:null,
+    _waves: null,
 
     //sound
     audioEngin: null,
@@ -65,14 +65,29 @@ var PlayLayer = cc.Layer.extend({
 
         //effects
         this._waves = [];
-        this.spawnMermaid();
+        //this.spawnMermaid();
 
         return true;
     },
 
     spawnWave: function(){
-        var wave = cc.Sprite.create("res/bubble.png");
-        wave.setScale(0.1);
+        var wave = cc.Sprite.create("res/wave.png");
+        var waveRect = wave.getContentSize();
+        wave.setScale(1);
+        wave.setAnchorPoint(0, 0);
+        
+        wave.setPosition(cc.p(-this._screenSize.width, this._screenSize.height));
+        this.addChild(wave, 0);
+
+        var flow = cc.MoveTo.create(2.5, cc.p(0, -waveRect.height));
+        wave.runAction(flow);
+
+        this._waves.push(wave);
+    },
+
+    spawnBubble: function(){
+        /*var wave = cc.Sprite.create("res/wave.png");
+        wave.setScale(1);
         var waveSpawnPositionY = Math.floor(Math.random() * this._screenSize.height);
         //var waveSpawnPositionX = Math.floor(Math.random() * this._screenSize.width);
 
@@ -80,8 +95,7 @@ var PlayLayer = cc.Layer.extend({
         this.addChild(wave);
 
         var flow = cc.MoveTo.create(Math.floor(Math.random() * 5) + 5, cc.p(0, (Math.floor(Math.random() * this._screenSize.height))));
-        wave.runAction(flow);
-        this._waves.push(wave);
+        wave.runAction(flow);*/
     },
 
     spawnMermaid: function(){
@@ -96,20 +110,35 @@ var PlayLayer = cc.Layer.extend({
     onTouchesBegan: function (touches, event){
         this._duckVelocity = this.JUMP_VELOCITY;
     },
-
+    _waveTimer: 0,
     update: function(delta){
         this._timer += delta;
         if(this._timer > 2){
             this.createWall();
-            this.spawnWave();
             this._timer = 0;
+        }
+
+        this._waveTimer += delta;
+        if(this._waveTimer > 0.5){
+            this.spawnWave();
+            this._waveTimer = 0;
         }
         
         var duckPrePosition = this._duck.getPosition();
         if(duckPrePosition.y > this._screenSize.height){
             this._duckVelocity = 0;
         }
-        this._duckVelocity -= this.GRAVITY;
+        if(this._duckVelocity > 0){
+            this._duckVelocity -= this.GRAVITY;
+        }
+        else{
+            this._duckVelocity = -5;
+        }
+
+        //this._waves.forEach(function(wave){
+        //    wave.setPosition(cc.p(wave.getPosition().x, wave.getPosition().y + this._duckVelocity));
+        //});
+
         this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
         this.checkGameOver();
 
@@ -121,12 +150,12 @@ var PlayLayer = cc.Layer.extend({
         var wallTop = cc.Sprite.create("res/n-wall-up.png");
         wallTop.setAnchorPoint(cc.p(0.5, 0.5));
         wallTop.setPosition(cc.p(this._screenSize.width, this._screenSize.height+130));
-        this.addChild(wallTop, 0);
+        this.addChild(wallTop, 2);
 
         var wallBottom = cc.Sprite.create("res/n-wall-down.png");
         wallBottom.setAnchorPoint(cc.p(0.5, 0.5));
         wallBottom.setPosition(cc.p(this._screenSize.width, -130));
-        this.addChild(wallBottom, 0);
+        this.addChild(wallBottom, 2);
 
         var topFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width-22.5, 0));
         wallTop.runAction(topFlow);
