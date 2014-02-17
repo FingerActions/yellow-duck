@@ -32,6 +32,7 @@ var PlayLayer = cc.Layer.extend({
     _waves: null,
     _scoreTimer:null,
     _passFirstWall:false,
+    _waveTimer: null,
 
     //sound
     audioEngin: null,
@@ -84,6 +85,7 @@ var PlayLayer = cc.Layer.extend({
 
         //effects
         this._waves = [];
+        this._waveTimer = 0;
         //this.spawnMermaid();
 
         return true;
@@ -129,7 +131,7 @@ var PlayLayer = cc.Layer.extend({
     onTouchesBegan: function (touches, event){
         this._duckVelocity = JUMP_VELOCITY;
     },
-    _waveTimer: 0,
+
     update: function(delta){
         this._timer += delta;
         this._scoreTimer += delta;
@@ -139,7 +141,7 @@ var PlayLayer = cc.Layer.extend({
         }
 
         this._waveTimer += delta;
-        if(this._waveTimer > 0.5){
+        if(this._waveTimer > 1.25){
             this.spawnWave();
             this._waveTimer = 0;
         }
@@ -162,7 +164,6 @@ var PlayLayer = cc.Layer.extend({
         this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
         this.checkGameOver();
         this._scoreLabel.setString(this._score);
-                                
         
         //update score based on time gap
         if(!this._passFirstWall && this._scoreTimer > 6)
@@ -175,13 +176,10 @@ var PlayLayer = cc.Layer.extend({
         {
              this._score++;
              this._scoreTimer -=2;
-                                
         }
-           
     },
 
     createWall: function(){
-        
         var wallTop = cc.Sprite.create("res/n-wall-up.png");
         wallTop.setAnchorPoint(cc.p(0.5, 0.5));
         wallTop.setPosition(cc.p(this._screenSize.width, this._screenSize.height+130));
@@ -231,10 +229,25 @@ var PlayLayer = cc.Layer.extend({
     },
 
     gameOver: function(){
-        var scene = cc.Scene.create();
-        var layer = new MyScene();
-        scene.addChild(layer);
-        director.popScene();
+        this.unscheduleUpdate();
+        var shrinkAction = cc.ScaleTo.create(0.4, 0.3);
+        var rotateAction = cc.RotateBy.create(1.5, 700);
+        var floatAction = cc.BezierBy.create(2, [cc.p(0,0), cc.p(-120,100), cc.p(100,300)]);
+
+        var callfunc = cc.CallFunc.create(function(){
+            var scene = cc.Scene.create();
+            var layer = new MyScene();
+            scene.addChild(layer);
+            director.popScene();
+        });
+
+
+        var floatDie = cc.Sequence.create(floatAction, callfunc);
+        this._duck.runAction(floatDie);
+
+        var shrinkRotateDie = cc.Sequence.create(shrinkAction, rotateAction);
+        this._duck.runAction(shrinkRotateDie);
+
     },
 
     isObjTouched :function(firstObj, secondObj){
