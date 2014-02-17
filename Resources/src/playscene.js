@@ -1,3 +1,24 @@
+
+//////////////////////////////////////////////////////////////////////
+//TIANMAO GAMES PROPRIETARY INFORMATION
+//
+// This software is supplied under the terms of a license agreement or
+// nondisclosure agreement with TIANMAO Games and may not
+// be copied or disclosed except in accordance with the terms of that
+// agreement.
+//
+//      Copyright (c) 2014 TIANMAO GAMES
+//      All Rights Reserved.
+//
+//
+/////////////////////////////////////////////////////////////////////
+
+//GLOBAL CONST VARIABLES
+var WALL_HEIGHT = [-10,-20,-30,-40,-50,-60,-70,-80,-90,-100,-110,-120,-130,-140,-150,-160,-170,-180,-190,-200];
+var WALL_GAP = 150;
+var GRAVITY: 0.3,
+var JUMP_VELOCITY: 7,
+
 var PlayLayer = cc.Layer.extend({
     _duck: null,
     _background: null,
@@ -16,10 +37,6 @@ var PlayLayer = cc.Layer.extend({
     audioEngin: null,
     //SPLASH_EFFECT_FILE: 'res/water_splash.mp3',
     POP_EFFECT_FILE: 'res/pop.wav',
-
-    //const
-    GRAVITY: 0.3,
-    JUMP_VELOCITY: 7,
 
     ctor: function () {
         this._super();
@@ -110,7 +127,7 @@ var PlayLayer = cc.Layer.extend({
     },
 
     onTouchesBegan: function (touches, event){
-        this._duckVelocity = this.JUMP_VELOCITY;
+        this._duckVelocity = JUMP_VELOCITY;
     },
     _waveTimer: 0,
     update: function(delta){
@@ -132,7 +149,7 @@ var PlayLayer = cc.Layer.extend({
             this._duckVelocity = 0;
         }
         if(this._duckVelocity > 0){
-            this._duckVelocity -= this.GRAVITY;
+            this._duckVelocity -= GRAVITY;
         }
         else{
             this._duckVelocity = -5;
@@ -157,7 +174,7 @@ var PlayLayer = cc.Layer.extend({
         if(this._passFirstWall && this._scoreTimer > 2)
         {
              this._score++;
-            this._scoreTimer -=2;
+             this._scoreTimer -=2;
                                 
         }
            
@@ -179,7 +196,7 @@ var PlayLayer = cc.Layer.extend({
 
         this.addChild(wallBottom, 2);
 
-         var bottom_wall_Width = wallBottom.getContentSize().width
+        var bottom_wall_Width = wallBottom.getContentSize().width
 
         var topFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width - (top_wall_Width/2), 0));
         wallTop.runAction(topFlow);
@@ -189,42 +206,10 @@ var PlayLayer = cc.Layer.extend({
 
         //random spawning position
         var topSpawn, bottomSpawn;
-        var dice = Math.floor(Math.random() * 7);
-
-        if(dice === 0){
-            topSpawn = cc.MoveBy.create(0.5, cc.p(0, -100));
-            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, 50));
-        }
-
-        else if(dice === 1){
-            topSpawn = cc.MoveBy.create(0.5, cc.p(0, - 160));
-            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, -10));
-        }
-
-        else if(dice === 2){
-            topSpawn = cc.MoveBy.create(0.5, cc.p(0, -40));
-            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, 110));
-        }
+        var dice = Math.floor(Math.random() * 20);
                                 
-       else if(dice === 3){
-            topSpawn = cc.MoveBy.create(0.5, cc.p(0, -20));
-            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, 130));
-       }
-       
-       else if(dice === 4){
-            topSpawn = cc.MoveBy.create(0.5, cc.p(0, -60));
-            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, 90));
-       }
-       
-       else if(dice === 5){
-            topSpawn = cc.MoveBy.create(0.5, cc.p(0, -200));
-            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, -50));
-       }
-       
-       else {
-            topSpawn = cc.MoveBy.create(0.5, cc.p(0, -180));
-            bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, -30));
-       }
+        topSpawn = cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]));
+        bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]+WALL_GAP));
         
         wallTop.runAction(topSpawn);
         wallBottom.runAction(bottomSpawn);
