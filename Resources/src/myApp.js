@@ -25,9 +25,6 @@
  ****************************************************************************/
 
 
-var INITIALIZED_MYAPP=false;
-
-
 var MyLayer = cc.Layer.extend({
                               
         isMouseDown: false,

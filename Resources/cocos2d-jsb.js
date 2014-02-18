@@ -32,6 +32,7 @@ var appFiles = [
     'src/resource.js',
     'src/myApp.js',
     'src/playscene.js',
+    'src/commons.js',
 ];
 
 cc.dumpConfig();
