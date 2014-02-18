@@ -22,8 +22,10 @@ var WALL_GAP = 150;
 var GRAVITY = 0.3;
 var JUMP_VELOCITY = 7;
 var MAX_NUM_BUBBLES = 5;
-var MAX_NUM_WALLS = 3;
+var MAX_NUM_WALLS = 6;
 var WALL_APPEAR_TIME = 2.5;
+var INVISIBLE = true;
+var VISIBLE = false;
 
 //MyScene
 var INITIALIZED_MYAPP=false;

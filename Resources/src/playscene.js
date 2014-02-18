@@ -71,9 +71,13 @@ var PlayLayer = cc.Layer.extend({
 
         //walls todo: optimize walls
         this._walls = [];
-        // for (var i = 0; i < MAX_NUM_WALLS; i++){
-        //     var wall = cc.Scrite.create('res/wall')
-        // }
+        for (var i = 0; i < MAX_NUM_WALLS; i++){
+            var wall = cc.Scrite.create('res/n-wall-up.png');
+            this.addChild(wall);
+            wall.setVisible(false);
+            this._walls.push(wall);
+                                
+        }
 
         //score
         this._score = 0;
@@ -183,7 +187,7 @@ var PlayLayer = cc.Layer.extend({
         //});
 
         this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
-        this.checkGameOver();
+       // this.checkGameOver();
         this._scoreLabel.setString(this._score);
         
         //update score based on time gap
@@ -201,6 +205,7 @@ var PlayLayer = cc.Layer.extend({
     },
 
     createWall: function(){
+        /*
         var wallTop = cc.Sprite.create("res/n-wall-up.png");
         wallTop.setAnchorPoint(cc.p(0.5, 0.5));
         wallTop.setPosition(cc.p(this._screenSize.width, this._screenSize.height+130));
@@ -235,6 +240,23 @@ var PlayLayer = cc.Layer.extend({
 
         this._walls.push(wallTop);
         this._walls.push(wallBottom);
+        */
+                                var that = this;
+                                this._walls.some(function(wall){
+                                                 if(!bubble.isVisible(){
+                                                    
+                                                     wall.setVisible(INVISIBLE);
+                                                    
+                                                    }
+                                                
+                                                 
+                                                 
+                                
+                                    
+                                                
+                                
+                                });
+        
     },
 
     checkGameOver: function(){
