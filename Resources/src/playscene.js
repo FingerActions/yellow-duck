@@ -18,6 +18,9 @@ var WALL_HEIGHT = [-10,-20,-30,-40,-50,-60,-70,-80,-90,-100,-110,-120,-130,-140,
 var WALL_GAP = 150;
 var GRAVITY = 0.3;
 var JUMP_VELOCITY = 7;
+var MAX_NUM_BUBBLES = 5;
+var MAX_NUM_WALLS = 3;
+var WALL_APPEAR_TIME = 2.5;
 
 var PlayLayer = cc.Layer.extend({
     _duck: null,
@@ -33,6 +36,7 @@ var PlayLayer = cc.Layer.extend({
     _scoreTimer:null,
     _passFirstWall:false,
     _waveTimer: null,
+    _bubbles: null,
 
     //sound
     audioEngin: null,
@@ -59,7 +63,7 @@ var PlayLayer = cc.Layer.extend({
         }
 
         //add background image (river)
-        this._river = cc.Sprite.create("res/RiverBackground-static.png");
+        this._river = cc.Sprite.create("res/background.png");
         this._river.setAnchorPoint(cc.p(0, 0));
         this._river.setPosition(cc.p(0, 0));
         this.addChild(this._river);
@@ -74,8 +78,11 @@ var PlayLayer = cc.Layer.extend({
         this.addChild(this._duck, 1000);
         this._duckVelocity = 0;
 
-        //walls
+        //walls todo: optimize walls
         this._walls = [];
+        // for (var i = 0; i < MAX_NUM_WALLS; i++){
+        //     var wall = cc.Scrite.create('res/wall')
+        // }
 
         //score
         this._score = 0;
@@ -86,46 +93,69 @@ var PlayLayer = cc.Layer.extend({
         //effects
         this._waves = [];
         this._waveTimer = 0;
-        //this.spawnMermaid();
+        this.spawnMermaid();
+
+        //init bubbles
+        this._bubbles = [];
+        for (i = 0; i < MAX_NUM_BUBBLES; i++){
+            var bubble = cc.Sprite.create('res/bubble.png');
+            this.addChild(bubble);
+            bubble.setVisible(false);
+            this._bubbles.push(bubble);
+        }
 
         return true;
     },
 
-    spawnWave: function(){
-        var wave = cc.Sprite.create("res/wave.png");
-        var waveRect = wave.getContentSize();
-        wave.setScale(1);
-        wave.setAnchorPoint(0, 0);
+    // spawnWave: function(){
+    //     var wave = cc.Sprite.create("res/wave.png");
+    //     var waveRect = wave.getContentSize();
+    //     wave.setScale(1);
+    //     wave.setAnchorPoint(0, 0);
         
-        wave.setPosition(cc.p(-this._screenSize.width, this._screenSize.height));
-        this.addChild(wave, 0);
+    //     wave.setPosition(cc.p(-this._screenSize.width, this._screenSize.height));
+    //     this.addChild(wave, 0);
 
-        var flow = cc.MoveTo.create(2.5, cc.p(0, -waveRect.height));
-        wave.runAction(flow);
+    //     var flow = cc.MoveTo.create(2.5, cc.p(0, -waveRect.height));
+    //     wave.runAction(flow);
 
-        this._waves.push(wave);
-    },
+    //     this._waves.push(wave);
+    // },
 
     spawnBubble: function(){
-        /*var wave = cc.Sprite.create("res/wave.png");
-        wave.setScale(1);
-        var waveSpawnPositionY = Math.floor(Math.random() * this._screenSize.height);
-        //var waveSpawnPositionX = Math.floor(Math.random() * this._screenSize.width);
+        var that = this;
+        this._bubbles.some(function(bubble){
+            if(!bubble.isVisible()){
+                bubble.setVisible(true);
+                bubble.setScale(0.1);
+                var bubbleSpawnPositionY = Math.floor(Math.random() * that._screenSize.height);
+                //var waveSpawnPositionX = Math.floor(Math.random() * this._screenSize.width);
 
-        wave.setPosition(cc.p(400, waveSpawnPositionY));
-        this.addChild(wave);
+                bubble.setPosition(cc.p(400, bubbleSpawnPositionY));
+                
+                var callfunc = cc.CallFunc.create(function(){
+                    bubble.setVisible(false);
+                });
+                var flow = cc.MoveTo.create(Math.floor(Math.random() * 5) + 5, cc.p(-(bubble.getContentSize().width / 2), (Math.floor(Math.random() * that._screenSize.height))));
+                var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
 
-        var flow = cc.MoveTo.create(Math.floor(Math.random() * 5) + 5, cc.p(0, (Math.floor(Math.random() * this._screenSize.height))));
-        wave.runAction(flow);*/
+                bubble.runAction(flowWithCallfunc);
+                return true;
+            }
+        })
     },
 
     spawnMermaid: function(){
         var mermaid = cc.Sprite.create("res/mermaid.png");
-        mermaid.setScale(0.7);
-        mermaid.setPosition(cc.p(500, 200));
+        mermaid.setScale(0.5);
+        mermaid.setPosition(cc.p(this._screenSize.height, 200));
         this.addChild(mermaid, 0);
-        var flow = cc.MoveTo.create(20, cc.p(0, 200));
-        mermaid.runAction(flow);
+        var flow = cc.MoveTo.create(20, cc.p(-mermaid.getContentSize().width / 2, 200));
+        var callfunc = cc.CallFunc.create(function(){
+            bubble.setVisible(false);
+        });
+        var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+        mermaid.runAction(flowWithCallfunc);
     },
 
     onTouchesBegan: function (touches, event){
@@ -135,14 +165,14 @@ var PlayLayer = cc.Layer.extend({
     update: function(delta){
         this._timer += delta;
         this._scoreTimer += delta;
-        if(this._timer > 2){
+        if(this._timer > 1.25){
             this.createWall();
             this._timer = 0;
         }
 
         this._waveTimer += delta;
         if(this._waveTimer > 1.25){
-            this.spawnWave();
+            this.spawnBubble();
             this._waveTimer = 0;
         }
       
@@ -150,12 +180,12 @@ var PlayLayer = cc.Layer.extend({
         if(duckPrePosition.y > this._screenSize.height){
             this._duckVelocity = 0;
         }
-        if(this._duckVelocity > 0){
+        //if(this._duckVelocity > 0){
             this._duckVelocity -= GRAVITY;
-        }
-        else{
-            this._duckVelocity = -5;
-        }
+        // }
+        // else{
+        //     this._duckVelocity = -5;
+        // }
 
         //this._waves.forEach(function(wave){
         //    wave.setPosition(cc.p(wave.getPosition().x, wave.getPosition().y + this._duckVelocity));
@@ -196,10 +226,10 @@ var PlayLayer = cc.Layer.extend({
 
         var bottom_wall_Width = wallBottom.getContentSize().width
 
-        var topFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width - (top_wall_Width/2), 0));
+        var topFlow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (top_wall_Width/2), 0));
         wallTop.runAction(topFlow);
 
-        var bottomFlow = cc.MoveBy.create(5, cc.p(-this._screenSize.width - (bottom_wall_Width/2), 0));
+        var bottomFlow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (bottom_wall_Width/2), 0));
         wallBottom.runAction(bottomFlow);
 
         //random spawning position
