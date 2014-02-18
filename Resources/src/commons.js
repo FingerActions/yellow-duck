@@ -24,8 +24,8 @@ var JUMP_VELOCITY = 7;
 var MAX_NUM_BUBBLES = 5;
 var MAX_NUM_WALLS = 6;
 var WALL_APPEAR_TIME = 2.5;
-var INVISIBLE = true;
-var VISIBLE = false;
+var INVISIBLE = false;
+var VISIBLE = true;
 
 //MyScene
 var INITIALIZED_MYAPP=false;

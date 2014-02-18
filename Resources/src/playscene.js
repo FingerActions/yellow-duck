@@ -241,21 +241,40 @@ var PlayLayer = cc.Layer.extend({
         this._walls.push(wallTop);
         this._walls.push(wallBottom);
         */
-                                var that = this;
-                                this._walls.some(function(wall){
-                                                 if(!bubble.isVisible(){
+        var that = this;
+        this._walls.some(function(wall,index){
+        if(!bubble.isVisible()){
+            wall.setVisible(VISIBLE);
+            var change180Degree = cc.RotateBy.create(1,180);
+            var wall_width = wall.getContentSize().width;
+            var Flow;
+            var Spawn;
+            var dice = Math.floor(Math.random() * 20);
+            var callfunc = cc.CallFunc.create(function(){
+                wall.setVisible(INVISIBLE);
+            });
+            if(index%2==0)
+            {
+                wall.runAction(change180Degree);
+                wall.setAnchorPoint(cc.p(0.5, 0.5));
+                wall.setPosition(cc.p(this._screenSize.width, this._screenSize.height+130));
+                Flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (top_wall_Width/2), 0));
+                Spawn= cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]));
+            }
+            else
+            {
+                 wall.setAnchorPoint(cc.p(0.5, 0.5));
+                 wall.setPosition(cc.p(this._screenSize.width, -130));
+                 Flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (bottom_wall_Width/2), 0));
+                 Spawn= cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]+WALL_GAP));
+            }
+            var flowWithCallfunc = cc.Sequence.create(flow,callfunc);
+            wall.runAction(flowWithCallfunc);
+            return true;
                                                     
-                                                     wall.setVisible(INVISIBLE);
-                                                    
-                                                    }
-                                                
-                                                 
-                                                 
-                                
-                                    
-                                                
-                                
-                                });
+        }
+                                                                            
+       });
         
     },
 
