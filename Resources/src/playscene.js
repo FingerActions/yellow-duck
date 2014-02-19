@@ -72,7 +72,7 @@ var PlayLayer = cc.Layer.extend({
         //walls todo: optimize walls
         this._walls = [];
         for (var i = 0; i < MAX_NUM_WALLS; i++){
-            var wall = cc.Scrite.create('res/n-wall-up.png');
+            var wall = cc.Sprite.create('res/n-wall-up.png');
             this.addChild(wall);
             wall.setVisible(false);
             this._walls.push(wall);
@@ -243,7 +243,7 @@ var PlayLayer = cc.Layer.extend({
         */
         var that = this;
         this._walls.some(function(wall,index){
-        if(!bubble.isVisible()){
+        if(!wall.isVisible()){
             wall.setVisible(VISIBLE);
             var change180Degree = cc.RotateBy.create(1,180);
             var wall_width = wall.getContentSize().width;
@@ -257,15 +257,15 @@ var PlayLayer = cc.Layer.extend({
             {
                 wall.runAction(change180Degree);
                 wall.setAnchorPoint(cc.p(0.5, 0.5));
-                wall.setPosition(cc.p(this._screenSize.width, this._screenSize.height+130));
-                Flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (top_wall_Width/2), 0));
+                wall.setPosition(cc.p(that._screenSize.width, that._screenSize.height+130));
+                Flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-that._screenSize.width - (top_wall_Width/2), 0));
                 Spawn= cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]));
             }
             else
             {
                  wall.setAnchorPoint(cc.p(0.5, 0.5));
-                 wall.setPosition(cc.p(this._screenSize.width, -130));
-                 Flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (bottom_wall_Width/2), 0));
+                 wall.setPosition(cc.p(that._screenSize.width, -130));
+                 Flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-that._screenSize.width - (bottom_wall_Width/2), 0));
                  Spawn= cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]+WALL_GAP));
             }
             var flowWithCallfunc = cc.Sequence.create(flow,callfunc);
