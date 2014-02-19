@@ -268,7 +268,7 @@ var PlayLayer = cc.Layer.extend({
                  Flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-that._screenSize.width - (wall_width/2), 0));
                  Spawn= cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]+WALL_GAP));
             }
-            var flowWithCallfunc = cc.Sequence.create(flow,Spawn,callfunc);
+            var flowWithCallfunc = cc.Sequence.create(Flow,Spawn,callfunc);
             wall.runAction(flowWithCallfunc);
             return true;
                                                     
