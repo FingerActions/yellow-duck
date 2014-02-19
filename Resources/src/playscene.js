@@ -258,17 +258,17 @@ var PlayLayer = cc.Layer.extend({
                 wall.runAction(change180Degree);
                 wall.setAnchorPoint(cc.p(0.5, 0.5));
                 wall.setPosition(cc.p(that._screenSize.width, that._screenSize.height+130));
-                Flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-that._screenSize.width - (top_wall_Width/2), 0));
+                Flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-that._screenSize.width - (wall_width/2), 0));
                 Spawn= cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]));
             }
             else
             {
                  wall.setAnchorPoint(cc.p(0.5, 0.5));
                  wall.setPosition(cc.p(that._screenSize.width, -130));
-                 Flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-that._screenSize.width - (bottom_wall_Width/2), 0));
+                 Flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-that._screenSize.width - (wall_width/2), 0));
                  Spawn= cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]+WALL_GAP));
             }
-            var flowWithCallfunc = cc.Sequence.create(flow,callfunc);
+            var flowWithCallfunc = cc.Sequence.create(flow,Spawn,callfunc);
             wall.runAction(flowWithCallfunc);
             return true;
                                                     
