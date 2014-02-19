@@ -142,9 +142,11 @@ var PlayLayer = cc.Layer.extend({
     spawnMermaid: function(){
         var mermaid = cc.Sprite.create("res/mermaid.png");
         mermaid.setScale(0.5);
-        mermaid.setPosition(cc.p(this._screenSize.height, 200));
+        var contentSize = mermaid.getContentSize();
+
+        mermaid.setPosition(cc.p(this._screenSize.width + contentSize.width / 2, this._screenSize.height / 2));
         this.addChild(mermaid, 0);
-        var flow = cc.MoveTo.create(20, cc.p(-mermaid.getContentSize().width / 2, 200));
+        var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2, contentSize.height/ 2));
         var callfunc = cc.CallFunc.create(function(){
             bubble.setVisible(false);
         });
@@ -205,7 +207,6 @@ var PlayLayer = cc.Layer.extend({
 
     createWall: function(){
         //get invisible walls
-        cc.log('here1');
         var thisWalls = [];
         for(var i = 0; i < this._walls.length; i++){
             if(!this._walls[i].isVisible()){
@@ -216,8 +217,7 @@ var PlayLayer = cc.Layer.extend({
                 break;
             }
         }
-        cc.log('here2');
-
+        
         var wallWidth = thisWalls[0].getContentSize().width;
         var dice = Math.floor(Math.random() * 20);
         thisWalls[1].setRotation(180);
