@@ -7,7 +7,7 @@
             <key>ducksmall01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,84},{43,39}}</string>
+                <string>{{2,43},{43,39}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,13 +20,13 @@
             <key>ducksmall02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,43},{43,39}}</string>
+                <string>{{2,84},{41,39}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{1,1},{43,39}}</string>
+                <string>{{2,1},{41,39}}</string>
                 <key>sourceSize</key>
                 <string>{45,41}</string>
             </dict>
@@ -53,7 +53,7 @@
             <key>size</key>
             <string>{64,128}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:64ae8fc875928283d598fd4a3ff02498:62375d4760be44fca894d93f15198320:633ebd1bfd1084b665f00127c4354c90$</string>
+            <string>$TexturePacker:SmartUpdate:2b4b0f08e185872818c456709b0e4b4f:0dd6610e30bce02533403842e84b4d79:633ebd1bfd1084b665f00127c4354c90$</string>
             <key>textureFileName</key>
             <string>duckfly.png</string>
         </dict>
