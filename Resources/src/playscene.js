@@ -14,6 +14,8 @@
 /////////////////////////////////////////////////////////////////////
 
 var PlayLayer = cc.Layer.extend({
+    _spriteSheet:null,
+    _flyingAction:null,
     _duck: null,
     _background: null,
     _river: null,
@@ -63,12 +65,34 @@ var PlayLayer = cc.Layer.extend({
         this._screenSize = cc.Director.getInstance().getWinSize();
 
         //duck
-        this._duck = cc.Sprite.create("res/ducksmall.png");
+      /*  this._duck = cc.Sprite.create("res/ducksmall.png");
         this._duck.setAnchorPoint(cc.p(0.5, 0.5));
         this._duck.setPosition(cc.p(65, this._screenSize.height / 2));
         this.addChild(this._duck, 1000);
         this._duckVelocity = 0;
-
+       */
+                                
+        //load spritesheet
+    
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duckflyplist);
+        this.spritesheet = cc.SpriteBatchNode.create(s_duckfly);
+        this.addChild(this.spritesheet);
+        var animFrames = [];
+        for(var i=1;i<4;i++)
+        {
+          var str = "ducksmall0" + i + ".png";
+          var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
+          animFrames.push(frame);
+        }
+        var animation = cc.Animation.create(animFrames,0.1);
+        this._flyingAction = cc.RepeatForever.create(cc.Animate.create(animation));
+        this._duck = cc.Sprite.createWithSpriteFrameName("ducksmall01.png");
+        this._duck.setPosition(cc.p(65, this._screenSize.height / 2));
+        this._duck.runAction(this._flyingAction);
+        this.spritesheet.addChild(this._duck);
+                                
+        this._duckVelocity = 0;
+                                
         //walls todo: optimize walls
         this._walls = [];
         for (var i = 0; i < MAX_NUM_WALLS; i++){
