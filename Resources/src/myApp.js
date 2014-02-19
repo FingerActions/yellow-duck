@@ -54,7 +54,7 @@ var MyLayer = cc.Layer.extend({
         }
         
         //add background image (river)
-        this.sprite = cc.Sprite.create("res/RiverBackground-static.png");
+        this.sprite = cc.Sprite.create("res/background.png");
         this.sprite.setAnchorPoint(cc.p(0, 0));
         this.sprite.setPosition(cc.p(0, 0));
         this.addChild(this.sprite, 0);

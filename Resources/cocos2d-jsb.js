@@ -53,3 +53,6 @@ var myScene = new MyScene();
 // run
 director.runWithScene(myScene);
 
+//disable retina display
+cc.EGLView.getInstance().setDesignResolutionSize(320,480,cc.RESOLUTION_POLICY.SHOW_ALL);
+
