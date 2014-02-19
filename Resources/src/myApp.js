@@ -26,7 +26,10 @@
 
 
 var MyLayer = cc.Layer.extend({
-                              
+         
+        _spriteSheet:null,
+        _flyingAction:null,
+        _duck: null,
         isMouseDown: false,
         helloImg: null,
         helloLabel: null,
@@ -94,10 +97,23 @@ var MyLayer = cc.Layer.extend({
         this.addChild(this.helloLabel, 5);
         
         // add "Helloworld" splash screen"
-        this.sprite = cc.Sprite.create("res/ducksmall.png");
-        this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
-        this.sprite.setPosition(cc.p(65,size.height/2));
-        this.addChild(this.sprite, 0);
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duckflyplist);
+        this.spritesheet = cc.SpriteBatchNode.create(s_duckfly);
+        this.addChild(this.spritesheet);
+        var animFrames = [];
+        for(var i=1;i<4;i++)
+        {
+        var str = "ducksmall0" + i + ".png";
+        var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
+        animFrames.push(frame);
+        }
+        var animation = cc.Animation.create(animFrames,0.1);
+        this._flyingAction = cc.RepeatForever.create(cc.Animate.create(animation));
+        this._duck = cc.Sprite.createWithSpriteFrameName("ducksmall01.png");
+        this._duck.setPosition(cc.p(65, size.height / 2));
+        this._duck.runAction(this._flyingAction);
+        this.spritesheet.addChild(this._duck);
+                              
         this.tap_sprite = cc.Sprite.create("res/tap.png");
         this.tap_sprite.setAnchorPoint(cc.p(0.5, 0.5));
         this.tap_sprite.setPosition(cc.p(195, (size.height/2)-40));
@@ -112,7 +128,7 @@ var MyLayer = cc.Layer.extend({
         //var sprite_fly_down = cc.MoveBy.create(2,cc.p(0,-50));
         //var sequence_action = cc.Sequence.create(sprite_fly_up,sprite_fly_down);
         var sprite_action_2 = cc.RepeatForever.create(sprite_action);
-        this.sprite.runAction(sprite_action_2);
+        this._duck.runAction(sprite_action_2);
         
         
         /*
