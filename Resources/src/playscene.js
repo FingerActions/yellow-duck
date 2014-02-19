@@ -72,13 +72,12 @@ var PlayLayer = cc.Layer.extend({
         //walls todo: optimize walls
         this._walls = [];
         for (var i = 0; i < MAX_NUM_WALLS; i++){
-            var wall = cc.Sprite.create('res/n-wall-up.png');
-            this.addChild(wall);
+            var wall = cc.Sprite.create('res/wall.png');
+            this.addChild(wall, 500);
             wall.setVisible(false);
-            this._walls.push(wall);
-                                
+            this._walls.push(wall);    
         }
-
+       
         //score
         this._score = 0;
         this._scoreLabel = cc.LabelTTF.create(this._score, "Marker Felt", 33);
@@ -187,7 +186,7 @@ var PlayLayer = cc.Layer.extend({
         //});
 
         this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
-       // this.checkGameOver();
+        this.checkGameOver();
         this._scoreLabel.setString(this._score);
         
         //update score based on time gap
@@ -205,77 +204,41 @@ var PlayLayer = cc.Layer.extend({
     },
 
     createWall: function(){
-        /*
-        var wallTop = cc.Sprite.create("res/n-wall-up.png");
-        wallTop.setAnchorPoint(cc.p(0.5, 0.5));
-        wallTop.setPosition(cc.p(this._screenSize.width, this._screenSize.height+130));
-
-        this.addChild(wallTop, 2);
-
-        var top_wall_Width = wallTop.getContentSize().width;
-
-        var wallBottom = cc.Sprite.create("res/n-wall-down.png");
-        wallBottom.setAnchorPoint(cc.p(0.5, 0.5));
-        wallBottom.setPosition(cc.p(this._screenSize.width, -130));
-
-        this.addChild(wallBottom, 2);
-
-        var bottom_wall_Width = wallBottom.getContentSize().width
-
-        var topFlow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (top_wall_Width/2), 0));
-        wallTop.runAction(topFlow);
-
-        var bottomFlow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (bottom_wall_Width/2), 0));
-        wallBottom.runAction(bottomFlow);
-
-        //random spawning position
-        var topSpawn, bottomSpawn;
-        var dice = Math.floor(Math.random() * 20);
-                                
-        topSpawn = cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]));
-        bottomSpawn = cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]+WALL_GAP));
-        
-        wallTop.runAction(topSpawn);
-        wallBottom.runAction(bottomSpawn);
-
-        this._walls.push(wallTop);
-        this._walls.push(wallBottom);
-        */
-        var that = this;
-        this._walls.some(function(wall,index){
-        if(!wall.isVisible()){
-            wall.setVisible(VISIBLE);
-            var change180Degree = cc.RotateBy.create(1,180);
-            var wall_width = wall.getContentSize().width;
-            var Flow;
-            var Spawn;
-            var dice = Math.floor(Math.random() * 20);
-            var callfunc = cc.CallFunc.create(function(){
-                wall.setVisible(INVISIBLE);
-            });
-            if(index%2==0)
-            {
-                wall.runAction(change180Degree);
-                wall.setAnchorPoint(cc.p(0.5, 0.5));
-                wall.setPosition(cc.p(that._screenSize.width, that._screenSize.height+130));
-                Flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-that._screenSize.width - (wall_width/2), 0));
-                Spawn= cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]));
+        //get invisible walls
+        cc.log('here1');
+        var thisWalls = [];
+        for(var i = 0; i < this._walls.length; i++){
+            if(!this._walls[i].isVisible()){
+                this._walls[i].setVisible(true);
+                thisWalls.push(this._walls[i]);
             }
-            else
-            {
-                 wall.setAnchorPoint(cc.p(0.5, 0.5));
-                 wall.setPosition(cc.p(that._screenSize.width, -130));
-                 Flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-that._screenSize.width - (wall_width/2), 0));
-                 Spawn= cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]+WALL_GAP));
+            if(thisWalls.length == 2){
+                break;
             }
-            var flowWithCallfunc = cc.Sequence.create(Flow,Spawn,callfunc);
-            wall.runAction(flowWithCallfunc);
-            return true;
-                                                    
         }
-                                                                            
-       });
+        cc.log('here2');
+
+        var wallWidth = thisWalls[0].getContentSize().width;
+        var dice = Math.floor(Math.random() * 20);
+        thisWalls[1].setRotation(180);
+        thisWalls[0].setPosition(cc.p(this._screenSize.width, this._screenSize.height+130));
+        var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (wallWidth/2), 0));
+        var spawn= cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]));
+
+        var callfunc = cc.CallFunc.create(function(){
+            thisWalls[0].setVisible(false);
+            thisWalls[1].setVisible(false);
+        });
+        var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+        thisWalls[0].runAction(spawn);  
+        thisWalls[0].runAction(flowWithCallfunc);    
         
+        thisWalls[1].setPosition(cc.p(this._screenSize.width, -130));
+        flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (wallWidth/2), 0));
+        spawn= cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]+WALL_GAP));
+           
+        thisWalls[1].runAction(flow);
+        thisWalls[1].runAction(spawn);
     },
 
     checkGameOver: function(){
