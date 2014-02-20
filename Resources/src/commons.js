@@ -23,6 +23,7 @@ var GRAVITY = 0.3;
 var JUMP_VELOCITY = 7;
 var MAX_NUM_BUBBLES = 5;
 var MAX_NUM_WALLS = 6;
+var WALL_GAP_TIME = 1.5;
 var WALL_APPEAR_TIME = 2.5;
 
 //MyScene

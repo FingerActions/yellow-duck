@@ -185,7 +185,7 @@ var PlayLayer = cc.Layer.extend({
     update: function(delta){
         this._timer += delta;
         this._scoreTimer += delta;
-        if(this._timer > 1.5){
+        if(this._timer > WALL_GAP_TIME){
             this.createWall();
             this._timer = 0;
         }
@@ -216,16 +216,16 @@ var PlayLayer = cc.Layer.extend({
         this._scoreLabel.setString(this._score);
         
         //update score based on time gap
-        if(!this._passFirstWall && this._scoreTimer > 6)
+        if(this._passFirstWall && this._scoreTimer > WALL_GAP_TIME)
         {
            this._score++;
-           this._passFirstWall = true;
-           this._scoreTimer-=6;
+           this._scoreTimer = 0;
         }
-        if(this._passFirstWall && this._scoreTimer > 2)
+        if(!this._passFirstWall && this._scoreTimer > WALL_GAP_TIME / 2 + WALL_APPEAR_TIME)
         {
+            this._passFirstWall = true;
              this._score++;
-             this._scoreTimer -=2;
+             this._scoreTimer = 0;
         }
     },
 
