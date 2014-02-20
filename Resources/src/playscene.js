@@ -76,7 +76,7 @@ var PlayLayer = cc.Layer.extend({
     
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duckflyplist);
         this.spritesheet = cc.SpriteBatchNode.create(s_duckfly);
-        this.addChild(this.spritesheet);
+        this.addChild(this.spritesheet, 1000);
         var animFrames = [];
         for(var i=1;i<4;i++)
         {
@@ -93,7 +93,7 @@ var PlayLayer = cc.Layer.extend({
                                 
         this._duckVelocity = 0;
                                 
-        //walls todo: optimize walls
+        //walls
         this._walls = [];
         for (var i = 0; i < MAX_NUM_WALLS; i++){
             var wall = cc.Sprite.create('res/wall.png');
@@ -170,7 +170,7 @@ var PlayLayer = cc.Layer.extend({
 
         mermaid.setPosition(cc.p(this._screenSize.width + contentSize.width / 2, this._screenSize.height / 2));
         this.addChild(mermaid, 0);
-        var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2, contentSize.height/ 2));
+        var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2, this._screenSize.height / 2));
         var callfunc = cc.CallFunc.create(function(){
             bubble.setVisible(false);
         });
@@ -185,7 +185,7 @@ var PlayLayer = cc.Layer.extend({
     update: function(delta){
         this._timer += delta;
         this._scoreTimer += delta;
-        if(this._timer > 1.25){
+        if(this._timer > 1.5){
             this.createWall();
             this._timer = 0;
         }

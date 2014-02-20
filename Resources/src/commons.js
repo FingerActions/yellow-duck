@@ -18,7 +18,7 @@
 //PlayScene
 
 var WALL_HEIGHT = [-10,-20,-30,-40,-50,-60,-70,-80,-90,-100,-110,-120,-130,-140,-150,-160,-170,-180,-190,-200];
-var WALL_GAP = 150;
+var WALL_GAP = 100;
 var GRAVITY = 0.3;
 var JUMP_VELOCITY = 7;
 var MAX_NUM_BUBBLES = 5;
