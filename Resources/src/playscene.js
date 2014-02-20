@@ -35,6 +35,7 @@ var PlayLayer = cc.Layer.extend({
     audioEngin: null,
     //SPLASH_EFFECT_FILE: 'res/water_splash.mp3',
     POP_EFFECT_FILE: 'res/pop.wav',
+    DROWNED_EFFECT_FILE: 'res/drowned.mp3',
 
     ctor: function () {
         this._super();
@@ -266,19 +267,28 @@ var PlayLayer = cc.Layer.extend({
     },
 
     checkGameOver: function(){
-        if(this._duck.getPosition().y < 0){
-            this.gameOver();
+        if(this._duck.getPosition().y < -this._duck.getContentSize().width){
+            this.gameOver(false);
         }
         var walls = this._walls;
         for(var i = 0; i < walls.length; i++){
             if(this.isObjTouched(this._duck, this._walls[i])){
-                this.gameOver();
+                this.gameOver(true);
             }
         }
     },
 
-    gameOver: function(){
+    gameOver: function(hitWall){
         this.unscheduleUpdate();
+        if(hitWall){
+            this.gameOverHitWall();
+        }
+        else{
+            this.gameOverDrowned();
+        }
+    },
+
+    gameOverHitWall: function(){
         var shrinkAction = cc.ScaleTo.create(0.4, 0.3);
         var rotateAction = cc.RotateBy.create(1.5, 700);
         var floatAction = cc.BezierBy.create(2, [cc.p(0,0), cc.p(-120,100), cc.p(100,300)]);
@@ -290,13 +300,36 @@ var PlayLayer = cc.Layer.extend({
             director.popScene();
         });
 
-
         var floatDie = cc.Sequence.create(floatAction, callfunc);
         this._duck.runAction(floatDie);
 
         var shrinkRotateDie = cc.Sequence.create(shrinkAction, rotateAction);
         this._duck.runAction(shrinkRotateDie);
+    },
 
+    gameOverDrowned: function(){
+        audioEngin.playEffect(this.DROWNED_EFFECT_FILE);
+        this._bubbles.some((function(bubble){
+            if(!bubble.isVisible()){
+                bubble.setVisible(true);
+                bubble.setScale(0.05);
+                var size = bubble.getContentSize();
+                bubble.setPosition(cc.p(65, -size.height));
+                var flow = cc.MoveTo.create(Math.floor(Math.random() * 2) + 1, cc.p(Math.floor(Math.random() * 20) + 50, this._screenSize.height));
+                
+                var callfunc = cc.CallFunc.create(function(){
+                    var scene = cc.Scene.create();
+                    var layer = new MyScene();
+                    scene.addChild(layer);
+                    director.popScene();
+                });
+
+                var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+
+                bubble.runAction(flowWithCallfunc);
+                return ture;
+            }
+        }).bind(this))
     },
 
     isObjTouched :function(firstObj, secondObj){
