@@ -37,6 +37,7 @@ var MyLayer = cc.Layer.extend({
         sprite: null,
         river_Background: null,
         tap_sprite: null,
+        _seashells:null,
         
         ctor: function () {
         this._super();
@@ -119,6 +120,20 @@ var MyLayer = cc.Layer.extend({
         this.tap_sprite.setPosition(cc.p(195, (size.height/2)-40));
         this.addChild(this.tap_sprite, 0);
         
+                              
+        //sea shells
+        this._seashells = [];
+        for(var i = 1;i<MAX_SEA_SHEELS;i++)
+        {
+           var seashell = cc.Sprite.createWithSpriteFrameName(i+".png");
+           this.addChild(seashell);
+           seashell.setVisible(false);
+           this._seashells.push(seashell);
+                              
+        }
+
+        //this._seashells = cc.Sprite.createWithSpriteFrameName("1.png");
+      
         
         //var sprite_action = cc.Place.create(cc.p(0,300));
         //this.sprite.runAction(sprite_action);
@@ -145,6 +160,44 @@ var MyLayer = cc.Layer.extend({
                               
         },
         
+                              
+        spawnSeaShells:function(){
+        
+              var _this = this;
+              this._seashells.some(function(seashell){
+                 
+              if(!seashell.isVisible()){
+              seashell.setVisible(true);
+              seashell.setScale(0.3);
+              seashell.setPosition(cc.p(this._screenSize.width, this._screenSize.height+10));
+              //var waveSpawnPositionX = Math.floor(Math.random() * this._screenSize.width);
+              
+             // seashell.setPosition(cc.p(400, bubbleSpawnPositionY));
+              
+              var callfunc = cc.CallFunc.create(function(){
+                  bubble.setVisible(false);
+              });
+              var flow = cc.MoveTo.create(-this._screenSize.width,this._screenSize.height+10);
+              var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+              
+              seashell.runAction(flowWithCallfunc);
+              return true;
+              }
+
+                             
+              });
+        
+        },
+                              
+        update:function(delta){
+                              
+            this._timer += delta;
+            if(this._timer>2)
+            {
+               this.spawnSeaShells();
+            }
+
+        },
         
         onTouchesBegan: function (touches, event) {
                               
