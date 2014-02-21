@@ -5,6 +5,8 @@ var s_Font_fnt = "res/font.fnt";
 var s_Font_png = "res/font.png";
 var s_duckfly = "res/duckfly.png";
 var s_duckflyplist = "res/duckfly.plist";
+var s_seashell_plist = "res/img/seabed/seashells.plist";
+var s_seashell_png = "res/img/seabed/seashells.png";
 
 var g_ressources = [
     //image
@@ -13,8 +15,10 @@ var g_ressources = [
     {src:s_CloseSelected},
     {src:s_Font_png},
     {src:s_duckfly},
+    {src:s_seashell_png},
     //plist
     {src:s_duckflyplist},
+    {src:s_seashell_plist},
     //fnt
     {src:s_Font_fnt}
     //tmx

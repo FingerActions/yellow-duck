@@ -32,6 +32,7 @@ var PlayLayer = cc.Layer.extend({
     _bubbles: null,
     _gameover:false,
 
+
     //sound
     audioEngin: null,
     //SPLASH_EFFECT_FILE: 'res/water_splash.mp3',
@@ -87,13 +88,14 @@ var PlayLayer = cc.Layer.extend({
           var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
           animFrames.push(frame);
         }
-        var animation = cc.Animation.create(animFrames,0.1);
+        var animation = cc.Animation.create(animFrames,0.5);
         this._flyingAction = cc.RepeatForever.create(cc.Animate.create(animation));
         this._duck = cc.Sprite.createWithSpriteFrameName("ducksmall01.png");
         this._duck.setPosition(cc.p(65, this._screenSize.height / 2));
         this._duck.runAction(this._flyingAction);
         this.spritesheet.addChild(this._duck);
                                 
+        
         this._duckVelocity = 0;
                                 
         //walls

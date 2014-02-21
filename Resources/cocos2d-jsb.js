@@ -56,3 +56,11 @@ director.runWithScene(myScene);
 //disable retina display
 cc.EGLView.getInstance().setDesignResolutionSize(320,480,cc.RESOLUTION_POLICY.SHOW_ALL);
 
+//load seashells background
+cc.SpriteFrameCache.getInstance().addSpriteFrames(s_seashell_plist,s_seashell_png);
+
+
+
+
+
+
