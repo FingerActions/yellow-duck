@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{85,69}</string>
             </dict>
-            <key>6.png</key>
+            <key>5.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{62,61}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{88,93}</string>
             </dict>
-            <key>7.png</key>
+            <key>6.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{66,108},{51,59}}</string>
@@ -92,7 +92,7 @@
             <key>size</key>
             <string>{128,256}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:cd5dcd9dadb836bdcdd8463d957bd3b0:79a323a55d823596954c0d39f7751f2f:b8f1e45fd29c7390af7954496f6f48c8$</string>
+            <string>$TexturePacker:SmartUpdate:f57e27e7bc20360f7d15b1b9a4d14306:79a323a55d823596954c0d39f7751f2f:b8f1e45fd29c7390af7954496f6f48c8$</string>
             <key>textureFileName</key>
             <string>seashells.png</string>
         </dict>
