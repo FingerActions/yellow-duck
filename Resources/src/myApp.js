@@ -30,8 +30,10 @@ var MyLayer = cc.Layer.extend({
         _spriteSheet:null,
         _flyingAction:null,
         _duck: null,
+        _timer: null,
         isMouseDown: false,
         helloImg: null,
+        size:null,
         helloLabel: null,
         circle: null,
         sprite: null,
@@ -49,6 +51,11 @@ var MyLayer = cc.Layer.extend({
         //////////////////////////////
         // 1. super init first
         this._super();
+                              
+        //update()
+        this._timer = 0;
+        this.scheduleUpdate();
+
         
         if ('touches' in sys.capabilities) {
         
@@ -68,7 +75,7 @@ var MyLayer = cc.Layer.extend({
         // 2. add a menu item with "X" image, which is clicked to quit the program
         //    you may modify it.
         // ask director the window size
-        var size = cc.Director.getInstance().getWinSize();
+        this.size = cc.Director.getInstance().getWinSize();
         
         // add a "close" icon to exit the progress. it's an autorelease object
         
@@ -93,7 +100,7 @@ var MyLayer = cc.Layer.extend({
         // create and initialize a label
         this.helloLabel = cc.LabelTTF.create("Bath Duck", "Marker Felt", 33);
         // position the label on the center of the screen
-        this.helloLabel.setPosition(cc.p(size.width / 2, size.height - 100));
+        this.helloLabel.setPosition(cc.p(this.size.width / 2, this.size.height - 100));
         // add the label as a child to this layer
         this.addChild(this.helloLabel, 5);
         
@@ -111,13 +118,13 @@ var MyLayer = cc.Layer.extend({
         var animation = cc.Animation.create(animFrames,0.1);
         this._flyingAction = cc.RepeatForever.create(cc.Animate.create(animation));
         this._duck = cc.Sprite.createWithSpriteFrameName("ducksmall01.png");
-        this._duck.setPosition(cc.p(65, size.height / 2));
+        this._duck.setPosition(cc.p(65, this.size.height / 2));
         this._duck.runAction(this._flyingAction);
         this.spritesheet.addChild(this._duck);
                               
         this.tap_sprite = cc.Sprite.create("res/tap.png");
         this.tap_sprite.setAnchorPoint(cc.p(0.5, 0.5));
-        this.tap_sprite.setPosition(cc.p(195, (size.height/2)-40));
+        this.tap_sprite.setPosition(cc.p(195, (this.size.height/2)-40));
         this.addChild(this.tap_sprite, 0);
         
                               
@@ -163,21 +170,21 @@ var MyLayer = cc.Layer.extend({
                               
         spawnSeaShells:function(){
         
-              var _this = this;
+              var that = this;
               this._seashells.some(function(seashell){
                  
               if(!seashell.isVisible()){
               seashell.setVisible(true);
-              seashell.setScale(0.3);
-              seashell.setPosition(cc.p(this._screenSize.width, this._screenSize.height+10));
+              seashell.setScale(0.5);
+              seashell.setPosition(cc.p(that.size.width, 20));
               //var waveSpawnPositionX = Math.floor(Math.random() * this._screenSize.width);
               
              // seashell.setPosition(cc.p(400, bubbleSpawnPositionY));
               
               var callfunc = cc.CallFunc.create(function(){
-                  bubble.setVisible(false);
+                  seashell.setVisible(false);
               });
-              var flow = cc.MoveTo.create(-this._screenSize.width,this._screenSize.height+10);
+              var flow = cc.MoveBy.create(WALL_APPEAR_TIME,cc.p(-that.size.width,20));
               var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
               
               seashell.runAction(flowWithCallfunc);
@@ -192,7 +199,7 @@ var MyLayer = cc.Layer.extend({
         update:function(delta){
                               
             this._timer += delta;
-            if(this._timer>2)
+            if(this._timer>0.5)
             {
                this.spawnSeaShells();
             }

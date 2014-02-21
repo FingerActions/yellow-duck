@@ -57,6 +57,7 @@ director.runWithScene(myScene);
 cc.EGLView.getInstance().setDesignResolutionSize(320,480,cc.RESOLUTION_POLICY.SHOW_ALL);
 
 //load seashells background
+//load seashell objects
 cc.SpriteFrameCache.getInstance().addSpriteFrames(s_seashell_plist,s_seashell_png);
 
 
