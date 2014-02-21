@@ -30,12 +30,14 @@ var PlayLayer = cc.Layer.extend({
     _passFirstWall:false,
     _waveTimer: null,
     _bubbles: null,
+    _gameover:false,
 
     //sound
     audioEngin: null,
     //SPLASH_EFFECT_FILE: 'res/water_splash.mp3',
     POP_EFFECT_FILE: 'res/pop.wav',
     DROWNED_EFFECT_FILE: 'res/drowned.mp3',
+    JUMP_EFFECT_FILE:'res/jump_sound.mp3',
 
     ctor: function () {
         this._super();
@@ -180,6 +182,10 @@ var PlayLayer = cc.Layer.extend({
     },
 
     onTouchesBegan: function (touches, event){
+        if(!this._gameover)
+        {
+            audioEngin.playEffect(this.JUMP_EFFECT_FILE);
+        }
         this._duckVelocity = JUMP_VELOCITY;
     },
 
@@ -222,7 +228,7 @@ var PlayLayer = cc.Layer.extend({
            this._score++;
            this._scoreTimer = 0;
         }
-        if(!this._passFirstWall && this._scoreTimer > WALL_GAP_TIME / 2 + WALL_APPEAR_TIME)
+        if(!this._passFirstWall && this._scoreTimer > WALL_GAP_TIME/2  + WALL_APPEAR_TIME)
         {
             this._passFirstWall = true;
              this._score++;
@@ -281,9 +287,11 @@ var PlayLayer = cc.Layer.extend({
     gameOver: function(hitWall){
         this.unscheduleUpdate();
         if(hitWall){
+            this._gameover = true;
             this.gameOverHitWall();
         }
         else{
+            this._gameover = true;
             this.gameOverDrowned();
         }
     },
