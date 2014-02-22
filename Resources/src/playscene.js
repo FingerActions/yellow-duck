@@ -359,15 +359,13 @@ var PlayLayer = cc.Layer.extend({
     },
 
     gameOverHitWall: function(){
+        var that = this;
         var shrinkAction = cc.ScaleTo.create(0.4, 0.3);
         var rotateAction = cc.RotateBy.create(1.5, 700);
         var floatAction = cc.BezierBy.create(2, [cc.p(0,0), cc.p(-120,100), cc.p(100,300)]);
 
         var callfunc = cc.CallFunc.create(function(){
-            var scene = cc.Scene.create();
-            var layer = new ScoreScene();
-            scene.addChild(layer);
-            director.popScene();
+            that.die();
         });
 
         var floatDie = cc.Sequence.create(floatAction, callfunc);
@@ -379,6 +377,8 @@ var PlayLayer = cc.Layer.extend({
     },
 
     gameOverDrowned: function(){
+
+        var that = this;
         audioEngin.playEffect(this.DROWNED_EFFECT_FILE);
         this._bubbles.some((function(bubble){
             if(!bubble.isVisible()){
@@ -389,10 +389,7 @@ var PlayLayer = cc.Layer.extend({
                 var flow = cc.MoveTo.create(Math.floor(Math.random() * 2) + 1, cc.p(Math.floor(Math.random() * 20) + 50, this._screenSize.height));
                 
                 var callfunc = cc.CallFunc.create(function(){
-                    var scene = cc.Scene.create();
-                    var layer = new ScoreScene();
-                    scene.addChild(layer);
-                    director.popScene();
+                     that.die();
                 });
 
                 var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
@@ -416,7 +413,17 @@ var PlayLayer = cc.Layer.extend({
             audioEngin.playEffect(this.POP_EFFECT_FILE);
             return true;
         }
-    }
+    },
+                                
+                                
+    die: function(){
+    
+        var scene = cc.Scene.create();
+        var layer = new ScoreScene();
+        scene.addChild(layer);
+        director.pushScene(cc.TransitionFade.create(0.1, scene));
+    
+    },
 });
 
 var PlayScene = cc.Scene.extend({
