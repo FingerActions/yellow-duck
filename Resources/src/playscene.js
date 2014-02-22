@@ -60,16 +60,16 @@ var PlayLayer = cc.Layer.extend({
             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
             this.setTouchEnabled(true);
         }
+                                
+        //screen size
+        this._screenSize = cc.Director.getInstance().getWinSize();
 
         //add background image (river)
         this._river = cc.Sprite.create("res/background.png");
         this._river.setAnchorPoint(cc.p(0, 0));
         this._river.setPosition(cc.p(0, 0));
         this.addChild(this._river);
-
-        //screen size
-        this._screenSize = cc.Director.getInstance().getWinSize();
-
+                            
         //duck
       /*  this._duck = cc.Sprite.create("res/ducksmall.png");
         this._duck.setAnchorPoint(cc.p(0.5, 0.5));
@@ -202,7 +202,7 @@ var PlayLayer = cc.Layer.extend({
             audioEngin.playEffect(this.JUMP_EFFECT_FILE);
         }
         this._duckVelocity = JUMP_VELOCITY;
-        this._duck.setRotation(-40);
+        this._duck.setRotation(-25);
     },
                                 
    spawnSeaShells:function(){
@@ -365,7 +365,7 @@ var PlayLayer = cc.Layer.extend({
 
         var callfunc = cc.CallFunc.create(function(){
             var scene = cc.Scene.create();
-            var layer = new MyScene();
+            var layer = new ScoreScene();
             scene.addChild(layer);
             director.popScene();
         });
@@ -375,6 +375,7 @@ var PlayLayer = cc.Layer.extend({
 
         var shrinkRotateDie = cc.Sequence.create(shrinkAction, rotateAction);
         this._duck.runAction(shrinkRotateDie);
+       
     },
 
     gameOverDrowned: function(){
@@ -389,7 +390,7 @@ var PlayLayer = cc.Layer.extend({
                 
                 var callfunc = cc.CallFunc.create(function(){
                     var scene = cc.Scene.create();
-                    var layer = new MyScene();
+                    var layer = new ScoreScene();
                     scene.addChild(layer);
                     director.popScene();
                 });
@@ -397,7 +398,7 @@ var PlayLayer = cc.Layer.extend({
                 var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
 
                 bubble.runAction(flowWithCallfunc);
-                return ture;
+                return true;
             }
         }).bind(this))
     },
