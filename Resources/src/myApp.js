@@ -103,6 +103,11 @@ var MyLayer = cc.Layer.extend({
         this.helloLabel.setPosition(cc.p(this.size.width / 2, this.size.height - 100));
         // add the label as a child to this layer
         this.addChild(this.helloLabel, 5);
+                              
+        //var text_my = "Bath Duck";
+        //var labelShouldRetain = cc.LabelBMFont.create(text_my,s_Font_fnt,200,cc.TEXT_ALIGNMENT_RIGHT,cc.p(0,0));
+        //this.addChild(labelShouldRetain,10);
+        //labelShouldRetain.setPosition(this.size.width/5,this.size.height/2);
         
         // add "Helloworld" splash screen"
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duckflyplist);
@@ -241,7 +246,7 @@ var MyScene = cc.Scene.extend({
    },
    
    onEnter: function () {
-             
+                              cc.log("my scene");
     if(INITIALIZED_MYAPP==false)
     {
         INITIALIZED_MYAPP=true;
