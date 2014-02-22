@@ -31,6 +31,8 @@ var PlayLayer = cc.Layer.extend({
     _waveTimer: null,
     _bubbles: null,
     _gameover:false,
+    _seashells:null,
+    _seashellTimer:null,
 
 
     //sound
@@ -106,6 +108,17 @@ var PlayLayer = cc.Layer.extend({
             wall.setVisible(false);
             this._walls.push(wall);    
         }
+    
+         //sea shells
+         this._seashells = [];
+         for(var i = 1;i<MAX_SEA_SHEELS;i++)
+         {
+         var seashell = cc.Sprite.createWithSpriteFrameName(i+".png");
+         this.addChild(seashell);
+         seashell.setVisible(false);
+         this._seashells.push(seashell);
+         
+         }
        
         //score
         this._score = 0;
@@ -190,13 +203,53 @@ var PlayLayer = cc.Layer.extend({
         }
         this._duckVelocity = JUMP_VELOCITY;
     },
+                                
+   spawnSeaShells:function(){
+   
+       var that = this;
+       var found_invisible = false;
+       var seashell;
+   
+       while(!found_invisible)
+       {
+          var rd_number = Math.floor(Math.random()*6);
+          var rd_rotation = Math.floor(Math.random()*180);
+          if(!this._seashells[rd_number].isVisible())
+          {
+            this._seashells[rd_number].setVisible(true);
+            this._seashells[rd_number].setScale(0.3);
+            this._seashells[rd_number].setRotation(rd_rotation);
+            this._seashells[rd_number].setPosition(cc.p(this._screenSize.width,5+rd_number*2));
+            var flow = cc.MoveBy.create(WALL_APPEAR_TIME,cc.p(-this._screenSize.width,5+rd_number*2));
+   
+            var callfunc = cc.CallFunc.create(function(){
+            that._seashells[rd_number].setVisible(false);
+            that._seashells[rd_number].setVisible(false);
+           });
+   
+           var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+           this._seashells[rd_number].runAction(flowWithCallfunc);
+           return true;
+        }
+   
+           found_invisible = true;
+        }
+   
+   },
 
     update: function(delta){
         this._timer += delta;
         this._scoreTimer += delta;
+        this._seashellTimer += delta;
+        
         if(this._timer > WALL_GAP_TIME){
             this.createWall();
             this._timer = 0;
+        }
+        if(this._seashellTimer>1)
+        {
+            this.spawnSeaShells();
+            this._seashellTimer=0;
         }
 
         this._waveTimer += delta;
@@ -262,6 +315,7 @@ var PlayLayer = cc.Layer.extend({
             thisWalls[0].setVisible(false);
             thisWalls[1].setVisible(false);
         });
+                                
         var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
         thisWalls[0].runAction(spawn);  
         thisWalls[0].runAction(flowWithCallfunc);    

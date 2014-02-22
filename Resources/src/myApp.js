@@ -111,9 +111,9 @@ var MyLayer = cc.Layer.extend({
         var animFrames = [];
         for(var i=1;i<4;i++)
         {
-        var str = "ducksmall0" + i + ".png";
-        var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
-        animFrames.push(frame);
+            var str = "ducksmall0" + i + ".png";
+            var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
+            animFrames.push(frame);
         }
         var animation = cc.Animation.create(animFrames,0.1);
         this._flyingAction = cc.RepeatForever.create(cc.Animate.create(animation));
@@ -171,37 +171,43 @@ var MyLayer = cc.Layer.extend({
         spawnSeaShells:function(){
         
               var that = this;
-              this._seashells.some(function(seashell){
-                 
-              if(!seashell.isVisible()){
-              seashell.setVisible(true);
-              seashell.setScale(0.5);
-              seashell.setPosition(cc.p(that.size.width, 20));
-              //var waveSpawnPositionX = Math.floor(Math.random() * this._screenSize.width);
-              
-             // seashell.setPosition(cc.p(400, bubbleSpawnPositionY));
-              
-              var callfunc = cc.CallFunc.create(function(){
-                  seashell.setVisible(false);
-              });
-              var flow = cc.MoveBy.create(WALL_APPEAR_TIME,cc.p(-that.size.width,20));
-              var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
-              
-              seashell.runAction(flowWithCallfunc);
-              return true;
+              var found_invisible = false;
+              var seashell;
+
+              while(!found_invisible)
+              {
+                   var rd_number = Math.floor(Math.random()*6);
+                   var rd_rotation = Math.floor(Math.random()*180);
+                   if(!this._seashells[rd_number].isVisible())
+                   {
+                       this._seashells[rd_number].setVisible(true);
+                       this._seashells[rd_number].setScale(0.3);
+                       this._seashells[rd_number].setRotation(rd_rotation);
+                       this._seashells[rd_number].setPosition(cc.p(this.size.width,5+rd_number*2));
+                       var flow = cc.MoveBy.create(WALL_APPEAR_TIME,cc.p(-that.size.width,5+rd_number*2));
+                              
+                       var callfunc = cc.CallFunc.create(function(){
+                          that._seashells[rd_number].setVisible(false);
+                          that._seashells[rd_number].setVisible(false);
+                       });
+                              
+                       var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+                       this._seashells[rd_number].runAction(flowWithCallfunc);
+                       return true;
+                    }
+
+                   found_invisible = true;
               }
 
-                             
-              });
-        
         },
                               
         update:function(delta){
                               
             this._timer += delta;
-            if(this._timer>0.5)
+            if(this._timer>1)
             {
                this.spawnSeaShells();
+               this._timer=0;
             }
 
         },
