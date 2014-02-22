@@ -417,11 +417,24 @@ var PlayLayer = cc.Layer.extend({
                                 
                                 
     die: function(){
-    
+        
+        this.updateScore();
         var scene = cc.Scene.create();
         var layer = new ScoreScene();
         scene.addChild(layer);
         director.pushScene(cc.TransitionFade.create(0.1, scene));
+    
+    },
+                                
+    updateScore:function(){
+                                
+        CURRENT_SCORE = this._score;
+    
+        if(this._score>BEST_SCORE)
+        {
+           BEST_SCORE = this._score;
+        }
+                                
     
     },
 });
