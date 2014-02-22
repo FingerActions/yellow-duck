@@ -23,6 +23,8 @@ var ScoreLayer = cc.Layer.extend({
         _currentscore_label:null,
         _bestscore:null,
         _currentscore:null,
+        _gameover:null,
+        _tapcontinue:null,
                                 
         ctor: function () {
            this._super();
@@ -90,6 +92,11 @@ var ScoreLayer = cc.Layer.extend({
                                  
         //add score on banner
         // create and initialize a label
+        this._gameover = cc.LabelTTF.create("GAME OVER", "Marker Felt", 36);
+        // position the label on the center of the screen
+        this._gameover.setPosition(cc.p(this.size.width / 2 , this.size.height - 130));
+        // add the label as a child to this layer
+        this.addChild(this._gameover, 5);
         this._bestscore_label = cc.LabelTTF.create("Best", "Marker Felt", 25);
         // position the label on the center of the screen
         this._bestscore_label.setPosition(cc.p(this.size.width / 2 - 50, this.size.height - 200));
@@ -102,7 +109,21 @@ var ScoreLayer = cc.Layer.extend({
         this._currentscore_label.setPosition(cc.p(this.size.width / 2 - 50, this.size.height - 250));
         // add the label as a child to this layer
         this.addChild(this._currentscore_label, 5);
-        
+                                 
+        this._tapcontinue = cc.LabelTTF.create("TAP TO CONTINUE", "Marker Felt", 28);
+        // position the label on the center of the screen
+        this._tapcontinue.setPosition(cc.p(this.size.width / 2, this.size.height - 350));
+        // add the label as a child to this layer
+        this.addChild(this._tapcontinue, 5);
+
+        var fadein_tap = cc.FadeIn.create(1.0);
+        var fadeout_tap = cc.FadeOut.create(1.0);
+        var sequence = cc.RepeatForever.create(cc.Sequence.create(fadein_tap,fadeout_tap));
+                                 
+        this._tapcontinue.runAction(sequence);
+                                 
+                                 
+                         
         cc.log("BEST"+BEST_SCORE);
         cc.log("SCORE"+CURRENT_SCORE);
             
