@@ -115,7 +115,8 @@ var MyLayer = cc.Layer.extend({
             var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
             animFrames.push(frame);
         }
-        var animation = cc.Animation.create(animFrames,0.1);
+                              
+        var animation = cc.Animation.create(animFrames,0.3);
         this._flyingAction = cc.RepeatForever.create(cc.Animate.create(animation));
         this._duck = cc.Sprite.createWithSpriteFrameName("ducksmall01.png");
         this._duck.setPosition(cc.p(65, this.size.height / 2));
@@ -123,11 +124,11 @@ var MyLayer = cc.Layer.extend({
         this.spritesheet.addChild(this._duck);
                               
         this.tap_sprite = cc.Sprite.create("res/tap.png");
+        this.tap_sprite.setScale(0.7);
         this.tap_sprite.setAnchorPoint(cc.p(0.5, 0.5));
         this.tap_sprite.setPosition(cc.p(195, (this.size.height/2)-40));
         this.addChild(this.tap_sprite, 0);
         
-                              
         //sea shells
         this._seashells = [];
         for(var i = 1;i<MAX_SEA_SHEELS;i++)

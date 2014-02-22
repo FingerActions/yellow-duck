@@ -90,7 +90,7 @@ var PlayLayer = cc.Layer.extend({
           var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
           animFrames.push(frame);
         }
-        var animation = cc.Animation.create(animFrames,0.5);
+        var animation = cc.Animation.create(animFrames,0.3);
         this._flyingAction = cc.RepeatForever.create(cc.Animate.create(animation));
         this._duck = cc.Sprite.createWithSpriteFrameName("ducksmall01.png");
         this._duck.setPosition(cc.p(65, this._screenSize.height / 2));
@@ -202,6 +202,7 @@ var PlayLayer = cc.Layer.extend({
             audioEngin.playEffect(this.JUMP_EFFECT_FILE);
         }
         this._duckVelocity = JUMP_VELOCITY;
+        this._duck.setRotation(-40);
     },
                                 
    spawnSeaShells:function(){
@@ -272,7 +273,12 @@ var PlayLayer = cc.Layer.extend({
         //this._waves.forEach(function(wave){
         //    wave.setPosition(cc.p(wave.getPosition().x, wave.getPosition().y + this._duckVelocity));
         //});
-
+        
+        if(this._duckVelocity<0)
+        {
+            this._duck.setRotation(0);
+        }
+                                
         this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
         this.checkGameOver();
         this._scoreLabel.setString(this._score);
