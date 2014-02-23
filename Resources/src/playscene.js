@@ -33,7 +33,7 @@ var PlayLayer = cc.Layer.extend({
     _gameover:false,
     _seashells:null,
     _seashellTimer:null,
-
+    _isDuckJumping: null,
 
     //sound
     audioEngin: null,
@@ -70,16 +70,10 @@ var PlayLayer = cc.Layer.extend({
         this._river.setPosition(cc.p(0, 0));
         this.addChild(this._river);
                             
-        //duck
-      /*  this._duck = cc.Sprite.create("res/ducksmall.png");
-        this._duck.setAnchorPoint(cc.p(0.5, 0.5));
-        this._duck.setPosition(cc.p(65, this._screenSize.height / 2));
-        this.addChild(this._duck, 1000);
-        this._duckVelocity = 0;
-       */
-                                
+        //duck is not falling
+        this._isDuckJumping = false;
+ 
         //load spritesheet
-    
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duckflyplist);
         this.spritesheet = cc.SpriteBatchNode.create(s_duckfly);
         this.addChild(this.spritesheet, 1000);
@@ -143,21 +137,6 @@ var PlayLayer = cc.Layer.extend({
         return true;
     },
 
-    // spawnWave: function(){
-    //     var wave = cc.Sprite.create("res/wave.png");
-    //     var waveRect = wave.getContentSize();
-    //     wave.setScale(1);
-    //     wave.setAnchorPoint(0, 0);
-        
-    //     wave.setPosition(cc.p(-this._screenSize.width, this._screenSize.height));
-    //     this.addChild(wave, 0);
-
-    //     var flow = cc.MoveTo.create(2.5, cc.p(0, -waveRect.height));
-    //     wave.runAction(flow);
-
-    //     this._waves.push(wave);
-    // },
-
     spawnBubble: function(){
         var that = this;
         this._bubbles.some(function(bubble){
@@ -197,12 +176,26 @@ var PlayLayer = cc.Layer.extend({
     },
 
     onTouchesBegan: function (touches, event){
-        if(!this._gameover)
+        if(this._gameover)
         {
-            audioEngin.playEffect(this.JUMP_EFFECT_FILE);
+            return;
         }
+        audioEngin.playEffect(this.JUMP_EFFECT_FILE);
+
         this._duckVelocity = JUMP_VELOCITY;
-        this._duck.setRotation(-25);
+
+        var swimActionKind = Math.floor(Math.random() * 5);
+
+        var duckRotate;
+        if(swimActionKind == 0){
+            duckRotate = cc.RotateBy.create(0.5, -400);
+        }
+        else{
+            duckRotate = cc.RotateTo.create(0.1, -25);
+        }
+
+        this._duck.runAction(duckRotate);
+        this._isDuckJumping = true;
     },
                                 
    spawnSeaShells:function(){
@@ -236,7 +229,7 @@ var PlayLayer = cc.Layer.extend({
            found_invisible = true;
         }
    
-   },
+    },
 
     update: function(delta){
         this._timer += delta;
@@ -247,7 +240,7 @@ var PlayLayer = cc.Layer.extend({
             this.createWall();
             this._timer = 0;
         }
-        if(this._seashellTimer>1)
+        if(this._seashellTimer > 1)
         {
             this.spawnSeaShells();
             this._seashellTimer=0;
@@ -263,22 +256,13 @@ var PlayLayer = cc.Layer.extend({
         if(duckPrePosition.y > this._screenSize.height){
             this._duckVelocity = 0;
         }
-        //if(this._duckVelocity > 0){
-            this._duckVelocity -= GRAVITY;
-        // }
-        // else{
-        //     this._duckVelocity = -5;
-        // }
-
-        //this._waves.forEach(function(wave){
-        //    wave.setPosition(cc.p(wave.getPosition().x, wave.getPosition().y + this._duckVelocity));
-        //});
         
-        if(this._duckVelocity<0)
-        {
-            this._duck.setRotation(0);
+        this._duckVelocity -= GRAVITY;
+        
+        if(this._duckVelocity < 0 && this._isDuckJumping) {
+            this.turnDuckBack();
         }
-                                
+        
         this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
         this.checkGameOver();
         this._scoreLabel.setString(this._score);
@@ -295,6 +279,12 @@ var PlayLayer = cc.Layer.extend({
              this._score++;
              this._scoreTimer = 0;
         }
+    },
+
+    turnDuckBack: function(){
+        var turnbackAction = cc.RotateTo.create(0.1, 0);
+        this._duck.runAction(turnbackAction);
+        this._isDuckJumping = false;
     },
 
     createWall: function(){
