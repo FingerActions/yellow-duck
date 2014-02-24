@@ -60,7 +60,7 @@ var PlayLayer = cc.Layer.extend({
             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
             this.setTouchEnabled(true);
         }
-                                
+
         //screen size
         this._screenSize = cc.Director.getInstance().getWinSize();
 
@@ -69,10 +69,10 @@ var PlayLayer = cc.Layer.extend({
         this._river.setAnchorPoint(cc.p(0, 0));
         this._river.setPosition(cc.p(0, 0));
         this.addChild(this._river);
-                            
+
         //duck is not falling
         this._isDuckJumping = false;
- 
+
         //load spritesheet
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duckflyplist);
         this.spritesheet = cc.SpriteBatchNode.create(s_duckfly);
@@ -83,17 +83,17 @@ var PlayLayer = cc.Layer.extend({
           var str = "ducksmall0" + i + ".png";
           var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
           animFrames.push(frame);
-        }
-        var animation = cc.Animation.create(animFrames,0.3);
-        this._flyingAction = cc.RepeatForever.create(cc.Animate.create(animation));
-        this._duck = cc.Sprite.createWithSpriteFrameName("ducksmall01.png");
-        this._duck.setPosition(cc.p(65, this._screenSize.height / 2));
-        this._duck.runAction(this._flyingAction);
-        this.spritesheet.addChild(this._duck);
-                                
-        
-        this._duckVelocity = 0;
-                                
+      }
+      var animation = cc.Animation.create(animFrames,0.3);
+      this._flyingAction = cc.RepeatForever.create(cc.Animate.create(animation));
+      this._duck = cc.Sprite.createWithSpriteFrameName("ducksmall01.png");
+      this._duck.setPosition(cc.p(65, this._screenSize.height / 2));
+      this._duck.runAction(this._flyingAction);
+      this.spritesheet.addChild(this._duck);
+
+
+      this._duckVelocity = 0;
+
         //walls
         this._walls = [];
         for (var i = 0; i < MAX_NUM_WALLS; i++){
@@ -102,17 +102,17 @@ var PlayLayer = cc.Layer.extend({
             wall.setVisible(false);
             this._walls.push(wall);    
         }
-    
+
          //sea shells
          this._seashells = [];
          for(var i = 1;i<MAX_SEA_SHEELS;i++)
          {
-         var seashell = cc.Sprite.createWithSpriteFrameName(i+".png");
-         this.addChild(seashell);
-         seashell.setVisible(false);
-         this._seashells.push(seashell);
-         
-         }
+           var seashell = cc.Sprite.createWithSpriteFrameName(i+".png");
+           this.addChild(seashell);
+           seashell.setVisible(false);
+           this._seashells.push(seashell);
+
+       }
        
         //score
         this._score = 0;
@@ -197,15 +197,14 @@ var PlayLayer = cc.Layer.extend({
         this._duck.runAction(duckRotate);
         this._isDuckJumping = true;
     },
-                                
-   spawnSeaShells:function(){
-   
-       var that = this;
-       var found_invisible = false;
-       var seashell;
-   
-       while(!found_invisible)
-       {
+
+    spawnSeaShells:function(){
+        var that = this;
+        var found_invisible = false;
+        var seashell;
+
+        while(!found_invisible)
+        {
           var rd_number = Math.floor(Math.random()*6);
           var rd_rotation = Math.floor(Math.random()*180);
           if(!this._seashells[rd_number].isVisible())
@@ -215,79 +214,78 @@ var PlayLayer = cc.Layer.extend({
             this._seashells[rd_number].setRotation(rd_rotation);
             this._seashells[rd_number].setPosition(cc.p(this._screenSize.width,5+rd_number*2));
             var flow = cc.MoveBy.create(WALL_APPEAR_TIME,cc.p(-this._screenSize.width,5+rd_number*2));
-   
+
             var callfunc = cc.CallFunc.create(function(){
-            that._seashells[rd_number].setVisible(false);
-            that._seashells[rd_number].setVisible(false);
-           });
-   
-           var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
-           this._seashells[rd_number].runAction(flowWithCallfunc);
-           return true;
-        }
-   
-           found_invisible = true;
-        }
-   
-    },
+                that._seashells[rd_number].setVisible(false);
+                that._seashells[rd_number].setVisible(false);
+            });
 
-    update: function(delta){
-        this._timer += delta;
-        this._scoreTimer += delta;
-        this._seashellTimer += delta;
-        
-        if(this._timer > WALL_GAP_TIME){
-            this.createWall();
-            this._timer = 0;
-        }
-        if(this._seashellTimer > 1)
-        {
-            this.spawnSeaShells();
-            this._seashellTimer=0;
+            var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+            this._seashells[rd_number].runAction(flowWithCallfunc);
+            return true;
         }
 
-        this._waveTimer += delta;
-        if(this._waveTimer > 1.25){
-            this.spawnBubble();
-            this._waveTimer = 0;
-        }
-      
-        var duckPrePosition = this._duck.getPosition();
-        if(duckPrePosition.y > this._screenSize.height){
-            this._duckVelocity = 0;
-        }
-        
-        this._duckVelocity -= GRAVITY;
-        
-        if(this._duckVelocity < 0 && this._isDuckJumping) {
-            this.turnDuckBack();
-        }
-        
-        this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
-        this.checkGameOver();
-        this._scoreLabel.setString(this._score);
-        
+        found_invisible = true;
+    }
+},
+
+update: function(delta){
+    this._timer += delta;
+    this._scoreTimer += delta;
+    this._seashellTimer += delta;
+
+    if(this._timer > WALL_GAP_TIME){
+        this.createWall();
+        this._timer = 0;
+    }
+    if(this._seashellTimer > 1)
+    {
+        this.spawnSeaShells();
+        this._seashellTimer=0;
+    }
+
+    this._waveTimer += delta;
+    if(this._waveTimer > 1.25){
+        this.spawnBubble();
+        this._waveTimer = 0;
+    }
+
+    var duckPrePosition = this._duck.getPosition();
+    if(duckPrePosition.y > this._screenSize.height){
+        this._duckVelocity = 0;
+    }
+
+    this._duckVelocity -= GRAVITY;
+
+    if(this._duckVelocity < 0 && this._isDuckJumping) {
+        this.turnDuckBack();
+    }
+
+    this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
+    this.checkGameOver();
+    this._scoreLabel.setString(this._score);
+
         //update score based on time gap
         if(this._passFirstWall && this._scoreTimer > WALL_GAP_TIME)
         {
-           this._score++;
-           this._scoreTimer = 0;
-        }
-        if(!this._passFirstWall && this._scoreTimer > WALL_GAP_TIME/2  + WALL_APPEAR_TIME)
-        {
-            this._passFirstWall = true;
-             this._score++;
-             this._scoreTimer = 0;
-        }
-    },
+         this._score++;
+         this._scoreTimer = 0;
+     }
+     if(!this._passFirstWall && this._scoreTimer > WALL_GAP_TIME/2  + WALL_APPEAR_TIME)
+     {
+        this._passFirstWall = true;
+        this._score++;
+        this._scoreTimer = 0;
+    }
+},
 
-    turnDuckBack: function(){
-        var turnbackAction = cc.RotateTo.create(0.1, 0);
-        this._duck.runAction(turnbackAction);
-        this._isDuckJumping = false;
-    },
+turnDuckBack: function(){
+    var turnbackAction = cc.RotateTo.create(0.1, 0);
+    this._duck.runAction(turnbackAction);
+    this._isDuckJumping = false;
+},
 
-    createWall: function(){
+createWall: function(){
         //get invisible walls
         var thisWalls = [];
         for(var i = 0; i < this._walls.length; i++){
@@ -311,7 +309,7 @@ var PlayLayer = cc.Layer.extend({
             thisWalls[0].setVisible(false);
             thisWalls[1].setVisible(false);
         });
-                                
+
         var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
         thisWalls[0].runAction(spawn);  
         thisWalls[0].runAction(flowWithCallfunc);    
@@ -319,7 +317,7 @@ var PlayLayer = cc.Layer.extend({
         thisWalls[1].setPosition(cc.p(this._screenSize.width, -130));
         flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (wallWidth/2), 0));
         spawn= cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]+WALL_GAP));
-           
+
         thisWalls[1].runAction(flow);
         thisWalls[1].runAction(spawn);
     },
@@ -363,31 +361,33 @@ var PlayLayer = cc.Layer.extend({
 
         var shrinkRotateDie = cc.Sequence.create(shrinkAction, rotateAction);
         this._duck.runAction(shrinkRotateDie);
-       
     },
 
     gameOverDrowned: function(){
-
         var that = this;
         audioEngin.playEffect(this.DROWNED_EFFECT_FILE);
-        this._bubbles.some((function(bubble){
+        var enoughBubble = false;
+        this._bubbles.some(function(bubble){
             if(!bubble.isVisible()){
                 bubble.setVisible(true);
                 bubble.setScale(0.05);
                 var size = bubble.getContentSize();
                 bubble.setPosition(cc.p(65, -size.height));
-                var flow = cc.MoveTo.create(Math.floor(Math.random() * 2) + 1, cc.p(Math.floor(Math.random() * 20) + 50, this._screenSize.height));
+                var flow = cc.MoveTo.create(Math.floor(Math.random() * 2) + 1, cc.p(Math.floor(Math.random() * 20) + 50, that._screenSize.height));
                 
                 var callfunc = cc.CallFunc.create(function(){
-                     that.die();
+                    that.die();
                 });
 
                 var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
-
                 bubble.runAction(flowWithCallfunc);
+                enoughBubble = true;
                 return true;
             }
-        }).bind(this))
+        });
+        if(!enoughBubble){
+            this.die();
+        }
     },
 
     isObjTouched :function(firstObj, secondObj){
@@ -404,29 +404,22 @@ var PlayLayer = cc.Layer.extend({
             return true;
         }
     },
-                                
-                                
+
+
     die: function(){
-        
         this.updateScore();
         var scene = cc.Scene.create();
         var layer = new ScoreScene();
         scene.addChild(layer);
         director.pushScene(cc.TransitionFade.create(0.1, scene));
-    
     },
-                                
-    updateScore:function(){
-                                
+
+    updateScore:function(){                   
         CURRENT_SCORE = this._score;
-    
-        if(this._score>BEST_SCORE)
-        {
-           BEST_SCORE = this._score;
+        if(this._score>BEST_SCORE) {
+            BEST_SCORE = this._score;
         }
-                                
-    
-    },
+ },
 });
 
 var PlayScene = cc.Scene.extend({
