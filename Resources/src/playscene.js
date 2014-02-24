@@ -416,8 +416,8 @@ createWall: function(){
 
     updateScore:function(){                   
         CURRENT_SCORE = this._score;
-        if(this._score>BEST_SCORE) {
-            BEST_SCORE = this._score;
+        if(this._score > sys.localStorage.getItem('highScore')) {
+            sys.localStorage.setItem('highScore', this._score);
         }
  },
 });
