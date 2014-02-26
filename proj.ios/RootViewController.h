@@ -24,11 +24,11 @@
  ****************************************************************************/
 
 #import <UIKit/UIKit.h>
-#import "GADBannerView.h"
+
 
 @interface RootViewController : UIViewController {
     
-    GADBannerView *bannerView_;
+   
 }
 
 @end

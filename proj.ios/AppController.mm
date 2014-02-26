@@ -51,6 +51,22 @@ static AppDelegate s_sharedApplication;
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
+    
+    
+    
+    
+    bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    [bannerView_ setFrame:CGRectMake(0,
+                                     screenHeight-bannerView_.bounds.size.height,
+                                     bannerView_.bounds.size.width,
+                                     bannerView_.bounds.size.height)];
+    bannerView_.adUnitID = @"ca-app-pub-4106182710083142/8799461914";
+    bannerView_.rootViewController = viewController;
+    [viewController.view addSubview:bannerView_];
+    [bannerView_ loadRequest:[GADRequest request]];
 
     cocos2d::CCApplication::sharedApplication()->run();
 

@@ -20,29 +20,13 @@
 }
 */
 
-
+/*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Create a view of the standard size at the top of the screen.
-    // Available AdSize constants are explained in GADAdSize.h.
-    // Create a view of the standard size.
-    bannerView_ = [[GADBannerView alloc]
-                   initWithFrame:CGRectMake(0,366,320,50)];
-    
-    // Specify the ad unit ID.
-    bannerView_.adUnitID = @"ca-app-pub-4106182710083142/8799461914";
-    
-    // Let the runtime know which UIViewController to restore after taking
-    // the user wherever the ad goes and add it to the view hierarchy.
-    bannerView_.rootViewController = self;
-    [self.view addSubview:bannerView_];
-    
-    // Initiate a generic request to load it with an ad.
-    [bannerView_ loadRequest:[GADRequest request]];
 }
- 
+ */  
 
 // Override to allow orientations other than the default portrait orientation.
 // This method is deprecated on ios6

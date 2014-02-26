@@ -2076,6 +2076,7 @@
 					"-lxml2",
 					"-lz",
 					"-ljs_static",
+					"-ObjC",
 				);
 				PRODUCT_NAME = flappy;
 				TARGETED_DEVICE_FAMILY = "1,2";
