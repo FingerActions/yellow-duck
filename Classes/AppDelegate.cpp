@@ -22,6 +22,19 @@
 USING_NS_CC;
 using namespace CocosDenshion;
 
+
+
+typedef struct tagResource
+{
+    cocos2d::CCSize size;
+    char directory[100];
+}Resource;
+
+static Resource smallResource  =  { cocos2d::CCSizeMake(480, 320),   "iphone" };
+static Resource mediumResource =  { cocos2d::CCSizeMake(1024, 768),  "ipad"   };
+static Resource largeResource  =  { cocos2d::CCSizeMake(2048, 1536), "ipadhd" };
+static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(480, 320);
+
 AppDelegate::AppDelegate()
 {
 }
@@ -36,6 +49,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     // initialize director
     CCDirector *pDirector = CCDirector::sharedDirector();
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
+    
+
+    CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
+    CCSize frameSize = CCEGLView::sharedOpenGLView()->getFrameSize();
+    
     
     // turn on display FPS
     pDirector->setDisplayStats(false);
@@ -65,6 +83,35 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     
     ScriptingCore::getInstance()->runScript("cocos2d-jsb.js");
+    
+    
+    CCEGLView *pEGLView = CCEGLView::sharedOpenGLView();
+    pDirector->setOpenGLView(pEGLView);
+    CCSize frame_size = pEGLView->getFrameSize();
+    std::vector<std::string> res_dir_orders;
+    
+    if(1136 == frame_size.width || 1136 == frame_size.height)
+    {
+        
+        res_dir_orders.push_back("iphonehd5");
+        res_dir_orders.push_back("iphonehd");
+        res_dir_orders.push_back("iphone");
+        
+    }else if(960 == frame_size.width || 960 == frame_size.height)
+    {
+        
+        res_dir_orders.push_back("iphonehd");
+        res_dir_orders.push_back("iphone");
+        
+    }else{
+        
+        res_dir_orders.push_back("iphone");
+        
+    }
+    
+    CCFileUtils::sharedFileUtils()->setSearchResolutionsOrder(res_dir_orders);
+    
+    
    
        
     return true;

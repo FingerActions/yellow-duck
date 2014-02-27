@@ -12,6 +12,7 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
+
 // cocos2d application instance
 static AppDelegate s_sharedApplication;
 
@@ -51,9 +52,6 @@ static AppDelegate s_sharedApplication;
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
-    
-    
-    
     
     bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
     CGRect screenRect = [[UIScreen mainScreen] bounds];

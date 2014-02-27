@@ -14,6 +14,8 @@
 
 + (void)showAddAtTop {
     
+    NSLog(@"Hello, World!");
+    
     if (view && size.width > 0) {
         [view setFrame:CGRectMake(0, -13, 320, 500)];
     }
