@@ -247,6 +247,9 @@
 		EEA5068218BCAC7900BBF285 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5068118BCAC7900BBF285 /* MessageUI.framework */; };
 		EEA5068418BCAC8200BBF285 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5068318BCAC8200BBF285 /* StoreKit.framework */; };
 		EEA5068618BCAC9100BBF285 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5068518BCAC9100BBF285 /* SystemConfiguration.framework */; };
+		EEA5069A18BF473B00BBF285 /* MyAdManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEA5069918BF473B00BBF285 /* MyAdManager.mm */; };
+		EEA5069E18BF484000BBF285 /* AdBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEA5069C18BF484000BBF285 /* AdBridge.mm */; };
+		EEA506A518BF588700BBF285 /* js_ls_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEA506A318BF588700BBF285 /* js_ls_auto.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -726,6 +729,13 @@
 		EEA5068118BCAC7900BBF285 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		EEA5068318BCAC8200BBF285 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EEA5068518BCAC9100BBF285 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EEA5069818BF46A600BBF285 /* MyAdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAdManager.h; sourceTree = "<group>"; };
+		EEA5069918BF473B00BBF285 /* MyAdManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAdManager.mm; sourceTree = "<group>"; };
+		EEA5069B18BF475F00BBF285 /* myoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myoc.h; sourceTree = "<group>"; };
+		EEA5069C18BF484000BBF285 /* AdBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AdBridge.mm; path = ../proj.ios/AdBridge.mm; sourceTree = "<group>"; };
+		EEA5069D18BF484000BBF285 /* AdBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdBridge.h; path = ../proj.ios/AdBridge.h; sourceTree = "<group>"; };
+		EEA506A218BF581500BBF285 /* jsb_ls_auto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jsb_ls_auto.h; sourceTree = "<group>"; };
+		EEA506A318BF588700BBF285 /* js_ls_auto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = js_ls_auto.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1638,6 +1648,9 @@
 				D45446D0156DE74F00887EB5 /* Prefix.pch */,
 				D45446D1156DE74F00887EB5 /* RootViewController.h */,
 				D45446D2156DE74F00887EB5 /* RootViewController.mm */,
+				EEA5069818BF46A600BBF285 /* MyAdManager.h */,
+				EEA5069918BF473B00BBF285 /* MyAdManager.mm */,
+				EEA5069B18BF475F00BBF285 /* myoc.h */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -1645,8 +1658,12 @@
 		D4545214156E28EF00887EB5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				EEA5069C18BF484000BBF285 /* AdBridge.mm */,
+				EEA5069D18BF484000BBF285 /* AdBridge.h */,
 				D4545215156E28EF00887EB5 /* AppDelegate.cpp */,
 				D4545216156E28EF00887EB5 /* AppDelegate.h */,
+				EEA506A218BF581500BBF285 /* jsb_ls_auto.h */,
+				EEA506A318BF588700BBF285 /* js_ls_auto.cpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -1788,6 +1805,7 @@
 				15A3D38E1682F0B6002FB0C5 /* cpConstraint.c in Sources */,
 				15A3D38F1682F0B6002FB0C5 /* cpDampedRotarySpring.c in Sources */,
 				15A3D3901682F0B6002FB0C5 /* cpDampedSpring.c in Sources */,
+				EEA506A518BF588700BBF285 /* js_ls_auto.cpp in Sources */,
 				15A3D3911682F0B6002FB0C5 /* cpGearJoint.c in Sources */,
 				15A3D3921682F0B6002FB0C5 /* cpGrooveJoint.c in Sources */,
 				15A3D3931682F0B6002FB0C5 /* cpPinJoint.c in Sources */,
@@ -1908,6 +1926,7 @@
 				3EC20B7218331C6100F2C4D6 /* SceneReader.cpp in Sources */,
 				1A40E7A81727C102006D4861 /* SlotData.cpp in Sources */,
 				375BD534186845B70024609E /* TriggerMng.cpp in Sources */,
+				EEA5069A18BF473B00BBF285 /* MyAdManager.mm in Sources */,
 				1A40E7A91727C102006D4861 /* spine-cocos2dx.cpp in Sources */,
 				1A40E7B01727C3DB006D4861 /* jsb_opengl_functions.cpp in Sources */,
 				375BD525186845B00024609E /* CCActionFrameEasing.cpp in Sources */,
@@ -1930,6 +1949,7 @@
 				1A5E74A217F0874400B9ACAE /* CCBone.cpp in Sources */,
 				3EC20B7D18331CA200F2C4D6 /* jsb_cocos2d_studio.js in Sources */,
 				1A5E74A317F0874400B9ACAE /* CCDatas.cpp in Sources */,
+				EEA5069E18BF484000BBF285 /* AdBridge.mm in Sources */,
 				1A5E74A417F0874400B9ACAE /* CCBatchNode.cpp in Sources */,
 				1A5E74A517F0874400B9ACAE /* CCDecorativeDisplay.cpp in Sources */,
 				1A5E74A617F0874400B9ACAE /* CCDisplayFactory.cpp in Sources */,
