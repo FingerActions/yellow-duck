@@ -15,6 +15,8 @@
 #include "jsb_opengl_registration.h"
 #include "XMLHTTPRequest.h"
 #include "jsb_websocket.h"
+#include "AdBridge.h"
+#include "jsb_ls_auto.h"
 
 
 USING_NS_CC;
@@ -54,12 +56,16 @@ bool AppDelegate::applicationDidFinishLaunching()
     sc->addRegisterCallback(JSB_register_opengl);
     sc->addRegisterCallback(MinXmlHttpRequest::_js_register);
     sc->addRegisterCallback(register_jsb_websocket);
+    sc->addRegisterCallback(register_all_ls);
 
     sc->start();
     
     CCScriptEngineProtocol *pEngine = ScriptingCore::getInstance();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
+
+    
     ScriptingCore::getInstance()->runScript("cocos2d-jsb.js");
+   
        
     return true;
 }
