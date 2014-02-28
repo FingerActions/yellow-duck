@@ -63,8 +63,8 @@ var ScoreLayer = cc.Layer.extend({
         this.size = cc.Director.getInstance().getWinSize();
 
         //create score banner
-        this._scorebanner = cc.LayerColor.create(cc.c4b(0,0,0,0),250,300);
-        this._scorebanner.setPosition(cc.p(30,80));
+        this._scorebanner = cc.LayerColor.create(cc.c4b(0,0,0,0),this.size.width-60,this.size.height-150);
+        this._scorebanner.setPosition(cc.p(30,this.size.height/10));
         this.addChild(this._scorebanner,3);
         var fadein = cc.FadeTo.create(1.0,150);
         this._scorebanner.runAction(fadein);

@@ -63,8 +63,8 @@ director.runWithScene(myScene);
 cc.SpriteFrameCache.getInstance().addSpriteFrames(s_seashell_plist,s_seashell_png);
 
 
-var ls = ls.AdBridge.create();
-ls.showAdAtTop();
+//var ls = ls.AdBridge.create();
+//ls.showAdAtTop();
 
 
 

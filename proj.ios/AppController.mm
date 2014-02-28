@@ -58,13 +58,16 @@ static AppDelegate s_sharedApplication;
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
     [bannerView_ setFrame:CGRectMake(0,
-                                     screenHeight-bannerView_.bounds.size.height,
+                                     0,
                                      bannerView_.bounds.size.width,
                                      bannerView_.bounds.size.height)];
     bannerView_.adUnitID = @"ca-app-pub-4106182710083142/8799461914";
     bannerView_.rootViewController = viewController;
     [viewController.view addSubview:bannerView_];
     [bannerView_ loadRequest:[GADRequest request]];
+    
+    
+
 
     cocos2d::CCApplication::sharedApplication()->run();
 

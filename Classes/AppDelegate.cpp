@@ -86,32 +86,36 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     
     CCEGLView *pEGLView = CCEGLView::sharedOpenGLView();
+    
+    pEGLView->setDesignResolutionSize(320, 480, kResolutionFixedHeight);
+    
+    /*
     pDirector->setOpenGLView(pEGLView);
     CCSize frame_size = pEGLView->getFrameSize();
     std::vector<std::string> res_dir_orders;
     
-    if(1136 == frame_size.width || 1136 == frame_size.height)
+    if(1136 == frame_size.height)
     {
         
-        res_dir_orders.push_back("iphonehd5");
-        res_dir_orders.push_back("iphonehd");
-        res_dir_orders.push_back("iphone");
+        res_dir_orders.push_back("res/iphonehd5");
+        res_dir_orders.push_back("res/iphonehd");
+        res_dir_orders.push_back("res/iphone");
         
-    }else if(960 == frame_size.width || 960 == frame_size.height)
+    }else if(960 == frame_size.height)
     {
         
-        res_dir_orders.push_back("iphonehd");
-        res_dir_orders.push_back("iphone");
+        res_dir_orders.push_back("/res/iphonehd");
+        res_dir_orders.push_back("/res/iphone");
         
     }else{
         
-        res_dir_orders.push_back("iphone");
+        res_dir_orders.push_back("res/iphone");
         
     }
     
     CCFileUtils::sharedFileUtils()->setSearchResolutionsOrder(res_dir_orders);
     
-    
+    */
    
        
     return true;
