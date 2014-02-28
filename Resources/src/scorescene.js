@@ -131,7 +131,7 @@ var ScoreLayer = cc.Layer.extend({
 
     tweet: function(){
         cc.log(cc.Application.getInstance());
-        cc.Application.getInstance().openURL("www.google.com");
+        cc.Application.getInstance().openURL("http://www.google.com");
         //https://twitter.com/intent/tweet?
     },
 

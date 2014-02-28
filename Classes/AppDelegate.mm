@@ -17,6 +17,7 @@
 #include "jsb_websocket.h"
 #include "AdBridge.h"
 #include "jsb_ls_auto.h"
+#include "GameKitHelper.h"
 
 
 USING_NS_CC;
@@ -49,6 +50,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     // initialize director
     CCDirector *pDirector = CCDirector::sharedDirector();
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
+    
+    
+    [[GameKitHelper sharedGameKitHelper] authenticateLocalUser];
+    
+    //[[GameKitHelper sharedGameKitHelper] showLeaderboard];
     
 
     CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
