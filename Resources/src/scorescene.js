@@ -105,9 +105,9 @@ var ScoreLayer = cc.Layer.extend({
         // add the label as a child to this layer
         this.addChild(this._currentscore_label, 5);
 
-        this._tapcontinue = cc.LabelTTF.create("TAP TO CONTINUE", "Marker Felt", 28);
+        this._tapcontinue = cc.LabelTTF.create("TAP TO CONTINUE", "Marker Felt", 24);
         // position the label on the center of the screen
-        this._tapcontinue.setPosition(cc.p(this.size.width / 2, this.size.height - 350));
+        this._tapcontinue.setPosition(cc.p(this.size.width / 2, this.size.height - 300));
         // add the label as a child to this layer
         this.addChild(this._tapcontinue, 5);
 
@@ -116,7 +116,23 @@ var ScoreLayer = cc.Layer.extend({
         var sequence = cc.RepeatForever.create(cc.Sequence.create(fadein_tap,fadeout_tap));
 
         this._tapcontinue.runAction(sequence);
+
+        // social networks
+        var twitterButton = cc.MenuItemImage.create('res/twitter.png', 'res/twitter.png', this.tweet, this);
+        twitterButton.setPosition(cc.p(-50, 0));
+        twitterButton.setScale(0.4);
+        
+        var socialMenu = cc.Menu.create(twitterButton);
+        socialMenu.setPosition(cc.p(this.size.width / 2, this.size.height - 360));
+        this.addChild(socialMenu, 5);
+
         return true;
+    },
+
+    tweet: function(){
+        cc.log(cc.Application.getInstance());
+        cc.Application.getInstance().openURL("www.google.com");
+        //https://twitter.com/intent/tweet?
     },
 
     onTouchesBegan: function (touches, event) {
