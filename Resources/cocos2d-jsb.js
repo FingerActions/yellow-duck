@@ -55,7 +55,7 @@ var myScene = new MyScene();
 director.runWithScene(myScene);
 
 //disable retina display
-cc.EGLView.getInstance().setDesignResolutionSize(320,480,cc.RESOLUTION_POLICY.SHOW_ALL);
+//cc.EGLView.getInstance().setDesignResolutionSize(320,480,cc.RESOLUTION_POLICY.SHOW_ALL);
 
 
 //load seashells background
