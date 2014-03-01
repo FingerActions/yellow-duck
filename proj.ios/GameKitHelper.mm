@@ -88,6 +88,11 @@ static UIViewController* currentModalViewController = nil;
         UIWindow *window = [[UIApplication sharedApplication] keyWindow];
         currentModalViewController = [[UIViewController alloc] init];
         [window addSubview:currentModalViewController.view];
+        
+        leaderboardController.leaderboardDelegate = self;
+        leaderboardController.category=@"scoreboard";
+        leaderboardController.timeScope = GKLeaderboardTimeScopeAllTime;
+    
         [currentModalViewController presentModalViewController:leaderboardController animated:YES];
     }
     

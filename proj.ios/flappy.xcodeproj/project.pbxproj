@@ -239,7 +239,7 @@
 		D45446D5156DE74F00887EB5 /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D45446D2156DE74F00887EB5 /* RootViewController.mm */; };
 		D454520A156E22B400887EB5 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4545209156E22B400887EB5 /* libxml2.dylib */; };
 		D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D454520B156E22BD00887EB5 /* libz.dylib */; };
-		D4545227156E28EF00887EB5 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = D4545215156E28EF00887EB5 /* AppDelegate.mm */; };
+		D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4545215156E28EF00887EB5 /* AppDelegate.cpp */; };
 		EEA5067B18BCABCF00BBF285 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5067918BCABCF00BBF285 /* libGoogleAdMobAds.a */; };
 		EEA5067C18BCABCF00BBF285 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEA5067A18BCABCF00BBF285 /* README.txt */; };
 		EEA5067E18BCAC5C00BBF285 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5067D18BCAC5C00BBF285 /* AdSupport.framework */; };
@@ -252,6 +252,8 @@
 		EEA506A518BF588700BBF285 /* js_ls_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EEA506A318BF588700BBF285 /* js_ls_auto.cpp */; };
 		EEA506B018C0CE1400BBF285 /* GameKitHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEA506AF18C0CE1400BBF285 /* GameKitHelper.mm */; };
 		EEA506B218C0D0C000BBF285 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506B118C0D0C000BBF285 /* GameKit.framework */; };
+		EEA506BD18C15F3000BBF285 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506BC18C15F3000BBF285 /* CoreData.framework */; };
+		EEA506BE18C1855E00BBF285 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506BA18C15E9B00BBF285 /* libGoogleAnalyticsServices.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -713,7 +715,7 @@
 		D45446D6156DE79D00887EB5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4545209156E22B400887EB5 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		D454520B156E22BD00887EB5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		D4545215156E28EF00887EB5 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		D4545215156E28EF00887EB5 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		D4545216156E28EF00887EB5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EEA5067018BCABCF00BBF285 /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
 		EEA5067118BCABCF00BBF285 /* GADAdNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdNetworkExtras.h; sourceTree = "<group>"; };
@@ -741,6 +743,14 @@
 		EEA506AE18C0CDF600BBF285 /* GameKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameKitHelper.h; sourceTree = "<group>"; };
 		EEA506AF18C0CE1400BBF285 /* GameKitHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameKitHelper.mm; sourceTree = "<group>"; };
 		EEA506B118C0D0C000BBF285 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		EEA506B418C15E5400BBF285 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		EEA506B518C15E5400BBF285 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		EEA506B618C15E5400BBF285 /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		EEA506B718C15E5400BBF285 /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		EEA506B818C15E5400BBF285 /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		EEA506B918C15E5400BBF285 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		EEA506BA18C15E9B00BBF285 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		EEA506BC18C15F3000BBF285 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -748,15 +758,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEA506B218C0D0C000BBF285 /* GameKit.framework in Frameworks */,
+				EEA506BE18C1855E00BBF285 /* libGoogleAnalyticsServices.a in Frameworks */,
+				D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */,
 				EEA5068618BCAC9100BBF285 /* SystemConfiguration.framework in Frameworks */,
+				EEA506BD18C15F3000BBF285 /* CoreData.framework in Frameworks */,
+				EEA5067E18BCAC5C00BBF285 /* AdSupport.framework in Frameworks */,
+				EEA506B218C0D0C000BBF285 /* GameKit.framework in Frameworks */,
 				EEA5068418BCAC8200BBF285 /* StoreKit.framework in Frameworks */,
 				EEA5068218BCAC7900BBF285 /* MessageUI.framework in Frameworks */,
 				EEA5068018BCAC7000BBF285 /* CoreTelephony.framework in Frameworks */,
-				EEA5067E18BCAC5C00BBF285 /* AdSupport.framework in Frameworks */,
 				1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */,
 				15A3D2F71682F08C002FB0C5 /* libcocos2dx.a in Frameworks */,
-				D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */,
 				D454520A156E22B400887EB5 /* libxml2.dylib in Frameworks */,
 				A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */,
 				A92275441517C094001B78AA /* OpenGLES.framework in Frameworks */,
@@ -1597,6 +1609,7 @@
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
+				EEA506B318C15D4F00BBF285 /* GoogleAnalyticsSDK */,
 				EEA5066F18BCAB7200BBF285 /* GoogleAdmobSDK */,
 				15A3D2EC1682F076002FB0C5 /* cocos2dx.xcodeproj */,
 				15A3D2F81682F0A0002FB0C5 /* bindings */,
@@ -1623,6 +1636,7 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EEA506BC18C15F3000BBF285 /* CoreData.framework */,
 				EEA506B118C0D0C000BBF285 /* GameKit.framework */,
 				EEA5068518BCAC9100BBF285 /* SystemConfiguration.framework */,
 				EEA5068318BCAC8200BBF285 /* StoreKit.framework */,
@@ -1669,7 +1683,7 @@
 			children = (
 				EEA5069C18BF484000BBF285 /* AdBridge.mm */,
 				EEA5069D18BF484000BBF285 /* AdBridge.h */,
-				D4545215156E28EF00887EB5 /* AppDelegate.mm */,
+				D4545215156E28EF00887EB5 /* AppDelegate.cpp */,
 				D4545216156E28EF00887EB5 /* AppDelegate.h */,
 				EEA506A218BF581500BBF285 /* jsb_ls_auto.h */,
 				EEA506A318BF588700BBF285 /* js_ls_auto.cpp */,
@@ -1694,6 +1708,20 @@
 				EEA5067A18BCABCF00BBF285 /* README.txt */,
 			);
 			name = GoogleAdmobSDK;
+			sourceTree = "<group>";
+		};
+		EEA506B318C15D4F00BBF285 /* GoogleAnalyticsSDK */ = {
+			isa = PBXGroup;
+			children = (
+				EEA506BA18C15E9B00BBF285 /* libGoogleAnalyticsServices.a */,
+				EEA506B418C15E5400BBF285 /* GAI.h */,
+				EEA506B518C15E5400BBF285 /* GAIDictionaryBuilder.h */,
+				EEA506B618C15E5400BBF285 /* GAIFields.h */,
+				EEA506B718C15E5400BBF285 /* GAILogger.h */,
+				EEA506B818C15E5400BBF285 /* GAITrackedViewController.h */,
+				EEA506B918C15E5400BBF285 /* GAITracker.h */,
+			);
+			name = GoogleAnalyticsSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1799,7 +1827,7 @@
 				D45446D3156DE74F00887EB5 /* AppController.mm in Sources */,
 				D45446D4156DE74F00887EB5 /* main.m in Sources */,
 				D45446D5156DE74F00887EB5 /* RootViewController.mm in Sources */,
-				D4545227156E28EF00887EB5 /* AppDelegate.mm in Sources */,
+				D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */,
 				15A3D31F1682F0A0002FB0C5 /* cocos2d_specifics.cpp in Sources */,
 				15A3D3201682F0A0002FB0C5 /* cocosjs_manual_conversions.cpp in Sources */,
 				15A3D3291682F0A0002FB0C5 /* js_bindings_ccbreader.cpp in Sources */,
@@ -2101,6 +2129,7 @@
 					"\"$(SRCROOT)/../../../cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/../../../scripting/javascript/spidermonkey-ios/lib\"",
 					"\"$(SRCROOT)/\"",
+					"\"$(SRCROOT)/../../../Projects/flappy/proj.ios\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -2149,6 +2178,7 @@
 					"\"$(SRCROOT)/../../../cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/../../../scripting/javascript/spidermonkey-ios/lib\"",
 					"\"$(SRCROOT)/\"",
+					"\"$(SRCROOT)/../../../Projects/flappy/proj.ios\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",

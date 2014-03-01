@@ -6,6 +6,8 @@
 #import "AppDelegate.h"
 
 #import "RootViewController.h"
+#include "GameKitHelper.h"
+#include "GAI.h"
 
 @implementation AppController
 
@@ -65,6 +67,27 @@ static AppDelegate s_sharedApplication;
     bannerView_.rootViewController = viewController;
     [viewController.view addSubview:bannerView_];
     [bannerView_ loadRequest:[GADRequest request]];
+    
+    
+    
+    
+    
+    
+    [[GameKitHelper sharedGameKitHelper] authenticateLocalUser];
+    
+    [[GameKitHelper sharedGameKitHelper] showLeaderboard];
+    
+    // Optional: automatically send uncaught exceptions to Google Analytics.
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 20;
+    
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    
+    // Initialize tracker.
+    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
     
     
 
