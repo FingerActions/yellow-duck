@@ -140,7 +140,7 @@ var ScoreLayer = cc.Layer.extend({
     },
 
     share: function() {
-        // todo: change to download url
+        // todo: change to download urlchu
         var app_id = '145634995501895';
         var display = 'popup';
         var name = 'Bath Duck';
