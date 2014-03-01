@@ -137,7 +137,7 @@ var ScoreLayer = cc.Layer.extend({
     tweet: function() {
         // todo: change to download url
         var urlBase = 'https://twitter.com/intent/tweet?';
-        var text = 'I got ' + this._highScore + ' in Bath Duck! Download at... to challenge me!';
+        var text = 'I%20got%20' + this._highScore + '%20in%20Bath%20Duck!%20Download%20at?%20to%20challenge%20me!';
         var url = urlBase + 'text=' + text;
         cc.Application.getInstance().openURL(url);
     },
@@ -149,7 +149,7 @@ var ScoreLayer = cc.Layer.extend({
         var display = 'popup';
         var name = 'Bath Duck';
         var caption = 'I got ' + this._highScore + ' in Bath Duck!';
-        var description = 'Download at... to challenge me!';
+        var description = 'Download at? to challenge me!';
         var link = 'https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fdialogs%2F%20';
         var redirect_uri = 'https://developers.facebook.com/tools/explorer';
         var url = baseUrl + 'app_id=' + app_id + '&display=' + display + '&name=' + name + '&caption=' + caption + '&description=' + description + '&link=' + link + '&redirect_uri=' + redirect_uri;
