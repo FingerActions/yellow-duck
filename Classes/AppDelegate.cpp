@@ -17,8 +17,7 @@
 #include "jsb_websocket.h"
 #include "AdBridge.h"
 #include "jsb_ls_auto.h"
-#include "GameKitHelper.h"
-#include "GAI.h"
+
 
 
 USING_NS_CC;

@@ -9,6 +9,9 @@
 #include "GameKitHelper.h"
 #include "GAI.h"
 
+#import "GAIDictionaryBuilder.h"
+#import "GAIFields.h"
+
 @implementation AppController
 
 #pragma mark -
@@ -72,7 +75,7 @@ static AppDelegate s_sharedApplication;
     
     
     
-    
+    //Game Centre
     [[GameKitHelper sharedGameKitHelper] authenticateLocalUser];
     
     [[GameKitHelper sharedGameKitHelper] showLeaderboard];
@@ -90,7 +93,9 @@ static AppDelegate s_sharedApplication;
     id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
     
     
-
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            @"appview", kGAIHitType, @"Home Screen", kGAIScreenName, nil];
+    [tracker send:params];
 
     cocos2d::CCApplication::sharedApplication()->run();
 
