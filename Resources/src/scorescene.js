@@ -121,11 +121,11 @@ var ScoreLayer = cc.Layer.extend({
         // social networks
         var twitterButton = cc.MenuItemImage.create('res/twitter.png', 'res/twitter.png', this.tweet, this);
         twitterButton.setPosition(cc.p(-50, 0));
-        twitterButton.setScale(0.4);
+        twitterButton.setScale(0.08);
 
         var facebookButton = cc.MenuItemImage.create('res/facebook.png', 'res/facebook.png', this.share, this);
         facebookButton.setPosition(cc.p(50, 0));
-        facebookButton.setScale(0.4);
+        facebookButton.setScale(0.08);
 
         var socialMenu = cc.Menu.create(twitterButton, facebookButton);
         socialMenu.setPosition(cc.p(this.size.width / 2, this.size.height - 360));
