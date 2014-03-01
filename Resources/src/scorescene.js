@@ -147,9 +147,9 @@ var ScoreLayer = cc.Layer.extend({
         var baseUrl = 'https://www.facebook.com/dialog/feed?';
         var app_id = '145634995501895';
         var display = 'popup';
-        var name = 'Bath Duck';
-        var caption = 'I got ' + this._highScore + ' in Bath Duck!';
-        var description = 'Download at? to challenge me!';
+        var name = 'Bath%20Duck';
+        var caption = 'I%20got%20' + this._highScore + '%20in%20Bath%20Duck!';
+        var description = 'Download%20at?%20to%20challenge%20me!';
         var link = 'https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fdialogs%2F%20';
         var redirect_uri = 'https://developers.facebook.com/tools/explorer';
         var url = baseUrl + 'app_id=' + app_id + '&display=' + display + '&name=' + name + '&caption=' + caption + '&description=' + description + '&link=' + link + '&redirect_uri=' + redirect_uri;
