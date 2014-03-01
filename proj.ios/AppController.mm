@@ -71,14 +71,14 @@ static AppDelegate s_sharedApplication;
     [viewController.view addSubview:bannerView_];
     [bannerView_ loadRequest:[GADRequest request]];
     
-    
-    
-    
+
     
     //Game Centre
     [[GameKitHelper sharedGameKitHelper] authenticateLocalUser];
     
     [[GameKitHelper sharedGameKitHelper] showLeaderboard];
+    
+    
     
     // Optional: automatically send uncaught exceptions to Google Analytics.
     [GAI sharedInstance].trackUncaughtExceptions = YES;
