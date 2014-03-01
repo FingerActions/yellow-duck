@@ -98,6 +98,21 @@ static UIViewController* currentModalViewController = nil;
     
 }
 
+//PUSH SCORE
+- (void) reportScore: (int64_t) score forCategory: (NSString*) category
+{
+    GKScore *scoreReporter = [[[GKScore alloc] initWithCategory:category] autorelease];
+    scoreReporter.value = score;
+    
+    [scoreReporter reportScoreWithCompletionHandler:^(NSError *error) {
+        if (error != nil)
+        {
+            // handle the reporting error
+        }
+    }];
+}
+
+
 //关闭排行榜回调
 - (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController{
     if(currentModalViewController !=nil){

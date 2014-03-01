@@ -23,6 +23,8 @@
 + (GameKitHelper *)sharedGameKitHelper;
 - (void) authenticateLocalUser;
 
+- (void) reportScore: (int64_t) score forCategory: (NSString*) category;
+
 - (void) showLeaderboard;
 - (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController;
 
