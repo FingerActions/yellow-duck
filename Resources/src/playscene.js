@@ -418,6 +418,9 @@ createWall: function(){
         CURRENT_SCORE = this._score;
         if(this._score > sys.localStorage.getItem('highScore')) {
             sys.localStorage.setItem('highScore', this._score);
+                            
+                                
+                                
         }
  },
 });

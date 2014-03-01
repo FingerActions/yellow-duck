@@ -6,8 +6,8 @@
 #import "AppDelegate.h"
 
 #import "RootViewController.h"
-#include "GameKitHelper.h"
-#include "GAI.h"
+#import "GameKitHelper.h"
+#import "GAI.h"
 
 #import "GAIDictionaryBuilder.h"
 #import "GAIFields.h"

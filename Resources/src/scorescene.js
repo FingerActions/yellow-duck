@@ -69,7 +69,7 @@ var ScoreLayer = cc.Layer.extend({
         var fadein = cc.FadeTo.create(1.0, 150);
         this._scorebanner.runAction(fadein);
 
-        this._highScore = sys.localStorage.getItem('highScore')
+        this._highScore = sys.localStorage.getItem('highScore');
         //add score on banner
         // create and initialize a label
         this._bestscore = cc.LabelTTF.create(this._highScore, "Marker Felt", 25);

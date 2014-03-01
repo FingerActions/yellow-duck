@@ -15,8 +15,8 @@
 #include "jsb_opengl_registration.h"
 #include "XMLHTTPRequest.h"
 #include "jsb_websocket.h"
-#include "AdBridge.h"
-#include "jsb_ls_auto.h"
+#include "jsb_gamecenter_auto.h"
+
 
 
 
@@ -77,6 +77,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     sc->addRegisterCallback(MinXmlHttpRequest::_js_register);
     sc->addRegisterCallback(register_jsb_websocket);
     sc->addRegisterCallback(register_all_ls);
+    
+    //sc->addRegisterCallback(register_all_ls);
 
     sc->start();
     

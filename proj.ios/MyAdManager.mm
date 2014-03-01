@@ -6,7 +6,6 @@
 //
 //
 
-#include "MyAdManager.h"
 #import "MyAdManager.h"
 #import "myoc.h"
 

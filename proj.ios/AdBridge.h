@@ -23,10 +23,14 @@ class AdBridge: public cocos2d::CCObject{
 public:
     static cocos2d::CCScene* scene();
     virtual bool init();
+    
     CREATE_FUNC(AdBridge);
     
     void showAdAtTop();
     void showAdAtBottom();
+    
+    
+    
 };
     
     

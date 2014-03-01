@@ -6,8 +6,8 @@
 //
 //
 
-#include "GameKitHelper.h"
 #import "GameKitHelper.h"
+
 
 @implementation GameKitHelper
 @synthesize gameCenterAvailable;
