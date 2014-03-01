@@ -136,11 +136,15 @@ var ScoreLayer = cc.Layer.extend({
 
     tweet: function() {
         // todo: change to download url
-        cc.Application.getInstance().openURL('https://twitter.com/intent/tweet?text=I got ' + this._highScore + ' in Bath Duck! Download at... to challenge me!');
+        var urlBase = 'https://twitter.com/intent/tweet?';
+        var text = 'I got ' + this._highScore + ' in Bath Duck! Download at... to challenge me!';
+        var url = urlBase + 'text=' + text;
+        cc.Application.getInstance().openURL(url);
     },
 
     share: function() {
-        // todo: change to download urlchu
+        // todo: change to download url
+        var baseUrl = 'https://www.facebook.com/dialog/feed?';
         var app_id = '145634995501895';
         var display = 'popup';
         var name = 'Bath Duck';
@@ -148,7 +152,8 @@ var ScoreLayer = cc.Layer.extend({
         var description = 'Download at... to challenge me!';
         var link = 'https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fdialogs%2F%20';
         var redirect_uri = 'https://developers.facebook.com/tools/explorer';
-        cc.Application.getInstance().openURL('https://www.facebook.com/dialog/feed?app_id=' + app_id + '&display=' + display + '&name=' + name + '&caption=' + caption + '&description=' + description + '&link=' + link + '&redirect_uri=' + redirect_uri);
+        var url = baseUrl + 'app_id=' + app_id + '&display=' + display + '&name=' + name + '&caption=' + caption + '&description=' + description + '&link=' + link + '&redirect_uri=' + redirect_uri；
+        cc.Application.getInstance().openURL(url);
     },
 
     onTouchesBegan: function(touches, event) {
