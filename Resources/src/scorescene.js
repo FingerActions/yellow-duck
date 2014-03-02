@@ -126,17 +126,17 @@ var ScoreLayer = cc.Layer.extend({
         var facebookButton = cc.MenuItemImage.create('res/facebook.png', 'res/facebook.png', this.share, this);
         facebookButton.setPosition(cc.p(50, 0));
         facebookButton.setScale(0.08);
+                                 
+        //leaderboard
+        var leaderboardButton = cc.MenuItemImage.create('res/leaderboard.png','res/leaderboard.png',this.leaderboard,this);
+        leaderboardButton.setPosition(cc.p(0, -50                                                                                                              ));
+        leaderboardButton.setScale(0.5);
+                                 
 
-        var socialMenu = cc.Menu.create(twitterButton, facebookButton);
+        var socialMenu = cc.Menu.create(twitterButton, facebookButton,leaderboardButton);
         socialMenu.setPosition(cc.p(this.size.width / 2, this.size.height - 330));
         this.addChild(socialMenu, 5);
-                                 
-                                 
-   
-                                 var myclass= new ls.GameCenterBridge();
-                                 
-                                 myclass.showleaderboard();
-        
+                                
 
         return true;
     },
@@ -161,6 +161,15 @@ var ScoreLayer = cc.Layer.extend({
         var redirect_uri = 'https://developers.facebook.com/tools/explorer';
         var url = baseUrl + 'app_id=' + app_id + '&display=' + display + '&name=' + name + '&caption=' + caption + '&description=' + description + '&link=' + link + '&redirect_uri=' + redirect_uri;
         cc.Application.getInstance().openURL(url);
+    },
+                                 
+    leaderboard: function(){
+                                 
+                                 
+        var myclass= new ls.GameCenterBridge();
+                                 
+        myclass.showleaderboard();
+                                 
     },
 
     onTouchesBegan: function(touches, event) {

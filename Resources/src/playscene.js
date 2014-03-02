@@ -412,7 +412,7 @@ var PlayLayer = cc.Layer.extend({
           cc.log("I am pusing");
           var myclass= new ls.GameCenterBridge();
                                 
-          myclass.pushscore(this._score,"scoreboard");
+          myclass.pushscore(this._score,"BathDuck");
           
                                 
 
