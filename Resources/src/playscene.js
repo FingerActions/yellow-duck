@@ -433,5 +433,10 @@ var PlayScene = cc.Scene.extend({
         var layer = new PlayLayer();
         this.addChild(layer);
         layer.init();
+        
+        var myclass= new ls.GameCenterBridge();
+        
+        myclass.pushscenename("playscene");
+
     }
 });

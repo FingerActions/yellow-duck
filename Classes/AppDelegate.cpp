@@ -120,8 +120,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     CCFileUtils::sharedFileUtils()->setSearchResolutionsOrder(res_dir_orders);
     
     */
-    
-   
        
     return true;
 }

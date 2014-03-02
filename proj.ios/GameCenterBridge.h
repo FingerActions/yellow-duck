@@ -14,6 +14,7 @@
 
 
 
+
 namespace ls{
     
     
@@ -28,6 +29,10 @@ namespace ls{
         
         void pushscore(string score, string category);
         void showleaderboard();
+        
+        //used in google analytics to push current view
+        void pushscenename(string scene);
+        
         
     };
 

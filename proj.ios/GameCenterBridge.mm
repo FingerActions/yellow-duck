@@ -9,6 +9,11 @@
 #include "GameCenterBridge.h"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include "MyGameCenterManager.h"
+
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAIFields.h"
+
 #endif
 
 void ls::GameCenterBridge::pushscore(string score,string cat){
@@ -43,6 +48,27 @@ void ls::GameCenterBridge::showleaderboard(){
 #endif
     
 }
+
+
+void ls::GameCenterBridge::pushscenename(string scene){
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    
+    // Initialize tracker.
+    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
+    
+    
+    NSString* nameofscene = [NSString stringWithUTF8String:scene.c_str() ];
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            @"appview", kGAIHitType, nameofscene, kGAIScreenName, nil];
+    [tracker send:params];
+    
+    
+#endif
+    
+}
+
 
 
 

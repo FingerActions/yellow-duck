@@ -64,6 +64,34 @@ JSBool js_ls_GameCenterBridge_showleaderboard(JSContext *cx, uint32_t argc, jsva
 }
 
 
+//binding pushscenename of google analytics
+
+JSBool js_ls_GameCenterBridge_pushscenename(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSBool ok = JS_TRUE;
+    jsval *argv = JS_ARGV(cx, vp);
+    
+	JSObject *obj = NULL;
+    ls::GameCenterBridge* cobj = NULL;
+	obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy = jsb_get_js_proxy(obj);
+	cobj = (ls::GameCenterBridge *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+    if (argc == 1) {
+        
+        std::string _scenename;
+    
+        jsval_to_std_string(cx, argv[0], &_scenename);
+        cobj->pushscenename(_scenename);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+        return ok;
+    }
+    
+    JS_ReportError(cx, "wrong number of arguments");
+	return JS_FALSE;
+}
+
+
 JSBool js_ls_GameCenterBridge_constructor(JSContext *cx, uint32_t argc, jsval *vp)
 {
     cocos2d::CCLog("js ls lsleafsoar constructor ..");
@@ -138,6 +166,8 @@ void js_register_ls_GameCenterBridge(JSContext *cx, JSObject *global) {
 	static JSFunctionSpec funcs[] = {
 		JS_FN("pushscore", js_ls_GameCenterBridge_pushscore, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("showleaderboard", js_ls_GameCenterBridge_showleaderboard, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("pushscenename", js_ls_GameCenterBridge_pushscenename, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        
         JS_FS_END
 	};
     
