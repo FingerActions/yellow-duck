@@ -31,6 +31,21 @@ void ls::GameCenterBridge::pushscore(string score,string cat){
 }
 
 
+
+void ls::GameCenterBridge::showleaderboard(){
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    
+    
+    [MyGameCenterManager showLeaderboard];
+    
+    
+#endif
+    
+}
+
+
+
 bool ls::GameCenterBridge::init(){
     bool bRef = false;
     do {

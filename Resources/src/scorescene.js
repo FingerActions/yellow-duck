@@ -63,8 +63,8 @@ var ScoreLayer = cc.Layer.extend({
         this.size = cc.Director.getInstance().getWinSize();
 
         //create score banner
-        this._scorebanner = cc.LayerColor.create(cc.c4b(0, 0, 0, 0), this.size.width - 60, this.size.height - 150);
-        this._scorebanner.setPosition(cc.p(30, this.size.height / 10));
+        this._scorebanner = cc.LayerColor.create(cc.c4b(0, 0, 0, 0), this.size.width - 20, this.size.height - 120);
+        this._scorebanner.setPosition(cc.p(10, this.size.height / 10));
         this.addChild(this._scorebanner, 3);
         var fadein = cc.FadeTo.create(1.0, 150);
         this._scorebanner.runAction(fadein);
@@ -74,14 +74,14 @@ var ScoreLayer = cc.Layer.extend({
         // create and initialize a label
         this._bestscore = cc.LabelTTF.create(this._highScore, "Marker Felt", 25);
         // position the label on the center of the screen
-        this._bestscore.setPosition(cc.p(this.size.width / 2 + 50, this.size.height - 200));
+        this._bestscore.setPosition(cc.p(this.size.width / 2 + 50, this.size.height - 180));
         // add the label as a child to this layer
         this.addChild(this._bestscore, 5);
 
         // create and initialize a label
         this._currentscore = cc.LabelTTF.create(CURRENT_SCORE, "Marker Felt", 25);
         // position the label on the center of the screen
-        this._currentscore.setPosition(cc.p(this.size.width / 2 + 50, this.size.height - 250));
+        this._currentscore.setPosition(cc.p(this.size.width / 2 + 50, this.size.height - 230));
         // add the label as a child to this layer
         this.addChild(this._currentscore, 5);
 
@@ -95,20 +95,20 @@ var ScoreLayer = cc.Layer.extend({
         this.addChild(this._gameover, 5);
         this._bestscore_label = cc.LabelTTF.create("Best", "Marker Felt", 25);
         // position the label on the center of the screen
-        this._bestscore_label.setPosition(cc.p(this.size.width / 2 - 50, this.size.height - 200));
+        this._bestscore_label.setPosition(cc.p(this.size.width / 2 - 50, this.size.height - 180));
         // add the label as a child to this layer
         this.addChild(this._bestscore_label, 5);
 
         // create and initialize a label
         this._currentscore_label = cc.LabelTTF.create("Score", "Marker Felt", 25);
         // position the label on the center of the screen
-        this._currentscore_label.setPosition(cc.p(this.size.width / 2 - 50, this.size.height - 250));
+        this._currentscore_label.setPosition(cc.p(this.size.width / 2 - 50, this.size.height - 230));
         // add the label as a child to this layer
         this.addChild(this._currentscore_label, 5);
 
         this._tapcontinue = cc.LabelTTF.create("TAP TO CONTINUE", "Marker Felt", 24);
         // position the label on the center of the screen
-        this._tapcontinue.setPosition(cc.p(this.size.width / 2, this.size.height - 300));
+        this._tapcontinue.setPosition(cc.p(this.size.width / 2, this.size.height - 280));
         // add the label as a child to this layer
         this.addChild(this._tapcontinue, 5);
 
@@ -128,8 +128,15 @@ var ScoreLayer = cc.Layer.extend({
         facebookButton.setScale(0.08);
 
         var socialMenu = cc.Menu.create(twitterButton, facebookButton);
-        socialMenu.setPosition(cc.p(this.size.width / 2, this.size.height - 360));
+        socialMenu.setPosition(cc.p(this.size.width / 2, this.size.height - 330));
         this.addChild(socialMenu, 5);
+                                 
+                                 
+   
+                                 var myclass= new ls.GameCenterBridge();
+                                 
+                                 myclass.showleaderboard();
+        
 
         return true;
     },

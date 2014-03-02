@@ -21,5 +21,10 @@
     [[GameKitHelper sharedGameKitHelper] reportScore:score forCategory:(NSString *)category];
 }
 
++ (void) showLeaderboard
+{
+    
+     [[GameKitHelper sharedGameKitHelper] showLeaderboard];
+}
 
 @end

@@ -12,6 +12,7 @@
 //
 /////////////////////////////////////////////////////////////////////
 
+
 var PlayLayer = cc.Layer.extend({
     _spriteSheet: null,
     _flyingAction: null,
@@ -53,7 +54,7 @@ var PlayLayer = cc.Layer.extend({
         //update()
         this._timer = 0;
         this.scheduleUpdate();
-
+ 
         //touch
         if ('touches' in sys.capabilities) {
             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
@@ -407,7 +408,13 @@ var PlayLayer = cc.Layer.extend({
         CURRENT_SCORE = this._score;
         if (this._score > sys.localStorage.getItem('highScore')) {
             sys.localStorage.setItem('highScore', this._score);
-
+                                
+          cc.log("I am pusing");
+          var myclass= new ls.GameCenterBridge();
+                                
+          myclass.pushscore(this._score,"scoreboard");
+          
+                                
 
 
         }

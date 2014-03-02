@@ -27,6 +27,7 @@ namespace ls{
         CREATE_FUNC(GameCenterBridge);
         
         void pushscore(string score, string category);
+        void showleaderboard();
         
     };
 

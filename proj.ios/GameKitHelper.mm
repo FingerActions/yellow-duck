@@ -104,6 +104,8 @@ static UIViewController* currentModalViewController = nil;
     GKScore *scoreReporter = [[[GKScore alloc] initWithCategory:category] autorelease];
     scoreReporter.value = score;
     
+    NSLog(@"I am inside report Score");
+    
     [scoreReporter reportScoreWithCompletionHandler:^(NSError *error) {
         if (error != nil)
         {

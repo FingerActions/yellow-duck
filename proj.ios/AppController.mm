@@ -76,7 +76,7 @@ static AppDelegate s_sharedApplication;
     //Game Centre
     [[GameKitHelper sharedGameKitHelper] authenticateLocalUser];
     
-    [[GameKitHelper sharedGameKitHelper] showLeaderboard];
+  //  [[GameKitHelper sharedGameKitHelper] showLeaderboard];
     
     
     

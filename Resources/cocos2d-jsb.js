@@ -67,9 +67,6 @@ cc.SpriteFrameCache.getInstance().addSpriteFrames(s_seashell_plist,s_seashell_pn
 //ls.showAdAtTop();
 
 
-cc.log("I am pusing");
-var ls = ls.GameCenterBridge.create();
-ls.pushscore("30","scoreboard");
 
 
 

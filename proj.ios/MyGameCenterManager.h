@@ -17,6 +17,7 @@
     
 }
 +(void) reportScore: (int64_t) score forCategory: (NSString*) category;
++(void) showLeaderboard;
 @end
 
 #endif /* defined(__flappy__MyGameCenterManager__) */
