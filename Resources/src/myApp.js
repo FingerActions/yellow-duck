@@ -246,14 +246,15 @@ var MyScene = cc.Scene.extend({
    },
    
    onEnter: function () {
-                              cc.log("my scene");
+    cc.log("my scene");
     if(INITIALIZED_MYAPP==false)
     {
         INITIALIZED_MYAPP=true;
         this._super();
         var layer = new MyLayer();
         this.addChild(layer);
-         layer.init();
+        layer.init();
+        GameBridage.pushscenename("Intro scene");
     }
    }
                               

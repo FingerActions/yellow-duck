@@ -31,3 +31,5 @@ var CURRENT_SCORE = 0;
 //MyScene
 var INITIALIZED_MYAPP=false;
 
+//Game Bridge Class
+var GameBridage= new ls.GameCenterBridge();

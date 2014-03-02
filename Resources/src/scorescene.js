@@ -203,5 +203,9 @@ var ScoreScene = cc.Scene.extend({
         var layer = new ScoreLayer();
         this.addChild(layer);
         layer.init();
+        
+        GameBridage.pushscenename("score scene");
+
+                
     }
 });
