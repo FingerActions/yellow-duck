@@ -69,6 +69,31 @@ void ls::GameCenterBridge::pushscenename(string scene){
     
 }
 
+void ls::GameCenterBridge::pusheventname(string eventcategory,string eventname,string eventlabel){
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    
+    // Initialize tracker.
+    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
+    
+    
+    NSString* _eventlabel = [NSString stringWithUTF8String:eventlabel.c_str() ];
+    NSString* _eventname = [NSString stringWithUTF8String:eventname.c_str() ];
+    NSString* _eventcategory = [NSString stringWithUTF8String:eventcategory.c_str() ];
+    
+    NSLog(@"I am sending");
+    NSLog(_eventcategory,_eventname,_eventlabel);
+    
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:_eventcategory     // Event category (required)
+                                                          action:_eventname  // Event action (required)
+                                                           label:_eventlabel         // Event label
+                                                           value:nil] build]];    // Event value
+  
+    
+#endif
+    
+}
+
 
 
 

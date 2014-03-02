@@ -410,7 +410,8 @@ var PlayLayer = cc.Layer.extend({
             sys.localStorage.setItem('highScore', this._score);
                                 
           cc.log("I am pusing");
-                                
+          //Game Bridge Class
+          var GameBridage= new ls.GameCenterBridge();
           GameBridage.pushscore(this._score,"BathDuck");
           
                                 
@@ -433,6 +434,8 @@ var PlayScene = cc.Scene.extend({
         this.addChild(layer);
         layer.init();
         
+        //Game Bridge Class
+        var GameBridage= new ls.GameCenterBridge();
         GameBridage.pushscenename("play scene");
 
     }

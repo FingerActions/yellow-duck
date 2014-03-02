@@ -32,6 +32,7 @@ namespace ls{
         
         //used in google analytics to push current view
         void pushscenename(string scene);
+        void pusheventname(string eventcategory,string eventname,string eventlabel);
         
         
     };

@@ -254,6 +254,8 @@ var MyScene = cc.Scene.extend({
         var layer = new MyLayer();
         this.addChild(layer);
         layer.init();
+         //Game Bridge Class
+        var GameBridage= new ls.GameCenterBridge();
         GameBridage.pushscenename("Intro scene");
     }
    }

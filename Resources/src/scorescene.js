@@ -165,10 +165,11 @@ var ScoreLayer = cc.Layer.extend({
                                  
     leaderboard: function(){
                                  
-                                 
-        var myclass= new ls.GameCenterBridge();
-                                 
-        myclass.showleaderboard();
+        
+        //Game Bridge Class
+        var GameBridage= new ls.GameCenterBridge();
+        GameBridage.showleaderboard();
+        GameBridage.pusheventname("Menu","click","leaderboard");
                                  
     },
 
@@ -203,7 +204,9 @@ var ScoreScene = cc.Scene.extend({
         var layer = new ScoreLayer();
         this.addChild(layer);
         layer.init();
-        
+                                 
+        //Game Bridge Class
+        var GameBridage= new ls.GameCenterBridge();
         GameBridage.pushscenename("score scene");
 
                 
