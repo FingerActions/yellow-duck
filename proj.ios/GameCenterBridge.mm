@@ -20,7 +20,7 @@
 
 #endif
 
-id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
+static id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
 
 
 void ls::GameCenterBridge::pushscore(string score,string cat){
@@ -102,38 +102,29 @@ void ls::GameCenterBridge::pusheventname(string eventcategory,string eventname,s
 }
 
 
-
-void ls::GameCenterBridge::showadmobtop(){
+void ls::GameCenterBridge::showAddAtTop(){
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
-
-    RootViewController    *viewController;
     
-    GADBannerView *bannerView_;
-    
-    bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = screenRect.size.width;
-    CGFloat screenHeight = screenRect.size.height;
-    [bannerView_ setFrame:CGRectMake(0,
-                                     // screenHeight-bannerView_.bounds.size.height,,
-                                     0,
-                                     bannerView_.bounds.size.width,
-                                     bannerView_.bounds.size.height)];
-    bannerView_.adUnitID = @"ca-app-pub-4106182710083142/8799461914";
-    bannerView_.rootViewController = viewController;
-    [viewController.view addSubview:bannerView_];
-    [bannerView_ loadRequest:[GADRequest request]];
-
+    [MyGameCenterManager showAddAtTop];
     
     
 #endif
     
 }
 
-
-
+void ls::GameCenterBridge::showAddAtBottom(){
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    
+    
+    [MyGameCenterManager showAddAtBottom];
+    
+    
+#endif
+    
+}
 
 bool ls::GameCenterBridge::init(){
     bool bRef = false;

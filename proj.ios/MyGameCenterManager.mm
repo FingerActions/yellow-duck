@@ -8,6 +8,7 @@
 
 #import "MyGameCenterManager.h"
 #include "GameKitHelper.h"
+#import "myoc.h"
 
 @implementation MyGameCenterManager
 
@@ -25,6 +26,25 @@
 {
     
      [[GameKitHelper sharedGameKitHelper] showLeaderboard];
+}
+
++ (void) showAddAtTop{
+    
+    if(view && size.width>0){
+        
+        [view setFrame:CGRectMake(0, -13, 320, 50)];
+    }
+    
+}
+
+
++ (void) showAddAtBottom{
+    
+    if(view && size.width>0){
+        
+        [view setFrame:CGRectMake(0, size.height-50, 320, 50)];
+    }
+    
 }
 
 @end

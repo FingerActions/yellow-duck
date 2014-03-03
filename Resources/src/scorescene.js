@@ -47,6 +47,10 @@ var ScoreLayer = cc.Layer.extend({
         }
        
 
+          var GameBridage= new ls.GameCenterBridge();
+                                 
+          GameBridage.showAddAtBottom();
+                                 
         //add background image (die)
         this._diebackground = cc.Sprite.create("res/img/background/die_scene.png");
         this._diebackground.setAnchorPoint(cc.p(0, 0));

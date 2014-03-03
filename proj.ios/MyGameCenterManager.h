@@ -11,13 +11,20 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "GADBannerView.h"
+#import "RootViewController.h"
 
 @interface MyGameCenterManager : NSObject
 {
-    
+
+
 }
 +(void) reportScore: (int64_t) score forCategory: (NSString*) category;
 +(void) showLeaderboard;
++(void) showAddAtTop;
++(void) showAddAtBottom;
+
+
 @end
 
 #endif /* defined(__flappy__MyGameCenterManager__) */

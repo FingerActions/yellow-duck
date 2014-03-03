@@ -441,6 +441,7 @@ var PlayScene = cc.Scene.extend({
         //Game Bridge Class
         var GameBridage= new ls.GameCenterBridge();
         GameBridage.pushscenename("play scene");
+        
 
     }
 });

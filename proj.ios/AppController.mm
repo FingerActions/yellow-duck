@@ -57,11 +57,13 @@ static AppDelegate s_sharedApplication;
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
-    
+
     bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
+    
+    
     [bannerView_ setFrame:CGRectMake(0,
                                     // screenHeight-bannerView_.bounds.size.height,,
                                      0,
@@ -72,12 +74,10 @@ static AppDelegate s_sharedApplication;
     [viewController.view addSubview:bannerView_];
     [bannerView_ loadRequest:[GADRequest request]];
     
-
-    
     //Game Centre
     [[GameKitHelper sharedGameKitHelper] authenticateLocalUser];
     
-    // [[GameKitHelper sharedGameKitHelper] showLeaderboard];
+    //[[GameKitHelper sharedGameKitHelper] showLeaderboard];
     
     
     
