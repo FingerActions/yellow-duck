@@ -63,6 +63,7 @@ static AppDelegate s_sharedApplication;
     CGFloat screenWidth = screenRect.size.width;
     CGFloat screenHeight = screenRect.size.height;
     [bannerView_ setFrame:CGRectMake(0,
+                                    // screenHeight-bannerView_.bounds.size.height,,
                                      0,
                                      bannerView_.bounds.size.width,
                                      bannerView_.bounds.size.height)];
@@ -76,7 +77,7 @@ static AppDelegate s_sharedApplication;
     //Game Centre
     [[GameKitHelper sharedGameKitHelper] authenticateLocalUser];
     
-  //  [[GameKitHelper sharedGameKitHelper] showLeaderboard];
+    // [[GameKitHelper sharedGameKitHelper] showLeaderboard];
     
     
     

@@ -45,6 +45,7 @@ var ScoreLayer = cc.Layer.extend({
             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
             this.setTouchEnabled(true);
         }
+       
 
         //add background image (die)
         this._diebackground = cc.Sprite.create("res/img/background/die_scene.png");
@@ -147,6 +148,8 @@ var ScoreLayer = cc.Layer.extend({
         var text = 'I%20got%20' + this._highScore + '%20in%20Bath%20Duck!%20Download%20at?%20to%20challenge%20me!';
         var url = urlBase + 'text=' + text;
         cc.Application.getInstance().openURL(url);
+        var GameBridage= new ls.GameCenterBridge();
+        GameBridage.pusheventname("Menu","click","tweet");
     },
 
     share: function() {
@@ -161,6 +164,8 @@ var ScoreLayer = cc.Layer.extend({
         var redirect_uri = 'https://developers.facebook.com/tools/explorer';
         var url = baseUrl + 'app_id=' + app_id + '&display=' + display + '&name=' + name + '&caption=' + caption + '&description=' + description + '&link=' + link + '&redirect_uri=' + redirect_uri;
         cc.Application.getInstance().openURL(url);
+        var GameBridage= new ls.GameCenterBridge();
+        GameBridage.pusheventname("Menu","click","facebook");
     },
                                  
     leaderboard: function(){
@@ -208,7 +213,8 @@ var ScoreScene = cc.Scene.extend({
         //Game Bridge Class
         var GameBridage= new ls.GameCenterBridge();
         GameBridage.pushscenename("score scene");
-
+                                 
+                             
                 
     }
 });

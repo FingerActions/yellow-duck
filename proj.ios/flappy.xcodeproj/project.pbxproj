@@ -250,8 +250,6 @@
 		EEA5068218BCAC7900BBF285 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5068118BCAC7900BBF285 /* MessageUI.framework */; };
 		EEA5068418BCAC8200BBF285 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5068318BCAC8200BBF285 /* StoreKit.framework */; };
 		EEA5068618BCAC9100BBF285 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5068518BCAC9100BBF285 /* SystemConfiguration.framework */; };
-		EEA5069A18BF473B00BBF285 /* MyAdManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEA5069918BF473B00BBF285 /* MyAdManager.mm */; };
-		EEA5069E18BF484000BBF285 /* AdBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEA5069C18BF484000BBF285 /* AdBridge.mm */; };
 		EEA506B018C0CE1400BBF285 /* GameKitHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEA506AF18C0CE1400BBF285 /* GameKitHelper.mm */; };
 		EEA506B218C0D0C000BBF285 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506B118C0D0C000BBF285 /* GameKit.framework */; };
 		EEA506BD18C15F3000BBF285 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506BC18C15F3000BBF285 /* CoreData.framework */; };
@@ -741,11 +739,7 @@
 		EEA5068118BCAC7900BBF285 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		EEA5068318BCAC8200BBF285 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EEA5068518BCAC9100BBF285 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		EEA5069818BF46A600BBF285 /* MyAdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAdManager.h; sourceTree = "<group>"; };
-		EEA5069918BF473B00BBF285 /* MyAdManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAdManager.mm; sourceTree = "<group>"; };
 		EEA5069B18BF475F00BBF285 /* myoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myoc.h; sourceTree = "<group>"; };
-		EEA5069C18BF484000BBF285 /* AdBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AdBridge.mm; sourceTree = "<group>"; };
-		EEA5069D18BF484000BBF285 /* AdBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdBridge.h; sourceTree = "<group>"; };
 		EEA506AE18C0CDF600BBF285 /* GameKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameKitHelper.h; sourceTree = "<group>"; };
 		EEA506AF18C0CE1400BBF285 /* GameKitHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameKitHelper.mm; sourceTree = "<group>"; };
 		EEA506B118C0D0C000BBF285 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
@@ -1672,8 +1666,6 @@
 				EE2749D218C1EA6D00C18B44 /* jsb_gamecenter_auto.h */,
 				EE2749CA18C1DD4200C18B44 /* GameCenterBridge.mm */,
 				EE2749CB18C1DD4200C18B44 /* GameCenterBridge.h */,
-				EEA5069C18BF484000BBF285 /* AdBridge.mm */,
-				EEA5069D18BF484000BBF285 /* AdBridge.h */,
 				D45446D6156DE79D00887EB5 /* Info.plist */,
 				D45446CD156DE74F00887EB5 /* AppController.h */,
 				D45446CE156DE74F00887EB5 /* AppController.mm */,
@@ -1681,8 +1673,6 @@
 				D45446D0156DE74F00887EB5 /* Prefix.pch */,
 				D45446D1156DE74F00887EB5 /* RootViewController.h */,
 				D45446D2156DE74F00887EB5 /* RootViewController.mm */,
-				EEA5069818BF46A600BBF285 /* MyAdManager.h */,
-				EEA5069918BF473B00BBF285 /* MyAdManager.mm */,
 				EEA5069B18BF475F00BBF285 /* myoc.h */,
 				EEA506AE18C0CDF600BBF285 /* GameKitHelper.h */,
 				EEA506AF18C0CE1400BBF285 /* GameKitHelper.mm */,
@@ -1981,7 +1971,6 @@
 				3EC20B7218331C6100F2C4D6 /* SceneReader.cpp in Sources */,
 				1A40E7A81727C102006D4861 /* SlotData.cpp in Sources */,
 				375BD534186845B70024609E /* TriggerMng.cpp in Sources */,
-				EEA5069A18BF473B00BBF285 /* MyAdManager.mm in Sources */,
 				1A40E7A91727C102006D4861 /* spine-cocos2dx.cpp in Sources */,
 				1A40E7B01727C3DB006D4861 /* jsb_opengl_functions.cpp in Sources */,
 				375BD525186845B00024609E /* CCActionFrameEasing.cpp in Sources */,
@@ -2004,7 +1993,6 @@
 				1A5E74A217F0874400B9ACAE /* CCBone.cpp in Sources */,
 				3EC20B7D18331CA200F2C4D6 /* jsb_cocos2d_studio.js in Sources */,
 				1A5E74A317F0874400B9ACAE /* CCDatas.cpp in Sources */,
-				EEA5069E18BF484000BBF285 /* AdBridge.mm in Sources */,
 				1A5E74A417F0874400B9ACAE /* CCBatchNode.cpp in Sources */,
 				1A5E74A517F0874400B9ACAE /* CCDecorativeDisplay.cpp in Sources */,
 				1A5E74A617F0874400B9ACAE /* CCDisplayFactory.cpp in Sources */,

@@ -10,11 +10,18 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include "MyGameCenterManager.h"
 
+#import "GADBannerView.h"
+#import "RootViewController.h"
+
 #import "GAI.h"
 #import "GAIDictionaryBuilder.h"
 #import "GAIFields.h"
 
+
 #endif
+
+id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
+
 
 void ls::GameCenterBridge::pushscore(string score,string cat){
     
@@ -55,7 +62,7 @@ void ls::GameCenterBridge::pushscenename(string scene){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
     // Initialize tracker.
-    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
+    // id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
     
     
     NSString* nameofscene = [NSString stringWithUTF8String:scene.c_str() ];
@@ -74,7 +81,7 @@ void ls::GameCenterBridge::pusheventname(string eventcategory,string eventname,s
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
     // Initialize tracker.
-    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
+    // id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
     
     
     NSString* _eventlabel = [NSString stringWithUTF8String:eventlabel.c_str() ];
@@ -89,6 +96,37 @@ void ls::GameCenterBridge::pusheventname(string eventcategory,string eventname,s
                                                            label:_eventlabel         // Event label
                                                            value:nil] build]];    // Event value
   
+    
+#endif
+    
+}
+
+
+
+void ls::GameCenterBridge::showadmobtop(){
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    
+
+    RootViewController    *viewController;
+    
+    GADBannerView *bannerView_;
+    
+    bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    CGFloat screenWidth = screenRect.size.width;
+    CGFloat screenHeight = screenRect.size.height;
+    [bannerView_ setFrame:CGRectMake(0,
+                                     // screenHeight-bannerView_.bounds.size.height,,
+                                     0,
+                                     bannerView_.bounds.size.width,
+                                     bannerView_.bounds.size.height)];
+    bannerView_.adUnitID = @"ca-app-pub-4106182710083142/8799461914";
+    bannerView_.rootViewController = viewController;
+    [viewController.view addSubview:bannerView_];
+    [bannerView_ loadRequest:[GADRequest request]];
+
+    
     
 #endif
     

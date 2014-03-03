@@ -351,6 +351,8 @@ var PlayLayer = cc.Layer.extend({
 
         var shrinkRotateDie = cc.Sequence.create(shrinkAction, rotateAction);
         this._duck.runAction(shrinkRotateDie);
+        var GameBridage= new ls.GameCenterBridge();
+        GameBridage.pusheventname("Action","Die","Hit Wall");
     },
 
     gameOverDrowned: function() {
@@ -377,6 +379,8 @@ var PlayLayer = cc.Layer.extend({
         });
         if (!enoughBubble) {
             this.die();
+            var GameBridage= new ls.GameCenterBridge();
+            GameBridage.pusheventname("Action","Die","Drowned");
         }
     },
 
