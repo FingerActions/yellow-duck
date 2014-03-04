@@ -59,8 +59,9 @@ var MyLayer = cc.Layer.extend({
         
         if ('touches' in sys.capabilities) {
         
-        this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
-        this.setTouchEnabled(true);
+            this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
+            this.setTouchEnabled(true);
+                              
         
         }
         

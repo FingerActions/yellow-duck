@@ -192,6 +192,21 @@ var PlayLayer = cc.Layer.extend({
 
         this._duck.runAction(duckRotate);
         this._isDuckJumping = true;
+                                
+                                
+        // add ripple effects
+        var size = cc.size(100,100);
+                                
+        // var x = touches[0].getLocation().x;
+        // var y = touches[0].getLocation().y;
+        // var ripple = cc.Ripple3D.create(2,size,cc.p(x,y),50,5,3);
+        
+                                
+        var ripple = cc.Ripple3D.create(2,size,_duck.getPosition(),50,5,3);
+                                
+        this._river.runAction(ripple);
+
+            
     },
 
     spawnSeaShells: function() {
@@ -441,7 +456,10 @@ var PlayScene = cc.Scene.extend({
         //Game Bridge Class
         var GameBridage= new ls.GameCenterBridge();
         GameBridage.pushscenename("play scene");
-        
+                                                               
+        GameBridage.showAddAtBottom();
+                                
+
 
     }
 });

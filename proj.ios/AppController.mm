@@ -18,6 +18,8 @@
 #pragma mark Application lifecycle
 
 
+
+
 // cocos2d application instance
 static AppDelegate s_sharedApplication;
 
@@ -65,7 +67,7 @@ static AppDelegate s_sharedApplication;
     
     
     [bannerView_ setFrame:CGRectMake(0,
-                                    // screenHeight-bannerView_.bounds.size.height,,
+                                    // screenHeight-bannerView_.bounds.size.height,
                                      0,
                                      bannerView_.bounds.size.width,
                                      bannerView_.bounds.size.height)];
@@ -78,8 +80,6 @@ static AppDelegate s_sharedApplication;
     [[GameKitHelper sharedGameKitHelper] authenticateLocalUser];
     
     //[[GameKitHelper sharedGameKitHelper] showLeaderboard];
-    
-    
     
     // Optional: automatically send uncaught exceptions to Google Analytics.
     [GAI sharedInstance].trackUncaughtExceptions = YES;

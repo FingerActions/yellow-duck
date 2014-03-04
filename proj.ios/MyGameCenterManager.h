@@ -12,7 +12,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "GADBannerView.h"
-#import "RootViewController.h"
+#import "AppController.h"
 
 @interface MyGameCenterManager : NSObject
 {
