@@ -254,6 +254,7 @@
 		EEA506B218C0D0C000BBF285 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506B118C0D0C000BBF285 /* GameKit.framework */; };
 		EEA506BD18C15F3000BBF285 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506BC18C15F3000BBF285 /* CoreData.framework */; };
 		EEA506BE18C1855E00BBF285 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506BA18C15E9B00BBF285 /* libGoogleAnalyticsServices.a */; };
+		EECADE8118C764D1004F7DAF /* AdMobObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = EECADE7F18C764D1004F7DAF /* AdMobObject.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -751,6 +752,8 @@
 		EEA506B918C15E5400BBF285 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		EEA506BA18C15E9B00BBF285 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		EEA506BC18C15F3000BBF285 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		EECADE7F18C764D1004F7DAF /* AdMobObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AdMobObject.mm; sourceTree = "<group>"; };
+		EECADE8018C764D1004F7DAF /* AdMobObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1678,6 +1681,8 @@
 				EEA506AF18C0CE1400BBF285 /* GameKitHelper.mm */,
 				EE2749CD18C1DF5F00C18B44 /* MyGameCenterManager.mm */,
 				EE2749CE18C1DF5F00C18B44 /* MyGameCenterManager.h */,
+				EECADE7F18C764D1004F7DAF /* AdMobObject.mm */,
+				EECADE8018C764D1004F7DAF /* AdMobObject.h */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -1853,6 +1858,7 @@
 				15A3D3941682F0B6002FB0C5 /* cpPivotJoint.c in Sources */,
 				3EC20B8118331CB000F2C4D6 /* jsb_cocos2dx_studio_auto_api.js in Sources */,
 				15A3D3951682F0B6002FB0C5 /* cpRatchetJoint.c in Sources */,
+				EECADE8118C764D1004F7DAF /* AdMobObject.mm in Sources */,
 				15A3D3961682F0B6002FB0C5 /* cpRotaryLimitJoint.c in Sources */,
 				15A3D3971682F0B6002FB0C5 /* cpSimpleMotor.c in Sources */,
 				15A3D3981682F0B6002FB0C5 /* cpSlideJoint.c in Sources */,

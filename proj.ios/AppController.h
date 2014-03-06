@@ -3,7 +3,7 @@
 #import "GADBannerView.h"
 
 
-static    GADBannerView  *bannerView_;
+
 
 @class RootViewController;
 
@@ -11,7 +11,7 @@ static    GADBannerView  *bannerView_;
     
     UIWindow *window;
     RootViewController    *viewController;
- 
+    GADBannerView  *bannerView_;
 
 }
 

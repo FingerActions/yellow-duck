@@ -8,11 +8,35 @@
 
 #import "MyGameCenterManager.h"
 #include "GameKitHelper.h"
+#import "AdMobObject.h"
 #import "myoc.h"
+#import "RootViewController.h"
+#import "GADBannerView.h"
+
+
 
 @implementation MyGameCenterManager
 
-+(void) reportScore: (int64_t) score forCategory: (NSString*) category
+static MyGameCenterManager *instance;
+
+
++(MyGameCenterManager*)shared{
+    
+    @synchronized(self){
+        
+        if(instance == nil){
+         
+            instance = [[self alloc] init];
+            
+        }
+    }
+    
+    return instance;
+    
+}
+
+
++ (void) reportScore: (int64_t) score forCategory: (NSString*) category
 {
     
     NSLog(@"Hello, World!");
@@ -22,35 +46,32 @@
     [[GameKitHelper sharedGameKitHelper] reportScore:score forCategory:(NSString *)category];
 }
 
-+ (void) showLeaderboard
+
+- (void) showLeaderboard
 {
     
      [[GameKitHelper sharedGameKitHelper] showLeaderboard];
 }
 
+- (void) addAdMob
+{
+
+    [[AdMobObject shared] addAdMob];
+    
+}
+
 + (void) showAddAtTop{
-    /*
-    if(view && size.width>0){
-        
-        [view setFrame:CGRectMake(0, -13, 320, 50)];
-    }
-     */
-    
-    
-    
+ 
 }
 
 
-+ (void) showAddAtBottom{
-    /*
-    if(view && size.width>0){
-        
-        [view setFrame:CGRectMake(0, size.height-50, 320, 50)];
-    }
-    */
+- (void) showAddAtBottom{
+   
     
-
+    [[AdMobObject shared] showAddAtBottom];
     
 }
+ 
+
 
 @end

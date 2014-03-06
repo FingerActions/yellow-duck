@@ -95,20 +95,28 @@ void ls::GameCenterBridge::pusheventname(string eventcategory,string eventname,s
                                                           action:_eventname  // Event action (required)
                                                            label:_eventlabel         // Event label
                                                            value:nil] build]];    // Event value
-  
+#endif
+    
+}
+
+void ls::GameCenterBridge::addAdMob(){
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    
+
+    [[MyGameCenterManager shared] addAdMob];
+    
     
 #endif
     
 }
 
-
 void ls::GameCenterBridge::showAddAtTop(){
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
-    
-    [MyGameCenterManager showAddAtTop];
-    
+
+    [[MyGameCenterManager shared] addAdMob];
     
 #endif
     
@@ -118,13 +126,12 @@ void ls::GameCenterBridge::showAddAtBottom(){
     
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
-    
-    [MyGameCenterManager showAddAtBottom];
-    
+    [[MyGameCenterManager shared]  showAddAtBottom];
     
 #endif
     
 }
+
 
 bool ls::GameCenterBridge::init(){
     bool bRef = false;

@@ -11,18 +11,20 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "GADBannerView.h"
-#import "AppController.h"
+
+
 
 @interface MyGameCenterManager : NSObject
 {
 
-
+    
 }
++(MyGameCenterManager*)shared;
 +(void) reportScore: (int64_t) score forCategory: (NSString*) category;
 +(void) showLeaderboard;
-+(void) showAddAtTop;
-+(void) showAddAtBottom;
+-(void) addAdMob;
+-(void) showAddAtTop;
+-(void) showAddAtBottom;
 
 
 @end

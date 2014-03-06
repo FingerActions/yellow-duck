@@ -36,6 +36,7 @@ namespace ls{
         void pushscenename(string scene);
         void pusheventname(string eventcategory,string eventname,string eventlabel);
         
+        void addAdMob();
         void showAddAtTop();
         void showAddAtBottom();
         

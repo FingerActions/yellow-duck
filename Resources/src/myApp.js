@@ -55,8 +55,7 @@ var MyLayer = cc.Layer.extend({
         //update()
         this._timer = 0;
         this.scheduleUpdate();
-
-        
+                              
         if ('touches' in sys.capabilities) {
         
             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
@@ -65,6 +64,9 @@ var MyLayer = cc.Layer.extend({
         
         }
         
+        var GameBridage= new ls.GameCenterBridge();
+        GameBridage.addAdMob();
+                              
         //add background image (river)
         this.sprite = cc.Sprite.create("res/background.png");
         this.sprite.setAnchorPoint(cc.p(0, 0));
@@ -258,6 +260,7 @@ var MyScene = cc.Scene.extend({
          //Game Bridge Class
         var GameBridage= new ls.GameCenterBridge();
         GameBridage.pushscenename("Intro scene");
+        
     }
    }
                               

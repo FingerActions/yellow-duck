@@ -202,7 +202,7 @@ var PlayLayer = cc.Layer.extend({
         // var ripple = cc.Ripple3D.create(2,size,cc.p(x,y),50,5,3);
         
                                 
-        var ripple = cc.Ripple3D.create(2,size,_duck.getPosition(),50,5,3);
+        var ripple = cc.Ripple3D.create(2,size,this._duck.getPosition(),50,5,3);
                                 
         this._river.runAction(ripple);
 
@@ -403,10 +403,12 @@ var PlayLayer = cc.Layer.extend({
         var firstObjSize = firstObj.getContentSize();
         var firstObjPos = firstObj.getPosition();
         var firstCollideRect = cc.rect(firstObjPos.x - firstObjSize.width / 2, firstObjPos.y - firstObjSize.height / 2, firstObjSize.width, firstObjSize.height);
-
+                                
+        //below normally used as Wall, make object little bit smaller to maker game easier
+                                
         var secondObjSize = secondObj.getContentSize();
         var secondObjPos = secondObj.getPosition();
-        var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width, secondObjSize.height);
+        var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width-5, secondObjSize.height-5);
 
         if (cc.rectIntersectsRect(firstCollideRect, secondCollideRect)) {
             audioEngin.playEffect(this.POP_EFFECT_FILE);
@@ -456,8 +458,9 @@ var PlayScene = cc.Scene.extend({
         //Game Bridge Class
         var GameBridage= new ls.GameCenterBridge();
         GameBridage.pushscenename("play scene");
+                                GameBridage.showAddAtBottom();
                                                                
-        GameBridage.showAddAtBottom();
+        //GameBridage.showAddAtBottom();
                                 
 
 
