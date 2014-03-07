@@ -41,6 +41,7 @@ var MyLayer = cc.Layer.extend({
         tap_sprite: null,
         _seashells:null,
         _GameBridage:null,
+        _rain_background:null,
         
         ctor: function () {
         this._super();
@@ -64,16 +65,29 @@ var MyLayer = cc.Layer.extend({
                               
         
         }
+                            
+        //init GameBridge
         this._GameBridage= new ls.GameCenterBridge();
         this._GameBridage.showAddAtTop();
         this._GameBridage.pushscenename("Intro scene");
         
         //add background image (river)
-        this.sprite = cc.Sprite.create("res/background.png");
+        this.sprite = cc.Sprite.create("res/background_dark.png");
         this.sprite.setAnchorPoint(cc.p(0, 0));
         this.sprite.setPosition(cc.p(0, 0));
         this.addChild(this.sprite, 0);
-        
+                              
+         //rain
+         var emitter = cc.ParticleRain.create();
+         this.sprite.addChild(emitter, 10);
+         
+         emitter.setLife(4);
+         
+         emitter.setTexture(cc.TextureCache.getInstance().addImage("res/particle-fire.png"));
+         if (emitter.setShapeType)
+         emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+         
+         // this.setEmitterPosition();
         
         /////////////////////////////
         // 2. add a menu item with "X" image, which is clicked to quit the program

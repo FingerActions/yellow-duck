@@ -59,16 +59,16 @@ static AdMobObject* instance;
 - (void) showAddAtTop{
     
     NSLog(@"[AppController]: showAdView");
-    [UIView animateWithDuration:1.0 animations:^ {
+   // [UIView animateWithDuration:1.0 animations:^ {
         CGRect screenRect = [[UIScreen mainScreen] bounds];
         CGFloat screenHeight = screenRect.size.height;
         // Final frame of ad should be docked to bottom of screenqq
-        bannerView_.frame = CGRectMake(0,
+       bannerView_.frame = CGRectMake(0,
                                        //screenHeight-bannerView_.bounds.size.height,
                                        0,
                                        bannerView_.bounds.size.width,
                                        bannerView_.bounds.size.height);
-    }];
+   // }];
     
 
 }
@@ -77,7 +77,7 @@ static AdMobObject* instance;
     
 
         NSLog(@"[AppController]: showAdView");
-        [UIView animateWithDuration:1.0 animations:^ {
+//        [UIView animateWithDuration:1.0 animations:^ {
             CGRect screenRect = [[UIScreen mainScreen] bounds];
             CGFloat screenHeight = screenRect.size.height;
             // Final frame of ad should be docked to bottom of screenqq
@@ -86,7 +86,7 @@ static AdMobObject* instance;
                                           //0,
                                            bannerView_.bounds.size.width,
                                            bannerView_.bounds.size.height);
-        }];
+  //      }];
    
 }
 @end
