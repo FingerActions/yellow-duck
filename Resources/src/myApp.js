@@ -72,8 +72,8 @@ var MyLayer = cc.Layer.extend({
         this._GameBridage.pushscenename("Intro scene");
                               
          
-         // this.setEmitterPosition();
-        
+        //added weather
+        this.randomWeather();
         /////////////////////////////
         // 2. add a menu item with "X" image, which is clicked to quit the program
         //    you may modify it.
@@ -211,45 +211,33 @@ var MyLayer = cc.Layer.extend({
         },
                               
         randomWeather:function(){
-            
+        
                               
             //add background image (river)
-             var rd_number = Math.floor(Math.random()*2);
+             var rd_number = Math.floor(Math.random()*3);
                               
-             switch(rd_number)
+             if(rd_number==0)
              {
-                 case 0: rain();
-                     break();
-                 case 1: fine();
-                     break();
-             }
-                              
-                              
-             rain:function(){
-               //bg
-               this.sprite = cc.Sprite.create("res/background-dark.png");
-               this.sprite.setAnchorPoint(cc.p(0, 0));
-               this.sprite.setPosition(cc.p(0, 0));
-               this.addChild(this.sprite, 0);
-               //rain
-               var emitter = cc.ParticleRain.create();
-               this.sprite.addChild(emitter, 10);
-               emitter.setLife(4);
-               emitter.setTexture(cc.TextureCache.getInstance().addImage("res/particle-fire.png"));
-               if (emitter.setShapeType)
-               emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
-             
-             }
-             
-             fine:function(){
-                //do something
-                this.sprite = cc.Sprite.create("res/background.png");
-                this.sprite.setAnchorPoint(cc.p(0, 0));
-                this.sprite.setPosition(cc.p(0, 0));
-                this.addChild(this.sprite, 0);
-             }
-            
-        
+                 //bg
+                 this.sprite = cc.Sprite.create("res/background-dark.png");
+                 this.sprite.setAnchorPoint(cc.p(0, 0));
+                 this.sprite.setPosition(cc.p(0, 0));
+                 this.addChild(this.sprite, 0);
+                 //rain
+                 var emitter = cc.ParticleRain.create();
+                 this.sprite.addChild(emitter, 10);
+                 emitter.setLife(4);
+                 emitter.setTexture(cc.TextureCache.getInstance().addImage("res/particle-fire.png"));
+                 if (emitter.setShapeType)
+                 emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+              }else{
+                 //bg
+                 this.sprite = cc.Sprite.create("res/background.png");
+                 this.sprite.setAnchorPoint(cc.p(0, 0));
+                 this.sprite.setPosition(cc.p(0, 0));
+                 this.addChild(this.sprite, 0);
+
+              }
         },
                               
         update:function(delta){

@@ -70,10 +70,8 @@ var PlayLayer = cc.Layer.extend({
         this._screenSize = cc.Director.getInstance().getWinSize();
 
         //add background image (river)
-        this._river = cc.Sprite.create("res/background.png");
-        this._river.setAnchorPoint(cc.p(0, 0));
-        this._river.setPosition(cc.p(0, 0));
-        this.addChild(this._river);
+        //added weather
+        this.randomWeather();
 
         //duck is not falling
         this._isDuckJumping = false;
@@ -372,6 +370,37 @@ var PlayLayer = cc.Layer.extend({
  
         this._GameBridage.pusheventname("Action","Die","Hit Wall");
     },
+
+     randomWeather:function(){
+     
+     
+         //add background image (river)
+         var rd_number = Math.floor(Math.random()*3);
+         
+         if(rd_number==0)
+         {
+             //bg
+             this._river = cc.Sprite.create("res/background-dark.png");
+             this._river.setAnchorPoint(cc.p(0, 0));
+             this._river.setPosition(cc.p(0, 0));
+             this.addChild(this._river, 0);
+             //rain
+             var emitter = cc.ParticleRain.create();
+             this._river.addChild(emitter, 10);
+             emitter.setLife(4);
+             emitter.setTexture(cc.TextureCache.getInstance().addImage("res/particle-fire.png"));
+             if (emitter.setShapeType)
+             emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+         }else{
+             //bg
+             this._river = cc.Sprite.create("res/background.png");
+             this._river.setAnchorPoint(cc.p(0, 0));
+             this._river.setPosition(cc.p(0, 0));
+             this.addChild(this._river, 0);
+         
+         }
+     },
+
 
     gameOverDrowned: function() {
         var that = this;
