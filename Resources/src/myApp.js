@@ -70,22 +70,7 @@ var MyLayer = cc.Layer.extend({
         this._GameBridage= new ls.GameCenterBridge();
         this._GameBridage.showAddAtTop();
         this._GameBridage.pushscenename("Intro scene");
-        
-        //add background image (river)
-        this.sprite = cc.Sprite.create("res/background_dark.png");
-        this.sprite.setAnchorPoint(cc.p(0, 0));
-        this.sprite.setPosition(cc.p(0, 0));
-        this.addChild(this.sprite, 0);
                               
-         //rain
-         var emitter = cc.ParticleRain.create();
-         this.sprite.addChild(emitter, 10);
-         
-         emitter.setLife(4);
-         
-         emitter.setTexture(cc.TextureCache.getInstance().addImage("res/particle-fire.png"));
-         if (emitter.setShapeType)
-         emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
          
          // this.setEmitterPosition();
         
@@ -223,6 +208,48 @@ var MyLayer = cc.Layer.extend({
                    found_invisible = true;
               }
 
+        },
+                              
+        randomWeather:function(){
+            
+                              
+            //add background image (river)
+             var rd_number = Math.floor(Math.random()*2);
+                              
+             switch(rd_number)
+             {
+                 case 0: rain();
+                     break();
+                 case 1: fine();
+                     break();
+             }
+                              
+                              
+             rain:function(){
+               //bg
+               this.sprite = cc.Sprite.create("res/background-dark.png");
+               this.sprite.setAnchorPoint(cc.p(0, 0));
+               this.sprite.setPosition(cc.p(0, 0));
+               this.addChild(this.sprite, 0);
+               //rain
+               var emitter = cc.ParticleRain.create();
+               this.sprite.addChild(emitter, 10);
+               emitter.setLife(4);
+               emitter.setTexture(cc.TextureCache.getInstance().addImage("res/particle-fire.png"));
+               if (emitter.setShapeType)
+               emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+             
+             }
+             
+             fine:function(){
+                //do something
+                this.sprite = cc.Sprite.create("res/background.png");
+                this.sprite.setAnchorPoint(cc.p(0, 0));
+                this.sprite.setPosition(cc.p(0, 0));
+                this.addChild(this.sprite, 0);
+             }
+            
+        
         },
                               
         update:function(delta){
