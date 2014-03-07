@@ -116,7 +116,7 @@ void ls::GameCenterBridge::showAddAtTop(){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
 
-    [[MyGameCenterManager shared] addAdMob];
+    [[MyGameCenterManager shared] showAddAtTop];
     
 #endif
     

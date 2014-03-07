@@ -12,6 +12,7 @@
 #import "GAIDictionaryBuilder.h"
 #import "GAIFields.h"
 
+
 @implementation AppController
 
 #pragma mark -
@@ -76,6 +77,10 @@ static AppDelegate s_sharedApplication;
     [viewController.view addSubview:bannerView_];
     [bannerView_ loadRequest:[GADRequest request]];
  */
+    adMobObject_ = [AdMobObject shared];
+    [adMobObject_ setViewController:viewController];
+    [adMobObject_ addAdMob];
+    
     //Game Centre
     [[GameKitHelper sharedGameKitHelper] authenticateLocalUser];
     

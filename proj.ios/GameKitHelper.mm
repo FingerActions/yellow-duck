@@ -114,58 +114,6 @@ static UIViewController* currentModalViewController = nil;
     }];
 }
 
-
--(void) setViewController: (RootViewController*) vc{
-    
-    viewController = vc;
-}
-
--(void) addAdMob{
-    
-    
-    NSLog(@"-----------addAdMob");
-    
-    
-    
-    bannerView_ = [[GADBannerView alloc] initWithAdSize:kGADAdSizeSmartBannerPortrait];
-    //CGRect screenRect = [[UIScreen mainScreen] bounds];
-    //CGFloat screenWidth = screenRect.size.width;
-    //CGFloat screenHeight = screenRect.size.height;
-    
-    [bannerView_ setFrame:CGRectMake(0,
-                                     // screenHeight-bannerView_.bounds.size.height,
-                                     0,
-                                     bannerView_.bounds.size.width,
-                                     bannerView_.bounds.size.height)];
-    
-    bannerView_.adUnitID = @"ca-app-pub-4106182710083142/8799461914";
-    //AppController *app = (AppController*) [[UIApplication sharedApplication] delegate];
-    //[bannerView_ setRootViewController:[app navController]];
-    
-    
-     
-    bannerView_.rootViewController = viewController;
-    [viewController.view addSubview:bannerView_];
-    
-    GADRequest *request = [GADRequest request];
-    request.testDevices = @[ @"e896b36e4164ccddf92f9e4e1246468d" ];
-    [bannerView_ loadRequest:request];
-    
-    
-}
-
-- (void) showAddAtBottom{
-    /*
-     if(view && size.width>0){
-     
-     [view setFrame:CGRectMake(0, size.height-50, 320, 50)];
-     }
-     */
-    [bannerView_ setHidden:YES];
-    
-}
-
-
 //关闭排行榜回调
 - (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController{
     if(currentModalViewController !=nil){

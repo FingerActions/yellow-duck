@@ -25,6 +25,7 @@ var ScoreLayer = cc.Layer.extend({
     _gameover: null,
     _tapcontinue: null,
     _highScore: null,
+    _GameBridage:null,
 
     ctor: function() {
         this._super();
@@ -46,10 +47,9 @@ var ScoreLayer = cc.Layer.extend({
             this.setTouchEnabled(true);
         }
        
-
-          var GameBridage= new ls.GameCenterBridge();
-                                 
-        //  GameBridage.showAddAtBottom();
+        this._GameBridage= new ls.GameCenterBridge();
+        this._GameBridage.showAddAtBottom();
+        this._GameBridage.pushscenename("score scene");
                                  
         //add background image (die)
         this._diebackground = cc.Sprite.create("res/img/background/die_scene.png");
@@ -137,13 +137,12 @@ var ScoreLayer = cc.Layer.extend({
         leaderboardButton.setPosition(cc.p(0, -50                                                                                                              ));
         leaderboardButton.setScale(0.5);
                                  
-
         var socialMenu = cc.Menu.create(twitterButton, facebookButton,leaderboardButton);
         socialMenu.setPosition(cc.p(this.size.width / 2, this.size.height - 330));
         this.addChild(socialMenu, 5);
                                 
-
         return true;
+                                 
     },
 
     tweet: function() {
@@ -152,8 +151,7 @@ var ScoreLayer = cc.Layer.extend({
         var text = 'I%20got%20' + this._highScore + '%20in%20Bath%20Duck!%20Download%20at?%20to%20challenge%20me!';
         var url = urlBase + 'text=' + text;
         cc.Application.getInstance().openURL(url);
-        var GameBridage= new ls.GameCenterBridge();
-        GameBridage.pusheventname("Menu","click","tweet");
+        this._GameBridage.pusheventname("Menu","click","tweet");
     },
 
     share: function() {
@@ -168,17 +166,14 @@ var ScoreLayer = cc.Layer.extend({
         var redirect_uri = 'https://developers.facebook.com/tools/explorer';
         var url = baseUrl + 'app_id=' + app_id + '&display=' + display + '&name=' + name + '&caption=' + caption + '&description=' + description + '&link=' + link + '&redirect_uri=' + redirect_uri;
         cc.Application.getInstance().openURL(url);
-        var GameBridage= new ls.GameCenterBridge();
-        GameBridage.pusheventname("Menu","click","facebook");
+        this._GameBridage.pusheventname("Menu","click","facebook");
     },
                                  
     leaderboard: function(){
-                                 
-        
+                    
         //Game Bridge Class
-        var GameBridage= new ls.GameCenterBridge();
-        GameBridage.showleaderboard();
-        GameBridage.pusheventname("Menu","click","leaderboard");
+        this._GameBridage.showleaderboard();
+        this._GameBridage.pusheventname("Menu","click","leaderboard");
                                  
     },
 
@@ -213,12 +208,6 @@ var ScoreScene = cc.Scene.extend({
         var layer = new ScoreLayer();
         this.addChild(layer);
         layer.init();
-                                 
-        //Game Bridge Class
-        var GameBridage= new ls.GameCenterBridge();
-        GameBridage.pushscenename("score scene");
-                                 
-                             
                 
     }
 });

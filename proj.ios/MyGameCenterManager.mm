@@ -60,8 +60,9 @@ static MyGameCenterManager *instance;
     
 }
 
-+ (void) showAddAtTop{
+- (void) showAddAtTop{
  
+    [[AdMobObject shared] showAddAtTop];
 }
 
 

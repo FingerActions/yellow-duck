@@ -40,6 +40,7 @@ var MyLayer = cc.Layer.extend({
         river_Background: null,
         tap_sprite: null,
         _seashells:null,
+        _GameBridage:null,
         
         ctor: function () {
         this._super();
@@ -63,10 +64,10 @@ var MyLayer = cc.Layer.extend({
                               
         
         }
+        this._GameBridage= new ls.GameCenterBridge();
+        this._GameBridage.showAddAtTop();
+        this._GameBridage.pushscenename("Intro scene");
         
-        var GameBridage= new ls.GameCenterBridge();
-        GameBridage.addAdMob();
-                              
         //add background image (river)
         this.sprite = cc.Sprite.create("res/background.png");
         this.sprite.setAnchorPoint(cc.p(0, 0));
@@ -248,7 +249,7 @@ var MyScene = cc.Scene.extend({
                               
    },
    
-   onEnter: function () {
+    onEnter: function () {
     cc.log("my scene");
     if(INITIALIZED_MYAPP==false)
     {
@@ -257,9 +258,7 @@ var MyScene = cc.Scene.extend({
         var layer = new MyLayer();
         this.addChild(layer);
         layer.init();
-         //Game Bridge Class
-        var GameBridage= new ls.GameCenterBridge();
-        GameBridage.pushscenename("Intro scene");
+
         
     }
    }

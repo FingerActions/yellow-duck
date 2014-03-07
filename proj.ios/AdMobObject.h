@@ -23,7 +23,7 @@
 + (AdMobObject *) shared;
 - (void) setViewController:(RootViewController*)vc;
 - (void) addAdMob;
-- (void) showAdMob;
+- (void) showAddAtTop;
 - (void) showAddAtBottom;
 @end
 

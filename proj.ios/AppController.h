@@ -1,6 +1,7 @@
 
 #import "RootViewController.h"
 #import "GADBannerView.h"
+#import "AdMobObject.h"
 
 
 
@@ -12,6 +13,7 @@
     UIWindow *window;
     RootViewController    *viewController;
     GADBannerView  *bannerView_;
+    AdMobObject * adMobObject_;
 
 }
 

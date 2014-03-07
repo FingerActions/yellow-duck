@@ -34,6 +34,7 @@ var PlayLayer = cc.Layer.extend({
     _seashells: null,
     _seashellTimer: null,
     _isDuckJumping: null,
+    _GameBridage:null,
 
     //sound
     audioEngin: null,
@@ -60,7 +61,11 @@ var PlayLayer = cc.Layer.extend({
             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
             this.setTouchEnabled(true);
         }
-
+        //create GameBridage Manager instance
+        this._GameBridage= new ls.GameCenterBridge();
+        this._GameBridage.showAddAtTop();
+        this._GameBridage.pushscenename("play scene");
+                 
         //screen size
         this._screenSize = cc.Director.getInstance().getWinSize();
 
@@ -284,7 +289,6 @@ var PlayLayer = cc.Layer.extend({
             this._scoreTimer = 0;
         }
     },
-
     turnDuckBack: function() {
         var turnbackAction = cc.RotateTo.create(0.1, 0);
         this._duck.runAction(turnbackAction);
@@ -303,7 +307,6 @@ var PlayLayer = cc.Layer.extend({
                 break;
             }
         }
-
         var wallWidth = thisWalls[0].getContentSize().width;
         var dice = Math.floor(Math.random() * 20);
         thisWalls[1].setRotation(180);
@@ -366,8 +369,8 @@ var PlayLayer = cc.Layer.extend({
 
         var shrinkRotateDie = cc.Sequence.create(shrinkAction, rotateAction);
         this._duck.runAction(shrinkRotateDie);
-        var GameBridage= new ls.GameCenterBridge();
-        GameBridage.pusheventname("Action","Die","Hit Wall");
+ 
+        this._GameBridage.pusheventname("Action","Die","Hit Wall");
     },
 
     gameOverDrowned: function() {
@@ -385,7 +388,6 @@ var PlayLayer = cc.Layer.extend({
                 var callfunc = cc.CallFunc.create(function() {
                     that.die();
                 });
-
                 var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
                 bubble.runAction(flowWithCallfunc);
                 enoughBubble = true;
@@ -394,8 +396,7 @@ var PlayLayer = cc.Layer.extend({
         });
         if (!enoughBubble) {
             this.die();
-            var GameBridage= new ls.GameCenterBridge();
-            GameBridage.pusheventname("Action","Die","Drowned");
+            this._GameBridage.pusheventname("Action","Die","Drowned");
         }
     },
 
@@ -426,18 +427,16 @@ var PlayLayer = cc.Layer.extend({
     },
 
     updateScore: function() {
+                                
         CURRENT_SCORE = this._score;
         if (this._score > sys.localStorage.getItem('highScore')) {
             sys.localStorage.setItem('highScore', this._score);
                                 
           cc.log("I am pusing");
           //Game Bridge Class
-          var GameBridage= new ls.GameCenterBridge();
-          GameBridage.pushscore(this._score,"BathDuck");
-          
+
+          this._GameBridage.pushscore(this._score,"BathDuck");
                                 
-
-
         }
     },
 });
@@ -454,15 +453,6 @@ var PlayScene = cc.Scene.extend({
         var layer = new PlayLayer();
         this.addChild(layer);
         layer.init();
-        
-        //Game Bridge Class
-        var GameBridage= new ls.GameCenterBridge();
-        GameBridage.pushscenename("play scene");
-                                GameBridage.showAddAtBottom();
-                                                               
-        //GameBridage.showAddAtBottom();
-                                
-
 
     }
 });
