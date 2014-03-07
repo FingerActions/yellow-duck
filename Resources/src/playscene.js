@@ -198,16 +198,16 @@ var PlayLayer = cc.Layer.extend({
                                 
                                 
         // add ripple effects
-        var size = cc.size(100,100);
+       // var size = cc.size(100,100);
                                 
         // var x = touches[0].getLocation().x;
         // var y = touches[0].getLocation().y;
         // var ripple = cc.Ripple3D.create(2,size,cc.p(x,y),50,5,3);
-        
+        /*
                                 
         var ripple = cc.Ripple3D.create(2,size,this._duck.getPosition(),50,5,3);
                                 
-        this._river.runAction(ripple);
+        this._river.runAction(ripple);*/
 
             
     },

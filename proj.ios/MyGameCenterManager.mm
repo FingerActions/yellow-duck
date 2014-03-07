@@ -36,7 +36,7 @@ static MyGameCenterManager *instance;
 }
 
 
-+ (void) reportScore: (int64_t) score forCategory: (NSString*) category
+- (void) reportScore: (int64_t) score forCategory: (NSString*) category
 {
     
     NSLog(@"Hello, World!");
