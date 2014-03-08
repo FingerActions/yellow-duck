@@ -1,17 +1,17 @@
-
 //////////////////////////////////////////////////////////////////////
-//TIANMAO GAMES PROPRIETARY INFORMATION
+//FINGERACTIONS GAMES PROPRIETARY INFORMATION
 //
 // This software is supplied under the terms of a license agreement or
-// nondisclosure agreement with TIANMAO Games and may not
+// non-disclosure agreement with FINGERACTIONS Games and may not
 // be copied or disclosed except in accordance with the terms of that
 // agreement.
 //
-//      Copyright (c) 2014 TIANMAO GAMES
+//      Copyright (c) 2014 FINGERACTIONS GAMES
 //      All Rights Reserved.
 //
 //
 /////////////////////////////////////////////////////////////////////
+
 
 //GLOBAL CONST VARIABLES
 
