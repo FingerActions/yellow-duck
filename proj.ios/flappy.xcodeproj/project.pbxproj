@@ -2160,7 +2160,7 @@
 					"-ljs_static",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "Bath Duck";
+				PRODUCT_NAME = "Yellow Duck";
 				PROVISIONING_PROFILE = "CCCC9D61-0FA8-4356-A98D-AFABDB7EF4D4";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -2214,7 +2214,7 @@
 					"-ljs_static",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "Bath Duck";
+				PRODUCT_NAME = "Yellow Duck";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

@@ -101,7 +101,7 @@ var MyLayer = cc.Layer.extend({
         // 3. add your codes below...
         // add a label shows "Hello World"
         // create and initialize a label
-        this.helloLabel = cc.LabelTTF.create("Bath Duck", "Marker Felt", 33);
+        this.helloLabel = cc.LabelTTF.create("Yellow Duck", "Marker Felt", 33);
         // position the label on the center of the screen
         this.helloLabel.setPosition(cc.p(this.size.width / 2, this.size.height - 100));
         // add the label as a child to this layer

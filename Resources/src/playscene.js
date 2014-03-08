@@ -468,7 +468,7 @@ var PlayLayer = cc.Layer.extend({
           cc.log("I am pusing");
           //Game Bridge Class
           this._GameBridage= new ls.GameCenterBridge();
-          this._GameBridage.pushscore(this._score,"BathDuck");
+          this._GameBridage.pushscore(this._score,"YellowDuck");
                                 
         }
     },

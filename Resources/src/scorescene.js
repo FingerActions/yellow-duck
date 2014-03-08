@@ -178,7 +178,7 @@ var ScoreLayer = cc.Layer.extend({
                                  
         //push highScore everytime, in case player has a high localscore but didn't connect to internet
         this._GameBridage= new ls.GameCenterBridge();
-        this._GameBridage.pushscore(this._highScore,"BathDuck");
+        this._GameBridage.pushscore(this._highScore,"YellowDuck");
         this._GameBridage.showleaderboard();
         this._GameBridage.pusheventname("Menu","click","leaderboard");
                                  
