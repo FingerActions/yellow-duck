@@ -19,8 +19,8 @@
 
 
 #endif
-
-static id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
+//UA-48535423-1
+static id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48792612-1"];
 
 
 void ls::GameCenterBridge::pushscore(string score,string cat){
