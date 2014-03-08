@@ -49,14 +49,14 @@
       "orientation" : "portrait",
       "idiom" : "iphone",
       "extent" : "full-screen",
-      "filename" : "fingerActions-iPhone4-retina-2.png",
+      "filename" : "fingerActions-iPhone4-1.png",
       "scale" : "1x"
     },
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
       "extent" : "full-screen",
-      "filename" : "fingerActions-iPhone4.png",
+      "filename" : "fingerActions-iPhone4-retina-1.png",
       "scale" : "2x"
     },
     {
