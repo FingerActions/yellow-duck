@@ -67,7 +67,7 @@ var MyLayer = cc.Layer.extend({
         }
                             
         //init GameBridge
-        this._GameBridage= new ls.GameCenterBridge();
+        this._GameBridage = new ls.GameCenterBridge();
         this._GameBridage.showAddAtTop();
         this._GameBridage.pushscenename("Intro scene");
                               
