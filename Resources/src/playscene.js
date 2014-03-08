@@ -34,7 +34,7 @@ var PlayLayer = cc.Layer.extend({
     _seashells: null,
     _seashellTimer: null,
     _isDuckJumping: null,
-    _GameBridage:null,
+    _GameBridage: null,
 
     //sound
     audioEngin: null,
@@ -55,17 +55,17 @@ var PlayLayer = cc.Layer.extend({
         //update()
         this._timer = 0;
         this.scheduleUpdate();
- 
+
         //touch
         if ('touches' in sys.capabilities) {
             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
             this.setTouchEnabled(true);
         }
         //create GameBridage Manager instance
-        this._GameBridage= new ls.GameCenterBridge();
+        this._GameBridage = new ls.GameCenterBridge();
         this._GameBridage.showAddAtTop();
         this._GameBridage.pushscenename("play scene");
-                 
+
         //screen size
         this._screenSize = cc.Director.getInstance().getWinSize();
 
@@ -162,11 +162,11 @@ var PlayLayer = cc.Layer.extend({
     },
 
     spawnMermaid: function() {
-                                
-        
+
+
         var mermaid = cc.Sprite.create("res/mermaid.png");
-        
-        
+
+
         mermaid.setScale(0.5);
         var contentSize = mermaid.getContentSize();
 
@@ -199,11 +199,11 @@ var PlayLayer = cc.Layer.extend({
 
         this._duck.runAction(duckRotate);
         this._isDuckJumping = true;
-                                
-                                
+
+
         // add ripple effects
-       // var size = cc.size(100,100);
-                                
+        // var size = cc.size(100,100);
+
         // var x = touches[0].getLocation().x;
         // var y = touches[0].getLocation().y;
         // var ripple = cc.Ripple3D.create(2,size,cc.p(x,y),50,5,3);
@@ -213,7 +213,7 @@ var PlayLayer = cc.Layer.extend({
                                 
         this._river.runAction(ripple);*/
 
-            
+
     },
 
     spawnSeaShells: function() {
@@ -347,14 +347,14 @@ var PlayLayer = cc.Layer.extend({
 
     gameOver: function(hitWall) {
         this.unscheduleUpdate();
-        this._GameBridage= new ls.GameCenterBridge();
+        this._GameBridage = new ls.GameCenterBridge();
         if (hitWall) {
             this._gameover = true;
             this.gameOverHitWall();
-            this._GameBridage.pusheventname("Action","Die","Hit Wall");
+            this._GameBridage.pusheventname("Action", "Die", "Hit Wall");
         } else {
             this._gameover = true;
-            this._GameBridage.pusheventname("Action","Die","Drowned");
+            this._GameBridage.pusheventname("Action", "Die", "Drowned");
             this.gameOverDrowned();
         }
     },
@@ -376,35 +376,34 @@ var PlayLayer = cc.Layer.extend({
         this._duck.runAction(shrinkRotateDie);
     },
 
-     randomWeather:function(){
-     
-     
-         //add background image (river)
+    randomWeather: function() {
+
+
+        //add background image (river)
         // var rd_number = Math.floor(Math.random()*3);
-         
-         if( WEATHER==0)
-         {
-             //bg
-             this._river = cc.Sprite.create("res/background-dark.png");
-             this._river.setAnchorPoint(cc.p(0, 0));
-             this._river.setPosition(cc.p(0, 0));
-             this.addChild(this._river, 0);
-             //rain
-             var emitter = cc.ParticleRain.create();
-             this._river.addChild(emitter, 10);
-             emitter.setLife(4);
-             emitter.setTexture(cc.TextureCache.getInstance().addImage("res/particle-fire.png"));
-             if (emitter.setShapeType)
-             emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
-         }else{
-             //bg
-             this._river = cc.Sprite.create("res/background.png");
-             this._river.setAnchorPoint(cc.p(0, 0));
-             this._river.setPosition(cc.p(0, 0));
-             this.addChild(this._river, 0);
-         
-         }
-     },
+
+        if (WEATHER == 0) {
+            //bg
+            this._river = cc.Sprite.create("res/background-dark.png");
+            this._river.setAnchorPoint(cc.p(0, 0));
+            this._river.setPosition(cc.p(0, 0));
+            this.addChild(this._river, 0);
+            //rain
+            var emitter = cc.ParticleRain.create();
+            this._river.addChild(emitter, 10);
+            emitter.setLife(4);
+            emitter.setTexture(cc.TextureCache.getInstance().addImage("res/particle-fire.png"));
+            if (emitter.setShapeType)
+                emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+        } else {
+            //bg
+            this._river = cc.Sprite.create("res/background.png");
+            this._river.setAnchorPoint(cc.p(0, 0));
+            this._river.setPosition(cc.p(0, 0));
+            this.addChild(this._river, 0);
+
+        }
+    },
 
 
     gameOverDrowned: function() {
@@ -437,12 +436,12 @@ var PlayLayer = cc.Layer.extend({
         var firstObjSize = firstObj.getContentSize();
         var firstObjPos = firstObj.getPosition();
         var firstCollideRect = cc.rect(firstObjPos.x - firstObjSize.width / 2, firstObjPos.y - firstObjSize.height / 2, firstObjSize.width, firstObjSize.height);
-                                
+
         //below normally used as Wall, make object little bit smaller to maker game easier
-                                
+
         var secondObjSize = secondObj.getContentSize();
         var secondObjPos = secondObj.getPosition();
-        var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width-5, secondObjSize.height-5);
+        var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width - 5, secondObjSize.height - 5);
 
         if (cc.rectIntersectsRect(firstCollideRect, secondCollideRect)) {
             audioEngin.playEffect(this.POP_EFFECT_FILE);
@@ -460,16 +459,16 @@ var PlayLayer = cc.Layer.extend({
     },
 
     updateScore: function() {
-                                
+
         CURRENT_SCORE = this._score;
         if (this._score > sys.localStorage.getItem('highScore')) {
             sys.localStorage.setItem('highScore', this._score);
-                                
-          cc.log("I am pusing");
-          //Game Bridge Class
-          this._GameBridage= new ls.GameCenterBridge();
-          this._GameBridage.pushscore(this._score,"YellowDuck");
-                                
+
+            cc.log("I am pusing");
+            //Game Bridge Class
+            this._GameBridage = new ls.GameCenterBridge();
+            this._GameBridage.pushscore(this._score, "YellowDuck");
+
         }
     },
 });

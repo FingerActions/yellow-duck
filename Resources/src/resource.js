@@ -25,17 +25,29 @@ var s_seashell_png = "res/img/seabed/seashells.png";
 
 var g_ressources = [
     //image
-    {src:s_HelloWorld},
-    {src:s_CloseNormal},
-    {src:s_CloseSelected},
-    {src:s_Font_png},
-    {src:s_duckfly},
-    {src:s_seashell_png},
+    {
+        src: s_HelloWorld
+    }, {
+        src: s_CloseNormal
+    }, {
+        src: s_CloseSelected
+    }, {
+        src: s_Font_png
+    }, {
+        src: s_duckfly
+    }, {
+        src: s_seashell_png
+    },
     //plist
-    {src:s_duckflyplist},
-    {src:s_seashell_plist},
+    {
+        src: s_duckflyplist
+    }, {
+        src: s_seashell_plist
+    },
     //fnt
-    {src:s_Font_fnt}
+    {
+        src: s_Font_fnt
+    }
     //tmx
 
     //bgm

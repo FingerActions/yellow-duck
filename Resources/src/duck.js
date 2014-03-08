@@ -1,20 +1,20 @@
 var duck = cc.Sprite.extend({
-    speed:220,
-    bulletSpeed:MW.BULLET_SPEED.SHIP,
-    HP:5,
-    bulletTypeValue:1,
-    bulletPowerValue:1,
-    throwBombing:false,
-    canBeAttack:true,
-    isThrowingBomb:false,
-    zOrder:3000,
-    maxBulletPowerValue:4,
-    appearPosition:cc.p(160, 60),
-    _hurtColorLife:0,
-    active:true,
-    bornSprite:null,
-	CD_GRAVITY_SPEED: 300,
-    ctor:function () {
+    speed: 220,
+    bulletSpeed: MW.BULLET_SPEED.SHIP,
+    HP: 5,
+    bulletTypeValue: 1,
+    bulletPowerValue: 1,
+    throwBombing: false,
+    canBeAttack: true,
+    isThrowingBomb: false,
+    zOrder: 3000,
+    maxBulletPowerValue: 4,
+    appearPosition: cc.p(160, 60),
+    _hurtColorLife: 0,
+    active: true,
+    bornSprite: null,
+    CD_GRAVITY_SPEED: 300,
+    ctor: function() {
         this._super();
 
         //init life
@@ -37,8 +37,8 @@ var duck = cc.Sprite.extend({
         this.schedule(this.shoot, 1 / 6);
 
     },
-    update:function (dt) {
-        
+    update: function(dt) {
+
     },
-    
+
 });

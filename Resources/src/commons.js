@@ -17,7 +17,7 @@
 
 //PlayScene
 
-var WALL_HEIGHT = [-10,-20,-30,-40,-50,-60,-70,-80,-90,-100,-110,-120,-130,-140,-150,-160,-170,-180,-190,-200];
+var WALL_HEIGHT = [-10, -20, -30, -40, -50, -60, -70, -80, -90, -100, -110, -120, -130, -140, -150, -160, -170, -180, -190, -200];
 var WALL_GAP = 100;
 var GRAVITY = 0.3;
 var JUMP_VELOCITY = 7;
@@ -29,9 +29,6 @@ var MAX_SEA_SHEELS = 7;
 var CURRENT_SCORE = 0;
 
 //MyScene
-var INITIALIZED_MYAPP=false;
+var INITIALIZED_MYAPP = false;
 
 var WEATHER = 0; // 0 for rain day, 1 for fine day
-
-
-
