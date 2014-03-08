@@ -1,12 +1,12 @@
 //////////////////////////////////////////////////////////////////////
-//TIANMAO GAMES PROPRIETARY INFORMATION
+//FINGERACTIONS GAMES PROPRIETARY INFORMATION
 //
 // This software is supplied under the terms of a license agreement or
-// nondisclosure agreement with TIANMAO Games and may not
+// non-disclosure agreement with FINGERACTIONS Games and may not
 // be copied or disclosed except in accordance with the terms of that
 // agreement.
 //
-//      Copyright (c) 2014 TIANMAO GAMES
+//      Copyright (c) 2014 FINGERACTIONS GAMES
 //      All Rights Reserved.
 //
 //
@@ -25,7 +25,7 @@ var ScoreLayer = cc.Layer.extend({
     _gameover: null,
     _tapcontinue: null,
     _highScore: null,
-    _GameBridage:null,
+    _GameBridage: null,
 
     ctor: function() {
         this._super();
@@ -46,11 +46,11 @@ var ScoreLayer = cc.Layer.extend({
             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
             this.setTouchEnabled(true);
         }
-       
-        this._GameBridage= new ls.GameCenterBridge();
+
+        this._GameBridage = new ls.GameCenterBridge();
         this._GameBridage.showAddAtBottom();
         this._GameBridage.pushscenename("score scene");
-                                 
+
         //add background image (die)
         this._diebackground = cc.Sprite.create("res/img/background/die_scene.png");
         this._diebackground.setAnchorPoint(cc.p(0, 0));
@@ -124,25 +124,25 @@ var ScoreLayer = cc.Layer.extend({
         this._tapcontinue.runAction(sequence);
 
         // social networks
-       // var twitterButton = cc.MenuItemImage.create('res/twitter.png', 'res/twitter.png', this.tweet, this);
+        // var twitterButton = cc.MenuItemImage.create('res/twitter.png', 'res/twitter.png', this.tweet, this);
         //twitterButton.setPosition(cc.p(-50, 0));
-       // twitterButton.setScale(0.08);
+        // twitterButton.setScale(0.08);
 
         //var facebookButton = cc.MenuItemImage.create('res/facebook.png', 'res/facebook.png', this.share, this);
-       // facebookButton.setPosition(cc.p(50, 0));
-       // facebookButton.setScale(0.08);
-      
+        // facebookButton.setPosition(cc.p(50, 0));
+        // facebookButton.setScale(0.08);
+
         //leaderboard
-        var leaderboardButton = cc.MenuItemImage.create('res/leaderboard.png','res/leaderboard.png',this.leaderboard,this);
-        leaderboardButton.setPosition(cc.p(0, -50                                                                                                              ));
+        var leaderboardButton = cc.MenuItemImage.create('res/leaderboard.png', 'res/leaderboard.png', this.leaderboard, this);
+        leaderboardButton.setPosition(cc.p(0, -50));
         leaderboardButton.setScale(0.5);
-                                 
+
         var socialMenu = cc.Menu.create(leaderboardButton);
         socialMenu.setPosition(cc.p(this.size.width / 2, this.size.height - 300));
         this.addChild(socialMenu, 5);
-                                
+
         return true;
-                                 
+
     },
 
     tweet: function() {
@@ -151,8 +151,8 @@ var ScoreLayer = cc.Layer.extend({
         var text = 'I%20got%20' + this._highScore + '%20in%20Bath%20Duck!%20Download%20at?%20to%20challenge%20me!';
         var url = urlBase + 'text=' + text;
         cc.Application.getInstance().openURL(url);
-        this._GameBridage= new ls.GameCenterBridge();
-        this._GameBridage.pusheventname("Menu","click","tweet");
+        this._GameBridage = new ls.GameCenterBridge();
+        this._GameBridage.pusheventname("Menu", "click", "tweet");
     },
 
     share: function() {
@@ -167,21 +167,21 @@ var ScoreLayer = cc.Layer.extend({
         var redirect_uri = 'https://developers.facebook.com/tools/explorer';
         var url = baseUrl + 'app_id=' + app_id + '&display=' + display + '&name=' + name + '&caption=' + caption + '&description=' + description + '&link=' + link + '&redirect_uri=' + redirect_uri;
         cc.Application.getInstance().openURL(url);
-        this._GameBridage= new ls.GameCenterBridge();
-        this._GameBridage.pusheventname("Menu","click","facebook");
+        this._GameBridage = new ls.GameCenterBridge();
+        this._GameBridage.pusheventname("Menu", "click", "facebook");
     },
-                                 
-    leaderboard: function(){
-                    
-         cc.log("I am pusing");
-         //Game Bridge Class
-                                 
+
+    leaderboard: function() {
+
+        cc.log("I am pusing");
+        //Game Bridge Class
+
         //push highScore everytime, in case player has a high localscore but didn't connect to internet
-        this._GameBridage= new ls.GameCenterBridge();
-        this._GameBridage.pushscore(this._highScore,"YellowDuck");
+        this._GameBridage = new ls.GameCenterBridge();
+        this._GameBridage.pushscore(this._highScore, "YellowDuck");
         this._GameBridage.showleaderboard();
-        this._GameBridage.pusheventname("Menu","click","leaderboard");
-                                 
+        this._GameBridage.pusheventname("Menu", "click", "leaderboard");
+
     },
 
     onTouchesBegan: function(touches, event) {
@@ -215,6 +215,6 @@ var ScoreScene = cc.Scene.extend({
         var layer = new ScoreLayer();
         this.addChild(layer);
         layer.init();
-                
+
     }
 });
