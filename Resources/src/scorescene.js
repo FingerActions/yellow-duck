@@ -113,7 +113,7 @@ var ScoreLayer = cc.Layer.extend({
 
         this._tapcontinue = cc.LabelTTF.create("TAP TO CONTINUE", "Marker Felt", 24);
         // position the label on the center of the screen
-        this._tapcontinue.setPosition(cc.p(this.size.width / 2, this.size.height - 280));
+        this._tapcontinue.setPosition(cc.p(this.size.width / 2, this.size.height - 300));
         // add the label as a child to this layer
         this.addChild(this._tapcontinue, 5);
 
@@ -124,21 +124,21 @@ var ScoreLayer = cc.Layer.extend({
         this._tapcontinue.runAction(sequence);
 
         // social networks
-        var twitterButton = cc.MenuItemImage.create('res/twitter.png', 'res/twitter.png', this.tweet, this);
-        twitterButton.setPosition(cc.p(-50, 0));
-        twitterButton.setScale(0.08);
+       // var twitterButton = cc.MenuItemImage.create('res/twitter.png', 'res/twitter.png', this.tweet, this);
+        //twitterButton.setPosition(cc.p(-50, 0));
+       // twitterButton.setScale(0.08);
 
-        var facebookButton = cc.MenuItemImage.create('res/facebook.png', 'res/facebook.png', this.share, this);
-        facebookButton.setPosition(cc.p(50, 0));
-        facebookButton.setScale(0.08);
-                                 
+        //var facebookButton = cc.MenuItemImage.create('res/facebook.png', 'res/facebook.png', this.share, this);
+       // facebookButton.setPosition(cc.p(50, 0));
+       // facebookButton.setScale(0.08);
+      
         //leaderboard
         var leaderboardButton = cc.MenuItemImage.create('res/leaderboard.png','res/leaderboard.png',this.leaderboard,this);
         leaderboardButton.setPosition(cc.p(0, -50                                                                                                              ));
         leaderboardButton.setScale(0.5);
                                  
-        var socialMenu = cc.Menu.create(twitterButton, facebookButton,leaderboardButton);
-        socialMenu.setPosition(cc.p(this.size.width / 2, this.size.height - 330));
+        var socialMenu = cc.Menu.create(leaderboardButton);
+        socialMenu.setPosition(cc.p(this.size.width / 2, this.size.height - 300));
         this.addChild(socialMenu, 5);
                                 
         return true;
