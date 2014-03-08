@@ -151,6 +151,7 @@ var ScoreLayer = cc.Layer.extend({
         var text = 'I%20got%20' + this._highScore + '%20in%20Bath%20Duck!%20Download%20at?%20to%20challenge%20me!';
         var url = urlBase + 'text=' + text;
         cc.Application.getInstance().openURL(url);
+        this._GameBridage= new ls.GameCenterBridge();
         this._GameBridage.pusheventname("Menu","click","tweet");
     },
 
@@ -166,12 +167,18 @@ var ScoreLayer = cc.Layer.extend({
         var redirect_uri = 'https://developers.facebook.com/tools/explorer';
         var url = baseUrl + 'app_id=' + app_id + '&display=' + display + '&name=' + name + '&caption=' + caption + '&description=' + description + '&link=' + link + '&redirect_uri=' + redirect_uri;
         cc.Application.getInstance().openURL(url);
+        this._GameBridage= new ls.GameCenterBridge();
         this._GameBridage.pusheventname("Menu","click","facebook");
     },
                                  
     leaderboard: function(){
                     
-        //Game Bridge Class
+         cc.log("I am pusing");
+         //Game Bridge Class
+                                 
+        //push highScore everytime, in case player has a high localscore but didn't connect to internet
+        this._GameBridage= new ls.GameCenterBridge();
+        this._GameBridage.pushscore(this._highScore,"BathDuck");
         this._GameBridage.showleaderboard();
         this._GameBridage.pusheventname("Menu","click","leaderboard");
                                  

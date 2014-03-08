@@ -96,8 +96,10 @@ static AppDelegate s_sharedApplication;
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
     
     // Initialize tracker.
-    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
+    // Test: id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48535423-1"];
     
+    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:@"UA-48792612-1"];
+
     
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             @"appview", kGAIHitType, @"Home Screen", kGAIScreenName, nil];
