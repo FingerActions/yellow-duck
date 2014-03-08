@@ -54,7 +54,7 @@ static AdMobObject* instance;
     [viewController.view addSubview:bannerView_];
     GADRequest *request = [GADRequest request];
     // For testing
-    //request.testDevices = [NSArray arrayWithObjects:@"e896b36e4164ccddf92f9e4e1246468d", nil];
+    //request.testDevices = [NSArray arrayWithObjects:@"e896b36e4164ccddf92f9e4e1246468d", nil];d
     [bannerView_ loadRequest:request];
 
     
