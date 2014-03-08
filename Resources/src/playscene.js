@@ -376,9 +376,9 @@ var PlayLayer = cc.Layer.extend({
      
      
          //add background image (river)
-         var rd_number = Math.floor(Math.random()*3);
+        // var rd_number = Math.floor(Math.random()*3);
          
-         if(rd_number==0)
+         if( WEATHER==0)
          {
              //bg
              this._river = cc.Sprite.create("res/background-dark.png");

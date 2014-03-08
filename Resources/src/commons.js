@@ -31,5 +31,7 @@ var CURRENT_SCORE = 0;
 //MyScene
 var INITIALIZED_MYAPP=false;
 
+var WEATHER = 0; // 0 for rain day, 1 for fine day
+
 
 

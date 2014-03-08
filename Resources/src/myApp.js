@@ -214,7 +214,7 @@ var MyLayer = cc.Layer.extend({
         
                               
             //add background image (river)
-             var rd_number = Math.floor(Math.random()*3);
+             var rd_number = Math.floor(Math.random()*5);
                               
              if(rd_number==0)
              {
@@ -230,12 +230,14 @@ var MyLayer = cc.Layer.extend({
                  emitter.setTexture(cc.TextureCache.getInstance().addImage("res/particle-fire.png"));
                  if (emitter.setShapeType)
                  emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+                 WEATHER = 0
               }else{
                  //bg
                  this.sprite = cc.Sprite.create("res/background.png");
                  this.sprite.setAnchorPoint(cc.p(0, 0));
                  this.sprite.setPosition(cc.p(0, 0));
                  this.addChild(this.sprite, 0);
+                 WEATHER = 1;
 
               }
         },
