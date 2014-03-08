@@ -20,8 +20,8 @@
     
 }
 +(MyGameCenterManager*)shared;
-+(void) reportScore: (int64_t) score forCategory: (NSString*) category;
-+(void) showLeaderboard;
+-(void) reportScore: (int64_t) score forCategory: (NSString*) category;
+-(void) showLeaderboard;
 -(void) addAdMob;
 -(void) showAddAtTop;
 -(void) showAddAtBottom;

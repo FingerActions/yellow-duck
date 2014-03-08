@@ -35,7 +35,7 @@ void ls::GameCenterBridge::pushscore(string score,string cat){
     
     int64_t i = [s longLongValue];
     
-    [MyGameCenterManager reportScore:(i) forCategory:(NSString *) result];
+   [[MyGameCenterManager shared] reportScore:(i) forCategory:(NSString *) result];
     
     
 #endif
@@ -49,7 +49,7 @@ void ls::GameCenterBridge::showleaderboard(){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     
     
-    [MyGameCenterManager showLeaderboard];
+    [[MyGameCenterManager shared] showLeaderboard];
     
     
 #endif

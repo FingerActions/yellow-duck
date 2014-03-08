@@ -198,16 +198,16 @@ var PlayLayer = cc.Layer.extend({
                                 
                                 
         // add ripple effects
-        var size = cc.size(100,100);
+       // var size = cc.size(100,100);
                                 
         // var x = touches[0].getLocation().x;
         // var y = touches[0].getLocation().y;
         // var ripple = cc.Ripple3D.create(2,size,cc.p(x,y),50,5,3);
-        
+        /*
                                 
         var ripple = cc.Ripple3D.create(2,size,this._duck.getPosition(),50,5,3);
                                 
-        this._river.runAction(ripple);
+        this._river.runAction(ripple);*/
 
             
     },
@@ -343,11 +343,14 @@ var PlayLayer = cc.Layer.extend({
 
     gameOver: function(hitWall) {
         this.unscheduleUpdate();
+        this._GameBridage= new ls.GameCenterBridge();
         if (hitWall) {
             this._gameover = true;
             this.gameOverHitWall();
+            this._GameBridage.pusheventname("Action","Die","Hit Wall");
         } else {
             this._gameover = true;
+            this._GameBridage.pusheventname("Action","Die","Drowned");
             this.gameOverDrowned();
         }
     },
@@ -367,8 +370,6 @@ var PlayLayer = cc.Layer.extend({
 
         var shrinkRotateDie = cc.Sequence.create(shrinkAction, rotateAction);
         this._duck.runAction(shrinkRotateDie);
- 
-        this._GameBridage.pusheventname("Action","Die","Hit Wall");
     },
 
      randomWeather:function(){
@@ -425,7 +426,6 @@ var PlayLayer = cc.Layer.extend({
         });
         if (!enoughBubble) {
             this.die();
-            this._GameBridage.pusheventname("Action","Die","Drowned");
         }
     },
 
@@ -463,7 +463,7 @@ var PlayLayer = cc.Layer.extend({
                                 
           cc.log("I am pusing");
           //Game Bridge Class
-
+          this._GameBridage= new ls.GameCenterBridge();
           this._GameBridage.pushscore(this._score,"BathDuck");
                                 
         }
