@@ -696,7 +696,7 @@
 		46513EB4187C02A600B5ABE1 /* UITouchGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UITouchGroup.cpp; sourceTree = "<group>"; };
 		46513EB5187C02A600B5ABE1 /* UITouchGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITouchGroup.h; sourceTree = "<group>"; };
 		46513EB7187C034200B5ABE1 /* cocos2d-jsb.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = "cocos2d-jsb.js"; path = "../Resources/cocos2d-jsb.js"; sourceTree = "<group>"; };
-		A922753D1517C094001B78AA /* flappy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = flappy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A922753D1517C094001B78AA /* Yellow Duck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Yellow Duck.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A92275411517C094001B78AA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A92275431517C094001B78AA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		A92275451517C094001B78AA /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -728,6 +728,13 @@
 		EE61DC6518CAB5920068365C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		EE61DC6618CAB5A20068365C /* icon-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-2x.png"; sourceTree = "<group>"; };
 		EE61DC6718CAB5CE0068365C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = flappy/Images.xcassets; sourceTree = "<group>"; };
+		EE61DC6A18CB54DD0068365C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		EE61DC6B18CB54ED0068365C /* icon-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-2x.png"; sourceTree = "<group>"; };
+		EE61DC6C18CB56450068365C /* icon-2x-120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-2x-120x120.png"; sourceTree = "<group>"; };
+		EE61DC6F18CB5E600068365C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		EE61DC7018CB5E760068365C /* icon-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-2x.png"; sourceTree = "<group>"; };
+		EE61DC7118CB5E890068365C /* icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-120.png"; sourceTree = "<group>"; };
+		EE61DC7218CB5E9D0068365C /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		EEA5067018BCABCF00BBF285 /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
 		EEA5067118BCABCF00BBF285 /* GADAdNetworkExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdNetworkExtras.h; sourceTree = "<group>"; };
 		EEA5067218BCABCF00BBF285 /* GADAdSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdSize.h; sourceTree = "<group>"; };
@@ -1617,6 +1624,13 @@
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
+				EE61DC7218CB5E9D0068365C /* Icon-72.png */,
+				EE61DC7118CB5E890068365C /* icon-120.png */,
+				EE61DC7018CB5E760068365C /* icon-2x.png */,
+				EE61DC6F18CB5E600068365C /* icon.png */,
+				EE61DC6C18CB56450068365C /* icon-2x-120x120.png */,
+				EE61DC6B18CB54ED0068365C /* icon-2x.png */,
+				EE61DC6A18CB54DD0068365C /* icon.png */,
 				EE61DC6618CAB5A20068365C /* icon-2x.png */,
 				EE61DC6518CAB5920068365C /* icon.png */,
 				EEA506B318C15D4F00BBF285 /* GoogleAnalyticsSDK */,
@@ -1638,7 +1652,7 @@
 		A922753E1517C094001B78AA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A922753D1517C094001B78AA /* flappy.app */,
+				A922753D1517C094001B78AA /* Yellow Duck.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1754,7 +1768,7 @@
 			);
 			name = "Bath Duck";
 			productName = flappy;
-			productReference = A922753D1517C094001B78AA /* flappy.app */;
+			productReference = A922753D1517C094001B78AA /* Yellow Duck.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2115,9 +2129,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-YellowDuck";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Aren Chang (QEPNXDRW9Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Aren Chang (QEPNXDRW9Y)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 1;
@@ -2161,7 +2175,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "Yellow Duck";
-				PROVISIONING_PROFILE = "CCCC9D61-0FA8-4356-A98D-AFABDB7EF4D4";
+				PROVISIONING_PROFILE = "DB56589B-629E-4DDE-A7AC-7DB74886EC38";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2172,9 +2186,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-YellowDuck";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Aren Chang (QEPNXDRW9Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Aren Chang (QEPNXDRW9Y)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
@@ -2215,7 +2229,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "Yellow Duck";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "DB56589B-629E-4DDE-A7AC-7DB74886EC38";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
