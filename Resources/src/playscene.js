@@ -162,7 +162,11 @@ var PlayLayer = cc.Layer.extend({
     },
 
     spawnMermaid: function() {
+                                
+        
         var mermaid = cc.Sprite.create("res/mermaid.png");
+        
+        
         mermaid.setScale(0.5);
         var contentSize = mermaid.getContentSize();
 

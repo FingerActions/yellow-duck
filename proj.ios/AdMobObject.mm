@@ -45,7 +45,7 @@ static AdMobObject* instance;
                                      0,
                                      bannerView_.bounds.size.width,
                                      bannerView_.bounds.size.height)];
-    bannerView_.adUnitID = @"ca-app-pub-4106182710083142/8799461914";
+    bannerView_.adUnitID = @"ca-app-pub-1042036036685288/9519426250";
   
     //production: ca-app-pub-1042036036685288/9519426250
     //test: ca-app-pub-4106182710083142/8799461914
@@ -54,9 +54,7 @@ static AdMobObject* instance;
     [viewController.view addSubview:bannerView_];
     GADRequest *request = [GADRequest request];
     // For testing
-    request.testDevices = [NSArray arrayWithObjects:@"e896b36e4164ccddf92f9e4e1246468d", nil];
-
-    
+    //request.testDevices = [NSArray arrayWithObjects:@"e896b36e4164ccddf92f9e4e1246468d", nil];
     [bannerView_ loadRequest:request];
 
     
