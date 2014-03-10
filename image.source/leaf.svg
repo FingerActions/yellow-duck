@@ -1,0 +1,27 @@
+<?xml version="1.0"?><svg width="4000" height="3000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <title>Leaf</title>
+ <defs>
+  <linearGradient id="linearGradient3183">
+   <stop offset="0" id="stop3185" stop-opacity="0" stop-color="#ffffff"/>
+   <stop id="stop3191" offset="0.662236" stop-opacity="0.630252" stop-color="#65c734"/>
+   <stop offset="1" id="stop3187" stop-color="#ddffcd"/>
+  </linearGradient>
+  <linearGradient xlink:href="#linearGradient3183" id="linearGradient3988" x1="1.000015" y1="1" x2="0.283283" y2="1"/>
+ </defs>
+ <metadata id="metadata7">image/svg+xml</metadata>
+ <g>
+  <title>Layer 1</title>
+  <g id="layer1">
+   <g id="g3979">
+    <g id="g2391" fill="#339900">
+     <path d="m3901.077637,18.000088c-461.127686,897.753086 93.760498,2363.817783 -2366.641357,2143.272861c-1509.43635,-1385.849182 1877.437988,-1030.767456 2366.641357,-2143.272861z" id="path2383" stroke-width="1px" fill-rule="evenodd" fill="#339900"/>
+     <path d="m1534.436279,2161.272949l-1159.171326,497.544922l193.195068,306.182129l965.976257,-803.727051z" id="path2385" stroke-width="1px" fill-rule="evenodd" fill="#339900"/>
+    </g>
+    <path id="path3165" d="m1570.65979,2103.863525c1949.74353,-1548.531067 2137.222534,-1731.841125 2137.222534,-1731.841125c-984.955078,798.711243 -3178.654663,569.14563 -2137.222534,1731.841125z" stroke-width="1px" fill-rule="evenodd" fill="url(#linearGradient3988)"/>
+    <path id="path2409" d="m1588.594849,2129.977051c471.762085,-511.671509 1204.363403,-990.914551 1737.407104,-1437.194946c254.722412,-213.261017 373.989746,-254.486603 461.400635,-466.334091" stroke-dashoffset="0" stroke-miterlimit="4" stroke-linecap="round" stroke-width="2.5" stroke="#007800" fill-rule="evenodd" fill="none"/>
+    <path id="path3959" d="m1546.510742,2146.920166c520.454346,-42.202881 969.578369,186.927002 1580.478271,-276.208862c623.632324,-472.787964 592.133545,-1549.253174 620.654053,-1555.99823" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="3.6" stroke="#006100" fill-rule="evenodd" fill="none"/>
+    <path id="path3973" d="m399.414063,2663.602295l187.158203,129.169922l839.191406,-574.090576l-1026.34964,444.920654l0.000031,0z" stroke-width="1px" fill-rule="evenodd" fill="#77c452"/>
+   </g>
+  </g>
+ </g>
+</svg>
