@@ -31,10 +31,10 @@ typedef struct tagResource
     char directory[100];
 }Resource;
 
-static Resource smallResource  =  { cocos2d::CCSizeMake(480, 320),   "iphone" };
-static Resource mediumResource =  { cocos2d::CCSizeMake(1024, 768),  "ipad"   };
-static Resource largeResource  =  { cocos2d::CCSizeMake(2048, 1536), "ipadhd" };
-static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(480, 320);
+static Resource smallResource  =  { cocos2d::CCSizeMake(320, 480),   "iphone" };
+static Resource mediumResource =  { cocos2d::CCSizeMake(768, 1024),  "ipad"   };
+static Resource largeResource  =  { cocos2d::CCSizeMake(1536, 2048), "ipadhd" };
+static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(320, 480);
 
 AppDelegate::AppDelegate()
 {
@@ -54,9 +54,34 @@ bool AppDelegate::applicationDidFinishLaunching()
     
 
     CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
+    
+  
+    
     CCSize frameSize = CCEGLView::sharedOpenGLView()->getFrameSize();
     
+    // if the frame's height is larger than the height of medium resource size, select large resource.
     
+    /*
+     vector<string> searchPath;
+    
+    if (frameSize.height > mediumResource.size.height)
+    {
+        searchPath.push_back(largeResource.directory);
+        pDirector->setContentScaleFactor(largeResource.size.height/designResolutionSize.height);
+    }
+    // if the frame's height is larger than the height of small resource size, select medium resource.
+    else if (frameSize.height > smallResource.size.height)
+    {
+        searchPath.push_back(mediumResource.directory);
+        pDirector->setContentScaleFactor(mediumResource.size.height/designResolutionSize.height);
+    }
+    // if the frame's height is smaller than the height of medium resource size, select small resource.
+    else
+    {
+        searchPath.push_back(smallResource.directory);
+        pDirector->setContentScaleFactor(smallResource.size.height/designResolutionSize.height);
+    }
+    */
     // turn on display FPS
     pDirector->setDisplayStats(false);
     
@@ -91,35 +116,54 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     CCEGLView *pEGLView = CCEGLView::sharedOpenGLView();
     
-    pEGLView->setDesignResolutionSize(320, 480, kResolutionFixedHeight);
-    
-    /*
+    //pEGLView->setDesignResolutionSize(320, 480, kResolutionFixedHeight);
+  
     pDirector->setOpenGLView(pEGLView);
     CCSize frame_size = pEGLView->getFrameSize();
     std::vector<std::string> res_dir_orders;
     
-    if(1136 == frame_size.height)
+    
+    if(2048==frame_size.height){
+        
+        res_dir_orders.push_back("ipadhd");
+        res_dir_orders.push_back("ipad");
+        res_dir_orders.push_back("iphonehd5");
+        res_dir_orders.push_back("iphonehd");
+        res_dir_orders.push_back("iphone");
+        
+    }
+    
+    else if(1024 == frame_size.height)
     {
         
-        res_dir_orders.push_back("res/iphonehd5");
-        res_dir_orders.push_back("res/iphonehd");
-        res_dir_orders.push_back("res/iphone");
+        res_dir_orders.push_back("ipad");
+        res_dir_orders.push_back("iphonehd5");
+        res_dir_orders.push_back("iphonehd");
+        res_dir_orders.push_back("iphone");
         
-    }else if(960 == frame_size.height)
+    }
+    else if(1136 == frame_size.height)
+    {
+        res_dir_orders.push_back("iphonehd5");
+        res_dir_orders.push_back("iphonehd");
+        res_dir_orders.push_back("iphone");
+    }
+    
+    else if(960 == frame_size.height)
     {
         
-        res_dir_orders.push_back("/res/iphonehd");
-        res_dir_orders.push_back("/res/iphone");
+        res_dir_orders.push_back("iphonehd");
+        res_dir_orders.push_back("iphone");
         
     }else{
         
-        res_dir_orders.push_back("res/iphone");
+        res_dir_orders.push_back("iphone");
         
     }
     
     CCFileUtils::sharedFileUtils()->setSearchResolutionsOrder(res_dir_orders);
     
-    */
+  
        
     return true;
 }
