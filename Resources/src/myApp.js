@@ -101,6 +101,7 @@ var MyLayer = cc.Layer.extend({
         //labelShouldRetain.setPosition(this.size.width/5,this.size.height/2);
 
         // add "Helloworld" splash screen"
+                             
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duckflyplist);
         this.spritesheet = cc.SpriteBatchNode.create(s_duckfly);
         this.addChild(this.spritesheet);
@@ -110,7 +111,7 @@ var MyLayer = cc.Layer.extend({
             var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
             animFrames.push(frame);
         }
-
+                               
         var animation = cc.Animation.create(animFrames, 0.3);
         this._flyingAction = cc.RepeatForever.create(cc.Animate.create(animation));
         this._duck = cc.Sprite.createWithSpriteFrameName("ducksmall01.png");

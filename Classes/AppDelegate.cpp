@@ -1,5 +1,4 @@
 #include "AppDelegate.h"
-
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 #include "ScriptingCore.h"
@@ -123,8 +122,8 @@ bool AppDelegate::applicationDidFinishLaunching()
     std::vector<std::string> res_dir_orders;
     
     
-    if(2048==frame_size.height){
-        
+    if(2048 == frame_size.height){
+        CCLog("heheheheheheheheheheheh1");
         res_dir_orders.push_back("ipadhd");
         res_dir_orders.push_back("ipad");
         res_dir_orders.push_back("iphonehd5");
@@ -135,7 +134,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     else if(1024 == frame_size.height)
     {
-        
+        CCLog("heheheheheheheheheheheh2");
         res_dir_orders.push_back("ipad");
         res_dir_orders.push_back("iphonehd5");
         res_dir_orders.push_back("iphonehd");
@@ -144,6 +143,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     }
     else if(1136 == frame_size.height)
     {
+        CCLog("heheheheheheheheheheheh3");
         res_dir_orders.push_back("iphonehd5");
         res_dir_orders.push_back("iphonehd");
         res_dir_orders.push_back("iphone");
@@ -151,20 +151,18 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     else if(960 == frame_size.height)
     {
-        
+        CCLog("heheheheheheheheheheheh4");
         res_dir_orders.push_back("iphonehd");
         res_dir_orders.push_back("iphone");
         
     }else{
-        
+        CCLog("heheheheheheheheheheheh5");
         res_dir_orders.push_back("iphone");
         
     }
     
     CCFileUtils::sharedFileUtils()->setSearchResolutionsOrder(res_dir_orders);
     
-  
-       
     return true;
 }
 
