@@ -14,6 +14,8 @@
 #include "jsb_opengl_registration.h"
 #include "XMLHTTPRequest.h"
 #include "jsb_websocket.h"
+
+// custom js binding
 #include "jsb_gamecenter_auto.h"
 
 
@@ -23,7 +25,7 @@ USING_NS_CC;
 using namespace CocosDenshion;
 
 
-
+// multi screen
 typedef struct tagResource
 {
     cocos2d::CCSize size;
@@ -51,7 +53,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
     
     
-
+// multi screen
     CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
     
   
@@ -81,7 +83,7 @@ bool AppDelegate::applicationDidFinishLaunching()
         pDirector->setContentScaleFactor(smallResource.size.height/designResolutionSize.height);
     }
     */
-    // turn on display FPS
+    // turn off display FPS
     pDirector->setDisplayStats(false);
     
     // set FPS. the default value is 1.0/60 if you don't call this
@@ -100,9 +102,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     sc->addRegisterCallback(JSB_register_opengl);
     sc->addRegisterCallback(MinXmlHttpRequest::_js_register);
     sc->addRegisterCallback(register_jsb_websocket);
+    //custom js binding
     sc->addRegisterCallback(register_all_ls);
     
-    //sc->addRegisterCallback(register_all_ls);
 
     sc->start();
     
