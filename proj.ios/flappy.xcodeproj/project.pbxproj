@@ -231,6 +231,8 @@
 		A922754C1517C094001B78AA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754B1517C094001B78AA /* UIKit.framework */; };
 		A922754E1517C094001B78AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754D1517C094001B78AA /* Foundation.framework */; };
 		A92275501517C094001B78AA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754F1517C094001B78AA /* CoreGraphics.framework */; };
+		C2A59AA018D326D60005B589 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506BA18C15E9B00BBF285 /* libGoogleAnalyticsServices.a */; };
+		C2A59AA118D326E60005B589 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5067918BCABCF00BBF285 /* libGoogleAdMobAds.a */; };
 		D446FDA316102D7D000ADA7B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D446FDA216102D7D000ADA7B /* Default.png */; };
 		D446FDA516102D82000ADA7B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D446FDA416102D82000ADA7B /* Default@2x.png */; };
 		D446FDA716102D86000ADA7B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D446FDA616102D86000ADA7B /* Default-568h@2x.png */; };
@@ -244,7 +246,6 @@
 		EE2749CF18C1DF5F00C18B44 /* MyGameCenterManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE2749CD18C1DF5F00C18B44 /* MyGameCenterManager.mm */; };
 		EE2749D318C1EA6D00C18B44 /* jsb_gamecenter_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE2749D118C1EA6D00C18B44 /* jsb_gamecenter_auto.cpp */; };
 		EE61DC6818CAB5CE0068365C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE61DC6718CAB5CE0068365C /* Images.xcassets */; };
-		EEA5067B18BCABCF00BBF285 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5067918BCABCF00BBF285 /* libGoogleAdMobAds.a */; };
 		EEA5067C18BCABCF00BBF285 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEA5067A18BCABCF00BBF285 /* README.txt */; };
 		EEA5067E18BCAC5C00BBF285 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5067D18BCAC5C00BBF285 /* AdSupport.framework */; };
 		EEA5068018BCAC7000BBF285 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5067F18BCAC7000BBF285 /* CoreTelephony.framework */; };
@@ -254,7 +255,6 @@
 		EEA506B018C0CE1400BBF285 /* GameKitHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEA506AF18C0CE1400BBF285 /* GameKitHelper.mm */; };
 		EEA506B218C0D0C000BBF285 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506B118C0D0C000BBF285 /* GameKit.framework */; };
 		EEA506BD18C15F3000BBF285 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506BC18C15F3000BBF285 /* CoreData.framework */; };
-		EEA506BE18C1855E00BBF285 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506BA18C15E9B00BBF285 /* libGoogleAnalyticsServices.a */; };
 		EECADE8118C764D1004F7DAF /* AdMobObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = EECADE7F18C764D1004F7DAF /* AdMobObject.mm */; };
 /* End PBXBuildFile section */
 
@@ -772,7 +772,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEA506BE18C1855E00BBF285 /* libGoogleAnalyticsServices.a in Frameworks */,
+				C2A59AA118D326E60005B589 /* libGoogleAdMobAds.a in Frameworks */,
+				C2A59AA018D326D60005B589 /* libGoogleAnalyticsServices.a in Frameworks */,
 				D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */,
 				EEA5068618BCAC9100BBF285 /* SystemConfiguration.framework in Frameworks */,
 				EEA506BD18C15F3000BBF285 /* CoreData.framework in Frameworks */,
@@ -794,7 +795,6 @@
 				A92275501517C094001B78AA /* CoreGraphics.framework in Frameworks */,
 				1A96A4F3174A3432008653A9 /* libcurl.a in Frameworks */,
 				1AB8701E175E07C6005D39BF /* libwebsockets.a in Frameworks */,
-				EEA5067B18BCABCF00BBF285 /* libGoogleAdMobAds.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1734,6 +1734,7 @@
 				EEA5067A18BCABCF00BBF285 /* README.txt */,
 			);
 			name = GoogleAdmobSDK;
+			path = ../../../FingerActions/GoogleAdmobSDK;
 			sourceTree = "<group>";
 		};
 		EEA506B318C15D4F00BBF285 /* GoogleAnalyticsSDK */ = {
@@ -1748,6 +1749,7 @@
 				EEA506B918C15E5400BBF285 /* GAITracker.h */,
 			);
 			name = GoogleAnalyticsSDK;
+			path = ../../../FingerActions/GoogleAnalyticsSdk;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2127,7 +2129,7 @@
 		A92277011517C097001B78AA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-YellowDuck";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Aren Chang (QEPNXDRW9Y)";
@@ -2167,6 +2169,17 @@
 					"\"$(SRCROOT)/../../../scripting/javascript/spidermonkey-ios/lib\"",
 					"\"$(SRCROOT)/\"",
 					"\"$(SRCROOT)/../../../Projects/flappy/proj.ios\"",
+					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAnalyticsSdk",
+					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAdmobSDK",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = (
+					"\"$(SRCROOT)/../../../external/libwebsockets/ios/lib\"",
+					"\"$(SRCROOT)/../../../cocos2dx/platform/third_party/ios/libraries\"",
+					"\"$(SRCROOT)/../../../scripting/javascript/spidermonkey-ios/lib\"",
+					"\"$(SRCROOT)/\"",
+					"\"$(SRCROOT)/../../../Projects/flappy/proj.ios\"",
+					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAnalyticsSdk",
+					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAdmobSDK",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -2184,7 +2197,7 @@
 		A92277021517C097001B78AA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-YellowDuck";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Aren Chang (QEPNXDRW9Y)";
@@ -2221,6 +2234,8 @@
 					"\"$(SRCROOT)/../../../scripting/javascript/spidermonkey-ios/lib\"",
 					"\"$(SRCROOT)/\"",
 					"\"$(SRCROOT)/../../../Projects/flappy/proj.ios\"",
+					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAnalyticsSdk",
+					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAdmobSDK",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
