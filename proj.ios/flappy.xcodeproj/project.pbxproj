@@ -751,9 +751,8 @@
 		EEA5068118BCAC7900BBF285 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		EEA5068318BCAC8200BBF285 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		EEA5068518BCAC9100BBF285 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		EEA5069B18BF475F00BBF285 /* myoc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myoc.h; sourceTree = "<group>"; };
-		EEA506AE18C0CDF600BBF285 /* GameKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameKitHelper.h; sourceTree = "<group>"; };
-		EEA506AF18C0CE1400BBF285 /* GameKitHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameKitHelper.mm; sourceTree = "<group>"; };
+		EEA506AE18C0CDF600BBF285 /* GameKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameKitHelper.h; path = GameCenter/GameKitHelper.h; sourceTree = "<group>"; };
+		EEA506AF18C0CE1400BBF285 /* GameKitHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GameKitHelper.mm; path = GameCenter/GameKitHelper.mm; sourceTree = "<group>"; };
 		EEA506B118C0D0C000BBF285 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		EEA506B418C15E5400BBF285 /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
 		EEA506B518C15E5400BBF285 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
@@ -763,8 +762,8 @@
 		EEA506B918C15E5400BBF285 /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
 		EEA506BA18C15E9B00BBF285 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		EEA506BC18C15F3000BBF285 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		EECADE7F18C764D1004F7DAF /* AdMobObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AdMobObject.mm; sourceTree = "<group>"; };
-		EECADE8018C764D1004F7DAF /* AdMobObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobObject.h; sourceTree = "<group>"; };
+		EECADE7F18C764D1004F7DAF /* AdMobObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AdMobObject.mm; path = AdMob/AdMobObject.mm; sourceTree = "<group>"; };
+		EECADE8018C764D1004F7DAF /* AdMobObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AdMobObject.h; path = AdMob/AdMobObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1624,6 +1623,7 @@
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
+				C2A59AA418D3333E0005B589 /* FingerActions */,
 				EE61DC7218CB5E9D0068365C /* Icon-72.png */,
 				EE61DC7118CB5E890068365C /* icon-120.png */,
 				EE61DC7018CB5E760068365C /* icon-2x.png */,
@@ -1633,8 +1633,6 @@
 				EE61DC6A18CB54DD0068365C /* icon.png */,
 				EE61DC6618CAB5A20068365C /* icon-2x.png */,
 				EE61DC6518CAB5920068365C /* icon.png */,
-				EEA506B318C15D4F00BBF285 /* GoogleAnalyticsSDK */,
-				EEA5066F18BCAB7200BBF285 /* GoogleAdmobSDK */,
 				15A3D2EC1682F076002FB0C5 /* cocos2dx.xcodeproj */,
 				15A3D2F81682F0A0002FB0C5 /* bindings */,
 				15A3D3311682F0B5002FB0C5 /* chipmunk */,
@@ -1683,13 +1681,53 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D45446CC156DE73F00887EB5 /* ios */ = {
+		C2A59AA418D3333E0005B589 /* FingerActions */ = {
+			isa = PBXGroup;
+			children = (
+				C2A59AA718D3393C0005B589 /* AdMob */,
+				EE2749CA18C1DD4200C18B44 /* GameCenterBridge.mm */,
+				EE2749CB18C1DD4200C18B44 /* GameCenterBridge.h */,
+				C2A59AA618D337880005B589 /* GameCenter */,
+				EE2749CD18C1DF5F00C18B44 /* MyGameCenterManager.mm */,
+				EE2749CE18C1DF5F00C18B44 /* MyGameCenterManager.h */,
+				C2A59AA518D333660005B589 /* JsBinding */,
+				EEA5066F18BCAB7200BBF285 /* GoogleAdmobSDK */,
+				EEA506B318C15D4F00BBF285 /* GoogleAnalyticsSDK */,
+			);
+			name = FingerActions;
+			path = ../../../FingerActions;
+			sourceTree = "<group>";
+		};
+		C2A59AA518D333660005B589 /* JsBinding */ = {
 			isa = PBXGroup;
 			children = (
 				EE2749D118C1EA6D00C18B44 /* jsb_gamecenter_auto.cpp */,
 				EE2749D218C1EA6D00C18B44 /* jsb_gamecenter_auto.h */,
-				EE2749CA18C1DD4200C18B44 /* GameCenterBridge.mm */,
-				EE2749CB18C1DD4200C18B44 /* GameCenterBridge.h */,
+			);
+			path = JsBinding;
+			sourceTree = "<group>";
+		};
+		C2A59AA618D337880005B589 /* GameCenter */ = {
+			isa = PBXGroup;
+			children = (
+				EEA506AE18C0CDF600BBF285 /* GameKitHelper.h */,
+				EEA506AF18C0CE1400BBF285 /* GameKitHelper.mm */,
+			);
+			name = GameCenter;
+			sourceTree = "<group>";
+		};
+		C2A59AA718D3393C0005B589 /* AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				EECADE7F18C764D1004F7DAF /* AdMobObject.mm */,
+				EECADE8018C764D1004F7DAF /* AdMobObject.h */,
+			);
+			name = AdMob;
+			sourceTree = "<group>";
+		};
+		D45446CC156DE73F00887EB5 /* ios */ = {
+			isa = PBXGroup;
+			children = (
 				D45446D6156DE79D00887EB5 /* Info.plist */,
 				D45446CD156DE74F00887EB5 /* AppController.h */,
 				D45446CE156DE74F00887EB5 /* AppController.mm */,
@@ -1697,13 +1735,6 @@
 				D45446D0156DE74F00887EB5 /* Prefix.pch */,
 				D45446D1156DE74F00887EB5 /* RootViewController.h */,
 				D45446D2156DE74F00887EB5 /* RootViewController.mm */,
-				EEA5069B18BF475F00BBF285 /* myoc.h */,
-				EEA506AE18C0CDF600BBF285 /* GameKitHelper.h */,
-				EEA506AF18C0CE1400BBF285 /* GameKitHelper.mm */,
-				EE2749CD18C1DF5F00C18B44 /* MyGameCenterManager.mm */,
-				EE2749CE18C1DF5F00C18B44 /* MyGameCenterManager.h */,
-				EECADE7F18C764D1004F7DAF /* AdMobObject.mm */,
-				EECADE8018C764D1004F7DAF /* AdMobObject.h */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -1733,8 +1764,7 @@
 				EEA5067918BCABCF00BBF285 /* libGoogleAdMobAds.a */,
 				EEA5067A18BCABCF00BBF285 /* README.txt */,
 			);
-			name = GoogleAdmobSDK;
-			path = ../../../FingerActions/GoogleAdmobSDK;
+			path = GoogleAdmobSDK;
 			sourceTree = "<group>";
 		};
 		EEA506B318C15D4F00BBF285 /* GoogleAnalyticsSDK */ = {
@@ -1748,8 +1778,7 @@
 				EEA506B818C15E5400BBF285 /* GAITrackedViewController.h */,
 				EEA506B918C15E5400BBF285 /* GAITracker.h */,
 			);
-			name = GoogleAnalyticsSDK;
-			path = ../../../FingerActions/GoogleAnalyticsSdk;
+			path = GoogleAnalyticsSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
