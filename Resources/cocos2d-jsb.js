@@ -30,16 +30,16 @@ require("jsb.js");
 
 var appFiles = [
     'src/resource.js',
-    'src/myApp.js',
-    'src/playscene.js',
-    'src/commons.js',
-    'src/scorescene.js',
+    'src/introScene.js',
+    'src/playScene.js',
+    'src/globals.js',
+    'src/scoreScene.js',
 ];
 
 cc.dumpConfig();
 
-for( var i=0; i < appFiles.length; i++) {
-    require( appFiles[i] );
+for (var i = 0; i < appFiles.length; i++) {
+    require(appFiles[i]);
 }
 
 var director = cc.Director.getInstance();
@@ -49,24 +49,11 @@ director.setDisplayStats(false);
 director.setAnimationInterval(1.0 / 60);
 
 // create a scene. it's an autorelease object
-var myScene = new MyScene();
+var introScene = new IntroScene();
 
 // run
-director.runWithScene(myScene);
-
-//disable retina display
-//cc.EGLView.getInstance().setDesignResolutionSize(320,480,cc.RESOLUTION_POLICY.SHOW_ALL);
-
+director.runWithScene(introScene);
 
 //load seashells background
 //load seashell objects
-cc.SpriteFrameCache.getInstance().addSpriteFrames(s_seashell_plist,s_seashell_png);
-
-
-//var ls = ls.AdBridge.create();
-//ls.showAdAtTop();
-
-
-
-
-
+cc.SpriteFrameCache.getInstance().addSpriteFrames(s_seashell_plist, s_seashell_png);

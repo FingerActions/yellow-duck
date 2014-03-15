@@ -14,23 +14,21 @@
 
 
 var PlayLayer = cc.Layer.extend({
-    _spriteSheet: null,
+    _duckSpriteSheet: null,
     _flyingAction: null,
     _duck: null,
     _background: null,
-    _river: null,
     _walls: null,
     _screenSize: null,
     _timer: null,
     _duckVelocity: null,
     _score: null,
     _scoreLabel: null,
-    _waves: null,
     _scoreTimer: null,
-    _passFirstWall: false,
-    _waveTimer: null,
+    _passedFirstWall: null,
+    _bubbleTimer: null,
     _bubbles: null,
-    _gameover: false,
+    _gameover: null,
     _seashells: null,
     _seashellTimer: null,
     _isDuckJumping: null,
@@ -38,7 +36,6 @@ var PlayLayer = cc.Layer.extend({
 
     //sound
     audioEngin: null,
-    //SPLASH_EFFECT_FILE: 'res/water_splash.mp3',
     POP_EFFECT_FILE: 'res/pop.mp3',
     DROWNED_EFFECT_FILE: 'res/drowned.mp3',
     JUMP_EFFECT_FILE: 'res/jump_sound.mp3',
@@ -61,6 +58,7 @@ var PlayLayer = cc.Layer.extend({
             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
             this.setTouchEnabled(true);
         }
+
         //create GameBridage Manager instance
         this._GameBridage = new ls.GameCenterBridge();
         this._GameBridage.showAddAtTop();
@@ -71,15 +69,15 @@ var PlayLayer = cc.Layer.extend({
 
         //add background image (river)
         //added weather
-        this.randomWeather();
+        this.getWeather();
 
         //duck is not falling
         this._isDuckJumping = false;
 
-        //load spritesheet
+        //add duck sprite sheet
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duckflyplist);
-        this.spritesheet = cc.SpriteBatchNode.create(s_duckfly);
-        this.addChild(this.spritesheet, 1000);
+        this._duckSpriteSheet = cc.SpriteBatchNode.create(s_duckfly);
+        this.addChild(this._duckSpriteSheet, 1000);
         var animFrames = [];
         for (var i = 1; i < 4; i++) {
             var str = "ducksmall0" + i + ".png";
@@ -91,7 +89,7 @@ var PlayLayer = cc.Layer.extend({
         this._duck = cc.Sprite.createWithSpriteFrameName("ducksmall01.png");
         this._duck.setPosition(cc.p(65, this._screenSize.height / 2));
         this._duck.runAction(this._flyingAction);
-        this.spritesheet.addChild(this._duck);
+        this._duckSpriteSheet.addChild(this._duck);
 
 
         this._duckVelocity = 0;
@@ -122,8 +120,7 @@ var PlayLayer = cc.Layer.extend({
         this.addChild(this._scoreLabel, 500);
 
         //effects
-        this._waves = [];
-        this._waveTimer = 0;
+        this._bubbleTimer = 0;
         this.spawnMermaid();
 
         //init bubbles
@@ -135,6 +132,9 @@ var PlayLayer = cc.Layer.extend({
             this._bubbles.push(bubble);
         }
 
+        this._passedFirstWall = false;
+        this._gameover = false;
+
         return true;
     },
 
@@ -145,7 +145,6 @@ var PlayLayer = cc.Layer.extend({
                 bubble.setVisible(true);
                 bubble.setScale(0.1);
                 var bubbleSpawnPositionY = Math.floor(Math.random() * that._screenSize.height);
-                //var waveSpawnPositionX = Math.floor(Math.random() * this._screenSize.width);
 
                 bubble.setPosition(cc.p(400, bubbleSpawnPositionY));
 
@@ -162,14 +161,9 @@ var PlayLayer = cc.Layer.extend({
     },
 
     spawnMermaid: function() {
-
-
         var mermaid = cc.Sprite.create("res/mermaid.png");
-
-
         mermaid.setScale(0.5);
         var contentSize = mermaid.getContentSize();
-
         mermaid.setPosition(cc.p(this._screenSize.width + contentSize.width / 2, this._screenSize.height / 2));
         this.addChild(mermaid, 0);
         var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2, this._screenSize.height / 2));
@@ -185,63 +179,44 @@ var PlayLayer = cc.Layer.extend({
             return;
         }
         audioEngin.playEffect(this.JUMP_EFFECT_FILE);
-
         this._duckVelocity = JUMP_VELOCITY;
-
         var swimActionKind = Math.floor(Math.random() * 5);
-
         var duckRotate;
         if (swimActionKind == 0) {
             duckRotate = cc.RotateBy.create(0.5, -400);
         } else {
             duckRotate = cc.RotateTo.create(0.1, -25);
         }
-
         this._duck.runAction(duckRotate);
         this._isDuckJumping = true;
-
-
-        // add ripple effects
-        // var size = cc.size(100,100);
-
-        // var x = touches[0].getLocation().x;
-        // var y = touches[0].getLocation().y;
-        // var ripple = cc.Ripple3D.create(2,size,cc.p(x,y),50,5,3);
-        /*
-                                
-        var ripple = cc.Ripple3D.create(2,size,this._duck.getPosition(),50,5,3);
-                                
-        this._river.runAction(ripple);*/
-
-
     },
 
     spawnSeaShells: function() {
         var that = this;
-        var found_invisible = false;
+        var shellInvisible = false;
         var seashell;
 
-        while (!found_invisible) {
-            var rd_number = Math.floor(Math.random() * 6);
-            var rd_rotation = Math.floor(Math.random() * 180);
-            if (!this._seashells[rd_number].isVisible()) {
-                this._seashells[rd_number].setVisible(true);
-                this._seashells[rd_number].setScale(0.3);
-                this._seashells[rd_number].setRotation(rd_rotation);
-                this._seashells[rd_number].setPosition(cc.p(this._screenSize.width, 5 + rd_number * 2));
-                var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width, 5 + rd_number * 2));
+        while (!shellInvisible) {
+            var randomNumber = Math.floor(Math.random() * 6);
+            var randomRotation = Math.floor(Math.random() * 180);
+            if (!this._seashells[randomNumber].isVisible()) {
+                this._seashells[randomNumber].setVisible(true);
+                this._seashells[randomNumber].setScale(0.3);
+                this._seashells[randomNumber].setRotation(randomRotation);
+                this._seashells[randomNumber].setPosition(cc.p(this._screenSize.width, 5 + randomNumber * 2));
+                var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width, 5 + randomNumber * 2));
 
                 var callfunc = cc.CallFunc.create(function() {
-                    that._seashells[rd_number].setVisible(false);
-                    that._seashells[rd_number].setVisible(false);
+                    that._seashells[randomNumber].setVisible(false);
+                    that._seashells[randomNumber].setVisible(false);
                 });
 
                 var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
-                this._seashells[rd_number].runAction(flowWithCallfunc);
+                this._seashells[randomNumber].runAction(flowWithCallfunc);
                 return true;
             }
 
-            found_invisible = true;
+            shellInvisible = true;
         }
     },
 
@@ -259,10 +234,10 @@ var PlayLayer = cc.Layer.extend({
             this._seashellTimer = 0;
         }
 
-        this._waveTimer += delta;
-        if (this._waveTimer > 1.25) {
+        this._bubbleTimer += delta;
+        if (this._bubbleTimer > 1.25) {
             this.spawnBubble();
-            this._waveTimer = 0;
+            this._bubbleTimer = 0;
         }
 
         var duckPrePosition = this._duck.getPosition();
@@ -281,12 +256,12 @@ var PlayLayer = cc.Layer.extend({
         this._scoreLabel.setString(this._score);
 
         //update score based on time gap
-        if (this._passFirstWall && this._scoreTimer > WALL_GAP_TIME) {
+        if (this._passedFirstWall && this._scoreTimer > WALL_GAP_TIME) {
             this._score++;
             this._scoreTimer = 0;
         }
-        if (!this._passFirstWall && this._scoreTimer > WALL_GAP_TIME / 2 + WALL_APPEAR_TIME) {
-            this._passFirstWall = true;
+        if (!this._passedFirstWall && this._scoreTimer > WALL_GAP_TIME / 2 + WALL_APPEAR_TIME) {
+            this._passedFirstWall = true;
             this._score++;
             this._scoreTimer = 0;
         }
@@ -376,35 +351,29 @@ var PlayLayer = cc.Layer.extend({
         this._duck.runAction(shrinkRotateDie);
     },
 
-    randomWeather: function() {
-
-
-        //add background image (river)
-        // var rd_number = Math.floor(Math.random()*3);
-
-        if (WEATHER == 0) {
+    getWeather: function() {
+        if (s_weather == 0) {
             //bg
-            this._river = cc.Sprite.create("res/background-dark.png");
-            this._river.setAnchorPoint(cc.p(0, 0));
-            this._river.setPosition(cc.p(0, 0));
-            this.addChild(this._river, 0);
+            this._background = cc.Sprite.create("res/background-dark.png");
+            this._background.setAnchorPoint(cc.p(0, 0));
+            this._background.setPosition(cc.p(0, 0));
+            this.addChild(this._background, 0);
             //rain
             var emitter = cc.ParticleRain.create();
-            this._river.addChild(emitter, 10);
+            this._background.addChild(emitter, 10);
             emitter.setLife(4);
             emitter.setTexture(cc.TextureCache.getInstance().addImage("res/particle-fire.png"));
             if (emitter.setShapeType)
                 emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
         } else {
             //bg
-            this._river = cc.Sprite.create("res/background.png");
-            this._river.setAnchorPoint(cc.p(0, 0));
-            this._river.setPosition(cc.p(0, 0));
-            this.addChild(this._river, 0);
+            this._background = cc.Sprite.create("res/background.png");
+            this._background.setAnchorPoint(cc.p(0, 0));
+            this._background.setPosition(cc.p(0, 0));
+            this.addChild(this._background, 0);
 
         }
     },
-
 
     gameOverDrowned: function() {
         var that = this;
@@ -438,7 +407,6 @@ var PlayLayer = cc.Layer.extend({
         var firstCollideRect = cc.rect(firstObjPos.x - firstObjSize.width / 2, firstObjPos.y - firstObjSize.height / 2, firstObjSize.width, firstObjSize.height);
 
         //below normally used as Wall, make object little bit smaller to maker game easier
-
         var secondObjSize = secondObj.getContentSize();
         var secondObjPos = secondObj.getPosition();
         var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width - 5, secondObjSize.height - 5);
@@ -459,16 +427,13 @@ var PlayLayer = cc.Layer.extend({
     },
 
     updateScore: function() {
-
-        CURRENT_SCORE = this._score;
+        s_currentScore = this._score;
         if (this._score > sys.localStorage.getItem('highScore')) {
             sys.localStorage.setItem('highScore', this._score);
 
-            cc.log("I am pusing");
             //Game Bridge Class
             this._GameBridage = new ls.GameCenterBridge();
             this._GameBridage.pushscore(this._score, "YellowDuck");
-
         }
     },
 });
@@ -485,6 +450,5 @@ var PlayScene = cc.Scene.extend({
         var layer = new PlayLayer();
         this.addChild(layer);
         layer.init();
-
     }
 });
