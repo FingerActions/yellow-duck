@@ -231,8 +231,6 @@
 		A922754C1517C094001B78AA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754B1517C094001B78AA /* UIKit.framework */; };
 		A922754E1517C094001B78AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754D1517C094001B78AA /* Foundation.framework */; };
 		A92275501517C094001B78AA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754F1517C094001B78AA /* CoreGraphics.framework */; };
-		C2A59AA018D326D60005B589 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506BA18C15E9B00BBF285 /* libGoogleAnalyticsServices.a */; };
-		C2A59AA118D326E60005B589 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5067918BCABCF00BBF285 /* libGoogleAdMobAds.a */; };
 		D446FDA316102D7D000ADA7B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D446FDA216102D7D000ADA7B /* Default.png */; };
 		D446FDA516102D82000ADA7B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D446FDA416102D82000ADA7B /* Default@2x.png */; };
 		D446FDA716102D86000ADA7B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D446FDA616102D86000ADA7B /* Default-568h@2x.png */; };
@@ -242,6 +240,8 @@
 		D454520A156E22B400887EB5 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4545209156E22B400887EB5 /* libxml2.dylib */; };
 		D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D454520B156E22BD00887EB5 /* libz.dylib */; };
 		D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4545215156E28EF00887EB5 /* AppDelegate.cpp */; };
+		EE25BFC118D3C1F700E10005 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5067918BCABCF00BBF285 /* libGoogleAdMobAds.a */; };
+		EE25BFC218D3C21A00E10005 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE25BFBE18D3424F00E10005 /* libGoogleAnalyticsServices.a */; };
 		EE2749CC18C1DD4200C18B44 /* GameCenterBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE2749CA18C1DD4200C18B44 /* GameCenterBridge.mm */; };
 		EE2749CF18C1DF5F00C18B44 /* MyGameCenterManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE2749CD18C1DF5F00C18B44 /* MyGameCenterManager.mm */; };
 		EE2749D318C1EA6D00C18B44 /* jsb_gamecenter_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE2749D118C1EA6D00C18B44 /* jsb_gamecenter_auto.cpp */; };
@@ -719,6 +719,7 @@
 		D454520B156E22BD00887EB5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D4545215156E28EF00887EB5 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		D4545216156E28EF00887EB5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		EE25BFBE18D3424F00E10005 /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleAnalyticsServices.a; path = ../../../FingerActions/GoogleAnalyticsSdk/libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		EE2749CA18C1DD4200C18B44 /* GameCenterBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameCenterBridge.mm; sourceTree = "<group>"; };
 		EE2749CB18C1DD4200C18B44 /* GameCenterBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterBridge.h; sourceTree = "<group>"; };
 		EE2749CD18C1DF5F00C18B44 /* MyGameCenterManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyGameCenterManager.mm; sourceTree = "<group>"; };
@@ -771,8 +772,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2A59AA118D326E60005B589 /* libGoogleAdMobAds.a in Frameworks */,
-				C2A59AA018D326D60005B589 /* libGoogleAnalyticsServices.a in Frameworks */,
+				EE25BFC218D3C21A00E10005 /* libGoogleAnalyticsServices.a in Frameworks */,
+				EE25BFC118D3C1F700E10005 /* libGoogleAdMobAds.a in Frameworks */,
 				D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */,
 				EEA5068618BCAC9100BBF285 /* SystemConfiguration.framework in Frameworks */,
 				EEA506BD18C15F3000BBF285 /* CoreData.framework in Frameworks */,
@@ -1658,6 +1659,7 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EE25BFBE18D3424F00E10005 /* libGoogleAnalyticsServices.a */,
 				EEA506BC18C15F3000BBF285 /* CoreData.framework */,
 				EEA506B118C0D0C000BBF285 /* GameKit.framework */,
 				EEA5068518BCAC9100BBF285 /* SystemConfiguration.framework */,
@@ -2197,18 +2199,18 @@
 					"\"$(SRCROOT)/../../../cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/../../../scripting/javascript/spidermonkey-ios/lib\"",
 					"\"$(SRCROOT)/\"",
+					"\"$(SRCROOT)/../../../FingerActions/GoogleAdmobSDK\"",
+					"\"$(SRCROOT)/../../../FingerActions/GoogleAnalyticsSdk\"",
 					"\"$(SRCROOT)/../../../Projects/flappy/proj.ios\"",
-					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAnalyticsSdk",
-					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAdmobSDK",
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = (
 					"\"$(SRCROOT)/../../../external/libwebsockets/ios/lib\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/../../../scripting/javascript/spidermonkey-ios/lib\"",
-					"\"$(SRCROOT)/\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../FingerActions/GoogleAdmobSDK\"",
+					"\"$(SRCROOT)/../../../FingerActions/GoogleAnalyticsSdk\"",
 					"\"$(SRCROOT)/../../../Projects/flappy/proj.ios\"",
-					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAnalyticsSdk",
-					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAdmobSDK",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -2263,8 +2265,8 @@
 					"\"$(SRCROOT)/../../../scripting/javascript/spidermonkey-ios/lib\"",
 					"\"$(SRCROOT)/\"",
 					"\"$(SRCROOT)/../../../Projects/flappy/proj.ios\"",
-					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAnalyticsSdk",
-					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAdmobSDK",
+					"\"$(SRCROOT)/../../../FingerActions/GoogleAdmobSDK\"",
+					"\"$(SRCROOT)/../../../FingerActions/GoogleAnalyticsSdk\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
