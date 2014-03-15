@@ -110,17 +110,17 @@
 		<link>
 			<name>Classes</name>
 			<type>2</type>
-			<locationURI>COCOS2DX/projects/HelloJavascript/Classes</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/Classes</locationURI>
 		</link>
 		<link>
 			<name>cocos2dx</name>
 			<type>2</type>
-			<locationURI>COCOS2DX/cocos2dx</locationURI>
+			<locationURI>PARENT-3-PROJECT_LOC/cocos2dx</locationURI>
 		</link>
 		<link>
 			<name>extensions</name>
 			<type>2</type>
-			<locationURI>COCOS2DX/extensions</locationURI>
+			<locationURI>PARENT-3-PROJECT_LOC/extensions</locationURI>
 		</link>
 		<link>
 			<name>scripting</name>
