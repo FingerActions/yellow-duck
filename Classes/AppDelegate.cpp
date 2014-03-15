@@ -16,7 +16,7 @@
 #include "jsb_websocket.h"
 
 // custom js binding
-#include "jsb_gamecenter_auto.h"
+#include "jsb_fingerActions_auto.h"
 
 
 
@@ -102,8 +102,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     sc->addRegisterCallback(JSB_register_opengl);
     sc->addRegisterCallback(MinXmlHttpRequest::_js_register);
     sc->addRegisterCallback(register_jsb_websocket);
-    //custom js binding
-    sc->addRegisterCallback(register_all_ls);
+    
+    //fingerActions js binding
+    sc->addRegisterCallback(register_all_fingerActions);
     
 
     sc->start();

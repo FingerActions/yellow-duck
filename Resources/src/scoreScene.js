@@ -15,17 +15,16 @@
 
 var ScoreLayer = cc.Layer.extend({
 
-    _diebackground: null,
+    _background: null,
     _timer: null,
-    _scorebanner: null,
-    _bestscore_label: null,
-    _currentscore_label: null,
-    _bestscore: null,
-    _currentscore: null,
+    _bestLabel: null,
+    _scoreLabel: null,
+    _highScoreLabel: null,
+    _currentScoreLabel: null,
     _gameover: null,
-    _tapcontinue: null,
+    _tapToContinueLabel: null,
     _highScore: null,
-    _GameBridage: null,
+    _fingerActions: null,
 
     ctor: function() {
         this._super();
@@ -33,9 +32,7 @@ var ScoreLayer = cc.Layer.extend({
     },
 
     init: function() {
-
-        //////////////////////////////
-        // 1. super init first
+        // super init
         this._super();
 
         //update()
@@ -47,81 +44,62 @@ var ScoreLayer = cc.Layer.extend({
             this.setTouchEnabled(true);
         }
 
-        this._GameBridage = new ls.GameCenterBridge();
-        this._GameBridage.showAddAtBottom();
-        this._GameBridage.pushscenename("score scene");
+        //game bridge
+        this._fingerActions = new fingerActions.FingerActions();
+        this._fingerActions.showAdAtBottom();
+        this._fingerActions.pushSceneName("score scene");
 
         //add background image (die)
-        this._diebackground = cc.Sprite.create("res/img/background/die_scene.png");
-        this._diebackground.setAnchorPoint(cc.p(0, 0));
-        this._diebackground.setPosition(cc.p(0, 0));
-        this.addChild(this._diebackground, 2);
-        this._diebackground.setVisible(true);
+        this._background = cc.Sprite.create("res/img/background/die_scene.png");
+        this._background.setAnchorPoint(cc.p(0, 0));
+        this._background.setPosition(cc.p(0, 0));
+        this.addChild(this._background, 2);
+        this._background.setVisible(true);
 
         //screen size
         this._screenSize = cc.Director.getInstance().getWinSize();
 
-        /////////////////////////////
-        // 2. add a menu item with "X" image, which is clicked to quit the program
-        //    you may modify it.
-        // ask director the window size
+        // get screen size
         this.size = cc.Director.getInstance().getWinSize();
-
-        //create score banner
-        this._scorebanner = cc.LayerColor.create(cc.c4b(0, 0, 0, 0), this.size.width - 20, this.size.height - 120);
-        this._scorebanner.setPosition(cc.p(10, this.size.height / 10));
-        this.addChild(this._scorebanner, 3);
-        var fadein = cc.FadeTo.create(1.0, 150);
-        this._scorebanner.runAction(fadein);
 
         this._highScore = sys.localStorage.getItem('highScore');
         //add score on banner
         // create and initialize a label
-        this._bestscore = cc.LabelTTF.create(this._highScore, "Marker Felt", 25);
+        this._highScoreLabel = cc.LabelTTF.create(this._highScore, "Marker Felt", 25);
         // position the label on the center of the screen
-        this._bestscore.setPosition(cc.p(this.size.width / 2 + 50, this.size.height - 180));
+        this._highScoreLabel.setPosition(cc.p(this.size.width / 2 + 50, this.size.height - 180));
         // add the label as a child to this layer
-        this.addChild(this._bestscore, 5);
+        this.addChild(this._highScoreLabel, 5);
 
         // create and initialize a label
-        this._currentscore = cc.LabelTTF.create(CURRENT_SCORE, "Marker Felt", 25);
+        this._currentScoreLabel = cc.LabelTTF.create(s_currentScore, "Marker Felt", 25);
         // position the label on the center of the screen
-        this._currentscore.setPosition(cc.p(this.size.width / 2 + 50, this.size.height - 230));
+        this._currentScoreLabel.setPosition(cc.p(this.size.width / 2 + 50, this.size.height - 230));
         // add the label as a child to this layer
-        this.addChild(this._currentscore, 5);
+        this.addChild(this._currentScoreLabel, 5);
 
-
-        //add score on banner
-        // create and initialize a label
+        // create and initialize game over label
         this._gameover = cc.LabelTTF.create("GAME OVER", "Marker Felt", 36);
-        // position the label on the center of the screen
         this._gameover.setPosition(cc.p(this.size.width / 2, this.size.height - 130));
-        // add the label as a child to this layer
         this.addChild(this._gameover, 5);
-        this._bestscore_label = cc.LabelTTF.create("Best", "Marker Felt", 25);
-        // position the label on the center of the screen
-        this._bestscore_label.setPosition(cc.p(this.size.width / 2 - 50, this.size.height - 180));
-        // add the label as a child to this layer
-        this.addChild(this._bestscore_label, 5);
 
-        // create and initialize a label
-        this._currentscore_label = cc.LabelTTF.create("Score", "Marker Felt", 25);
-        // position the label on the center of the screen
-        this._currentscore_label.setPosition(cc.p(this.size.width / 2 - 50, this.size.height - 230));
-        // add the label as a child to this layer
-        this.addChild(this._currentscore_label, 5);
+        // best score label
+        this._bestLabel = cc.LabelTTF.create("Best", "Marker Felt", 25);
+        this._bestLabel.setPosition(cc.p(this.size.width / 2 - 50, this.size.height - 180));
+        this.addChild(this._bestLabel, 5);
+        this._scoreLabel = cc.LabelTTF.create("Score", "Marker Felt", 25);
+        this._scoreLabel.setPosition(cc.p(this.size.width / 2 - 50, this.size.height - 230));
+        this.addChild(this._scoreLabel, 5);
 
-        this._tapcontinue = cc.LabelTTF.create("TAP TO CONTINUE", "Marker Felt", 24);
-        // position the label on the center of the screen
-        this._tapcontinue.setPosition(cc.p(this.size.width / 2, this.size.height - 300));
-        // add the label as a child to this layer
-        this.addChild(this._tapcontinue, 5);
-
+        // tap to continue
+        this._tapToContinueLabel = cc.LabelTTF.create("TAP TO CONTINUE", "Marker Felt", 24);
+        this._tapToContinueLabel.setPosition(cc.p(this.size.width / 2, this.size.height - 300));
+        this.addChild(this._tapToContinueLabel, 5);
         var fadein_tap = cc.FadeIn.create(1.0);
         var fadeout_tap = cc.FadeOut.create(1.0);
         var sequence = cc.RepeatForever.create(cc.Sequence.create(fadein_tap, fadeout_tap));
 
-        this._tapcontinue.runAction(sequence);
+        this._tapToContinueLabel.runAction(sequence);
 
         // social networks
         // var twitterButton = cc.MenuItemImage.create('res/twitter.png', 'res/twitter.png', this.tweet, this);
@@ -142,7 +120,6 @@ var ScoreLayer = cc.Layer.extend({
         this.addChild(socialMenu, 5);
 
         return true;
-
     },
 
     tweet: function() {
@@ -151,8 +128,8 @@ var ScoreLayer = cc.Layer.extend({
         var text = 'I%20got%20' + this._highScore + '%20in%20Bath%20Duck!%20Download%20at?%20to%20challenge%20me!';
         var url = urlBase + 'text=' + text;
         cc.Application.getInstance().openURL(url);
-        this._GameBridage = new ls.GameCenterBridge();
-        this._GameBridage.pusheventname("Menu", "click", "tweet");
+        this._fingerActions = new fingerActions.FingerActions();
+        this._fingerActions.pushEventName("Menu", "click", "tweet");
     },
 
     share: function() {
@@ -167,43 +144,34 @@ var ScoreLayer = cc.Layer.extend({
         var redirect_uri = 'https://developers.facebook.com/tools/explorer';
         var url = baseUrl + 'app_id=' + app_id + '&display=' + display + '&name=' + name + '&caption=' + caption + '&description=' + description + '&link=' + link + '&redirect_uri=' + redirect_uri;
         cc.Application.getInstance().openURL(url);
-        this._GameBridage = new ls.GameCenterBridge();
-        this._GameBridage.pusheventname("Menu", "click", "facebook");
+        this._fingerActions = new fingerActions.FingerActions();
+        this._fingerActions.pushEventName("Menu", "click", "facebook");
     },
 
     leaderboard: function() {
-
-        cc.log("I am pusing");
         //Game Bridge Class
-
         //push highScore everytime, in case player has a high localscore but didn't connect to internet
-        this._GameBridage = new ls.GameCenterBridge();
-        this._GameBridage.pushscore(this._highScore, "YellowDuck");
-        this._GameBridage.showleaderboard();
-        this._GameBridage.pusheventname("Menu", "click", "leaderboard");
-
+        this._fingerActions = new fingerActions.FingerActions();
+        this._fingerActions.pushScore(this._highScore, "YellowDuck");
+        this._fingerActions.showLeaderboard();
+        this._fingerActions.pushEventName("Menu", "click", "leaderboard");
     },
 
     onTouchesBegan: function(touches, event) {
-
-        cc.log("Single touch has occured");
-        this.IntroScene();
-
+        cc.log('gotoIntroScene');
+        this.gotoIntroScene();
     },
 
-    IntroScene: function() {
-
+    gotoIntroScene: function() {
         var scene = cc.Scene.create();
-        var layer = new MyScene();
+        var layer = new IntroScene();
         scene.addChild(layer);
-        INITIALIZED_MYAPP = false;
+        s_gameStarted = false;
         director.pushScene(cc.TransitionFade.create(0.1, scene));
-
     },
 });
 
 var ScoreScene = cc.Scene.extend({
-
     ctor: function() {
         this._super();
         cc.associateWithNative(this, cc.Scene);
@@ -215,6 +183,5 @@ var ScoreScene = cc.Scene.extend({
         var layer = new ScoreLayer();
         this.addChild(layer);
         layer.init();
-
     }
 });
