@@ -32,7 +32,7 @@ var PlayLayer = cc.Layer.extend({
     _seashells: null,
     _seashellTimer: null,
     _isDuckJumping: null,
-    _GameBridage: null,
+    _fingerActions: null,
 
     //sound
     audioEngin: null,
@@ -59,10 +59,10 @@ var PlayLayer = cc.Layer.extend({
             this.setTouchEnabled(true);
         }
 
-        //create GameBridage Manager instance
-        this._GameBridage = new ls.GameCenterBridge();
-        this._GameBridage.showAddAtTop();
-        this._GameBridage.pushscenename("play scene");
+        //create _fingerActions Manager instance
+        this._fingerActions = new fingerActions.FingerActions();
+        this._fingerActions.showAdAtTop();
+        this._fingerActions.pushSceneName("play scene");
 
         //screen size
         this._screenSize = cc.Director.getInstance().getWinSize();
@@ -322,14 +322,14 @@ var PlayLayer = cc.Layer.extend({
 
     gameOver: function(hitWall) {
         this.unscheduleUpdate();
-        this._GameBridage = new ls.GameCenterBridge();
+        this._fingerActions = new fingerActions.FingerActions();
         if (hitWall) {
             this._gameover = true;
             this.gameOverHitWall();
-            this._GameBridage.pusheventname("Action", "Die", "Hit Wall");
+            this._fingerActions.pushEventName("Action", "Die", "Hit Wall");
         } else {
             this._gameover = true;
-            this._GameBridage.pusheventname("Action", "Die", "Drowned");
+            this._fingerActions.pushEventName("Action", "Die", "Drowned");
             this.gameOverDrowned();
         }
     },
@@ -432,8 +432,8 @@ var PlayLayer = cc.Layer.extend({
             sys.localStorage.setItem('highScore', this._score);
 
             //Game Bridge Class
-            this._GameBridage = new ls.GameCenterBridge();
-            this._GameBridage.pushscore(this._score, "YellowDuck");
+            this._fingerActions = new fingerActions.FingerActions();
+            this._fingerActions.pushScore(this._score, "YellowDuck");
         }
     },
 });

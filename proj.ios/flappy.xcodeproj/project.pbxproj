@@ -232,7 +232,7 @@
 		A922754E1517C094001B78AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754D1517C094001B78AA /* Foundation.framework */; };
 		A92275501517C094001B78AA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754F1517C094001B78AA /* CoreGraphics.framework */; };
 		C2A59AA018D326D60005B589 /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA506BA18C15E9B00BBF285 /* libGoogleAnalyticsServices.a */; };
-		C2A59AA118D326E60005B589 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5067918BCABCF00BBF285 /* libGoogleAdMobAds.a */; };
+		C2A59AA818D3F3330005B589 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5067918BCABCF00BBF285 /* libGoogleAdMobAds.a */; };
 		D446FDA316102D7D000ADA7B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D446FDA216102D7D000ADA7B /* Default.png */; };
 		D446FDA516102D82000ADA7B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D446FDA416102D82000ADA7B /* Default@2x.png */; };
 		D446FDA716102D86000ADA7B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D446FDA616102D86000ADA7B /* Default-568h@2x.png */; };
@@ -242,9 +242,9 @@
 		D454520A156E22B400887EB5 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D4545209156E22B400887EB5 /* libxml2.dylib */; };
 		D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D454520B156E22BD00887EB5 /* libz.dylib */; };
 		D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4545215156E28EF00887EB5 /* AppDelegate.cpp */; };
-		EE2749CC18C1DD4200C18B44 /* GameCenterBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE2749CA18C1DD4200C18B44 /* GameCenterBridge.mm */; };
-		EE2749CF18C1DF5F00C18B44 /* MyGameCenterManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE2749CD18C1DF5F00C18B44 /* MyGameCenterManager.mm */; };
-		EE2749D318C1EA6D00C18B44 /* jsb_gamecenter_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE2749D118C1EA6D00C18B44 /* jsb_gamecenter_auto.cpp */; };
+		EE2749CC18C1DD4200C18B44 /* FingerActions.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE2749CA18C1DD4200C18B44 /* FingerActions.mm */; };
+		EE2749CF18C1DF5F00C18B44 /* FingerActionsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE2749CD18C1DF5F00C18B44 /* FingerActionsManager.mm */; };
+		EE2749D318C1EA6D00C18B44 /* jsb_fingerActions_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE2749D118C1EA6D00C18B44 /* jsb_fingerActions_auto.cpp */; };
 		EE61DC6818CAB5CE0068365C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE61DC6718CAB5CE0068365C /* Images.xcassets */; };
 		EEA5067C18BCABCF00BBF285 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEA5067A18BCABCF00BBF285 /* README.txt */; };
 		EEA5067E18BCAC5C00BBF285 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5067D18BCAC5C00BBF285 /* AdSupport.framework */; };
@@ -719,12 +719,12 @@
 		D454520B156E22BD00887EB5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D4545215156E28EF00887EB5 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		D4545216156E28EF00887EB5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		EE2749CA18C1DD4200C18B44 /* GameCenterBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameCenterBridge.mm; sourceTree = "<group>"; };
-		EE2749CB18C1DD4200C18B44 /* GameCenterBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenterBridge.h; sourceTree = "<group>"; };
-		EE2749CD18C1DF5F00C18B44 /* MyGameCenterManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyGameCenterManager.mm; sourceTree = "<group>"; };
-		EE2749CE18C1DF5F00C18B44 /* MyGameCenterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGameCenterManager.h; sourceTree = "<group>"; };
-		EE2749D118C1EA6D00C18B44 /* jsb_gamecenter_auto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_gamecenter_auto.cpp; sourceTree = "<group>"; };
-		EE2749D218C1EA6D00C18B44 /* jsb_gamecenter_auto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jsb_gamecenter_auto.h; sourceTree = "<group>"; };
+		EE2749CA18C1DD4200C18B44 /* FingerActions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FingerActions.mm; sourceTree = "<group>"; };
+		EE2749CB18C1DD4200C18B44 /* FingerActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FingerActions.h; sourceTree = "<group>"; };
+		EE2749CD18C1DF5F00C18B44 /* FingerActionsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FingerActionsManager.mm; sourceTree = "<group>"; };
+		EE2749CE18C1DF5F00C18B44 /* FingerActionsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FingerActionsManager.h; sourceTree = "<group>"; };
+		EE2749D118C1EA6D00C18B44 /* jsb_fingerActions_auto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_fingerActions_auto.cpp; sourceTree = "<group>"; };
+		EE2749D218C1EA6D00C18B44 /* jsb_fingerActions_auto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jsb_fingerActions_auto.h; sourceTree = "<group>"; };
 		EE61DC6518CAB5920068365C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		EE61DC6618CAB5A20068365C /* icon-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-2x.png"; sourceTree = "<group>"; };
 		EE61DC6718CAB5CE0068365C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = flappy/Images.xcassets; sourceTree = "<group>"; };
@@ -771,7 +771,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2A59AA118D326E60005B589 /* libGoogleAdMobAds.a in Frameworks */,
+				C2A59AA818D3F3330005B589 /* libGoogleAdMobAds.a in Frameworks */,
 				C2A59AA018D326D60005B589 /* libGoogleAnalyticsServices.a in Frameworks */,
 				D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */,
 				EEA5068618BCAC9100BBF285 /* SystemConfiguration.framework in Frameworks */,
@@ -1685,26 +1685,27 @@
 			isa = PBXGroup;
 			children = (
 				C2A59AA718D3393C0005B589 /* AdMob */,
-				EE2749CA18C1DD4200C18B44 /* GameCenterBridge.mm */,
-				EE2749CB18C1DD4200C18B44 /* GameCenterBridge.h */,
+				EE2749CA18C1DD4200C18B44 /* FingerActions.mm */,
+				EE2749CB18C1DD4200C18B44 /* FingerActions.h */,
 				C2A59AA618D337880005B589 /* GameCenter */,
-				EE2749CD18C1DF5F00C18B44 /* MyGameCenterManager.mm */,
-				EE2749CE18C1DF5F00C18B44 /* MyGameCenterManager.h */,
+				EE2749CD18C1DF5F00C18B44 /* FingerActionsManager.mm */,
+				EE2749CE18C1DF5F00C18B44 /* FingerActionsManager.h */,
 				C2A59AA518D333660005B589 /* JsBinding */,
 				EEA5066F18BCAB7200BBF285 /* GoogleAdmobSDK */,
 				EEA506B318C15D4F00BBF285 /* GoogleAnalyticsSDK */,
 			);
 			name = FingerActions;
-			path = ../../../FingerActions;
+			path = ../../../FingerActions/ios;
 			sourceTree = "<group>";
 		};
 		C2A59AA518D333660005B589 /* JsBinding */ = {
 			isa = PBXGroup;
 			children = (
-				EE2749D118C1EA6D00C18B44 /* jsb_gamecenter_auto.cpp */,
-				EE2749D218C1EA6D00C18B44 /* jsb_gamecenter_auto.h */,
+				EE2749D118C1EA6D00C18B44 /* jsb_fingerActions_auto.cpp */,
+				EE2749D218C1EA6D00C18B44 /* jsb_fingerActions_auto.h */,
 			);
-			path = JsBinding;
+			name = JsBinding;
+			path = ../JsBinding;
 			sourceTree = "<group>";
 		};
 		C2A59AA618D337880005B589 /* GameCenter */ = {
@@ -1956,7 +1957,7 @@
 				15A3D5351682F1A5002FB0C5 /* CCLayerLoader.cpp in Sources */,
 				15A3D5361682F1A5002FB0C5 /* CCMenuItemImageLoader.cpp in Sources */,
 				15A3D5371682F1A5002FB0C5 /* CCMenuItemLoader.cpp in Sources */,
-				EE2749CC18C1DD4200C18B44 /* GameCenterBridge.mm in Sources */,
+				EE2749CC18C1DD4200C18B44 /* FingerActions.mm in Sources */,
 				15A3D5381682F1A5002FB0C5 /* CCNode+CCBRelativePositioning.cpp in Sources */,
 				15A3D5391682F1A5002FB0C5 /* CCNodeLoader.cpp in Sources */,
 				15A3D53A1682F1A5002FB0C5 /* CCNodeLoaderLibrary.cpp in Sources */,
@@ -1996,10 +1997,10 @@
 				1A4B644916EE23A70025FE93 /* jsb_cocos2dx_auto_api.js in Sources */,
 				1A4B644A16EE23A70025FE93 /* jsb_cocos2dx_auto.cpp in Sources */,
 				1A4B644B16EE23A70025FE93 /* jsb_cocos2dx_extension_auto_api.js in Sources */,
-				EE2749D318C1EA6D00C18B44 /* jsb_gamecenter_auto.cpp in Sources */,
+				EE2749D318C1EA6D00C18B44 /* jsb_fingerActions_auto.cpp in Sources */,
 				3EC20B8218331CB000F2C4D6 /* jsb_cocos2dx_studio_auto.cpp in Sources */,
 				1A4B644C16EE23A70025FE93 /* jsb_cocos2dx_extension_auto.cpp in Sources */,
-				EE2749CF18C1DF5F00C18B44 /* MyGameCenterManager.mm in Sources */,
+				EE2749CF18C1DF5F00C18B44 /* FingerActionsManager.mm in Sources */,
 				375BD533186845B70024609E /* TriggerBase.cpp in Sources */,
 				1A4B644F16EE23B30025FE93 /* jsb_cocos2dx_extension_manual.cpp in Sources */,
 				1A4B645116EE24900025FE93 /* jsb_cocos2d_extension.js in Sources */,
@@ -2198,17 +2199,17 @@
 					"\"$(SRCROOT)/../../../scripting/javascript/spidermonkey-ios/lib\"",
 					"\"$(SRCROOT)/\"",
 					"\"$(SRCROOT)/../../../Projects/flappy/proj.ios\"",
-					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAnalyticsSdk",
-					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAdmobSDK",
+					"\"$(SRCROOT)/../../../FingerActions/ios/GoogleAnalyticsSdk\"",
+					"\"$(SRCROOT)/../../../FingerActions/ios/GoogleAdmobSdk\"",
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = (
 					"\"$(SRCROOT)/../../../external/libwebsockets/ios/lib\"",
 					"\"$(SRCROOT)/../../../cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/../../../scripting/javascript/spidermonkey-ios/lib\"",
 					"\"$(SRCROOT)/\"",
-					"\"$(SRCROOT)/../../../Projects/flappy/proj.ios\"",
-					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAnalyticsSdk",
-					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAdmobSDK",
+					"\"$(SRCROOT)/../../../Projects/YellowDuck/proj.ios\"",
+					"\"$(SRCROOT)/../../../FingerActions/ios/GoogleAnalyticsSdk\"",
+					"\"$(SRCROOT)/../../../FingerActions/ios/GoogleAdmobSdk\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -2262,9 +2263,9 @@
 					"\"$(SRCROOT)/../../../cocos2dx/platform/third_party/ios/libraries\"",
 					"\"$(SRCROOT)/../../../scripting/javascript/spidermonkey-ios/lib\"",
 					"\"$(SRCROOT)/\"",
-					"\"$(SRCROOT)/../../../Projects/flappy/proj.ios\"",
-					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAnalyticsSdk",
-					"/cocos2dx/cocos2d-x-2.2.2/FingerActions/GoogleAdmobSDK",
+					"\"$(SRCROOT)/../../../Projects/YellowDuck/proj.ios\"",
+					"\"$(SRCROOT)/../../../FingerActions/ios/GoogleAnalyticsSdk\"",
+					"\"$(SRCROOT)/../../../FingerActions/ios/GoogleAdmobSdk\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",

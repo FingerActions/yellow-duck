@@ -23,7 +23,7 @@ var IntroLayer = cc.Layer.extend({
     _titleLabel: null,
     _tapSprite: null,
     _seashells: null,
-    _GameBridage: null,
+    _fingerActions: null,
 
     ctor: function() {
         this._super();
@@ -45,10 +45,10 @@ var IntroLayer = cc.Layer.extend({
             this.setTouchEnabled(true);
         }
 
-        //init GameBridge
-        this._GameBridage = new ls.GameCenterBridge();
-        this._GameBridage.showAddAtTop();
-        this._GameBridage.pushscenename("Intro scene");
+        //init _fingerActions
+        this._fingerActions = new fingerActions.FingerActions();
+        this._fingerActions.showAdAtTop();
+        this._fingerActions.pushSceneName("Intro scene");
 
         //added weather
         this.randomWeather();

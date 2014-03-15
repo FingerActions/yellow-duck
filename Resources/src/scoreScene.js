@@ -24,7 +24,7 @@ var ScoreLayer = cc.Layer.extend({
     _gameover: null,
     _tapToContinueLabel: null,
     _highScore: null,
-    _GameBridage: null,
+    _fingerActions: null,
 
     ctor: function() {
         this._super();
@@ -45,9 +45,9 @@ var ScoreLayer = cc.Layer.extend({
         }
 
         //game bridge
-        this._GameBridage = new ls.GameCenterBridge();
-        this._GameBridage.showAddAtBottom();
-        this._GameBridage.pushscenename("score scene");
+        this._fingerActions = new fingerActions.FingerActions();
+        this._fingerActions.showAdAtBottom();
+        this._fingerActions.pushSceneName("score scene");
 
         //add background image (die)
         this._background = cc.Sprite.create("res/img/background/die_scene.png");
@@ -128,8 +128,8 @@ var ScoreLayer = cc.Layer.extend({
         var text = 'I%20got%20' + this._highScore + '%20in%20Bath%20Duck!%20Download%20at?%20to%20challenge%20me!';
         var url = urlBase + 'text=' + text;
         cc.Application.getInstance().openURL(url);
-        this._GameBridage = new ls.GameCenterBridge();
-        this._GameBridage.pusheventname("Menu", "click", "tweet");
+        this._fingerActions = new fingerActions.FingerActions();
+        this._fingerActions.pushEventName("Menu", "click", "tweet");
     },
 
     share: function() {
@@ -144,17 +144,17 @@ var ScoreLayer = cc.Layer.extend({
         var redirect_uri = 'https://developers.facebook.com/tools/explorer';
         var url = baseUrl + 'app_id=' + app_id + '&display=' + display + '&name=' + name + '&caption=' + caption + '&description=' + description + '&link=' + link + '&redirect_uri=' + redirect_uri;
         cc.Application.getInstance().openURL(url);
-        this._GameBridage = new ls.GameCenterBridge();
-        this._GameBridage.pusheventname("Menu", "click", "facebook");
+        this._fingerActions = new fingerActions.FingerActions();
+        this._fingerActions.pushEventName("Menu", "click", "facebook");
     },
 
     leaderboard: function() {
         //Game Bridge Class
         //push highScore everytime, in case player has a high localscore but didn't connect to internet
-        this._GameBridage = new ls.GameCenterBridge();
-        this._GameBridage.pushscore(this._highScore, "YellowDuck");
-        this._GameBridage.showleaderboard();
-        this._GameBridage.pusheventname("Menu", "click", "leaderboard");
+        this._fingerActions = new fingerActions.FingerActions();
+        this._fingerActions.pushScore(this._highScore, "YellowDuck");
+        this._fingerActions.showLeaderboard();
+        this._fingerActions.pushEventName("Menu", "click", "leaderboard");
     },
 
     onTouchesBegan: function(touches, event) {
