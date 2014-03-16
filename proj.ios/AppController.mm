@@ -79,7 +79,7 @@ static AppDelegate s_sharedApplication;
  */
     adMobObject_ = [AdMobObject shared];
     [adMobObject_ setViewController:viewController];
-    [adMobObject_ addAdMob];
+    [adMobObject_ addAdMob:@"landscape"];
     
     //Game Centre
     [[GameKitHelper sharedGameKitHelper] authenticateLocalUser];
