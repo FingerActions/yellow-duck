@@ -1,4 +1,4 @@
-APPNAME="HelloJavascript"
+APPNAME="YellowDuck"
 
 # options
 

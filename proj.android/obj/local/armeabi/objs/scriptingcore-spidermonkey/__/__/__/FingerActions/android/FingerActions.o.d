@@ -287,7 +287,9 @@ obj/local/armeabi/objs/scriptingcore-spidermonkey/__/__/__/FingerActions/android
  /cocos2dx/cocos2d-x-2.2.2/projects/YellowDuck/proj.android/../../../external/chipmunk/include/chipmunk/cpSpace.h \
  /cocos2dx/cocos2d-x-2.2.2/projects/YellowDuck/proj.android/../../../scripting/javascript/bindings/../../../CocosDenshion/include/SimpleAudioEngine.h \
  /cocos2dx/cocos2d-x-2.2.2/projects/YellowDuck/proj.android/../../../scripting/javascript/bindings/../../../CocosDenshion/include/Export.h \
- /cocos2dx/cocos2d-x-2.2.2/projects/YellowDuck/proj.android/../../../scripting/javascript/bindings/spidermonkey_specifics.h
+ /cocos2dx/cocos2d-x-2.2.2/projects/YellowDuck/proj.android/../../../scripting/javascript/bindings/spidermonkey_specifics.h \
+ /cocos2dx/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/jni.h \
+ /cocos2dx/cocos2d-x-2.2.2/projects/YellowDuck/proj.android/../../../scripting/javascript/bindings/../../../FingerActions/android/../../cocos2dx/platform/android/jni/JniHelper.h
 
 /cocos2dx/cocos2d-x-2.2.2/projects/YellowDuck/proj.android/../../../scripting/javascript/bindings/../../../FingerActions/android/FingerActions.h:
 
@@ -864,3 +866,7 @@ obj/local/armeabi/objs/scriptingcore-spidermonkey/__/__/__/FingerActions/android
 /cocos2dx/cocos2d-x-2.2.2/projects/YellowDuck/proj.android/../../../scripting/javascript/bindings/../../../CocosDenshion/include/Export.h:
 
 /cocos2dx/cocos2d-x-2.2.2/projects/YellowDuck/proj.android/../../../scripting/javascript/bindings/spidermonkey_specifics.h:
+
+/cocos2dx/android-ndk-r9d/platforms/android-19/arch-arm/usr/include/jni.h:
+
+/cocos2dx/cocos2d-x-2.2.2/projects/YellowDuck/proj.android/../../../scripting/javascript/bindings/../../../FingerActions/android/../../cocos2dx/platform/android/jni/JniHelper.h:
