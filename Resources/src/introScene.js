@@ -90,7 +90,7 @@ var IntroLayer = cc.Layer.extend({
 
         //sea shells
         this._seashells = [];
-        for (var i = 1; i < MAX_SEA_SHEELS; i++) {
+        for (i = 1; i < MAX_SEA_SHEELS; i++) {
             var seashell = cc.Sprite.createWithSpriteFrameName(i + ".png");
             this.addChild(seashell);
             seashell.setVisible(false);
@@ -191,7 +191,7 @@ var IntroScene = cc.Scene.extend({
     },
 
     onEnter: function() {
-        if (s_gameStarted == false) {
+        if (s_gameStarted === false) {
             s_gameStarted = true;
             this._super();
             var layer = new IntroLayer();
