@@ -24,13 +24,41 @@ THE SOFTWARE.
 package com.fingeractions.yellowduck;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
+import com.fingeractions.libFingerActions.FingerActions;
+import com.fingeractions.libFingerActions.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.RelativeLayout;
 
 public class YellowDuck extends Cocos2dxActivity{
+	private static final String ADMOB_ID = "ca-app-pub-4106182710083142/8799461914";
+	static AdView adView;
 	
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		RelativeLayout layout = new RelativeLayout(this);
+		
+		
+    	Log.i("cocos2d-x debug info", "created!!!!");
+    	
+    	adView = new AdView(this);
+    	adView.setAdUnitId(ADMOB_ID);
+    	adView.setAdSize(AdSize.BANNER);
+    	
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT, 100);
+        
+        
+        layout.addView(adView, params);
+        LayoutParams adParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+        addContentView(layout, adParams);
+		adView.loadAd(new AdRequest.Builder().build());
 	}
 	
     static {

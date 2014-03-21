@@ -96,7 +96,7 @@ var PlayLayer = cc.Layer.extend({
 
         //walls
         this._walls = [];
-        for (var i = 0; i < MAX_NUM_WALLS; i++) {
+        for (i = 0; i < MAX_NUM_WALLS; i++) {
             var wall = cc.Sprite.create('res/wall.png');
             this.addChild(wall, 500);
             wall.setVisible(false);
@@ -105,7 +105,7 @@ var PlayLayer = cc.Layer.extend({
 
         //sea shells
         this._seashells = [];
-        for (var i = 1; i < MAX_SEA_SHEELS; i++) {
+        for (i = 1; i < MAX_SEA_SHEELS; i++) {
             var seashell = cc.Sprite.createWithSpriteFrameName(i + ".png");
             this.addChild(seashell);
             seashell.setVisible(false);
@@ -157,7 +157,7 @@ var PlayLayer = cc.Layer.extend({
                 bubble.runAction(flowWithCallfunc);
                 return true;
             }
-        })
+        });
     },
 
     spawnMermaid: function() {
@@ -182,7 +182,7 @@ var PlayLayer = cc.Layer.extend({
         this._duckVelocity = JUMP_VELOCITY;
         var swimActionKind = Math.floor(Math.random() * 5);
         var duckRotate;
-        if (swimActionKind == 0) {
+        if (swimActionKind === 0) {
             duckRotate = cc.RotateBy.create(0.5, -400);
         } else {
             duckRotate = cc.RotateTo.create(0.1, -25);
@@ -352,7 +352,7 @@ var PlayLayer = cc.Layer.extend({
     },
 
     getWeather: function() {
-        if (s_weather == 0) {
+        if (s_weather === 0) {
             //bg
             this._background = cc.Sprite.create("res/background-dark.png");
             this._background.setAnchorPoint(cc.p(0, 0));
