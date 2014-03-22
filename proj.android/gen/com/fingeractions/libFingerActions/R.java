@@ -82,7 +82,7 @@ public final class R {
 		public static final int google_play_services_version = 0x7f060000;
 	}
 	public static final class string {
-		public static final int app_name = 0x7f05001a;
+		public static final int app_name = 0x7f05001e;
 		public static final int auth_client_needs_enabling_title = 0x7f050015;
 		public static final int auth_client_needs_installation_title = 0x7f050016;
 		public static final int auth_client_needs_update_title = 0x7f050017;
@@ -109,6 +109,10 @@ public final class R {
 		public static final int common_google_play_services_update_title = 0x7f050007;
 		public static final int common_signin_button_text = 0x7f050012;
 		public static final int common_signin_button_text_long = 0x7f050013;
+		public static final int gamehelper_app_misconfigured = 0x7f05001b;
+		public static final int gamehelper_license_failed = 0x7f05001c;
+		public static final int gamehelper_sign_in_failed = 0x7f05001a;
+		public static final int gamehelper_unknown_error = 0x7f05001d;
 	}
 	public static final class style {
 		public static final int AppBaseTheme = 0x7f070000;

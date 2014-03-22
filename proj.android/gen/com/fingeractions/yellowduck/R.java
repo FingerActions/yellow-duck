@@ -222,7 +222,8 @@ containing a value of this type.
         public static final int google_play_services_version=0x7f060000;
     }
     public static final class string {
-        public static final int app_name=0x7f05001a;
+        public static final int app_id=0x7f05001f;
+        public static final int app_name=0x7f05001e;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -317,6 +318,10 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f050013;
+        public static final int gamehelper_app_misconfigured=0x7f05001b;
+        public static final int gamehelper_license_failed=0x7f05001c;
+        public static final int gamehelper_sign_in_failed=0x7f05001a;
+        public static final int gamehelper_unknown_error=0x7f05001d;
     }
     public static final class style {
         /** 
