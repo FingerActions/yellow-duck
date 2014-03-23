@@ -50,7 +50,8 @@ var ScoreLayer = cc.Layer.extend({
         this._fingerActions.pushSceneName("score scene");
 
         //add background image (die)
-        this._background = cc.Sprite.create("res/img/background/die_scene.png");
+        this._background = cc.Sprite.create(s_score_background_png);
+        this._background.setScale(1 / SCALE_FACTOR);
         this._background.setAnchorPoint(cc.p(0, 0));
         this._background.setPosition(cc.p(0, 0));
         this.addChild(this._background, 2);
@@ -111,7 +112,7 @@ var ScoreLayer = cc.Layer.extend({
         // facebookButton.setScale(0.08);
 
         //leaderboard
-        var leaderboardButton = cc.MenuItemImage.create('res/leaderboard.png', 'res/leaderboard.png', this.leaderboard, this);
+        var leaderboardButton = cc.MenuItemImage.create(s_leaderboard_png, s_leaderboard_png, this.leaderboard, this);
         leaderboardButton.setPosition(cc.p(0, -50));
         leaderboardButton.setScale(0.5);
 

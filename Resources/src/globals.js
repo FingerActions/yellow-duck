@@ -23,6 +23,7 @@ var MAX_NUM_WALLS = 6;
 var WALL_GAP_TIME = 1.5;
 var WALL_APPEAR_TIME = 2.5;
 var MAX_SEA_SHEELS = 7;
+var SCALE_FACTOR = 1;
 
 // static variables
 var s_currentScore = 0;

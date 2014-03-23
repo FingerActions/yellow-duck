@@ -1,4 +1,5 @@
 #include "AppDelegate.h"
+
 #include "cocos2d.h"
 #include "SimpleAudioEngine.h"
 #include "ScriptingCore.h"
@@ -18,24 +19,8 @@
 // custom js binding
 #include "jsb_fingerActions_auto.h"
 
-
-
-
 USING_NS_CC;
 using namespace CocosDenshion;
-
-
-// multi screen
-typedef struct tagResource
-{
-    cocos2d::CCSize size;
-    char directory[100];
-}Resource;
-
-static Resource smallResource  =  { cocos2d::CCSizeMake(320, 480),   "iphone" };
-static Resource mediumResource =  { cocos2d::CCSizeMake(768, 1024),  "ipad"   };
-static Resource largeResource  =  { cocos2d::CCSizeMake(1536, 2048), "ipadhd" };
-static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(320, 480);
 
 AppDelegate::AppDelegate()
 {
@@ -53,12 +38,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
     
     
-// multi screen
+    // multi screen
+    static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(2560, 3840);
     CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
-    
-  
-    
-    CCSize frameSize = CCEGLView::sharedOpenGLView()->getFrameSize();
     
     // turn off display FPS
     pDirector->setDisplayStats(false);
@@ -83,15 +65,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     //fingerActions js binding
     sc->addRegisterCallback(register_all_fingerActions);
     
-
     sc->start();
     
     CCScriptEngineProtocol *pEngine = ScriptingCore::getInstance();
     CCScriptEngineManager::sharedManager()->setScriptEngine(pEngine);
-
-    
     ScriptingCore::getInstance()->runScript("cocos2d-jsb.js");
-    
     
     return true;
 }

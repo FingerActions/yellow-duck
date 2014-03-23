@@ -36,9 +36,6 @@ var PlayLayer = cc.Layer.extend({
 
     //sound
     audioEngin: null,
-    POP_EFFECT_FILE: 'res/pop.mp3',
-    DROWNED_EFFECT_FILE: 'res/drowned.mp3',
-    JUMP_EFFECT_FILE: 'res/jump_sound.mp3',
 
     ctor: function() {
         this._super();
@@ -67,16 +64,14 @@ var PlayLayer = cc.Layer.extend({
         //screen size
         this._screenSize = cc.Director.getInstance().getWinSize();
 
-        //add background image (river)
-        //added weather
         this.getWeather();
 
         //duck is not falling
         this._isDuckJumping = false;
 
         //add duck sprite sheet
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duckflyplist);
-        this._duckSpriteSheet = cc.SpriteBatchNode.create(s_duckfly);
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duck_swim_plist);
+        this._duckSpriteSheet = cc.SpriteBatchNode.create(s_duck_swim);
         this.addChild(this._duckSpriteSheet, 1000);
         var animFrames = [];
         for (var i = 1; i < 4; i++) {
@@ -97,7 +92,7 @@ var PlayLayer = cc.Layer.extend({
         //walls
         this._walls = [];
         for (i = 0; i < MAX_NUM_WALLS; i++) {
-            var wall = cc.Sprite.create('res/wall.png');
+            var wall = cc.Sprite.create(s_wall);
             this.addChild(wall, 500);
             wall.setVisible(false);
             this._walls.push(wall);
@@ -126,7 +121,7 @@ var PlayLayer = cc.Layer.extend({
         //init bubbles
         this._bubbles = [];
         for (i = 0; i < MAX_NUM_BUBBLES; i++) {
-            var bubble = cc.Sprite.create('res/bubble.png');
+            var bubble = cc.Sprite.create(s_decoration_bubble_png);
             this.addChild(bubble);
             bubble.setVisible(false);
             this._bubbles.push(bubble);
@@ -161,7 +156,7 @@ var PlayLayer = cc.Layer.extend({
     },
 
     spawnMermaid: function() {
-        var mermaid = cc.Sprite.create("res/mermaid.png");
+        var mermaid = cc.Sprite.create(s_decoration_mermaid_png);
         mermaid.setScale(0.5);
         var contentSize = mermaid.getContentSize();
         mermaid.setPosition(cc.p(this._screenSize.width + contentSize.width / 2, this._screenSize.height / 2));
@@ -178,7 +173,7 @@ var PlayLayer = cc.Layer.extend({
         if (this._gameover) {
             return;
         }
-        audioEngin.playEffect(this.JUMP_EFFECT_FILE);
+        audioEngin.playEffect(s_jump_effect);
         this._duckVelocity = JUMP_VELOCITY;
         var swimActionKind = Math.floor(Math.random() * 5);
         var duckRotate;
@@ -353,8 +348,8 @@ var PlayLayer = cc.Layer.extend({
 
     getWeather: function() {
         if (s_weather === 0) {
-            //bg
-            this._background = cc.Sprite.create("res/background-dark.png");
+            this._background = cc.Sprite.create(s_play_dark_background_png);
+            this._background.setScale(1 / SCALE_FACTOR);
             this._background.setAnchorPoint(cc.p(0, 0));
             this._background.setPosition(cc.p(0, 0));
             this.addChild(this._background, 0);
@@ -362,12 +357,12 @@ var PlayLayer = cc.Layer.extend({
             var emitter = cc.ParticleRain.create();
             this._background.addChild(emitter, 10);
             emitter.setLife(4);
-            emitter.setTexture(cc.TextureCache.getInstance().addImage("res/particle-fire.png"));
+            emitter.setTexture(cc.TextureCache.getInstance().addImage(s_decoration_particle_fire_png));
             if (emitter.setShapeType)
                 emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
         } else {
-            //bg
-            this._background = cc.Sprite.create("res/background.png");
+            this._background = cc.Sprite.create(s_play_background_png);
+            this._background.setScale(1 / SCALE_FACTOR);
             this._background.setAnchorPoint(cc.p(0, 0));
             this._background.setPosition(cc.p(0, 0));
             this.addChild(this._background, 0);
@@ -377,7 +372,7 @@ var PlayLayer = cc.Layer.extend({
 
     gameOverDrowned: function() {
         var that = this;
-        audioEngin.playEffect(this.DROWNED_EFFECT_FILE);
+        audioEngin.playEffect(s_drowned_effect);
         var enoughBubble = false;
         this._bubbles.some(function(bubble) {
             if (!bubble.isVisible()) {
@@ -412,7 +407,7 @@ var PlayLayer = cc.Layer.extend({
         var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width - 5, secondObjSize.height - 5);
 
         if (cc.rectIntersectsRect(firstCollideRect, secondCollideRect)) {
-            audioEngin.playEffect(this.POP_EFFECT_FILE);
+            audioEngin.playEffect(s_poped_effect);
             return true;
         }
     },

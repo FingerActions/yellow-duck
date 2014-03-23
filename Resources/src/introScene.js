@@ -15,7 +15,7 @@
 
 var IntroLayer = cc.Layer.extend({
     _duckSpriteSheet: null,
-    _flyingAction: null,
+    _swimAnimation: null,
     _duck: null,
     _timer: null,
     isMouseDown: false,
@@ -65,8 +65,8 @@ var IntroLayer = cc.Layer.extend({
         this.addChild(this._titleLabel, 5);
 
         // add duck sprite sheet
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duckflyplist);
-        this._duckSpriteSheet = cc.SpriteBatchNode.create(s_duckfly);
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duck_swim_plist);
+        this._duckSpriteSheet = cc.SpriteBatchNode.create(s_duck_swim);
         this.addChild(this._duckSpriteSheet);
         var animFrames = [];
         for (var i = 1; i < 4; i++) {
@@ -76,19 +76,20 @@ var IntroLayer = cc.Layer.extend({
         }
 
         var animation = cc.Animation.create(animFrames, 0.3);
-        this._flyingAction = cc.RepeatForever.create(cc.Animate.create(animation));
+        this._swimAnimation = cc.RepeatForever.create(cc.Animate.create(animation));
         this._duck = cc.Sprite.createWithSpriteFrameName("ducksmall01.png");
         this._duck.setPosition(cc.p(65, this._screenSize.height / 2));
-        this._duck.runAction(this._flyingAction);
+        this._duck.runAction(this._swimAnimation);
         this._duckSpriteSheet.addChild(this._duck);
 
-        this._tapSprite = cc.Sprite.create("res/tap.png");
+        this._tapSprite = cc.Sprite.create(s_tap_to_start_png);
         this._tapSprite.setScale(0.7);
         this._tapSprite.setAnchorPoint(cc.p(0.5, 0.5));
         this._tapSprite.setPosition(cc.p(195, (this._screenSize.height / 2) - 40));
         this.addChild(this._tapSprite, 0);
 
         //sea shells
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_decoration_seashell_plist, s_decoration_seashell_png);
         this._seashells = [];
         for (i = 1; i < MAX_SEA_SHEELS; i++) {
             var seashell = cc.Sprite.createWithSpriteFrameName(i + ".png");
@@ -136,13 +137,13 @@ var IntroLayer = cc.Layer.extend({
     },
 
     randomWeather: function() {
-        //add background image (river)
         var randomNumber = Math.floor(Math.random() * 5);
         var sprite;
 
         if (randomNumber === 0) {
             //bg
-            sprite = cc.Sprite.create("res/background-dark.png");
+            sprite = cc.Sprite.create(s_play_dark_background_png);
+            sprite.setScale(1 / SCALE_FACTOR);
             sprite.setAnchorPoint(cc.p(0, 0));
             sprite.setPosition(cc.p(0, 0));
             this.addChild(sprite, 0);
@@ -150,13 +151,14 @@ var IntroLayer = cc.Layer.extend({
             var emitter = cc.ParticleRain.create();
             sprite.addChild(emitter, 10);
             emitter.setLife(4);
-            emitter.setTexture(cc.TextureCache.getInstance().addImage("res/particle-fire.png"));
+            emitter.setTexture(cc.TextureCache.getInstance().addImage(s_decoration_particle_fire_png));
             if (emitter.setShapeType)
                 emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
             s_weather = 0;
         } else {
             //bg
-            sprite = cc.Sprite.create("res/background.png");
+            sprite = cc.Sprite.create(s_play_background_png);
+            sprite.setScale(1 / SCALE_FACTOR);
             sprite.setAnchorPoint(cc.p(0, 0));
             sprite.setPosition(cc.p(0, 0));
             this.addChild(sprite, 0);

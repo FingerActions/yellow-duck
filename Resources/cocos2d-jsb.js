@@ -53,7 +53,3 @@ var introScene = new IntroScene();
 
 // run
 director.runWithScene(introScene);
-
-//load seashells background
-//load seashell objects
-cc.SpriteFrameCache.getInstance().addSpriteFrames(s_seashell_plist, s_seashell_png);
