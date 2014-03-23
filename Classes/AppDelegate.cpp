@@ -60,29 +60,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     CCSize frameSize = CCEGLView::sharedOpenGLView()->getFrameSize();
     
-    // if the frame's height is larger than the height of medium resource size, select large resource.
-    
-    /*
-     vector<string> searchPath;
-    
-    if (frameSize.height > mediumResource.size.height)
-    {
-        searchPath.push_back(largeResource.directory);
-        pDirector->setContentScaleFactor(largeResource.size.height/designResolutionSize.height);
-    }
-    // if the frame's height is larger than the height of small resource size, select medium resource.
-    else if (frameSize.height > smallResource.size.height)
-    {
-        searchPath.push_back(mediumResource.directory);
-        pDirector->setContentScaleFactor(mediumResource.size.height/designResolutionSize.height);
-    }
-    // if the frame's height is smaller than the height of medium resource size, select small resource.
-    else
-    {
-        searchPath.push_back(smallResource.directory);
-        pDirector->setContentScaleFactor(smallResource.size.height/designResolutionSize.height);
-    }
-    */
     // turn off display FPS
     pDirector->setDisplayStats(false);
     
@@ -118,8 +95,6 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     CCEGLView *pEGLView = CCEGLView::sharedOpenGLView();
     
-    //pEGLView->setDesignResolutionSize(320, 480, kResolutionFixedHeight);
-  
     pDirector->setOpenGLView(pEGLView);
     CCSize frame_size = pEGLView->getFrameSize();
     std::vector<std::string> res_dir_orders;
