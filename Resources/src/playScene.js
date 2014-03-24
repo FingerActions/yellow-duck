@@ -33,6 +33,7 @@ var PlayLayer = cc.Layer.extend({
     _seashellTimer: null,
     _isDuckJumping: null,
     _fingerActions: null,
+    _backgroundColor: '8ED8F3',
 
     //sound
     audioEngin: null,
