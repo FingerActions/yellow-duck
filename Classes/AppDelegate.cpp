@@ -39,7 +39,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     
     // multi screen
-    static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(2560, 3840);
+    static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(1600, 2840);
     CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
     
     // turn off display FPS
