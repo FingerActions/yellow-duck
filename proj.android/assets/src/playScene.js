@@ -14,7 +14,6 @@
 
 
 var PlayLayer = cc.Layer.extend({
-    _duckSpriteSheet: null,
     _flyingAction: null,
     _duck: null,
     _background: null,
@@ -33,7 +32,7 @@ var PlayLayer = cc.Layer.extend({
     _seashellTimer: null,
     _isDuckJumping: null,
     _fingerActions: null,
-    _backgroundColor: '8ED8F3',
+    // _backgroundColor: '8ED8F3',
 
     //sound
     audioEngin: null,
@@ -70,25 +69,10 @@ var PlayLayer = cc.Layer.extend({
         //duck is not falling
         this._isDuckJumping = false;
 
-        //add duck sprite sheet
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duck_swim_plist);
-        this._duckSpriteSheet = cc.SpriteBatchNode.create(s_duck_swim);
-        this.addChild(this._duckSpriteSheet, 1000);
-        var animFrames = [];
-        for (var i = 1; i < 4; i++) {
-            var str = "ducksmall0" + i + ".png";
-            var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
-            animFrames.push(frame);
-        }
-        var animation = cc.Animation.create(animFrames, 0.3);
-        this._flyingAction = cc.RepeatForever.create(cc.Animate.create(animation));
-        this._duck = cc.Sprite.createWithSpriteFrameName("ducksmall01.png");
-        this._duck.setPosition(cc.p(65, this._screenSize.height / 2));
-        this._duck.runAction(this._flyingAction);
-        this._duckSpriteSheet.addChild(this._duck);
-
-
+        this._duck = cc.Sprite.create(s_duck);
+        this._duck.setPosition(cc.p(65 * SCALE_FACTOR, this._screenSize.height / 2));
         this._duckVelocity = 0;
+        this.addChild(this._duck, 1000);
 
         //walls
         this._walls = [];
@@ -139,10 +123,10 @@ var PlayLayer = cc.Layer.extend({
         this._bubbles.some(function(bubble) {
             if (!bubble.isVisible()) {
                 bubble.setVisible(true);
-                bubble.setScale(0.1);
+                bubble.setScale(0.5);
                 var bubbleSpawnPositionY = Math.floor(Math.random() * that._screenSize.height);
 
-                bubble.setPosition(cc.p(400, bubbleSpawnPositionY));
+                bubble.setPosition(cc.p(that._screenSize.width, bubbleSpawnPositionY));
 
                 var callfunc = cc.CallFunc.create(function() {
                     bubble.setVisible(false);
@@ -158,7 +142,7 @@ var PlayLayer = cc.Layer.extend({
 
     spawnMermaid: function() {
         var mermaid = cc.Sprite.create(s_decoration_mermaid_png);
-        mermaid.setScale(0.5);
+        //mermaid.setScale(0.5);
         var contentSize = mermaid.getContentSize();
         mermaid.setPosition(cc.p(this._screenSize.width + contentSize.width / 2, this._screenSize.height / 2));
         this.addChild(mermaid, 0);
@@ -176,7 +160,7 @@ var PlayLayer = cc.Layer.extend({
         }
         audioEngin.playEffect(s_jump_effect);
         this._duckVelocity = JUMP_VELOCITY;
-        var swimActionKind = Math.floor(Math.random() * 5);
+        var swimActionKind = Math.floor(Math.random() * 10);
         var duckRotate;
         if (swimActionKind === 0) {
             duckRotate = cc.RotateBy.create(0.5, -400);
@@ -197,7 +181,7 @@ var PlayLayer = cc.Layer.extend({
             var randomRotation = Math.floor(Math.random() * 180);
             if (!this._seashells[randomNumber].isVisible()) {
                 this._seashells[randomNumber].setVisible(true);
-                this._seashells[randomNumber].setScale(0.3);
+                //this._seashells[randomNumber].setScale(0.3);
                 this._seashells[randomNumber].setRotation(randomRotation);
                 this._seashells[randomNumber].setPosition(cc.p(this._screenSize.width, 5 + randomNumber * 2));
                 var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width, 5 + randomNumber * 2));
@@ -283,7 +267,7 @@ var PlayLayer = cc.Layer.extend({
         var wallWidth = thisWalls[0].getContentSize().width;
         var dice = Math.floor(Math.random() * 20);
         thisWalls[1].setRotation(180);
-        thisWalls[0].setPosition(cc.p(this._screenSize.width, this._screenSize.height + 130));
+        thisWalls[0].setPosition(cc.p(this._screenSize.width, this._screenSize.height + 200));
         var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (wallWidth / 2), 0));
         var spawn = cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice]));
 
@@ -296,9 +280,9 @@ var PlayLayer = cc.Layer.extend({
         thisWalls[0].runAction(spawn);
         thisWalls[0].runAction(flowWithCallfunc);
 
-        thisWalls[1].setPosition(cc.p(this._screenSize.width, -130));
+        thisWalls[1].setPosition(cc.p(this._screenSize.width, -200));
         flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (wallWidth / 2), 0));
-        spawn = cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice] + WALL_GAP));
+        spawn = cc.MoveBy.create(0.5, cc.p(0, WALL_HEIGHT[dice] + WALL_EXTRA_DISTANCE));
 
         thisWalls[1].runAction(flow);
         thisWalls[1].runAction(spawn);
@@ -334,7 +318,7 @@ var PlayLayer = cc.Layer.extend({
         var that = this;
         var shrinkAction = cc.ScaleTo.create(0.4, 0.3);
         var rotateAction = cc.RotateBy.create(1.5, 700);
-        var floatAction = cc.BezierBy.create(2, [cc.p(0, 0), cc.p(-120, 100), cc.p(100, 300)]);
+        var floatAction = cc.BezierBy.create(2, [cc.p(0, 0), cc.p(-600, 500), cc.p(500, 1500)]);
 
         var callfunc = cc.CallFunc.create(function() {
             that.die();
@@ -348,26 +332,27 @@ var PlayLayer = cc.Layer.extend({
     },
 
     getWeather: function() {
+        this._background = cc.Sprite.create(s_play_background_top_png);
+        this._background.setScale(2);
+        this._background.setAnchorPoint(cc.p(0, 0));
+        this._background.setPosition(cc.p(0, this._screenSize.height - this._background.getContentSize().height));
+        this.addChild(this._background, 0);
+
+        this._background = cc.Sprite.create(s_play_background_bottom_png);
+        this._background.setScale(2);
+        this._background.setAnchorPoint(cc.p(0, 0));
+        this._background.setPosition(cc.p(0, 0));
+        this.addChild(this._background, 0);
+
         if (s_weather === 0) {
-            this._background = cc.Sprite.create(s_play_dark_background_png);
-            this._background.setScale(1 / SCALE_FACTOR);
-            this._background.setAnchorPoint(cc.p(0, 0));
-            this._background.setPosition(cc.p(0, 0));
-            this.addChild(this._background, 0);
             //rain
             var emitter = cc.ParticleRain.create();
             this._background.addChild(emitter, 10);
             emitter.setLife(4);
             emitter.setTexture(cc.TextureCache.getInstance().addImage(s_decoration_particle_fire_png));
-            if (emitter.setShapeType)
+            if (emitter.setShapeType) {
                 emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
-        } else {
-            this._background = cc.Sprite.create(s_play_background_png);
-            this._background.setScale(1 / SCALE_FACTOR);
-            this._background.setAnchorPoint(cc.p(0, 0));
-            this._background.setPosition(cc.p(0, 0));
-            this.addChild(this._background, 0);
-
+            }
         }
     },
 
@@ -378,9 +363,9 @@ var PlayLayer = cc.Layer.extend({
         this._bubbles.some(function(bubble) {
             if (!bubble.isVisible()) {
                 bubble.setVisible(true);
-                bubble.setScale(0.05);
                 var size = bubble.getContentSize();
-                bubble.setPosition(cc.p(65, -size.height));
+                bubble.setPosition(cc.p(325, -size.height));
+                bubble.setScale(0.1);
                 var flow = cc.MoveTo.create(Math.floor(Math.random() * 2) + 1, cc.p(Math.floor(Math.random() * 20) + 50, that._screenSize.height));
 
                 var callfunc = cc.CallFunc.create(function() {
@@ -443,6 +428,8 @@ var PlayScene = cc.Scene.extend({
     onEnter: function() {
         this._super();
         audioEngin = cc.AudioEngine.getInstance();
+        var backgroundLayer = cc.LayerColor.create(cc.c4b(142, 216, 243, 255));
+        this.addChild(backgroundLayer);
         var layer = new PlayLayer();
         this.addChild(layer);
         layer.init();

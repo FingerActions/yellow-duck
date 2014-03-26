@@ -14,16 +14,19 @@
 
 
 //global const variables
+//design pixel is according to non-retina iphone 5
+var SCALE_FACTOR = 5;
+var DECORATION_SCALE_FACTOR = 2.5;
+var BACKGROUND_SCALE_FACTOR = 1.387;
 var WALL_HEIGHT = [-10, -20, -30, -40, -50, -60, -70, -80, -90, -100, -110, -120, -130, -140, -150, -160, -170, -180, -190, -200];
-var WALL_GAP = 100;
-var GRAVITY = 0.3;
-var JUMP_VELOCITY = 7;
+var WALL_EXTRA_DISTANCE = 20;
+var GRAVITY = 0.3 * SCALE_FACTOR;
+var JUMP_VELOCITY = 7 * SCALE_FACTOR;
 var MAX_NUM_BUBBLES = 5;
 var MAX_NUM_WALLS = 6;
 var WALL_GAP_TIME = 1.5;
 var WALL_APPEAR_TIME = 2.5;
 var MAX_SEA_SHEELS = 7;
-var SCALE_FACTOR = 1;
 
 // static variables
 var s_currentScore = 0;

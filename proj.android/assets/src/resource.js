@@ -12,8 +12,9 @@
 //
 /////////////////////////////////////////////////////////////////////
 
-var s_play_background_png = "res/backgrounds/play.png";
-var s_play_dark_background_png = "res/backgrounds/play_dark.png";
+var s_play_background_top_png = "res/backgrounds/play_top.png";
+var s_play_background_bottom_png = "res/backgrounds/play_bottom.png";
+
 var s_score_background_png = "res/backgrounds/score.png";
 
 var s_tap_to_start_png = "res/buttons/tap_to_start.png";
@@ -25,8 +26,7 @@ var s_decoration_particle_fire_png = "res/decorations/particle_fire.png";
 var s_decoration_seashell_plist = "res/decorations/sea_shells/sea_shells.plist";
 var s_decoration_seashell_png = "res/decorations/sea_shells/sea_shells.png";
 
-var s_duck_swim = "res/duck/duck_swim.png";
-var s_duck_swim_plist = "res/duck/duck_swim.plist";
+var s_duck = "res/duck/duck.png";
 
 var s_drowned_effect = "res/sound_effects/drowned.mp3";
 var s_poped_effect = "res/sound_effects/poped.mp3";
@@ -34,13 +34,12 @@ var s_jump_effect = "res/sound_effects/jump.mp3";
 
 var s_wall = "res/walls/wall.png";
 
-
 var g_ressources = [
     //image
     {
-        src: s_play_background_png
+        src: s_play_background_top_png
     }, {
-        src: s_play_dark_background_png
+        src: s_play_background_bottom_png
     }, {
         src: s_score_background_png
     }, {
@@ -56,15 +55,11 @@ var g_ressources = [
     }, {
         src: s_decoration_seashell_png
     }, {
-        src: s_duck_swim
-    }, {
         src: s_wall
     },
     //plist
     {
         src: s_decoration_seashell_plist
-    }, {
-        src: s_duck_swim_plist
     },
     //fnt
 

@@ -39,6 +39,12 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     
     // multi screen
+    // iphone 5 is 640 x 1136
+    // max tablet is 1600 X 2840
+    // texture 2048 is max!
+    // so background max will be 1153 x 2048
+    // all key stuff is retina
+    // non key stuff is not retina
     static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(1600, 2840);
     CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
     

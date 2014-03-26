@@ -51,7 +51,7 @@ var ScoreLayer = cc.Layer.extend({
 
         //add background image (die)
         this._background = cc.Sprite.create(s_score_background_png);
-        this._background.setScale(1 / SCALE_FACTOR);
+        this._background.setScale(BACKGROUND_SCALE_FACTOR);
         this._background.setAnchorPoint(cc.p(0, 0));
         this._background.setPosition(cc.p(0, 0));
         this.addChild(this._background, 2);
@@ -114,7 +114,7 @@ var ScoreLayer = cc.Layer.extend({
         //leaderboard
         var leaderboardButton = cc.MenuItemImage.create(s_leaderboard_png, s_leaderboard_png, this.leaderboard, this);
         leaderboardButton.setPosition(cc.p(0, -50));
-        leaderboardButton.setScale(0.5);
+        //leaderboardButton.setScale(0.5);
 
         var socialMenu = cc.Menu.create(leaderboardButton);
         socialMenu.setPosition(cc.p(this.size.width / 2, this.size.height - 300));

@@ -14,8 +14,6 @@
 
 
 var IntroLayer = cc.Layer.extend({
-    _duckSpriteSheet: null,
-    _swimAnimation: null,
     _duck: null,
     _timer: null,
     isMouseDown: false,
@@ -50,11 +48,11 @@ var IntroLayer = cc.Layer.extend({
         this._fingerActions.showAdAtTop();
         this._fingerActions.pushSceneName("Intro scene");
 
-        //added weather
-        this.randomWeather();
-
         // screen size
         this._screenSize = cc.Director.getInstance().getWinSize();
+
+        //added weather
+        this.randomWeather();
 
         // add a label shows "Yellow Duck"
         // create and initialize a label
@@ -64,26 +62,16 @@ var IntroLayer = cc.Layer.extend({
         // add the label as a child to this layer
         this.addChild(this._titleLabel, 5);
 
-        // add duck sprite sheet
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_duck_swim_plist);
-        this._duckSpriteSheet = cc.SpriteBatchNode.create(s_duck_swim);
-        this.addChild(this._duckSpriteSheet);
-        var animFrames = [];
-        for (var i = 1; i < 4; i++) {
-            var str = "ducksmall0" + i + ".png";
-            var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
-            animFrames.push(frame);
-        }
+        this._duck = cc.Sprite.create(s_duck);
+        this._duck.setPosition(cc.p(65 * SCALE_FACTOR, this._screenSize.height / 2));
 
-        var animation = cc.Animation.create(animFrames, 0.3);
-        this._swimAnimation = cc.RepeatForever.create(cc.Animate.create(animation));
-        this._duck = cc.Sprite.createWithSpriteFrameName("ducksmall01.png");
-        this._duck.setPosition(cc.p(65, this._screenSize.height / 2));
-        this._duck.runAction(this._swimAnimation);
-        this._duckSpriteSheet.addChild(this._duck);
+        var bezier = [cc.p(0, 100 * SCALE_FACTOR), cc.p(0, -100 * SCALE_FACTOR), cc.p(0, 0)];
+        var sprite_action = cc.BezierBy.create(5, bezier);
+        var sprite_action_2 = cc.RepeatForever.create(sprite_action);
+        this._duck.runAction(sprite_action_2);
+        this.addChild(this._duck);
 
         this._tapSprite = cc.Sprite.create(s_tap_to_start_png);
-        this._tapSprite.setScale(0.7);
         this._tapSprite.setAnchorPoint(cc.p(0.5, 0.5));
         this._tapSprite.setPosition(cc.p(195, (this._screenSize.height / 2) - 40));
         this.addChild(this._tapSprite, 0);
@@ -97,12 +85,6 @@ var IntroLayer = cc.Layer.extend({
             seashell.setVisible(false);
             this._seashells.push(seashell);
         }
-
-        var bezier = [cc.p(0, 100), cc.p(0, -100), cc.p(0, 0)];
-        var sprite_action = cc.BezierBy.create(5, bezier);
-
-        var sprite_action_2 = cc.RepeatForever.create(sprite_action);
-        this._duck.runAction(sprite_action_2);
 
         return true;
     },
@@ -118,7 +100,6 @@ var IntroLayer = cc.Layer.extend({
             var randomRotation = Math.floor(Math.random() * 180);
             if (!this._seashells[randomNumber].isVisible()) {
                 this._seashells[randomNumber].setVisible(true);
-                this._seashells[randomNumber].setScale(0.3);
                 this._seashells[randomNumber].setRotation(randomRotation);
                 this._seashells[randomNumber].setPosition(cc.p(this._screenSize.width, 5 + randomNumber * 2));
                 var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-that._screenSize.width, 5 + randomNumber * 2));
@@ -140,13 +121,20 @@ var IntroLayer = cc.Layer.extend({
         var randomNumber = Math.floor(Math.random() * 5);
         var sprite;
 
+        //bg
+        sprite = cc.Sprite.create(s_play_background_top_png);
+        sprite.setScale(2);
+        sprite.setAnchorPoint(cc.p(0, 0));
+        sprite.setPosition(cc.p(0, this._screenSize.height - sprite.getContentSize().height));
+        this.addChild(sprite, 0);
+
+        sprite = cc.Sprite.create(s_play_background_bottom_png);
+        sprite.setScale(2);
+        sprite.setAnchorPoint(cc.p(0, 0));
+        sprite.setPosition(cc.p(0, 0));
+        this.addChild(sprite, 0);
+
         if (randomNumber === 0) {
-            //bg
-            sprite = cc.Sprite.create(s_play_dark_background_png);
-            sprite.setScale(1 / SCALE_FACTOR);
-            sprite.setAnchorPoint(cc.p(0, 0));
-            sprite.setPosition(cc.p(0, 0));
-            this.addChild(sprite, 0);
             //rain
             var emitter = cc.ParticleRain.create();
             sprite.addChild(emitter, 10);
@@ -156,12 +144,6 @@ var IntroLayer = cc.Layer.extend({
                 emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
             s_weather = 0;
         } else {
-            //bg
-            sprite = cc.Sprite.create(s_play_background_png);
-            sprite.setScale(1 / SCALE_FACTOR);
-            sprite.setAnchorPoint(cc.p(0, 0));
-            sprite.setPosition(cc.p(0, 0));
-            this.addChild(sprite, 0);
             s_weather = 1;
         }
     },
