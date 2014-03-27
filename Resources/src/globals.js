@@ -14,10 +14,12 @@
 
 
 //global const variables
-//design pixel is according to non-retina iphone 5
+//design pixel is according to non-retina iphone 4
 var SCALE_FACTOR = 5;
-var DECORATION_SCALE_FACTOR = 2.5;
-var BACKGROUND_SCALE_FACTOR = 1.387;
+//decoration will be non-retina on big screens
+var DECORATION_SCALE_FACTOR = 2;
+//full screen images will be partial retina
+var FULLSCREEN_SCALE_FACTOR = 1600 / 1153;
 var WALL_HEIGHT = [-10, -20, -30, -40, -50, -60, -70, -80, -90, -100, -110, -120, -130, -140, -150, -160, -170, -180, -190, -200];
 var WALL_EXTRA_DISTANCE = 20;
 var GRAVITY = 0.3 * SCALE_FACTOR;

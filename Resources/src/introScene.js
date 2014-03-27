@@ -56,9 +56,9 @@ var IntroLayer = cc.Layer.extend({
 
         // add a label shows "Yellow Duck"
         // create and initialize a label
-        this._titleLabel = cc.LabelTTF.create("Yellow Duck", "Marker Felt", 33);
+        this._titleLabel = cc.LabelTTF.create("Yellow Duck", "Marker Felt", 33 * SCALE_FACTOR);
         // position the label on the center of the screen
-        this._titleLabel.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 100));
+        this._titleLabel.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 100 * SCALE_FACTOR));
         // add the label as a child to this layer
         this.addChild(this._titleLabel, 5);
 
@@ -73,7 +73,7 @@ var IntroLayer = cc.Layer.extend({
 
         this._tapSprite = cc.Sprite.create(s_tap_to_start_png);
         this._tapSprite.setAnchorPoint(cc.p(0.5, 0.5));
-        this._tapSprite.setPosition(cc.p(195, (this._screenSize.height / 2) - 40));
+        this._tapSprite.setPosition(cc.p((this._screenSize.width / 2) + 35 * SCALE_FACTOR, (this._screenSize.height / 2) - 40));
         this.addChild(this._tapSprite, 0);
 
         //sea shells
@@ -123,13 +123,13 @@ var IntroLayer = cc.Layer.extend({
 
         //bg
         sprite = cc.Sprite.create(s_play_background_top_png);
-        sprite.setScale(2);
+        sprite.setScale(DECORATION_SCALE_FACTOR);
         sprite.setAnchorPoint(cc.p(0, 0));
         sprite.setPosition(cc.p(0, this._screenSize.height - sprite.getContentSize().height));
         this.addChild(sprite, 0);
 
         sprite = cc.Sprite.create(s_play_background_bottom_png);
-        sprite.setScale(2);
+        sprite.setScale(DECORATION_SCALE_FACTOR);
         sprite.setAnchorPoint(cc.p(0, 0));
         sprite.setPosition(cc.p(0, 0));
         this.addChild(sprite, 0);

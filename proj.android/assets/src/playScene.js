@@ -32,7 +32,6 @@ var PlayLayer = cc.Layer.extend({
     _seashellTimer: null,
     _isDuckJumping: null,
     _fingerActions: null,
-    // _backgroundColor: '8ED8F3',
 
     //sound
     audioEngin: null,
@@ -95,8 +94,9 @@ var PlayLayer = cc.Layer.extend({
 
         //score
         this._score = 0;
-        this._scoreLabel = cc.LabelTTF.create(this._score, "Marker Felt", 33);
-        this._scoreLabel.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 100));
+        this._scoreLabel = cc.LabelTTF.create(this._score, "Marker Felt", 33 * SCALE_FACTOR);
+        this._scoreLabel.setFontFillColor(cc.c4b(243, 174, 142, 255));
+        this._scoreLabel.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 100 * SCALE_FACTOR));
         this.addChild(this._scoreLabel, 500);
 
         //effects
@@ -115,6 +115,11 @@ var PlayLayer = cc.Layer.extend({
         this._passedFirstWall = false;
         this._gameover = false;
 
+        //init local storage if not found
+        if (!sys.localStorage.getItem('highScore')) {
+            sys.localStorage.setItem('highScore', 0);
+        }
+
         return true;
     },
 
@@ -123,9 +128,8 @@ var PlayLayer = cc.Layer.extend({
         this._bubbles.some(function(bubble) {
             if (!bubble.isVisible()) {
                 bubble.setVisible(true);
-                bubble.setScale(0.5);
                 var bubbleSpawnPositionY = Math.floor(Math.random() * that._screenSize.height);
-
+                bubble.setScale(DECORATION_SCALE_FACTOR);
                 bubble.setPosition(cc.p(that._screenSize.width, bubbleSpawnPositionY));
 
                 var callfunc = cc.CallFunc.create(function() {
@@ -142,7 +146,7 @@ var PlayLayer = cc.Layer.extend({
 
     spawnMermaid: function() {
         var mermaid = cc.Sprite.create(s_decoration_mermaid_png);
-        //mermaid.setScale(0.5);
+        mermaid.setScale(DECORATION_SCALE_FACTOR);
         var contentSize = mermaid.getContentSize();
         mermaid.setPosition(cc.p(this._screenSize.width + contentSize.width / 2, this._screenSize.height / 2));
         this.addChild(mermaid, 0);
@@ -181,10 +185,10 @@ var PlayLayer = cc.Layer.extend({
             var randomRotation = Math.floor(Math.random() * 180);
             if (!this._seashells[randomNumber].isVisible()) {
                 this._seashells[randomNumber].setVisible(true);
-                //this._seashells[randomNumber].setScale(0.3);
+                this._seashells[randomNumber].setScale(DECORATION_SCALE_FACTOR);
                 this._seashells[randomNumber].setRotation(randomRotation);
-                this._seashells[randomNumber].setPosition(cc.p(this._screenSize.width, 5 + randomNumber * 2));
-                var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width, 5 + randomNumber * 2));
+                this._seashells[randomNumber].setPosition(cc.p(this._screenSize.width, (5 + randomNumber * 2) * SCALE_FACTOR));
+                var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width, (5 + randomNumber * 2) * SCALE_FACTOR));
 
                 var callfunc = cc.CallFunc.create(function() {
                     that._seashells[randomNumber].setVisible(false);
@@ -333,13 +337,13 @@ var PlayLayer = cc.Layer.extend({
 
     getWeather: function() {
         this._background = cc.Sprite.create(s_play_background_top_png);
-        this._background.setScale(2);
+        this._background.setScale(DECORATION_SCALE_FACTOR);
         this._background.setAnchorPoint(cc.p(0, 0));
         this._background.setPosition(cc.p(0, this._screenSize.height - this._background.getContentSize().height));
         this.addChild(this._background, 0);
 
         this._background = cc.Sprite.create(s_play_background_bottom_png);
-        this._background.setScale(2);
+        this._background.setScale(DECORATION_SCALE_FACTOR);
         this._background.setAnchorPoint(cc.p(0, 0));
         this._background.setPosition(cc.p(0, 0));
         this.addChild(this._background, 0);
@@ -365,7 +369,7 @@ var PlayLayer = cc.Layer.extend({
                 bubble.setVisible(true);
                 var size = bubble.getContentSize();
                 bubble.setPosition(cc.p(325, -size.height));
-                bubble.setScale(0.1);
+                bubble.setScale(0.35);
                 var flow = cc.MoveTo.create(Math.floor(Math.random() * 2) + 1, cc.p(Math.floor(Math.random() * 20) + 50, that._screenSize.height));
 
                 var callfunc = cc.CallFunc.create(function() {

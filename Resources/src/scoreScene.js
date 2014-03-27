@@ -16,6 +16,7 @@
 var ScoreLayer = cc.Layer.extend({
 
     _background: null,
+    _menuHolder: null,
     _timer: null,
     _bestLabel: null,
     _scoreLabel: null,
@@ -51,7 +52,7 @@ var ScoreLayer = cc.Layer.extend({
 
         //add background image (die)
         this._background = cc.Sprite.create(s_score_background_png);
-        this._background.setScale(BACKGROUND_SCALE_FACTOR);
+        this._background.setScale(FULLSCREEN_SCALE_FACTOR);
         this._background.setAnchorPoint(cc.p(0, 0));
         this._background.setPosition(cc.p(0, 0));
         this.addChild(this._background, 2);
@@ -60,41 +61,41 @@ var ScoreLayer = cc.Layer.extend({
         //screen size
         this._screenSize = cc.Director.getInstance().getWinSize();
 
-        // get screen size
-        this.size = cc.Director.getInstance().getWinSize();
-
         this._highScore = sys.localStorage.getItem('highScore');
         //add score on banner
+        this._menuHolder = cc.LayerColor.create(cc.c4b(0, 0, 0, 150), this._screenSize.width - 80 * SCALE_FACTOR, this._screenSize.height - 120 * SCALE_FACTOR);
+        this._menuHolder.setPosition(cc.p(40 * SCALE_FACTOR, 70 * SCALE_FACTOR));
+        this.addChild(this._menuHolder, 3);
         // create and initialize a label
-        this._highScoreLabel = cc.LabelTTF.create(this._highScore, "Marker Felt", 25);
+        this._highScoreLabel = cc.LabelTTF.create(this._highScore, "Marker Felt", 25 * SCALE_FACTOR);
         // position the label on the center of the screen
-        this._highScoreLabel.setPosition(cc.p(this.size.width / 2 + 50, this.size.height - 180));
+        this._highScoreLabel.setPosition(cc.p(this._screenSize.width / 2 + 50 * SCALE_FACTOR, this._screenSize.height - 180 * SCALE_FACTOR));
         // add the label as a child to this layer
         this.addChild(this._highScoreLabel, 5);
 
         // create and initialize a label
-        this._currentScoreLabel = cc.LabelTTF.create(s_currentScore, "Marker Felt", 25);
+        this._currentScoreLabel = cc.LabelTTF.create(s_currentScore, "Marker Felt", 25 * SCALE_FACTOR);
         // position the label on the center of the screen
-        this._currentScoreLabel.setPosition(cc.p(this.size.width / 2 + 50, this.size.height - 230));
+        this._currentScoreLabel.setPosition(cc.p(this._screenSize.width / 2 + 50 * SCALE_FACTOR, this._screenSize.height - 230 * SCALE_FACTOR));
         // add the label as a child to this layer
         this.addChild(this._currentScoreLabel, 5);
 
         // create and initialize game over label
-        this._gameover = cc.LabelTTF.create("GAME OVER", "Marker Felt", 36);
-        this._gameover.setPosition(cc.p(this.size.width / 2, this.size.height - 130));
+        this._gameover = cc.LabelTTF.create("GAME OVER", "Marker Felt", 36 * SCALE_FACTOR);
+        this._gameover.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 120 * SCALE_FACTOR));
         this.addChild(this._gameover, 5);
 
         // best score label
-        this._bestLabel = cc.LabelTTF.create("Best", "Marker Felt", 25);
-        this._bestLabel.setPosition(cc.p(this.size.width / 2 - 50, this.size.height - 180));
+        this._bestLabel = cc.LabelTTF.create("Best", "Marker Felt", 25 * SCALE_FACTOR);
+        this._bestLabel.setPosition(cc.p(this._screenSize.width / 2 - 40 * SCALE_FACTOR, this._screenSize.height - 180 * SCALE_FACTOR));
         this.addChild(this._bestLabel, 5);
-        this._scoreLabel = cc.LabelTTF.create("Score", "Marker Felt", 25);
-        this._scoreLabel.setPosition(cc.p(this.size.width / 2 - 50, this.size.height - 230));
+        this._scoreLabel = cc.LabelTTF.create("Score", "Marker Felt", 25 * SCALE_FACTOR);
+        this._scoreLabel.setPosition(cc.p(this._screenSize.width / 2 - 40 * SCALE_FACTOR, this._screenSize.height - 230 * SCALE_FACTOR));
         this.addChild(this._scoreLabel, 5);
 
         // tap to continue
-        this._tapToContinueLabel = cc.LabelTTF.create("TAP TO CONTINUE", "Marker Felt", 24);
-        this._tapToContinueLabel.setPosition(cc.p(this.size.width / 2, this.size.height - 300));
+        this._tapToContinueLabel = cc.LabelTTF.create("TAP TO CONTINUE", "Marker Felt", 24 * SCALE_FACTOR);
+        this._tapToContinueLabel.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 380 * SCALE_FACTOR));
         this.addChild(this._tapToContinueLabel, 5);
         var fadein_tap = cc.FadeIn.create(1.0);
         var fadeout_tap = cc.FadeOut.create(1.0);
@@ -102,55 +103,17 @@ var ScoreLayer = cc.Layer.extend({
 
         this._tapToContinueLabel.runAction(sequence);
 
-        // social networks
-        // var twitterButton = cc.MenuItemImage.create('res/twitter.png', 'res/twitter.png', this.tweet, this);
-        //twitterButton.setPosition(cc.p(-50, 0));
-        // twitterButton.setScale(0.08);
-
-        //var facebookButton = cc.MenuItemImage.create('res/facebook.png', 'res/facebook.png', this.share, this);
-        // facebookButton.setPosition(cc.p(50, 0));
-        // facebookButton.setScale(0.08);
-
         //leaderboard
-        var leaderboardButton = cc.MenuItemImage.create(s_leaderboard_png, s_leaderboard_png, this.leaderboard, this);
-        leaderboardButton.setPosition(cc.p(0, -50));
-        //leaderboardButton.setScale(0.5);
-
-        var socialMenu = cc.Menu.create(leaderboardButton);
-        socialMenu.setPosition(cc.p(this.size.width / 2, this.size.height - 300));
-        this.addChild(socialMenu, 5);
+        var leaderboardButton = cc.MenuItemImage.create(s_leaderboard_png, s_leaderboard_png, this.showLeaderboard, this);
+        var leaderboardMenu = cc.Menu.create(leaderboardButton);
+        leaderboardMenu.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 310 * SCALE_FACTOR));
+        this.addChild(leaderboardMenu, 5);
 
         return true;
     },
 
-    tweet: function() {
-        // todo: change to download url
-        var urlBase = 'https://twitter.com/intent/tweet?';
-        var text = 'I%20got%20' + this._highScore + '%20in%20Bath%20Duck!%20Download%20at?%20to%20challenge%20me!';
-        var url = urlBase + 'text=' + text;
-        cc.Application.getInstance().openURL(url);
-        this._fingerActions = new fingerActions.FingerActions();
-        this._fingerActions.pushEventName("Menu", "click", "tweet");
-    },
-
-    share: function() {
-        // todo: change to download url
-        var baseUrl = 'https://www.facebook.com/dialog/feed?';
-        var app_id = '145634995501895';
-        var display = 'popup';
-        var name = 'Bath%20Duck';
-        var caption = 'I%20got%20' + this._highScore + '%20in%20Bath%20Duck!';
-        var description = 'Download%20at?%20to%20challenge%20me!';
-        var link = 'https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fdialogs%2F%20';
-        var redirect_uri = 'https://developers.facebook.com/tools/explorer';
-        var url = baseUrl + 'app_id=' + app_id + '&display=' + display + '&name=' + name + '&caption=' + caption + '&description=' + description + '&link=' + link + '&redirect_uri=' + redirect_uri;
-        cc.Application.getInstance().openURL(url);
-        this._fingerActions = new fingerActions.FingerActions();
-        this._fingerActions.pushEventName("Menu", "click", "facebook");
-    },
-
-    leaderboard: function() {
-        //Game Bridge Class
+    showLeaderboard: function() {
+        cc.log('js showLeaderboard');
         //push highScore everytime, in case player has a high localscore but didn't connect to internet
         this._fingerActions = new fingerActions.FingerActions();
         this._fingerActions.pushScore(this._highScore, "YellowDuck");
