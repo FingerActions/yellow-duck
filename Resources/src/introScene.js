@@ -52,7 +52,7 @@ var IntroLayer = cc.Layer.extend({
         this._screenSize = cc.Director.getInstance().getWinSize();
 
         //added weather
-        this.randomWeather();
+        this.getWeather();
 
         // add a label shows "Yellow Duck"
         // create and initialize a label
@@ -117,35 +117,35 @@ var IntroLayer = cc.Layer.extend({
         }
     },
 
-    randomWeather: function() {
-        var randomNumber = getRandomInt(0, 4);
-        var sprite;
+    getWeather: function() {
+        var backgroundTop = s_play_background_top_png;
+        var backgroundBottom = s_play_background_bottom_png;
 
-        //bg
-        sprite = cc.Sprite.create(s_play_background_top_png);
-        sprite.setScale(DECORATION_SCALE_FACTOR);
-        sprite.setAnchorPoint(cc.p(0, 0));
-        sprite.setPosition(cc.p(0, this._screenSize.height - sprite.getContentSize().height));
-        this.addChild(sprite, 0);
-
-        sprite = cc.Sprite.create(s_play_background_bottom_png);
-        sprite.setScale(DECORATION_SCALE_FACTOR);
-        sprite.setAnchorPoint(cc.p(0, 0));
-        sprite.setPosition(cc.p(0, 0));
-        this.addChild(sprite, 0);
-
-        if (randomNumber === 0) {
+        if (s_weather === 0) {
             //rain
+            backgroundTop = s_play_background_dark_top_png;
+            backgroundBottom = s_play_background_dark_bottom_png;
             var emitter = cc.ParticleRain.create();
-            sprite.addChild(emitter, 10);
+            this.addChild(emitter, 10);
             emitter.setLife(4);
+            emitter.setScale(DECORATION_SCALE_FACTOR);
             emitter.setTexture(cc.TextureCache.getInstance().addImage(s_decoration_particle_fire_png));
-            if (emitter.setShapeType)
+            if (emitter.setShapeType) {
                 emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
-            s_weather = 0;
-        } else {
-            s_weather = 1;
+            }
         }
+
+        this._background = cc.Sprite.create(backgroundTop);
+        this._background.setScale(DECORATION_SCALE_FACTOR);
+        this._background.setAnchorPoint(cc.p(0, 0));
+        this._background.setPosition(cc.p(0, this._screenSize.height - this._background.getContentSize().height));
+        this.addChild(this._background, 0);
+
+        this._background = cc.Sprite.create(backgroundBottom);
+        this._background.setScale(DECORATION_SCALE_FACTOR);
+        this._background.setAnchorPoint(cc.p(0, 0));
+        this._background.setPosition(cc.p(0, 0));
+        this.addChild(this._background, 0);
     },
 
     update: function(delta) {
@@ -178,8 +178,26 @@ var IntroScene = cc.Scene.extend({
         if (s_gameStarted === false) {
             s_gameStarted = true;
             this._super();
+
+            //set random weather
+            var randomNumber = getRandomInt(0, 4);
+            if (randomNumber === 0) {
+                s_weather = 0;
+            } else {
+                s_weather = 1;
+            }
+
             var layer = new IntroLayer();
-            this.addChild(layer);
+            this.addChild(layer, 10);
+
+            var backgroundLayer;
+            if (s_weather === 0) {
+                backgroundLayer = cc.LayerColor.create(cc.c4b(15, 89, 116, 255));
+            } else {
+                backgroundLayer = cc.LayerColor.create(cc.c4b(142, 216, 243, 255));
+            }
+            this.addChild(backgroundLayer, 1);
+
             layer.init();
         }
     }

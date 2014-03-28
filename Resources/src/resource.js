@@ -14,6 +14,8 @@
 
 var s_play_background_top_png = "res/backgrounds/play_top.png";
 var s_play_background_bottom_png = "res/backgrounds/play_bottom.png";
+var s_play_background_dark_top_png = "res/backgrounds/play_dark_top.png";
+var s_play_background_dark_bottom_png = "res/backgrounds/play_dark_bottom.png";
 
 var s_score_background_png = "res/backgrounds/score.png";
 
