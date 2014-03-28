@@ -1,27 +1,32 @@
-<?xml version="1.0"?><svg width="4000" height="3000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Leaf</title>
- <defs>
-  <linearGradient id="linearGradient3183">
-   <stop offset="0" id="stop3185" stop-opacity="0" stop-color="#ffffff"/>
-   <stop id="stop3191" offset="0.662236" stop-opacity="0.630252" stop-color="#65c734"/>
-   <stop offset="1" id="stop3187" stop-color="#ddffcd"/>
-  </linearGradient>
-  <linearGradient xlink:href="#linearGradient3183" id="linearGradient3988" x1="1.000015" y1="1" x2="0.283283" y2="1"/>
- </defs>
- <metadata id="metadata7">image/svg+xml</metadata>
- <g>
-  <title>Layer 1</title>
-  <g id="layer1">
-   <g id="g3979">
-    <g id="g2391" fill="#339900">
-     <path d="m3901.077637,18.000088c-461.127686,897.753086 93.760498,2363.817783 -2366.641357,2143.272861c-1509.43635,-1385.849182 1877.437988,-1030.767456 2366.641357,-2143.272861z" id="path2383" stroke-width="1px" fill-rule="evenodd" fill="#339900"/>
-     <path d="m1534.436279,2161.272949l-1159.171326,497.544922l193.195068,306.182129l965.976257,-803.727051z" id="path2385" stroke-width="1px" fill-rule="evenodd" fill="#339900"/>
-    </g>
-    <path id="path3165" d="m1570.65979,2103.863525c1949.74353,-1548.531067 2137.222534,-1731.841125 2137.222534,-1731.841125c-984.955078,798.711243 -3178.654663,569.14563 -2137.222534,1731.841125z" stroke-width="1px" fill-rule="evenodd" fill="url(#linearGradient3988)"/>
-    <path id="path2409" d="m1588.594849,2129.977051c471.762085,-511.671509 1204.363403,-990.914551 1737.407104,-1437.194946c254.722412,-213.261017 373.989746,-254.486603 461.400635,-466.334091" stroke-dashoffset="0" stroke-miterlimit="4" stroke-linecap="round" stroke-width="2.5" stroke="#007800" fill-rule="evenodd" fill="none"/>
-    <path id="path3959" d="m1546.510742,2146.920166c520.454346,-42.202881 969.578369,186.927002 1580.478271,-276.208862c623.632324,-472.787964 592.133545,-1549.253174 620.654053,-1555.99823" stroke-miterlimit="4" stroke-linejoin="round" stroke-linecap="round" stroke-width="3.6" stroke="#006100" fill-rule="evenodd" fill="none"/>
-    <path id="path3973" d="m399.414063,2663.602295l187.158203,129.169922l839.191406,-574.090576l-1026.34964,444.920654l0.000031,0z" stroke-width="1px" fill-rule="evenodd" fill="#77c452"/>
-   </g>
-  </g>
- </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 17.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="375.3 0 3525.8 2965" enable-background="new 375.3 0 3525.8 2965" xml:space="preserve">
+<title>Leaf</title>
+<g>
+	<title>Layer 1</title>
+	<g id="layer1">
+		<g id="g3979">
+			<g id="g2391">
+				<path id="path2383" fill="#339900" d="M3901.1,18c-461.1,897.8,93.8,2363.8-2366.6,2143.3C25,775.4,3411.9,1130.5,3901.1,18
+					L3901.1,18z"/>
+				<path id="path2385" fill="#339900" d="M1534.4,2161.3L375.3,2658.8L568.5,2965L1534.4,2161.3z"/>
+			</g>
+			
+				<linearGradient id="path3165_1_" gradientUnits="userSpaceOnUse" x1="1488.3829" y1="1650.2795" x2="1487.6661" y2="1650.2795" gradientTransform="matrix(2411.1909 0 0 -1731.8411 -3585067.5 2859259.75)">
+				<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0"/>
+				<stop  offset="0.6622" style="stop-color:#65C734;stop-opacity:0.6303"/>
+				<stop  offset="1" style="stop-color:#DDFFCD"/>
+			</linearGradient>
+			<path id="path3165" fill="url(#path3165_1_)" d="M1570.7,2103.9C3520.4,555.3,3707.9,372,3707.9,372
+				C2722.9,1170.7,529.2,941.2,1570.7,2103.9L1570.7,2103.9z"/>
+			<path id="path2409" fill="none" stroke="#007800" stroke-width="2.5" stroke-linecap="round" d="M1588.6,2130
+				C2060.4,1618.3,2793,1139.1,3326,692.8c254.7-213.3,374-254.5,461.4-466.3"/>
+			<path id="path3959" fill="none" stroke="#006100" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" d="
+				M1546.5,2146.9c520.5-42.2,969.6,186.9,1580.5-276.2c623.6-472.8,592.1-1549.3,620.7-1556"/>
+			<path id="path3973" fill="#77C452" d="M399.4,2663.6l187.2,129.2l839.2-574.1L399.4,2663.6L399.4,2663.6L399.4,2663.6z"/>
+		</g>
+	</g>
+</g>
 </svg>

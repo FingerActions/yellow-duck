@@ -96,8 +96,8 @@ var IntroLayer = cc.Layer.extend({
         var seashell;
 
         while (!found_invisible) {
-            var randomNumber = Math.floor(Math.random() * 6);
-            var randomRotation = Math.floor(Math.random() * 180);
+            var randomNumber = getRandomInt(0, 5);
+            var randomRotation = getRandomArbitrary(0, 180);
             if (!this._seashells[randomNumber].isVisible()) {
                 this._seashells[randomNumber].setVisible(true);
                 this._seashells[randomNumber].setRotation(randomRotation);
@@ -118,7 +118,7 @@ var IntroLayer = cc.Layer.extend({
     },
 
     randomWeather: function() {
-        var randomNumber = Math.floor(Math.random() * 5);
+        var randomNumber = getRandomInt(0, 4);
         var sprite;
 
         //bg
