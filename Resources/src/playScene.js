@@ -36,6 +36,11 @@ var PlayLayer = cc.Layer.extend({
     _timerBubble: null,
     _timerSeashell: null,
 
+    //powerups
+    _powerups: null,
+
+
+
     //sound
     audioEngin: null,
 
