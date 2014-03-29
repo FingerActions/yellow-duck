@@ -24,7 +24,10 @@ var s_leaderboard_png = "res/buttons/leaderboard.png";
 
 var s_decoration_bubble_png = "res/decorations/bubble.png";
 var s_decoration_mermaid_png = "res/decorations/mermaid.png";
-var s_decoration_crab = "res/decorations/crab.png";
+var s_decoration_crab_png = "res/decorations/crab.png";
+var s_decoration_pirate_ship_png = "res/decorations/pirate_ship.png";
+var s_decoration_pirate_png = "res/decorations/pirate.png";
+var s_decoration_unicorn_png = "res/decorations/unicorn_purple.png";
 var s_decoration_particle_fire_png = "res/decorations/particle_fire.png";
 var s_decoration_seashell_plist = "res/decorations/sea_shells/sea_shells.plist";
 var s_decoration_seashell_png = "res/decorations/sea_shells/sea_shells.png";

@@ -29,7 +29,6 @@ var PlayLayer = cc.Layer.extend({
     _seashells: null,
     _isDuckJumping: null,
     _fingerActions: null,
-    _hasHugeDecoration: null,
 
     //timers
     _timerScore: null,
@@ -103,7 +102,7 @@ var PlayLayer = cc.Layer.extend({
         if (s_weather === 0) {
             this._scoreLabel.setFontFillColor(cc.c4b(243, 174, 142, 255));
         } else {
-            this._scoreLabel.setFontFillColor(cc.c4b(113, 39, 12, 100));
+            this._scoreLabel.setFontFillColor(cc.c4b(213, 113, 113, 100));
         }
 
         this._scoreLabel.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 100 * SCALE_FACTOR));
@@ -113,6 +112,7 @@ var PlayLayer = cc.Layer.extend({
         this._timerBubble = 0;
         _bubbleSpawnFrequency = 0;
         this._hasHugeDecoration = false;
+        this.spawnRandomDecoration();
 
         //init bubbles
         this._bubbles = [];
@@ -171,8 +171,8 @@ var PlayLayer = cc.Layer.extend({
             if (!bubble.isVisible()) {
                 bubble.setVisible(true);
                 var bubbleSpawnPositionY = getRandomArbitrary(0, that._screenSize.height);
-
-                bubble.setScale(DECORATION_SCALE_FACTOR);
+                var randomScale = getRandomArbitrary(1, 2);
+                bubble.setScale(randomScale);
                 bubble.setPosition(cc.p(that._screenSize.width, bubbleSpawnPositionY));
 
                 var callfunc = cc.CallFunc.create(function() {
@@ -195,33 +195,108 @@ var PlayLayer = cc.Layer.extend({
         this.addChild(mermaid, 0);
         var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2));
         var callfunc = cc.CallFunc.create(function() {
-            mermaid.setVisible(false);
-        });
+            this.removeChild(mermaid);
+        }.bind(this));
         var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
         mermaid.runAction(flowWithCallfunc);
     },
 
     spawnCrab: function() {
-        var crab = cc.Sprite.create(s_decoration_crab);
+        var crab = cc.Sprite.create(s_decoration_crab_png);
         crab.setScale(DECORATION_SCALE_FACTOR);
         var contentSize = crab.getContentSize();
         crab.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2 - 190 * SCALE_FACTOR));
         this.addChild(crab, 0);
-        var flow = cc.MoveTo.create(10, cc.p(-contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2 - 190 * SCALE_FACTOR));
 
         var bounceUp = cc.MoveBy.create(0.5, cc.p(0, 80 * SCALE_FACTOR));
         var bounceDown = cc.MoveBy.create(0.5, cc.p(0, -80 * SCALE_FACTOR));
         var bounce = cc.Sequence.create(bounceUp, bounceDown);
         crab.runAction(cc.RepeatForever.create(bounce));
 
+        var flow = cc.MoveTo.create(10, cc.p(-contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2 - 190 * SCALE_FACTOR));
         var callfunc = cc.CallFunc.create(function() {
-            crab.setVisible(false);
-        });
+            this.removeChild(crab);
+        }.bind(this));
         var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
         crab.runAction(flowWithCallfunc);
     },
 
+    spawnUnicorn: function() {
+        var unicorn = cc.Sprite.create(s_decoration_unicorn_png);
+        unicorn.setScale(DECORATION_SCALE_FACTOR);
+        var contentSize = unicorn.getContentSize();
+        unicorn.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2));
+        this.addChild(unicorn, 0);
 
+        var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2));
+        var callfunc = cc.CallFunc.create(function() {
+            this.removeChild(unicorn);
+        }.bind(this));
+        var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+        unicorn.runAction(flowWithCallfunc);
+    },
+
+    spawnPirateShip: function() {
+        var pirateShip = cc.Sprite.create(s_decoration_pirate_ship_png);
+        pirateShip.setScale(DECORATION_SCALE_FACTOR);
+        var contentSize = pirateShip.getContentSize();
+        pirateShip.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2 - 190 * SCALE_FACTOR));
+        this.addChild(pirateShip, 0);
+
+        var flow = cc.MoveTo.create(15, cc.p(-contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2 - 150 * SCALE_FACTOR));
+
+        var callfunc = cc.CallFunc.create(function() {
+            this.removeChild(pirateShip, true);
+        }.bind(this));
+        var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+        pirateShip.runAction(flowWithCallfunc);
+        var rotate = cc.RotateBy.create(3, 360);
+        pirateShip.runAction(cc.RepeatForever.create(rotate));
+
+        var bounceUp = cc.MoveBy.create(2, cc.p(0, 30 * SCALE_FACTOR));
+        var bounceDown = cc.MoveBy.create(2, cc.p(0, -30 * SCALE_FACTOR));
+        var bounce = cc.Sequence.create(cc.EaseInOut.create(bounceUp, 3), cc.EaseInOut.create(bounceDown, 3));
+        pirateShip.runAction(cc.RepeatForever.create(bounce));
+    },
+
+    spawnPirate: function() {
+        var pirate = cc.Sprite.create(s_decoration_pirate_png);
+        pirate.setScale(DECORATION_SCALE_FACTOR);
+        var contentSize = pirate.getContentSize();
+        pirate.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2 - 160 * SCALE_FACTOR));
+        this.addChild(pirate, 0);
+
+        var flow = cc.MoveTo.create(6.5, cc.p(this._screenSize.width / 2, this._screenSize.height / 2 - 160 * SCALE_FACTOR));
+        var disappear = cc.SkewBy.create(5, 0, -90);
+
+        var callfunc = cc.CallFunc.create(function() {
+            this.removeChild(pirate, true);
+        }.bind(this));
+
+        var flowWithCallfunc = cc.Sequence.create(flow, cc.EaseOut.create(disappear, 3.0), callfunc);
+        pirate.runAction(flowWithCallfunc);
+    },
+
+    spawnRandomDecoration: function() {
+        var randomNumber = 3;
+        //getRandomInt(0, 1);
+        switch (randomNumber) {
+            case 0:
+                this.spawnMermaid();
+                break;
+            case 1:
+                this.spawnUnicorn();
+                break;
+            case 2:
+                this.spawnPirateShip();
+                break;
+            case 3:
+                this.spawnPirate();
+                break;
+            default:
+                this.spawnCrab();
+        }
+    },
 
     spawnSeaShells: function() {
         var that = this;
@@ -257,10 +332,7 @@ var PlayLayer = cc.Layer.extend({
         this._timerScore += delta;
         this._timerSeashell += delta;
 
-        if (this._timerWall > WALL_GAP_TIME) {
-            this.createWall();
-            this._timerWall = 0;
-        }
+        //decorations
         if (this._timerSeashell > 1) {
             this.spawnSeaShells();
             this._timerSeashell = 0;
@@ -271,6 +343,11 @@ var PlayLayer = cc.Layer.extend({
             this.spawnBubble();
             this._timerBubble = 0;
             this._bubbleSpawnFrequency = getRandomArbitrary(1.5, 5);
+        }
+
+        if (this._timerWall > WALL_GAP_TIME) {
+            this.createWall();
+            this._timerWall = 0;
         }
 
         var duckPrePosition = this._duck.getPosition();
@@ -290,7 +367,9 @@ var PlayLayer = cc.Layer.extend({
 
         //update score based on time gap
         if (this._passedFirstWall && this._timerScore > WALL_GAP_TIME) {
-            this._score++;
+            if (++this._score % 12 === 0) {
+                this.spawnRandomDecoration();
+            }
             this._timerScore = 0;
         }
         if (!this._passedFirstWall && this._timerScore > WALL_GAP_TIME / 2 + WALL_APPEAR_TIME) {
@@ -334,7 +413,7 @@ var PlayLayer = cc.Layer.extend({
 
         thisWalls[1].setRotation(180);
         thisWalls[0].setPosition(cc.p(this._screenSize.width + wallWidth / 2, this._screenSize.height + wallHeight / 2));
-        var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (wallWidth / 2), 0));
+        var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - wallWidth, 0));
         var wallTopHeight = getRandomArbitrary(50, 300);
         var spawn = cc.MoveBy.create(0.5, cc.p(0, -wallTopHeight * SCALE_FACTOR));
 
@@ -348,7 +427,7 @@ var PlayLayer = cc.Layer.extend({
         thisWalls[0].runAction(flowWithCallfunc);
 
         thisWalls[1].setPosition(cc.p(this._screenSize.width + wallWidth / 2, -wallHeight / 2));
-        flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - (wallWidth / 2), 0));
+        flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - wallWidth, 0));
         wallGap = getRandomArbitrary(WALL_MIN_GAP, WALL_MAX_GAP);
         spawn = cc.MoveBy.create(0.5, cc.p(0, this._screenSize.height - wallTopHeight * SCALE_FACTOR - wallGap));
 
