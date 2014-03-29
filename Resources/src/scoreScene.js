@@ -101,7 +101,11 @@ var ScoreLayer = cc.Layer.extend({
         this.addChild(this._currentScoreLabel, 5);
 
         // create and initialize game over label
-        this._gameover = cc.LabelTTF.create("GAME OVER", "Marker Felt", 36 * SCALE_FACTOR);
+        if (s_isHighScore) {
+            this._gameover = cc.LabelTTF.create("HIGH SCORE", "Marker Felt", 36 * SCALE_FACTOR);
+        } else {
+            this._gameover = cc.LabelTTF.create("GAME OVER", "Marker Felt", 36 * SCALE_FACTOR);
+        }
         this._gameover.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 120 * SCALE_FACTOR));
         this.addChild(this._gameover, 5);
 

@@ -308,6 +308,20 @@ var PlayLayer = cc.Layer.extend({
         mermaid.runAction(flowWithCallfunc);
     },
 
+    spawnSnowman: function() {
+        var snowman = cc.Sprite.create(s_decoration_snowman_png);
+        snowman.setScale(DECORATION_SCALE_FACTOR);
+        var contentSize = snowman.getContentSize();
+        snowman.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2));
+        this.addChild(snowman, 0);
+        var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2));
+        var callfunc = cc.CallFunc.create(function() {
+            this.removeChild(snowman);
+        }.bind(this));
+        var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+        snowman.runAction(flowWithCallfunc);
+    },
+
     spawnCrab: function() {
         var crab = cc.Sprite.create(s_decoration_crab_png);
         crab.setScale(DECORATION_SCALE_FACTOR);
@@ -384,8 +398,31 @@ var PlayLayer = cc.Layer.extend({
         pirate.runAction(flowWithCallfunc);
     },
 
+    spawnOctopus: function() {
+        var octopus = cc.Sprite.create(s_decoration_optopus_png);
+        octopus.setScale(DECORATION_SCALE_FACTOR);
+        var contentSize = octopus.getContentSize();
+        octopus.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
+        this.addChild(octopus, 0);
+
+        var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
+        var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2, 0));
+        var wait = cc.MoveBy.create(2, cc.p(0, -10 * SCALE_FACTOR));
+        var callfunc = cc.CallFunc.create(function() {
+            this.removeChild(octopus, true);
+        }.bind(this));
+        var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
+        octopus.runAction(flowWithCallfunc);
+
+        var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
+        var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
+        var bounce = cc.Sequence.create(bounceUp, bounceDown);
+        octopus.runAction(cc.RepeatForever.create(bounce));
+    },
+
     spawnRandomDecoration: function() {
-        var randomNumber = getRandomInt(0, 3);
+        var randomNumber = getRandomInt(0, 4);
+        randomNumber = 5;
         switch (randomNumber) {
             case 0:
                 this.spawnMermaid();
@@ -398,6 +435,12 @@ var PlayLayer = cc.Layer.extend({
                 break;
             case 3:
                 this.spawnPirate();
+                break;
+            case 4:
+                this.spawnSnowman();
+                break;
+            case 5:
+                this.spawnOctopus();
                 break;
             default:
                 this.spawnCrab();
