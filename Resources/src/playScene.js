@@ -475,6 +475,21 @@ var PlayLayer = cc.Layer.extend({
         }
     },
 
+    spawnTreasure: function() {
+        var treasure = cc.Sprite.create(s_decoration_treasure_png);
+        treasure.setScale(getRandomArbitrary(1, DECORATION_SCALE_FACTOR));
+        var contentSize = treasure.getContentSize();
+        treasure.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, getRandomArbitrary(0, this._screenSize.height - 200 * SCALE_FACTOR)));
+        this.addChild(treasure, 0);
+
+        var flow = cc.MoveBy.create(20, cc.p(-contentSize.width * DECORATION_SCALE_FACTOR - this._screenSize.width, 0));
+        var callfunc = cc.CallFunc.create(function() {
+            this.removeChild(treasure);
+        }.bind(this));
+        var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+        treasure.runAction(flowWithCallfunc);
+    },
+
     update: function(delta) {
         this._timerWall += delta;
         this._timerScore += delta;
@@ -524,6 +539,10 @@ var PlayLayer = cc.Layer.extend({
 
         if (this._duckVelocity < 0 && this._isDuckJumping) {
             this.turnDuckBack();
+        }
+
+        if (getRandomInt(0, 100000) === 0) {
+            this.spawnTreasure();
         }
 
         this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
