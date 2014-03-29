@@ -18,6 +18,8 @@ var PowerUp = cc.Sprite.extend({
     _active = true,
     _powerupType: 1,
     _effectMode: null,
+    _zOrder: 1000,
+
 
     ctor: function(arg) {
 
@@ -65,6 +67,16 @@ PowerUp.getOrCreatePowerUp = function(arg) {
         }
 
     }
+};
+
+
+PowerUp.create = function(arg) {
+
+    var powerup = new PowerUp(arg);
+    g_sharedGameLayer.addPowerup(powerup, powerup._zOrder, )
+
+
+
 
 
 };

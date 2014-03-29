@@ -29,3 +29,10 @@ YD.CONTAINER = {
     POWERUP: []
 
 };
+
+
+YD.UNIT_TAG = {
+
+    POWERUP: 1000
+
+};
