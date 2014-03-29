@@ -89,20 +89,20 @@ var IntroLayer = cc.Layer.extend({
         return true;
     },
 
-
     spawnSeaShells: function() {
         var that = this;
-        var found_invisible = false;
+        var shellInvisible = false;
         var seashell;
 
-        while (!found_invisible) {
+        while (!shellInvisible) {
             var randomNumber = getRandomInt(0, 5);
             var randomRotation = getRandomArbitrary(0, 180);
             if (!this._seashells[randomNumber].isVisible()) {
                 this._seashells[randomNumber].setVisible(true);
+                this._seashells[randomNumber].setScale(DECORATION_SCALE_FACTOR);
                 this._seashells[randomNumber].setRotation(randomRotation);
-                this._seashells[randomNumber].setPosition(cc.p(this._screenSize.width, 5 + randomNumber * 2));
-                var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-that._screenSize.width, 5 + randomNumber * 2));
+                this._seashells[randomNumber].setPosition(cc.p(this._screenSize.width, (5 + randomNumber * 2) * SCALE_FACTOR));
+                var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width, (5 + randomNumber * 2) * SCALE_FACTOR));
 
                 var callfunc = cc.CallFunc.create(function() {
                     that._seashells[randomNumber].setVisible(false);
@@ -113,7 +113,8 @@ var IntroLayer = cc.Layer.extend({
                 this._seashells[randomNumber].runAction(flowWithCallfunc);
                 return true;
             }
-            found_invisible = true;
+
+            shellInvisible = true;
         }
     },
 
