@@ -15,7 +15,7 @@
 
 var IntroLayer = cc.Layer.extend({
     _duck: null,
-    _timer: null,
+    _timerSeashell: null,
     isMouseDown: false,
     _screenSize: null,
     _titleLabel: null,
@@ -34,7 +34,7 @@ var IntroLayer = cc.Layer.extend({
         this._super();
 
         //update()
-        this._timer = 0;
+        this._timerSeashell = 0;
         this.scheduleUpdate();
 
         if ('touches' in sys.capabilities) {
@@ -78,12 +78,12 @@ var IntroLayer = cc.Layer.extend({
         var sprite_action = cc.BezierBy.create(5, bezier);
         var sprite_action_2 = cc.RepeatForever.create(sprite_action);
         this._duck.runAction(sprite_action_2);
-        this.addChild(this._duck);
+        this.addChild(this._duck, 1000);
 
         this._tapSprite = cc.Sprite.create(s_tap_to_start_png);
         this._tapSprite.setAnchorPoint(cc.p(0.5, 0.5));
         this._tapSprite.setPosition(cc.p((this._screenSize.width / 2) + 35 * SCALE_FACTOR, (this._screenSize.height / 2) - 40));
-        this.addChild(this._tapSprite, 0);
+        this.addChild(this._tapSprite, 100);
 
         //sea shells
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_decoration_seashell_plist, s_decoration_seashell_png);
@@ -114,7 +114,6 @@ var IntroLayer = cc.Layer.extend({
                 var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width, (5 + randomNumber * 2) * SCALE_FACTOR));
 
                 var callfunc = cc.CallFunc.create(function() {
-                    that._seashells[randomNumber].setVisible(false);
                     that._seashells[randomNumber].setVisible(false);
                 });
 
@@ -159,11 +158,13 @@ var IntroLayer = cc.Layer.extend({
     },
 
     update: function(delta) {
-        this._timer += delta;
-        if (this._timer > 1) {
+
+        this._timerSeashell += delta;
+        if (this._timerSeashell > 1) {
             this.spawnSeaShells();
-            this._timer = 0;
+            this._timerSeashell = 0;
         }
+
     },
 
     onTouchesBegan: function(touches, event) {

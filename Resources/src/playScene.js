@@ -25,16 +25,24 @@ var PlayLayer = cc.Layer.extend({
     _passedFirstWall: null,
     _bubbleSpawnFrequency: null,
     _bubbles: null,
-    _gameover: null,
+    _fish: null,
+    _leafs: null,
     _seashells: null,
     _isDuckJumping: null,
     _fingerActions: null,
+    _gameover: null,
 
     //timers
     _timerScore: null,
     _timerWall: null,
     _timerBubble: null,
+    _timerFish: null,
+    _timerLeaf: null,
     _timerSeashell: null,
+
+    _isSpawningFish: null,
+    _isSpawningBubbles: null,
+    _isSpawningLeafs: null,
 
     //sound
     audioEngin: null,
@@ -73,6 +81,17 @@ var PlayLayer = cc.Layer.extend({
 
         this._duck = cc.Sprite.create(s_duck);
         this._duck.setPosition(cc.p(65 * SCALE_FACTOR, this._screenSize.height / 2));
+
+        var duckWing = cc.Sprite.create(s_duck_wing);
+        var wingSize = duckWing.getContentSize();
+        duckWing.setPosition(cc.p(18 * SCALE_FACTOR - wingSize.width / 2 + wingSize.width * 0.75, 12 * SCALE_FACTOR - wingSize.height / 2 + wingSize.height * 0.6));
+        var swimA = cc.RotateTo.create(0.5, -80);
+        var swimB = cc.RotateTo.create(0.5, 20);
+        var swim = cc.Sequence.create(swimA, swimB);
+        duckWing.setAnchorPoint(cc.p(0.75, 0.6));
+        duckWing.runAction(cc.RepeatForever.create(swim));
+        this._duck.addChild(duckWing);
+
         this._duckVelocity = 0;
         this.addChild(this._duck, 1000);
 
@@ -83,16 +102,6 @@ var PlayLayer = cc.Layer.extend({
             this.addChild(wall, 500);
             wall.setVisible(false);
             this._walls.push(wall);
-        }
-
-        //sea shells
-        this._seashells = [];
-        for (i = 1; i < MAX_SEA_SHEELS; i++) {
-            var seashell = cc.Sprite.createWithSpriteFrameName(i + ".png");
-            this.addChild(seashell);
-            seashell.setVisible(false);
-            this._seashells.push(seashell);
-
         }
 
         //score
@@ -110,6 +119,8 @@ var PlayLayer = cc.Layer.extend({
 
         //decorations
         this._timerBubble = 0;
+        this._timerFish = 0;
+        this._timerLeaf = 0;
         _bubbleSpawnFrequency = 0;
         this._hasHugeDecoration = false;
         this.spawnRandomDecoration();
@@ -118,10 +129,43 @@ var PlayLayer = cc.Layer.extend({
         this._bubbles = [];
         for (i = 0; i < MAX_NUM_BUBBLES; i++) {
             var bubble = cc.Sprite.create(s_decoration_bubble_png);
-            this.addChild(bubble);
+            this.addChild(bubble, 1);
             bubble.setVisible(false);
             this._bubbles.push(bubble);
         }
+
+        //fish
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_decoration_fish_plist, s_decoration_fish_png);
+        this._fish = [];
+        for (i = 0; i < MAX_NUM_FISH; i++) {
+            var fish = cc.Sprite.createWithSpriteFrameName("fish_" + (i % 3 + 1).toString() + ".png");
+            this.addChild(fish, 1);
+            fish.setVisible(false);
+            this._fish.push(fish);
+        }
+
+        //leafs
+        this._leafs = [];
+        for (i = 0; i < MAX_NUM_LEAFS; i++) {
+            var leaf = cc.Sprite.create(s_decoration_leaf_png);
+            this.addChild(leaf, 1);
+            leaf.setVisible(false);
+            leaf.setAnchorPoint(0.2, 0.2);
+            this._leafs.push(leaf);
+        }
+
+        //sea shells
+        this._seashells = [];
+        for (i = 1; i < MAX_SEA_SHEELS; i++) {
+            var seashell = cc.Sprite.createWithSpriteFrameName(i + ".png");
+            this.addChild(seashell);
+            seashell.setVisible(false);
+            this._seashells.push(seashell);
+        }
+
+        _isSpawningFish = false;
+        _isSpawningBubbles = false;
+        _isSpawningLeafs = false;
 
         this._passedFirstWall = false;
         this._gameover = false;
@@ -171,7 +215,7 @@ var PlayLayer = cc.Layer.extend({
             if (!bubble.isVisible()) {
                 bubble.setVisible(true);
                 var bubbleSpawnPositionY = getRandomArbitrary(0, that._screenSize.height);
-                var randomScale = getRandomArbitrary(1, 2);
+                var randomScale = getRandomArbitrary(1, DECORATION_SCALE_FACTOR);
                 bubble.setScale(randomScale);
                 bubble.setPosition(cc.p(that._screenSize.width, bubbleSpawnPositionY));
 
@@ -182,6 +226,69 @@ var PlayLayer = cc.Layer.extend({
                 var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
 
                 bubble.runAction(flowWithCallfunc);
+                return true;
+            }
+        });
+    },
+
+    spawnFish: function() {
+        var that = this;
+        var fishInvisible = false;
+        var fish;
+        var distanceParam = getRandomInt(1, 3);
+        var direction = getRandomInt(0, 5);
+
+        while (!fishInvisible) {
+            var randomNumber = getRandomInt(0, MAX_NUM_FISH - 1);
+            fish = this._fish[randomNumber];
+            if (!fish.isVisible()) {
+                fish.setVisible(true);
+
+                this.reorderChild(fish, distanceParam);
+                fish.setScale(DECORATION_SCALE_FACTOR * distanceParam / 2);
+
+                positionY = getRandomArbitrary(100 * SCALE_FACTOR, this._screenSize.height - 100 * SCALE_FACTOR);
+                fish.setPosition(cc.p(this._screenSize.width, positionY));
+                var flow = cc.MoveBy.create(1 / distanceParam * 10, cc.p(-this._screenSize.width, 0));
+                if (direction === 0) {
+                    fish.setRotationY(180);
+                    flow = cc.MoveBy.create(1 / distanceParam * 10 + 20, cc.p(-this._screenSize.width, 0));
+                }
+                var callfunc = cc.CallFunc.create(function() {
+                    fish.setVisible(false);
+                });
+
+                var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+                fish.runAction(flowWithCallfunc);
+                return true;
+            }
+
+            fishInvisible = true;
+        }
+    },
+
+    spawnLeaf: function() {
+        var that = this;
+        this._leafs.some(function(leaf) {
+            if (!leaf.isVisible()) {
+                leaf.setVisible(true);
+                var leafSpawnPositionX = getRandomArbitrary(that._screenSize.width / 2, that._screenSize.width);
+                var randomScale = getRandomArbitrary(1.5, DECORATION_SCALE_FACTOR);
+                leaf.setScale(randomScale);
+                leaf.setPosition(cc.p(leafSpawnPositionX, that._screenSize.height));
+
+                var callfunc = cc.CallFunc.create(function() {
+                    leaf.setVisible(false);
+                });
+                leafSpawnPositionX = getRandomArbitrary(0, that._screenSize.width / 3);
+                var flow = cc.MoveTo.create(getRandomArbitrary(8, 10), cc.p(leafSpawnPositionX, 0));
+                var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+                leaf.runAction(flowWithCallfunc);
+
+                var driftFrom = cc.RotateBy.create(getRandomArbitrary(0.6, 0.9), getRandomArbitrary(25, 65));
+                var driftTo = cc.RotateBy.create(getRandomArbitrary(0.6, 0.9), getRandomArbitrary(-35, -75));
+                var drift = cc.Sequence.create(driftFrom, driftTo);
+                leaf.runAction(cc.RepeatForever.create(drift));
                 return true;
             }
         });
@@ -263,11 +370,11 @@ var PlayLayer = cc.Layer.extend({
         var pirate = cc.Sprite.create(s_decoration_pirate_png);
         pirate.setScale(DECORATION_SCALE_FACTOR);
         var contentSize = pirate.getContentSize();
-        pirate.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2 - 160 * SCALE_FACTOR));
+        pirate.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2 - 180 * SCALE_FACTOR));
         this.addChild(pirate, 0);
 
-        var flow = cc.MoveTo.create(6.5, cc.p(this._screenSize.width / 2, this._screenSize.height / 2 - 160 * SCALE_FACTOR));
-        var disappear = cc.SkewBy.create(5, 0, -90);
+        var flow = cc.MoveTo.create(6.5, cc.p(this._screenSize.width / 2, this._screenSize.height / 2 - 180 * SCALE_FACTOR));
+        var disappear = cc.SkewBy.create(4, 0, -90);
 
         var callfunc = cc.CallFunc.create(function() {
             this.removeChild(pirate, true);
@@ -278,8 +385,7 @@ var PlayLayer = cc.Layer.extend({
     },
 
     spawnRandomDecoration: function() {
-        var randomNumber = 3;
-        //getRandomInt(0, 1);
+        var randomNumber = getRandomInt(0, 3);
         switch (randomNumber) {
             case 0:
                 this.spawnMermaid();
@@ -315,7 +421,6 @@ var PlayLayer = cc.Layer.extend({
 
                 var callfunc = cc.CallFunc.create(function() {
                     that._seashells[randomNumber].setVisible(false);
-                    that._seashells[randomNumber].setVisible(false);
                 });
 
                 var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
@@ -338,11 +443,28 @@ var PlayLayer = cc.Layer.extend({
             this._timerSeashell = 0;
         }
 
-        this._timerBubble += delta;
-        if (this._timerBubble > this._bubbleSpawnFrequency) {
-            this.spawnBubble();
-            this._timerBubble = 0;
-            this._bubbleSpawnFrequency = getRandomArbitrary(1.5, 5);
+        if (this._isSpawningBubbles) {
+            this._timerBubble += delta;
+            if (this._timerBubble > this._bubbleSpawnFrequency) {
+                this.spawnBubble();
+                this._timerBubble = 0;
+                this._bubbleSpawnFrequency = getRandomArbitrary(1.5, 5);
+            }
+        }
+        if (this._isSpawningFish) {
+            this._timerFish += delta;
+            if (this._timerFish > 0.2) {
+                this.spawnFish();
+                this._timerFish = 0;
+            }
+        }
+
+        if (this._isSpawningLeafs) {
+            this._timerLeaf += delta;
+            if (this._timerLeaf > 1.8) {
+                this.spawnLeaf();
+                this._timerLeaf = 0;
+            }
         }
 
         if (this._timerWall > WALL_GAP_TIME) {
@@ -369,6 +491,27 @@ var PlayLayer = cc.Layer.extend({
         if (this._passedFirstWall && this._timerScore > WALL_GAP_TIME) {
             if (++this._score % 12 === 0) {
                 this.spawnRandomDecoration();
+            }
+
+            if (this._score % 9 === 0) {
+                var dice = getRandomInt(0, 2);
+                if (dice === 0) {
+                    this._isSpawningFish = true;
+                    this._isSpawningBubbles = false;
+                    this._isSpawningLeafs = false;
+                } else if (dice === 1) {
+                    this._isSpawningFish = false;
+                    this._isSpawningBubbles = true;
+                    this._isSpawningLeafs = false;
+                } else if (dice === 2) {
+                    this._isSpawningFish = false;
+                    this._isSpawningBubbles = false;
+                    this._isSpawningLeafs = true;
+                } else {
+                    this._isSpawningFish = false;
+                    this._isSpawningBubbles = false;
+                    this._isSpawningLeafs = false;
+                }
             }
             this._timerScore = 0;
         }
