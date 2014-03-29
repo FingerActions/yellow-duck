@@ -421,8 +421,7 @@ var PlayLayer = cc.Layer.extend({
     },
 
     spawnRandomDecoration: function() {
-        var randomNumber = getRandomInt(0, 4);
-        randomNumber = 5;
+        var randomNumber = getRandomInt(0, 5);
         switch (randomNumber) {
             case 0:
                 this.spawnMermaid();
