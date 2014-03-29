@@ -23,13 +23,11 @@ YD.POWERUP_TYPE = {
     LOSEGRAVITY: 4
 };
 
-
 YD.CONTAINER = {
 
     POWERUP: []
 
 };
-
 
 YD.UNIT_TAG = {
 

@@ -13,6 +13,9 @@
 /////////////////////////////////////////////////////////////////////
 
 
+var g_sharedGameLayer;
+
+
 var PlayLayer = cc.Layer.extend({
     _flyingAction: null,
     _duck: null,
@@ -29,6 +32,7 @@ var PlayLayer = cc.Layer.extend({
     _seashells: null,
     _isDuckJumping: null,
     _fingerActions: null,
+    _texTransparentBatch: null,
 
     //timers
     _timerScore: null,
@@ -38,8 +42,6 @@ var PlayLayer = cc.Layer.extend({
 
     //powerups
     _powerups: null,
-
-
 
     //sound
     audioEngin: null,
@@ -135,6 +137,23 @@ var PlayLayer = cc.Layer.extend({
         if (!sys.localStorage.getItem('highScore')) {
             sys.localStorage.setItem('highScore', 0);
         }
+
+
+        //reset global values
+        YD.CONTAINER.POWERUP = [];
+
+        //TransparentBatch
+        var texTransparent = cc.textureCache.addImage(s_powerup_plist);
+        this._texTransparentBatch = cc.SpriteBatchNode.create(texTransparent);
+        this.addChild(this._texTransparentBatch);
+
+        g_sharedGameLayer = this;
+
+
+        //pre set
+        PowerUp.preSet();
+
+
 
         return true;
     },
@@ -550,6 +569,35 @@ var PlayLayer = cc.Layer.extend({
         }
     },
 });
+
+
+PlayLayer.create = function() {
+
+    var sg = new PlayLayer();
+    if (sg && sg.init()) {
+
+        return sg;
+    }
+
+    return null;
+};
+
+PlayLayer.scene = function() {
+
+    var scene = cc.Scene.create();
+    var layer = GameLayer.create();
+    scene.addChild(layer, 1);
+    return scene;
+};
+
+
+PlayLayer.prototype.addPowerup = function(enemy, z, tag) {
+
+    this._texTransparentBatch.addChild(enemy, z, tag);
+
+
+};
+
 
 var PlayScene = cc.Scene.extend({
     ctor: function() {

@@ -44,8 +44,6 @@ var PowerUp = cc.Sprite.extend({
 
 });
 
-
-
 PowerUp.getOrCreatePowerUp = function(arg) {
 
     var selChild = null;
@@ -69,14 +67,23 @@ PowerUp.getOrCreatePowerUp = function(arg) {
     }
 };
 
-
 PowerUp.create = function(arg) {
 
     var powerup = new PowerUp(arg);
-    g_sharedGameLayer.addPowerup(powerup, powerup._zOrder, )
+    g_sharedGameLayer.addPowerup(powerup, powerup._zOrder, YD.UNIT_TAG.POWERUP);
+    YD.CONTAINER.ENEMIES.push(powerup);
+    return powerup;
 
+};
 
+PowerUp.preSet = function() {
 
-
-
+    var powerup = null;
+    for (var i = 0; i < 3; i++) {
+        for (var j = 0; j < PowerUpType.length; j++) {
+            powerup = PowerUp.create(PowerUpType[j]);
+            powerup.visible = false;
+            powerup.active = false;
+        }
+    }
 };
