@@ -35,7 +35,8 @@ var appFiles = [
     'src/globals.js',
     'src/scoreScene.js',
     'src/config/GameConfig.js',
-    'src/config/PowerUpType.js'
+    'src/config/PowerUpType.js',
+    'src/PowerUp.js'
 ];
 
 cc.dumpConfig();

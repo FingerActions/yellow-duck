@@ -32,7 +32,7 @@ var PlayLayer = cc.Layer.extend({
     _seashells: null,
     _isDuckJumping: null,
     _fingerActions: null,
-    _texTransparentBatch: null,
+    _powerupBatchBatch: null,
 
     //timers
     _timerScore: null,
@@ -54,6 +54,8 @@ var PlayLayer = cc.Layer.extend({
     init: function() {
         //super init first
         this._super();
+
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_powerup_plist);
 
         //update()
         this._timerWall = 0;
@@ -143,17 +145,14 @@ var PlayLayer = cc.Layer.extend({
         YD.CONTAINER.POWERUP = [];
 
         //TransparentBatch
-        var texTransparent = cc.textureCache.addImage(s_powerup_plist);
-        this._texTransparentBatch = cc.SpriteBatchNode.create(texTransparent);
-        this.addChild(this._texTransparentBatch);
+        var powerup = cc.TextureCache.getInstance().addImage(s_powerup_png);
+        this._powerupBatch = cc.SpriteBatchNode.createWithTexture(powerup);
+        this.addChild(this._powerupBatch);
 
         g_sharedGameLayer = this;
 
-
         //pre set
-        PowerUp.preSet();
-
-
+        //  PowerUp.preSet();
 
         return true;
     },

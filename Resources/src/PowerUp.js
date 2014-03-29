@@ -15,7 +15,7 @@
 
 var PowerUp = cc.Sprite.extend({
 
-    _active = true,
+    _active: true,
     _powerupType: 1,
     _effectMode: null,
     _zOrder: 1000,
@@ -23,7 +23,7 @@ var PowerUp = cc.Sprite.extend({
 
     ctor: function(arg) {
 
-        this._super(arg.textureName);
+        this._super("#" + arg.textureName);
         this._effectMode = arg.effectMode;
         this._powerupType = arg.type;
 
@@ -79,7 +79,7 @@ PowerUp.create = function(arg) {
 PowerUp.preSet = function() {
 
     var powerup = null;
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < 4; i++) {
         for (var j = 0; j < PowerUpType.length; j++) {
             powerup = PowerUp.create(PowerUpType[j]);
             powerup.visible = false;
