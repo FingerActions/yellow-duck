@@ -64,6 +64,15 @@ var IntroLayer = cc.Layer.extend({
 
         this._duck = cc.Sprite.create(s_duck);
         this._duck.setPosition(cc.p(65 * SCALE_FACTOR, this._screenSize.height / 2));
+        var duckWing = cc.Sprite.create(s_duck_wing);
+        var wingSize = duckWing.getContentSize();
+        duckWing.setPosition(cc.p(18 * SCALE_FACTOR - wingSize.width / 2 + wingSize.width * 0.75, 12 * SCALE_FACTOR - wingSize.height / 2 + wingSize.height * 0.6));
+        var swimA = cc.RotateTo.create(0.5, -80);
+        var swimB = cc.RotateTo.create(0.5, 20);
+        var swim = cc.Sequence.create(swimA, swimB);
+        duckWing.setAnchorPoint(cc.p(0.75, 0.6));
+        duckWing.runAction(cc.RepeatForever.create(swim));
+        this._duck.addChild(duckWing);
 
         var bezier = [cc.p(0, 100 * SCALE_FACTOR), cc.p(0, -100 * SCALE_FACTOR), cc.p(0, 0)];
         var sprite_action = cc.BezierBy.create(5, bezier);

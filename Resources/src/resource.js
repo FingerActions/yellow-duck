@@ -33,6 +33,7 @@ var s_decoration_seashell_plist = "res/decorations/sea_shells/sea_shells.plist";
 var s_decoration_seashell_png = "res/decorations/sea_shells/sea_shells.png";
 
 var s_duck = "res/duck/duck.png";
+var s_duck_wing = "res/duck/duck_wing.png";
 
 var s_drowned_effect = "res/sound_effects/drowned.mp3";
 var s_poped_effect = "res/sound_effects/poped.mp3";
