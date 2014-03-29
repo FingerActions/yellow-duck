@@ -31,14 +31,18 @@ var s_decoration_unicorn_png = "res/decorations/unicorn_purple.png";
 var s_decoration_particle_fire_png = "res/decorations/particle_fire.png";
 var s_decoration_seashell_plist = "res/decorations/sea_shells/sea_shells.plist";
 var s_decoration_seashell_png = "res/decorations/sea_shells/sea_shells.png";
+var s_decoration_globefish_png = "res/decorations/Globefish.png";
+var s_decoration_little_devi_png = "res/decorations/little_devi.png";
+var s_decoration_seahorse_png = "res/decorations/seahorse.png";
+var s_decoration_uglyfish_png = "res/decorations/ugly_fish.png";
 
 var s_duck = "res/duck/duck.png";
 var s_duck_wing = "res/duck/duck_wing.png";
 
 var s_drowned_effect = "res/sound_effects/drowned.mp3";
+
 var s_poped_effect = "res/sound_effects/poped.mp3";
 var s_jump_effect = "res/sound_effects/jump.mp3";
-
 var s_wall = "res/walls/wall.png";
 
 var g_ressources = [
@@ -61,6 +65,14 @@ var g_ressources = [
         src: s_decoration_particle_fire_png
     }, {
         src: s_decoration_seashell_png
+    }, {
+        src: s_decoration_globefish_png
+    }, {
+        src: s_decoration_little_devi_png
+    }, {
+        src: s_decoration_seahorse_png
+    }, {
+        src: s_decoration_uglyfish_png
     }, {
         src: s_wall
     },
