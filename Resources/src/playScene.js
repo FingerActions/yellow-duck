@@ -532,6 +532,7 @@ var PlayLayer = cc.Layer.extend({
         s_currentScore = this._score;
         if (this._score > sys.localStorage.getItem('highScore')) {
             sys.localStorage.setItem('highScore', this._score);
+            s_isHighScore = true;
 
             //Game Bridge Class
             this._fingerActions = new fingerActions.FingerActions();
@@ -699,6 +700,7 @@ var PlayScene = cc.Scene.extend({
         this._super();
         audioEngin = cc.AudioEngine.getInstance();
 
+        s_isHighScore = false;
         var layer = new PlayLayer();
         this.addChild(layer, 10);
 

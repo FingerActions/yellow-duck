@@ -17,7 +17,10 @@ var s_play_background_bottom_png = "res/backgrounds/play_bottom.png";
 var s_play_background_dark_top_png = "res/backgrounds/play_dark_top.png";
 var s_play_background_dark_bottom_png = "res/backgrounds/play_dark_bottom.png";
 
-var s_score_background_png = "res/backgrounds/score.png";
+var s_score_background_1_png = "res/backgrounds/score_1.png";
+var s_score_background_2_png = "res/backgrounds/score_2.png";
+var s_score_background_3_png = "res/backgrounds/score_3.png";
+var s_high_score_background_png = "res/backgrounds/high_score.png";
 
 var s_tap_to_start_png = "res/buttons/tap_to_start.png";
 var s_leaderboard_png = "res/buttons/leaderboard.png";
@@ -54,8 +57,6 @@ var g_ressources = [
         src: s_play_background_top_png
     }, {
         src: s_play_background_bottom_png
-    }, {
-        src: s_score_background_png
     }, {
         src: s_tap_to_start_png
     }, {

@@ -50,8 +50,28 @@ var ScoreLayer = cc.Layer.extend({
         this._fingerActions.showAdAtBottom();
         this._fingerActions.pushSceneName("score scene");
 
-        //add background image (die)
-        this._background = cc.Sprite.create(s_score_background_png);
+        //add background image
+        var background = '';
+        if (s_isHighScore) {
+            background = s_high_score_background_png;
+        } else {
+            var dice = getRandomInt(0, 2);
+            switch (dice) {
+                case 0:
+                    background = s_score_background_1_png;
+                    break;
+                case 1:
+                    background = s_score_background_2_png;
+                    break;
+                case 2:
+                    background = s_score_background_3_png;
+                    break;
+                default:
+                    background = s_score_background_2_png;
+            }
+        }
+
+        this._background = cc.Sprite.create(background);
         this._background.setScale(FULLSCREEN_SCALE_FACTOR);
         this._background.setAnchorPoint(cc.p(0, 0));
         this._background.setPosition(cc.p(0, 0));

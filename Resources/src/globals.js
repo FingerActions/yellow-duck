@@ -36,6 +36,7 @@ var MAX_SEA_SHEELS = 7;
 var s_currentScore = 0;
 var s_gameStarted = false;
 var s_weather = 0; // 0 for rainy weather , 1 for sunny weather
+var s_isHighScore = false;
 
 // Returns a random integer between min and max
 // Using Math.round() will give you a non-uniform distribution!
