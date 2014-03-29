@@ -32,7 +32,7 @@ var PlayLayer = cc.Layer.extend({
     _seashells: null,
     _isDuckJumping: null,
     _fingerActions: null,
-    _powerupBatchBatch: null,
+    _powerupBatch: null,
 
     //timers
     _timerScore: null,
@@ -152,9 +152,22 @@ var PlayLayer = cc.Layer.extend({
         g_sharedGameLayer = this;
 
         //pre set
-        //  PowerUp.preSet();
+        PowerUp.preSet();
 
         return true;
+    },
+
+
+    addPowerupToGame: function(powerupType) {
+
+        var addPowerup = PowerUp.getOrCreatePowerUp(PowerUpType[powerupType]);
+        addPowerup.x = 80 * SCALE_FACTOR;
+        addPowerup.y = this._screenSize.height/2;
+                                
+                                
+                               // addPowerup.setPosition(cc.p(65 * SCALE_FACTOR, this._screenSize.height / 2));
+
+
     },
 
     getWeather: function() {
@@ -359,6 +372,7 @@ var PlayLayer = cc.Layer.extend({
         if (this._timerSeashell > 1) {
             this.spawnSeaShells();
             this._timerSeashell = 0;
+            this.addPowerupToGame(1);
         }
 
         this._timerBubble += delta;
@@ -590,9 +604,9 @@ PlayLayer.scene = function() {
 };
 
 
-PlayLayer.prototype.addPowerup = function(enemy, z, tag) {
+PlayLayer.prototype.addPowerup = function(powerup, z, tag) {
 
-    this._texTransparentBatch.addChild(enemy, z, tag);
+    this._powerupBatch.addChild(powerup, z, tag);
 
 
 };

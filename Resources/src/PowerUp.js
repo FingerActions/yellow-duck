@@ -47,16 +47,21 @@ var PowerUp = cc.Sprite.extend({
 PowerUp.getOrCreatePowerUp = function(arg) {
 
     var selChild = null;
+    
+    cc.log("I am in ----------"+ YD.CONTAINER.POWERUP.length);
 
-    for (var j = 0; j < YD.CONTAINER.POWERUP; j++) {
+    for (var j = 0; j < YD.CONTAINER.POWERUP.length; j++) {
 
         selChild = YD.CONTAINER.POWERUP[j];
+    
 
-        if (selChild._active == false && selChild.enemyType == arg.type) {
+        if (selChild._active == false && selChild._powerupType == arg.type) {
+            
+            cc.log("I am in ------2----");
 
             selChild._active = true;
 
-            selChild._effectMode = arg.effectMode;
+            //selChild._effectMode = arg.effectMode;
 
             selChild.visible = true;
 
