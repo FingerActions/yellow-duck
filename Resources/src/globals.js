@@ -19,7 +19,7 @@ var SCALE_FACTOR = 5;
 //decoration will be non-retina on big screens
 var DECORATION_SCALE_FACTOR = 2;
 //full screen images will be partial retina
-var FULLSCREEN_SCALE_FACTOR = 1600 / 1153;
+var FULLSCREEN_SCALE_FACTOR = 1600 / 1536;
 var WALL_MIN_GAP = 150 * SCALE_FACTOR;
 var WALL_MAX_GAP = 200 * SCALE_FACTOR;
 var GRAVITY = 0.3 * SCALE_FACTOR;

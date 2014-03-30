@@ -44,10 +44,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     // max tablet is 1600 x 2840
     // texture 2048 is max!
     // we will design according to iphone 4 (iphone 5's left and right will be croped)
-    // so background max will be 1365.3 x 2048
+    // so background max will be 1536 x 2048
     // all key stuff is retina
     // non key stuff is not retina
-    static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(1600, 2400);
+    static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(1600, 1600 / 1536 * 2048);
     CCEGLView::sharedOpenGLView()->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
     
     // turn off display FPS
