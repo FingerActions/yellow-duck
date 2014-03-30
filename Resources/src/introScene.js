@@ -126,6 +126,21 @@ var IntroLayer = cc.Layer.extend({
         }
     },
 
+    spawnSeaweed: function() {
+        var seaweed = cc.Sprite.create(s_decoration_seaweed_png);
+        seaweed.setScale(DECORATION_SCALE_FACTOR);
+        var contentSize = seaweed.getContentSize();
+        seaweed.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, getRandomArbitrary(0, 50 * SCALE_FACTOR)));
+        this.addChild(seaweed, 0);
+
+        var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-contentSize.width * DECORATION_SCALE_FACTOR - this._screenSize.width, 0));
+        var callfunc = cc.CallFunc.create(function() {
+            this.removeChild(seaweed);
+        }.bind(this));
+        var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+        seaweed.runAction(flowWithCallfunc);
+    },
+
     getWeather: function() {
         var backgroundTop = s_play_background_top_png;
         var backgroundBottom = s_play_background_bottom_png;
@@ -163,6 +178,11 @@ var IntroLayer = cc.Layer.extend({
         if (this._timerSeashell > 1) {
             this.spawnSeaShells();
             this._timerSeashell = 0;
+        }
+
+
+        if (getRandomInt(0, 400) === 0) {
+            this.spawnSeaweed();
         }
 
     },

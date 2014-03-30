@@ -474,6 +474,21 @@ var PlayLayer = cc.Layer.extend({
         }
     },
 
+    spawnSeaweed: function() {
+        var seaweed = cc.Sprite.create(s_decoration_seaweed_png);
+        seaweed.setScale(DECORATION_SCALE_FACTOR);
+        var contentSize = seaweed.getContentSize();
+        seaweed.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, getRandomArbitrary(0, 50 * SCALE_FACTOR)));
+        this.addChild(seaweed, 0);
+
+        var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-contentSize.width * DECORATION_SCALE_FACTOR - this._screenSize.width, 0));
+        var callfunc = cc.CallFunc.create(function() {
+            this.removeChild(seaweed);
+        }.bind(this));
+        var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
+        seaweed.runAction(flowWithCallfunc);
+    },
+
     spawnTreasure: function() {
         var treasure = cc.Sprite.create(s_decoration_treasure_png);
         treasure.setScale(getRandomArbitrary(1, DECORATION_SCALE_FACTOR));
@@ -542,6 +557,10 @@ var PlayLayer = cc.Layer.extend({
 
         if (getRandomInt(0, 100000) === 0) {
             this.spawnTreasure();
+        }
+
+        if (getRandomInt(0, 400) === 0) {
+            this.spawnSeaweed();
         }
 
         this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
