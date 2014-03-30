@@ -406,7 +406,7 @@ var PlayLayer = cc.Layer.extend({
         this.addChild(octopus, 0);
 
         var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
-        var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2, 0));
+        var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
         var wait = cc.MoveBy.create(2, cc.p(0, -10 * SCALE_FACTOR));
         var callfunc = cc.CallFunc.create(function() {
             this.removeChild(octopus, true);
@@ -421,7 +421,7 @@ var PlayLayer = cc.Layer.extend({
     },
 
     spawnRandomDecoration: function() {
-        var randomNumber = getRandomInt(0, 5);
+        var randomNumber = getRandomInt(0, 6);
         switch (randomNumber) {
             case 0:
                 this.spawnMermaid();
