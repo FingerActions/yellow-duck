@@ -21,9 +21,10 @@ var PowerUp = cc.Sprite.extend({
     zOrder: 1000,
     ctor: function(arg) {
 
-        this._super("#" + arg.textureName);
+        this._super();
         this.effectMode = arg.effectMode;
         this.powerupType = arg.type;
+        this.initWithSpriteFrameName(arg.textureName);
 
     },
     destroy: function() {
@@ -46,11 +47,11 @@ var PowerUp = cc.Sprite.extend({
 PowerUp.getOrCreatePowerUp = function(arg) {
 
     var selChild = null;
-    cc.log("I am in ----------" + YD.CONTAINER.POWERUP.length);
+    cc.log("I am in fucking debuging" + YD.CONTAINER.POWERUP.length);
     for (var j = 0; j < YD.CONTAINER.POWERUP.length; j++) {
         selChild = YD.CONTAINER.POWERUP[j];
         if (selChild.active == false && selChild.powerupType == arg.type) {
-            cc.log("I am in ------2----");
+            cc.log("I am in ----debuging2----");
             selChild.active = true;
             //selChild._effectMode = arg.effectMode;
             selChild.visible = true;
@@ -62,10 +63,11 @@ PowerUp.getOrCreatePowerUp = function(arg) {
 };
 
 PowerUp.create = function(arg) {
-    
+
     var powerup = new PowerUp(arg);
-    g_sharedGameLayer.addPowerup(powerup, powerup._zOrder, YD.UNIT_TAG.POWERUP);
+    g_sharedGameLayer.addPowerup(powerup, powerup.zOrder, YD.UNIT_TAG.POWERUP);
     YD.CONTAINER.POWERUP.push(powerup);
+
     return powerup;
 
 };
@@ -73,11 +75,11 @@ PowerUp.create = function(arg) {
 PowerUp.preSet = function() {
 
     var powerup = null;
-    for (var i = 0; i < 3; i++) {
-        for (var i = 0; i < PowerUpType.length; i++) {
-            powerup = PowerUp.create(PowerUpType[i]);
-            powerup.visible = false;
-            powerup.active = false;
-        }
+    //   for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < PowerUpType.length; i++) {
+        powerup = PowerUp.create(PowerUpType[i]);
+        powerup.visible = false;
+        powerup.active = false;
     }
+    //   }
 };
