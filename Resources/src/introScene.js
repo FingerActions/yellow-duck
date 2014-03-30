@@ -56,14 +56,14 @@ var IntroLayer = cc.Layer.extend({
 
         // add a label shows "Yellow Duck"
         // create and initialize a label
-        this._titleLabel = cc.LabelTTF.create("Yellow Duck", "Marker Felt", 33 * SCALE_FACTOR);
+        this._titleLabel = cc.LabelTTF.create("Yellow Duck", "Marker Felt", 30 * SCALE_FACTOR);
         // position the label on the center of the screen
         this._titleLabel.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 100 * SCALE_FACTOR));
         // add the label as a child to this layer
         this.addChild(this._titleLabel, 5);
 
         this._duck = cc.Sprite.create(s_duck);
-        this._duck.setPosition(cc.p(65 * SCALE_FACTOR, this._screenSize.height / 2));
+        this._duck.setPosition(cc.p(85 * SCALE_FACTOR, this._screenSize.height / 2));
         var duckWing = cc.Sprite.create(s_duck_wing);
         var wingSize = duckWing.getContentSize();
         duckWing.setPosition(cc.p(18 * SCALE_FACTOR - wingSize.width / 2 + wingSize.width * 0.75, 12 * SCALE_FACTOR - wingSize.height / 2 + wingSize.height * 0.6));
@@ -82,7 +82,7 @@ var IntroLayer = cc.Layer.extend({
 
         this._tapSprite = cc.Sprite.create(s_tap_to_start_png);
         this._tapSprite.setAnchorPoint(cc.p(0.5, 0.5));
-        this._tapSprite.setPosition(cc.p((this._screenSize.width / 2) + 35 * SCALE_FACTOR, (this._screenSize.height / 2) - 40));
+        this._tapSprite.setPosition(cc.p((this._screenSize.width / 2) + 40 * SCALE_FACTOR, (this._screenSize.height / 2) - 40));
         this.addChild(this._tapSprite, 100);
 
         //sea shells
@@ -110,8 +110,8 @@ var IntroLayer = cc.Layer.extend({
                 this._seashells[randomNumber].setVisible(true);
                 this._seashells[randomNumber].setScale(DECORATION_SCALE_FACTOR);
                 this._seashells[randomNumber].setRotation(randomRotation);
-                this._seashells[randomNumber].setPosition(cc.p(this._screenSize.width, (5 + randomNumber * 2) * SCALE_FACTOR));
-                var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width, (5 + randomNumber * 2) * SCALE_FACTOR));
+                this._seashells[randomNumber].setPosition(cc.p(this._screenSize.width, (10 + randomNumber * 2) * SCALE_FACTOR));
+                var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width, (4 + randomNumber * 2) * SCALE_FACTOR));
 
                 var callfunc = cc.CallFunc.create(function() {
                     that._seashells[randomNumber].setVisible(false);

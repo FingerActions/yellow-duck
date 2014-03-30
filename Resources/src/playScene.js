@@ -80,7 +80,7 @@ var PlayLayer = cc.Layer.extend({
         this._isDuckJumping = false;
 
         this._duck = cc.Sprite.create(s_duck);
-        this._duck.setPosition(cc.p(65 * SCALE_FACTOR, this._screenSize.height / 2));
+        this._duck.setPosition(cc.p(85 * SCALE_FACTOR, this._screenSize.height / 2));
 
         var duckWing = cc.Sprite.create(s_duck_wing);
         var wingSize = duckWing.getContentSize();
@@ -384,17 +384,33 @@ var PlayLayer = cc.Layer.extend({
         var pirate = cc.Sprite.create(s_decoration_pirate_png);
         pirate.setScale(DECORATION_SCALE_FACTOR);
         var contentSize = pirate.getContentSize();
-        pirate.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2 - 180 * SCALE_FACTOR));
+        pirate.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2 - 140 * SCALE_FACTOR));
         this.addChild(pirate, 0);
 
-        var flow = cc.MoveTo.create(6.5, cc.p(this._screenSize.width / 2, this._screenSize.height / 2 - 180 * SCALE_FACTOR));
+        var flow = cc.MoveTo.create(6.5, cc.p(this._screenSize.width / 2, this._screenSize.height / 2 - 140 * SCALE_FACTOR));
         var disappear = cc.SkewBy.create(4, 0, -90);
 
         var callfunc = cc.CallFunc.create(function() {
             this.removeChild(pirate, true);
         }.bind(this));
 
-        var flowWithCallfunc = cc.Sequence.create(flow, cc.EaseOut.create(disappear, 3.0), callfunc);
+        var shining = cc.Sprite.create(s_decoration_shining_png);
+        shining.setScale(DECORATION_SCALE_FACTOR);
+        shining.setPosition(cc.p(60, 150));
+        shining.setVisible(false);
+
+        var runShine = cc.CallFunc.create(function() {
+            shining.setVisible(true);
+            var fadeIn = cc.FadeIn.create(1);
+            var rotate = cc.RotateBy.create(2, 360);
+            var fadeOut = cc.FadeOut.create(0.6);
+            var shine = cc.Sequence.create(fadeIn, cc.DelayTime.create(1), rotate, fadeOut);
+            shining.runAction(shine);
+        });
+
+        pirate.addChild(shining);
+
+        var flowWithCallfunc = cc.Sequence.create(flow, cc.DelayTime.create(1), runShine, cc.DelayTime.create(6), cc.EaseOut.create(disappear, 3.0), callfunc);
         pirate.runAction(flowWithCallfunc);
     },
 
@@ -458,8 +474,8 @@ var PlayLayer = cc.Layer.extend({
                 this._seashells[randomNumber].setVisible(true);
                 this._seashells[randomNumber].setScale(DECORATION_SCALE_FACTOR);
                 this._seashells[randomNumber].setRotation(randomRotation);
-                this._seashells[randomNumber].setPosition(cc.p(this._screenSize.width, (5 + randomNumber * 2) * SCALE_FACTOR));
-                var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width, (5 + randomNumber * 2) * SCALE_FACTOR));
+                this._seashells[randomNumber].setPosition(cc.p(this._screenSize.width, (10 + randomNumber * 2) * SCALE_FACTOR));
+                var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width, (4 + randomNumber * 2) * SCALE_FACTOR));
 
                 var callfunc = cc.CallFunc.create(function() {
                     that._seashells[randomNumber].setVisible(false);
@@ -555,7 +571,7 @@ var PlayLayer = cc.Layer.extend({
             this.turnDuckBack();
         }
 
-        if (getRandomInt(0, 100000) === 0) {
+        if (getRandomInt(0, 200000) === 0) {
             this.spawnTreasure();
         }
 

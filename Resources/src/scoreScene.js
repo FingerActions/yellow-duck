@@ -83,43 +83,43 @@ var ScoreLayer = cc.Layer.extend({
 
         this._highScore = sys.localStorage.getItem('highScore');
         //add score on banner
-        this._menuHolder = cc.LayerColor.create(cc.c4b(0, 0, 0, 150), this._screenSize.width - 80 * SCALE_FACTOR, this._screenSize.height - 120 * SCALE_FACTOR);
+        this._menuHolder = cc.LayerColor.create(cc.c4b(0, 0, 0, 150), this._screenSize.width - 85 * SCALE_FACTOR, this._screenSize.height - 120 * SCALE_FACTOR);
         this._menuHolder.setPosition(cc.p(40 * SCALE_FACTOR, 70 * SCALE_FACTOR));
         this.addChild(this._menuHolder, 3);
         // create and initialize a label
-        this._highScoreLabel = cc.LabelTTF.create(this._highScore, "Marker Felt", 25 * SCALE_FACTOR);
+        this._highScoreLabel = cc.LabelTTF.create(this._highScore, "Marker Felt", 20 * SCALE_FACTOR);
         // position the label on the center of the screen
-        this._highScoreLabel.setPosition(cc.p(this._screenSize.width / 2 + 50 * SCALE_FACTOR, this._screenSize.height - 180 * SCALE_FACTOR));
+        this._highScoreLabel.setPosition(cc.p(this._screenSize.width / 2 + 50 * SCALE_FACTOR, this._screenSize.height - 140 * SCALE_FACTOR));
         // add the label as a child to this layer
         this.addChild(this._highScoreLabel, 5);
 
         // create and initialize a label
-        this._currentScoreLabel = cc.LabelTTF.create(s_currentScore, "Marker Felt", 25 * SCALE_FACTOR);
+        this._currentScoreLabel = cc.LabelTTF.create(s_currentScore, "Marker Felt", 20 * SCALE_FACTOR);
         // position the label on the center of the screen
-        this._currentScoreLabel.setPosition(cc.p(this._screenSize.width / 2 + 50 * SCALE_FACTOR, this._screenSize.height - 230 * SCALE_FACTOR));
+        this._currentScoreLabel.setPosition(cc.p(this._screenSize.width / 2 + 50 * SCALE_FACTOR, this._screenSize.height - 180 * SCALE_FACTOR));
         // add the label as a child to this layer
         this.addChild(this._currentScoreLabel, 5);
 
         // create and initialize game over label
         if (s_isHighScore) {
-            this._gameover = cc.LabelTTF.create("HIGH SCORE", "Marker Felt", 36 * SCALE_FACTOR);
+            this._gameover = cc.LabelTTF.create("HIGH SCORE", "Marker Felt", 28 * SCALE_FACTOR);
         } else {
-            this._gameover = cc.LabelTTF.create("GAME OVER", "Marker Felt", 36 * SCALE_FACTOR);
+            this._gameover = cc.LabelTTF.create("GAME OVER", "Marker Felt", 28 * SCALE_FACTOR);
         }
-        this._gameover.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 120 * SCALE_FACTOR));
+        this._gameover.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 95 * SCALE_FACTOR));
         this.addChild(this._gameover, 5);
 
         // best score label
-        this._bestLabel = cc.LabelTTF.create("Best", "Marker Felt", 25 * SCALE_FACTOR);
-        this._bestLabel.setPosition(cc.p(this._screenSize.width / 2 - 40 * SCALE_FACTOR, this._screenSize.height - 180 * SCALE_FACTOR));
+        this._bestLabel = cc.LabelTTF.create("Best", "Marker Felt", 20 * SCALE_FACTOR);
+        this._bestLabel.setPosition(cc.p(this._screenSize.width / 2 - 40 * SCALE_FACTOR, this._screenSize.height - 140 * SCALE_FACTOR));
         this.addChild(this._bestLabel, 5);
-        this._scoreLabel = cc.LabelTTF.create("Score", "Marker Felt", 25 * SCALE_FACTOR);
-        this._scoreLabel.setPosition(cc.p(this._screenSize.width / 2 - 40 * SCALE_FACTOR, this._screenSize.height - 230 * SCALE_FACTOR));
+        this._scoreLabel = cc.LabelTTF.create("Score", "Marker Felt", 20 * SCALE_FACTOR);
+        this._scoreLabel.setPosition(cc.p(this._screenSize.width / 2 - 40 * SCALE_FACTOR, this._screenSize.height - 180 * SCALE_FACTOR));
         this.addChild(this._scoreLabel, 5);
 
         // tap to continue
-        this._tapToContinueLabel = cc.LabelTTF.create("TAP TO CONTINUE", "Marker Felt", 24 * SCALE_FACTOR);
-        this._tapToContinueLabel.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 380 * SCALE_FACTOR));
+        this._tapToContinueLabel = cc.LabelTTF.create("TAP TO CONTINUE", "Marker Felt", 20 * SCALE_FACTOR);
+        this._tapToContinueLabel.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 305 * SCALE_FACTOR));
         this.addChild(this._tapToContinueLabel, 5);
         var fadein_tap = cc.FadeIn.create(1.0);
         var fadeout_tap = cc.FadeOut.create(1.0);
@@ -130,7 +130,7 @@ var ScoreLayer = cc.Layer.extend({
         //leaderboard
         var leaderboardButton = cc.MenuItemImage.create(s_leaderboard_png, s_leaderboard_png, this.showLeaderboard, this);
         var leaderboardMenu = cc.Menu.create(leaderboardButton);
-        leaderboardMenu.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 310 * SCALE_FACTOR));
+        leaderboardMenu.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 245 * SCALE_FACTOR));
         this.addChild(leaderboardMenu, 5);
 
         return true;

@@ -34,6 +34,7 @@ var s_decoration_snowman_png = "res/decorations/snowman.png";
 var s_decoration_crab_png = "res/decorations/crab.png";
 var s_decoration_pirate_ship_png = "res/decorations/pirate_ship.png";
 var s_decoration_pirate_png = "res/decorations/pirate.png";
+var s_decoration_shining_png = "res/decorations/shining.png";
 var s_decoration_unicorn_png = "res/decorations/unicorn_purple.png";
 var s_decoration_optopus_png = "res/decorations/octopus.png";
 var s_decoration_particle_fire_png = "res/decorations/particle_fire.png";
