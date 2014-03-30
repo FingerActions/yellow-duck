@@ -99,7 +99,7 @@ var PlayLayer = cc.Layer.extend({
         this._walls = [];
         for (i = 0; i < MAX_NUM_WALLS; i++) {
             var wall = cc.Sprite.create(s_wall);
-            this.addChild(wall, 500);
+            this.addChild(wall, 400);
             wall.setVisible(false);
             this._walls.push(wall);
         }
@@ -187,7 +187,7 @@ var PlayLayer = cc.Layer.extend({
             backgroundTop = s_play_background_dark_top_png;
             backgroundBottom = s_play_background_dark_bottom_png;
             var emitter = cc.ParticleRain.create();
-            this.addChild(emitter, 10);
+            this.addChild(emitter, 0);
             emitter.setLife(4);
             emitter.setScale(DECORATION_SCALE_FACTOR);
             emitter.setTexture(cc.TextureCache.getInstance().addImage(s_decoration_particle_fire_png));
