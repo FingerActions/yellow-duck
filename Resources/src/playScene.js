@@ -148,7 +148,6 @@ var PlayLayer = cc.Layer.extend({
         var powerup = cc.TextureCache.getInstance().addImage(s_powerup_png);
         this._powerupBatch = cc.SpriteBatchNode.createWithTexture(powerup);
         this.addChild(this._powerupBatch);
-
         g_sharedGameLayer = this;
 
         //pre set
@@ -162,11 +161,10 @@ var PlayLayer = cc.Layer.extend({
 
         var addPowerup = PowerUp.getOrCreatePowerUp(PowerUpType[powerupType]);
         addPowerup.x = 80 * SCALE_FACTOR;
-        addPowerup.y = this._screenSize.height/2;
-                                
-                                
-                               // addPowerup.setPosition(cc.p(65 * SCALE_FACTOR, this._screenSize.height / 2));
+        addPowerup.y = this._screenSize.height / 2;
 
+
+        // addPowerup.setPosition(cc.p(65 * SCALE_FACTOR, this._screenSize.height / 2));
 
     },
 
@@ -372,7 +370,7 @@ var PlayLayer = cc.Layer.extend({
         if (this._timerSeashell > 1) {
             this.spawnSeaShells();
             this._timerSeashell = 0;
-            this.addPowerupToGame(1);
+            // this.addPowerupToGame(1);
         }
 
         this._timerBubble += delta;
@@ -608,11 +606,10 @@ PlayLayer.prototype.addPowerup = function(powerup, z, tag) {
 
     this._powerupBatch.addChild(powerup, z, tag);
 
-
 };
 
-
 var PlayScene = cc.Scene.extend({
+
     ctor: function() {
         this._super();
         cc.associateWithNative(this, cc.Scene);
@@ -635,4 +632,5 @@ var PlayScene = cc.Scene.extend({
 
         layer.init();
     }
+
 });

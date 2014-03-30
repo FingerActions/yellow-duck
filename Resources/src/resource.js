@@ -32,8 +32,8 @@ var s_decoration_particle_fire_png = "res/decorations/particle_fire.png";
 var s_decoration_seashell_plist = "res/decorations/sea_shells/sea_shells.plist";
 var s_decoration_seashell_png = "res/decorations/sea_shells/sea_shells.png";
 
-var s_powerup_png = "res/decorations/power_up/powerup.png";
-var s_powerup_plist = "res/decorations/power_up/powerup.plist";
+var s_powerup_png = "res/powerup/powerup.png";
+var s_powerup_plist = "res/powerup/powerup.plist";
 
 var s_duck = "res/duck/duck.png";
 
