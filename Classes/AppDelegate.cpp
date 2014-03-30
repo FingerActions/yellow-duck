@@ -43,7 +43,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     // iphone 4 is 640 x 960
     // max tablet is 1600 x 2840
     // texture 2048 is max!
-    // we will design according to iphone 4 (iphone 5's left and right will be croped)
+    // we will design according to ipad (iphone 5's left and right will be croped)
     // so background max will be 1536 x 2048
     // all key stuff is retina
     // non key stuff is not retina
