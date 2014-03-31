@@ -47,13 +47,11 @@ var PowerUp = cc.Sprite.extend({
 PowerUp.getOrCreatePowerUp = function(arg) {
 
     var selChild = null;
-    cc.log("I am in fucking debuging" + YD.CONTAINER.POWERUP.length);
     for (var j = 0; j < YD.CONTAINER.POWERUP.length; j++) {
         selChild = YD.CONTAINER.POWERUP[j];
         if (selChild.active == false && selChild.powerupType == arg.type) {
-            cc.log("I am in ----debuging2----");
             selChild.active = true;
-            //selChild._effectMode = arg.effectMode;
+            selChild.effectMode = arg.effectMode;
             selChild.visible = true;
             return selChild;
         }
@@ -75,11 +73,9 @@ PowerUp.create = function(arg) {
 PowerUp.preSet = function() {
 
     var powerup = null;
-    //   for (var i = 0; i < 3; i++) {
     for (var i = 0; i < PowerUpType.length; i++) {
         powerup = PowerUp.create(PowerUpType[i]);
         powerup.visible = false;
         powerup.active = false;
     }
-    //   }
 };
