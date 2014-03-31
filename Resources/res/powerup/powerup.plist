@@ -7,46 +7,46 @@
             <key>powerup1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{600,493}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{600,493}}</string>
-                <key>sourceSize</key>
-                <string>{600,493}</string>
-            </dict>
-            <key>powerup2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,497},{287,522}}</string>
-                <key>offset</key>
-                <string>{0,17}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{1,5},{287,522}}</string>
-                <key>sourceSize</key>
-                <string>{289,566}</string>
-            </dict>
-            <key>powerup3.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{291,497},{456,594}}</string>
+                <string>{{291,345},{220,181}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{456,594}}</string>
+                <string>{{0,0},{220,181}}</string>
                 <key>sourceSize</key>
-                <string>{456,594}</string>
+                <string>{220,181}</string>
+            </dict>
+            <key>powerup2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{357,2},{128,232}}</string>
+                <key>offset</key>
+                <string>{0,8}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,1},{128,232}}</string>
+                <key>sourceSize</key>
+                <string>{128,250}</string>
+            </dict>
+            <key>powerup3.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,345},{220,287}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{220,287}}</string>
+                <key>sourceSize</key>
+                <string>{220,287}</string>
             </dict>
             <key>powerup4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{604,2},{353,341}}</string>
+                <string>{{2,2},{353,341}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -64,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>powerup.png</string>
             <key>size</key>
-            <string>{1024,1024}</string>
+            <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6d51b0d237cd2fd3b0d50994ea1763e0$</string>
+            <string>$TexturePacker:SmartUpdate:a7199de4c92595e602dc93f6d5fe76d7$</string>
             <key>textureFileName</key>
             <string>powerup.png</string>
         </dict>
