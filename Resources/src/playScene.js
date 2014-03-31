@@ -138,7 +138,7 @@ var PlayLayer = cc.Layer.extend({
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_decoration_fish_plist, s_decoration_fish_png);
         this._fish = [];
         for (i = 0; i < MAX_NUM_FISH; i++) {
-            var fish = cc.Sprite.createWithSpriteFrameName("fish_" + (i % 3 + 1).toString() + ".png");
+            var fish = cc.Sprite.createWithSpriteFrameName("fish_" + (i % 2 + 1).toString() + ".png");
             this.addChild(fish, 1);
             fish.setVisible(false);
             this._fish.push(fish);
