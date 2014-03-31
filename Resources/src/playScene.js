@@ -399,7 +399,7 @@ var PlayLayer = cc.Layer.extend({
         shining.setPosition(cc.p(60, 150));
         shining.setVisible(false);
 
-        var runShine = cc.CallFunc.create(function() {
+        var shineAction = cc.CallFunc.create(function() {
             shining.setVisible(true);
             var fadeIn = cc.FadeIn.create(1);
             var rotate = cc.RotateBy.create(2, 360);
@@ -410,7 +410,7 @@ var PlayLayer = cc.Layer.extend({
 
         pirate.addChild(shining);
 
-        var flowWithCallfunc = cc.Sequence.create(flow, cc.DelayTime.create(1), runShine, cc.DelayTime.create(6), cc.EaseOut.create(disappear, 3.0), callfunc);
+        var flowWithCallfunc = cc.Sequence.create(flow, cc.DelayTime.create(1), shineAction, cc.DelayTime.create(6), cc.EaseOut.create(disappear, 3.0), callfunc);
         pirate.runAction(flowWithCallfunc);
     },
 
@@ -424,16 +424,32 @@ var PlayLayer = cc.Layer.extend({
         var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
         var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
         var wait = cc.MoveBy.create(2, cc.p(0, -10 * SCALE_FACTOR));
+        var wait2 = cc.MoveBy.create(5, cc.p(0, -10 * SCALE_FACTOR));
         var callfunc = cc.CallFunc.create(function() {
             this.removeChild(octopus, true);
         }.bind(this));
-        var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
+
+        var spitAction = cc.CallFunc.create(function() {
+            var spit = cc.Sprite.create(s_decoration_spit_png);
+            spit.setScale(DECORATION_SCALE_FACTOR / 5);
+            spit.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2 - this._screenSize.height / 3));
+            this.addChild(spit, 400);
+            var spitMove = cc.ScaleTo.create(2, DECORATION_SCALE_FACTOR);
+            var spitDisappear = cc.FadeOut.create(2);
+            var spitCallfunc = cc.CallFunc.create(function() {
+                this.removeChild(spit, true);
+            }.bind(this));
+            spit.runAction(cc.Sequence.create(spitMove, cc.DelayTime.create(2), spitDisappear, spitCallfunc));
+        }.bind(this));
+
+        var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, spitAction, wait2, flow, callfunc);
         octopus.runAction(flowWithCallfunc);
 
         var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
         var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
         var bounce = cc.Sequence.create(bounceUp, bounceDown);
         octopus.runAction(cc.RepeatForever.create(bounce));
+
     },
 
     spawnRandomDecoration: function() {
