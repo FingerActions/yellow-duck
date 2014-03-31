@@ -74,6 +74,9 @@ var PlayLayer = cc.Layer.extend({
 
         //screen size
         this._screenSize = cc.Director.getInstance().getWinSize();
+        winSize = cc.Director.getInstance().getWinSize();
+
+
 
         this.getWeather();
 
@@ -167,23 +170,8 @@ var PlayLayer = cc.Layer.extend({
         //addPowerup.x = 80 * SCALE_FACTOR;
         //addPowerup.y = this._screenSize.height / 2;
         // addPowerup.setPosition(cc.p(165 * SCALE_FACTOR, this._screenSize.height / 2));
-        addPowerup.setScale(0.3);
-        var contentSize = addPowerup.getContentSize();
-        addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
         //this.addChild(octopus, 0);
-        var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
-        var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
-        var wait = cc.MoveBy.create(2, cc.p(0, -20 * SCALE_FACTOR));
-        var callfunc = cc.CallFunc.create(function() {
-            this.removeChild(octopus, true);
-        }.bind(this));
-        var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
-        addPowerup.runAction(flowWithCallfunc);
-        var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
-        var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
-        var bounce = cc.Sequence.create(bounceUp, bounceDown);
-        addPowerup.runAction(cc.RepeatForever.create(bounce));
-
+        //addPowerup.born();
     },
 
     getWeather: function() {

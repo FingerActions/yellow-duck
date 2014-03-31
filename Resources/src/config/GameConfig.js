@@ -34,3 +34,5 @@ YD.UNIT_TAG = {
     POWERUP: 1000
 
 };
+
+YD.SCREEN_SIZE = null;

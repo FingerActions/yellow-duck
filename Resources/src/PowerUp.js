@@ -26,11 +26,49 @@ var PowerUp = cc.Sprite.extend({
         this.powerupType = arg.type;
         this.initWithSpriteFrameName(arg.textureName);
 
+        this.born();
+
     },
     destroy: function() {
 
         this.visible = false;
         this.active = false;
+
+    },
+
+
+    born: function() {
+
+        switch (this.effectMode) {
+
+            case YD.POWERUP_TYPE.HEAVY:
+                {
+                    cc.log("HEHEHEEHEHEHEHEHEEHEHEHEHEHE");
+                    //var contentSize = addPowerup.getContentSize();
+
+                    cc.log(winSize.height);
+                    cc.log(winSize.width);
+                    cc.log(this.getContentSize().width);
+                    cc.log(this.getContentSize().height);
+                               cc.log(SCALE_FACTOR);
+
+                    this.setPosition(cc.p(winSize / 3 * 2, winSize.height + this.getContentSize().height / 2));
+
+                    var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -winSize.height / 3)));
+                    var flow = cc.MoveBy.create(5, cc.p(-winSize.width / 3 * 2 - this.getContentSize().width / 2, 0));
+                    var wait = cc.MoveBy.create(2, cc.p(0, -20 * SCALE_FACTOR));
+                    var callfunc = cc.CallFunc.create(function() {
+                        this.removeChild(this, true);
+                    }.bind(this));
+                    var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
+                    this.runAction(flowWithCallfunc);
+                    var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
+                    var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
+                    var bounce = cc.Sequence.create(bounceUp, bounceDown);
+                    this.runAction(cc.RepeatForever.create(bounce));
+                }
+                break;
+        }
 
     },
 

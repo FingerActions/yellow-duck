@@ -50,7 +50,7 @@ var IntroLayer = cc.Layer.extend({
 
         // screen size
         this._screenSize = cc.Director.getInstance().getWinSize();
-
+        YD.SCREEN_SIZE = this._screenSize;
         //added weather
         this.getWeather();
 
