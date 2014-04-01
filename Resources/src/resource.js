@@ -48,6 +48,14 @@ var s_decoration_little_devi_png = "res/decorations/little_devi.png";
 var s_decoration_seahorse_png = "res/decorations/seahorse.png";
 var s_decoration_uglyfish_png = "res/decorations/ugly_fish.png";
 
+//easter
+var s_decoration_happy_easter_png = "res/decorations/happy_easter.png";
+var s_decoration_easter_bunny_png = "res/decorations/easter_bunny.png";
+var s_decoration_easter_eggs_png = "res/decorations/easter_eggs/easter_eggs.png";
+var s_decoration_easter_eggs_plist = "res/decorations/easter_eggs/easter_eggs.plist";
+var s_score_easter_1_png = "res/backgrounds/score_easter_1.png";
+var s_score_easter_2_png = "res/backgrounds/score_easter_2.png";
+
 var s_duck = "res/duck/duck.png";
 var s_duck_wing = "res/duck/duck_wing.png";
 

@@ -85,6 +85,10 @@ var IntroLayer = cc.Layer.extend({
         this._tapSprite.setPosition(cc.p((this._screenSize.width / 2) + 40 * SCALE_FACTOR, (this._screenSize.height / 2) - 40));
         this.addChild(this._tapSprite, 100);
 
+        var happyEaster = cc.Sprite.create(s_decoration_happy_easter_png);
+        happyEaster.setPosition(cc.p(this._screenSize.width / 2 + 60 * SCALE_FACTOR, this._screenSize.height / 2 - 60 * SCALE_FACTOR));
+        this.addChild(happyEaster, 90);
+
         //sea shells
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_decoration_seashell_plist, s_decoration_seashell_png);
         this._seashells = [];

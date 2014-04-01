@@ -55,10 +55,10 @@ var ScoreLayer = cc.Layer.extend({
         if (s_isHighScore) {
             background = s_high_score_background_png;
         } else {
-            var dice = getRandomInt(0, 2);
+            var dice = getRandomInt(0, 3);
             switch (dice) {
                 case 0:
-                    background = s_score_background_1_png;
+                    background = s_score_easter_1_png;
                     break;
                 case 1:
                     background = s_score_background_2_png;
@@ -67,7 +67,7 @@ var ScoreLayer = cc.Layer.extend({
                     background = s_score_background_3_png;
                     break;
                 default:
-                    background = s_score_background_2_png;
+                    background = s_score_easter_2_png;
             }
         }
 

@@ -298,6 +298,7 @@ var PlayLayer = cc.Layer.extend({
         var mermaid = cc.Sprite.create(s_decoration_mermaid_png);
         mermaid.setScale(DECORATION_SCALE_FACTOR);
         var contentSize = mermaid.getContentSize();
+        console.log(this);
         mermaid.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2));
         this.addChild(mermaid, 0);
         var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2));
@@ -453,29 +454,14 @@ var PlayLayer = cc.Layer.extend({
     },
 
     spawnRandomDecoration: function() {
-        var randomNumber = getRandomInt(0, 6);
-        switch (randomNumber) {
-            case 0:
-                this.spawnMermaid();
-                break;
-            case 1:
-                this.spawnUnicorn();
-                break;
-            case 2:
-                this.spawnPirateShip();
-                break;
-            case 3:
-                this.spawnPirate();
-                break;
-            case 4:
-                this.spawnSnowman();
-                break;
-            case 5:
-                this.spawnOctopus();
-                break;
-            default:
-                this.spawnCrab();
-        }
+        var randomDecorationArray = [];
+        randomDecorationArray.push(this.spawnMermaid.bind(this));
+        randomDecorationArray.push(this.spawnUnicorn.bind(this));
+        randomDecorationArray.push(this.spawnOctopus.bind(this));
+        randomDecorationArray.push(this.spawnCrab.bind(this));
+
+        var randomNumber = getRandomInt(0, randomDecorationArray.length - 1);
+        randomDecorationArray[randomNumber]();
     },
 
     spawnSeaShells: function() {
