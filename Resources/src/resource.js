@@ -43,6 +43,14 @@ var s_poped_effect = "res/sound_effects/poped.mp3";
 var s_jump_effect = "res/sound_effects/jump.mp3";
 var s_wall = "res/walls/wall.png";
 
+
+//particle system
+
+var s_stars1 = "res/decorations/stars.png";
+
+var s_stars2 = "res/decorations/stars2.png";
+
+
 var g_ressources = [
     //image
     {

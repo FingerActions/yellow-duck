@@ -19,14 +19,14 @@ var PowerUp = cc.Sprite.extend({
     powerupType: 1,
     effectMode: null,
     zOrder: 1000,
+    _emitter: null,
     ctor: function(arg) {
 
         this._super();
         this.effectMode = arg.effectMode;
         this.powerupType = arg.type;
         this.initWithSpriteFrameName(arg.textureName);
-
-        this.born();
+        //this.shine();
 
     },
     destroy: function() {
@@ -36,39 +36,78 @@ var PowerUp = cc.Sprite.extend({
 
     },
 
+    shine: function() {
 
-    born: function() {
 
-        switch (this.effectMode) {
+        //particle test
 
-            case YD.POWERUP_TYPE.HEAVY:
-                {
-                    cc.log("HEHEHEEHEHEHEHEHEEHEHEHEHEHE");
-                    //var contentSize = addPowerup.getContentSize();
+        this._emitter = cc.ParticleSystem.createWithTotalParticles(50);
 
-                    cc.log(winSize.height);
-                    cc.log(winSize.width);
-                    cc.log(this.getContentSize().width);
-                    cc.log(this.getContentSize().height);
-                               cc.log(SCALE_FACTOR);
+        this.addChild(this._emitter, 100001);
+        this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_stars1));
+                               
+        if (this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
+                               
+        this._emitter.setDuration(-1);
 
-                    this.setPosition(cc.p(winSize / 3 * 2, winSize.height + this.getContentSize().height / 2));
+        // gravity
+        this._emitter.setGravity(cc.p(0, 0));
 
-                    var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -winSize.height / 3)));
-                    var flow = cc.MoveBy.create(5, cc.p(-winSize.width / 3 * 2 - this.getContentSize().width / 2, 0));
-                    var wait = cc.MoveBy.create(2, cc.p(0, -20 * SCALE_FACTOR));
-                    var callfunc = cc.CallFunc.create(function() {
-                        this.removeChild(this, true);
-                    }.bind(this));
-                    var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
-                    this.runAction(flowWithCallfunc);
-                    var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
-                    var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
-                    var bounce = cc.Sequence.create(bounceUp, bounceDown);
-                    this.runAction(cc.RepeatForever.create(bounce));
-                }
-                break;
-        }
+        // angle
+        this._emitter.setAngle(90);
+        this._emitter.setAngleVar(360);
+
+        // speed of particles
+        this._emitter.setSpeed(160);
+        this._emitter.setSpeedVar(20);
+
+        // radial
+        this._emitter.setRadialAccel(-120);
+        this._emitter.setRadialAccelVar(0);
+
+        // tagential
+        this._emitter.setTangentialAccel(30);
+        this._emitter.setTangentialAccelVar(0);
+
+        // emitter position
+        this._emitter.setPosition(160, 240);
+        this._emitter.setPosVar(cc.p(0, 0));
+
+        // life of particles
+        this._emitter.setLife(4);
+        this._emitter.setLifeVar(1);
+
+        // spin of particles
+        this._emitter.setStartSpin(0);
+        this._emitter.setStartSizeVar(0);
+        this._emitter.setEndSpin(0);
+        this._emitter.setEndSpinVar(0);
+
+        // color of particles
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        this._emitter.setStartColor(startColor);
+
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        this._emitter.setStartColorVar(startColorVar);
+
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        this._emitter.setEndColor(endColor);
+
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        this._emitter.setEndColorVar(endColorVar);
+
+        // size, in pixels
+        this._emitter.setStartSize(80.0);
+        this._emitter.setStartSizeVar(40.0);
+        this._emitter.setEndSize(cc.PARTICLE_START_SIZE_EQUAL_TO_END_SIZE);
+
+        // emits per second
+        this._emitter.setEmissionRate(this._emitter.getTotalParticles() / this._emitter.getLife());
+
+        // additive
+        this._emitter.setBlendAdditive(true);
+        this._emitter.setPosition(90, 90);
 
     },
 

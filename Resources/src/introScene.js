@@ -22,6 +22,7 @@ var IntroLayer = cc.Layer.extend({
     _tapSprite: null,
     _seashells: null,
     _fingerActions: null,
+                                
 
     ctor: function() {
         this._super();
@@ -85,6 +86,7 @@ var IntroLayer = cc.Layer.extend({
             seashell.setVisible(false);
             this._seashells.push(seashell);
         }
+                                
 
         return true;
     },
