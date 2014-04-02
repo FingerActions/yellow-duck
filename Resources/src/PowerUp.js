@@ -26,7 +26,7 @@ var PowerUp = cc.Sprite.extend({
         this.effectMode = arg.effectMode;
         this.powerupType = arg.type;
         this.initWithSpriteFrameName(arg.textureName);
-        //this.shine();
+        this.shine();
 
     },
     destroy: function() {

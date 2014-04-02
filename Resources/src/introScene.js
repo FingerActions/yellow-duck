@@ -22,7 +22,8 @@ var IntroLayer = cc.Layer.extend({
     _tapSprite: null,
     _seashells: null,
     _fingerActions: null,
-                                
+    _emitter: null,
+
 
     ctor: function() {
         this._super();
@@ -86,7 +87,74 @@ var IntroLayer = cc.Layer.extend({
             seashell.setVisible(false);
             this._seashells.push(seashell);
         }
-                                
+
+        this._emitter = cc.ParticleSystem.createWithTotalParticles(50);
+
+        this.addChild(this._emitter, 100001);
+        this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_stars1));
+
+        if (this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
+
+        this._emitter.setDuration(-1);
+
+        // gravity
+        this._emitter.setGravity(cc.p(0, 0));
+
+        // angle
+        this._emitter.setAngle(90);
+        this._emitter.setAngleVar(360);
+
+        // speed of particles
+        this._emitter.setSpeed(160);
+        this._emitter.setSpeedVar(20);
+
+        // radial
+        this._emitter.setRadialAccel(-120);
+        this._emitter.setRadialAccelVar(0);
+
+        // tagential
+        this._emitter.setTangentialAccel(30);
+        this._emitter.setTangentialAccelVar(0);
+
+        // emitter position
+        this._emitter.setPosition(160, 240);
+        this._emitter.setPosVar(cc.p(0, 0));
+
+        // life of particles
+        this._emitter.setLife(4);
+        this._emitter.setLifeVar(1);
+
+        // spin of particles
+        this._emitter.setStartSpin(0);
+        this._emitter.setStartSizeVar(0);
+        this._emitter.setEndSpin(0);
+        this._emitter.setEndSpinVar(0);
+
+        // color of particles
+        var startColor = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        this._emitter.setStartColor(startColor);
+
+        var startColorVar = cc.c4f(0.5, 0.5, 0.5, 1.0);
+        this._emitter.setStartColorVar(startColorVar);
+
+        var endColor = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        this._emitter.setEndColor(endColor);
+
+        var endColorVar = cc.c4f(0.1, 0.1, 0.1, 0.2);
+        this._emitter.setEndColorVar(endColorVar);
+
+        // size, in pixels
+        this._emitter.setStartSize(80.0);
+        this._emitter.setStartSizeVar(40.0);
+        this._emitter.setEndSize(cc.PARTICLE_START_SIZE_EQUAL_TO_END_SIZE);
+
+        // emits per second
+        this._emitter.setEmissionRate(this._emitter.getTotalParticles() / this._emitter.getLife());
+
+        // additive
+        this._emitter.setBlendAdditive(true);
+        this._emitter.setPosition(this._screenSize.width / 2, this._screenSize.height / 2);
 
         return true;
     },
