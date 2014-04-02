@@ -33,7 +33,7 @@ var PowerUp = cc.Sprite.extend({
 
         this.setVisible(false);
         this.active = false;
-                                this.stopAllActions();
+        this.stopAllActions();
 
     },
 

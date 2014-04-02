@@ -39,14 +39,16 @@ var PlayLayer = cc.Layer.extend({
     _timerWall: null,
     _timerBubble: null,
     _timerSeashell: null,
+    _timerPowerup: null,
 
-
-    //powerup
-    _haspowerup: null,
 
     //powerups
     _powerups: null,
     _emitter: null,
+    _isHeavy: false,
+                                _haspowerup:null,
+    _haspowerupOnScreen: null,
+    _isLight: null,
 
     //sound
     audioEngin: null,
@@ -70,7 +72,8 @@ var PlayLayer = cc.Layer.extend({
         this._timerWall = 0;
         this.scheduleUpdate();
 
-        this._haspowerup = false;
+        this._haspowerupOnScreen = false;
+                                this._haspowerup=false;
 
         //touch
         if ('touches' in sys.capabilities) {
@@ -184,7 +187,7 @@ var PlayLayer = cc.Layer.extend({
 
                     var callfunc = cc.CallFunc.create(function() {
                         this._addPowerup.destroy();
-                        this._haspowerup = false;
+                        this._haspowerupOnScreen = false;
                     }.bind(this));
 
                     var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
@@ -209,7 +212,7 @@ var PlayLayer = cc.Layer.extend({
 
                     var callfunc = cc.CallFunc.create(function() {
                         this._addPowerup.destroy();
-                        this._haspowerup = false;
+                        this._haspowerupOnScreen = false;
                     }.bind(this));
 
 
@@ -231,7 +234,7 @@ var PlayLayer = cc.Layer.extend({
 
                     var callfunc = cc.CallFunc.create(function() {
                         this._addPowerup.destroy();
-                        this._haspowerup = false;
+                        this._haspowerupOnScreen = false;
                     }.bind(this));
 
 
@@ -254,7 +257,7 @@ var PlayLayer = cc.Layer.extend({
 
                     var callfunc = cc.CallFunc.create(function() {
                         this._addPowerup.destroy();
-                        this._haspowerup = false;
+                        this._haspowerupOnScreen = false;
                     }.bind(this));
 
 
@@ -271,6 +274,146 @@ var PlayLayer = cc.Layer.extend({
 
         }
     },
+
+    performEffect: function() {
+
+        switch (this._addPowerup.effectMode) {
+
+            case YD.POWERUP_TYPE.HEAVY:
+                {
+
+                    this._isHeavy = true;
+                    this._duck.setScale(3);
+                                this._haspowerup = true;
+
+                }
+                break;
+
+            case YD.POWERUP_TYPE.LIGHT:
+                {
+                    this._isLight = true;
+                                this._duck.setScale(0.2);
+                                this._haspowerup = true;
+
+
+                }
+                break;
+
+            case YD.POWERUP_TYPE.LOSEGRAVITY:
+                {
+                                
+                                this._haspowerup = true;
+
+                }
+                break;
+
+
+            case YD.POWERUP_TYPE.OPPOSITGRAVITY:
+                {
+                                
+                                this._haspowerup = true;
+
+                }
+                break;
+        }
+
+
+    },
+
+    removeEffect: function() {
+
+        switch (this._addPowerup.effectMode) {
+
+            case YD.POWERUP_TYPE.HEAVY:
+                {
+                    this._isHeavy = false;
+                    this._duck.setScale(1);
+
+                                this._haspowerup = false;
+
+                }
+                break;
+
+            case YD.POWERUP_TYPE.LIGHT:
+                {
+
+                    this._duck.setScale(1);
+                                
+                                this._haspowerup = false;
+                                this._isLight=false;
+
+                }
+                break;
+
+            case YD.POWERUP_TYPE.LOSEGRAVITY:
+                {
+                                
+                                this._haspowerup = false;
+
+
+                }
+                break;
+
+
+            case YD.POWERUP_TYPE.OPPOSITGRAVITY:
+                {
+                                
+                                this._haspowerup = false;
+
+                }
+                break;
+        }
+
+
+    },
+
+    powerup: function() {
+
+        switch (this._addPowerup.effectMode) {
+
+            case YD.POWERUP_TYPE.HEAVY:
+                {
+
+                    this._haspowerupOnScreen = false;
+                    this._addPowerup.destroy();
+                    this.performEffect();
+
+                }
+                break;
+
+            case YD.POWERUP_TYPE.LIGHT:
+                {
+
+                    this._haspowerupOnScreen = false;
+                    this._addPowerup.destroy();
+                    this.performEffect();
+
+                }
+                break;
+
+            case YD.POWERUP_TYPE.LOSEGRAVITY:
+                {
+                    this._haspowerupOnScreen = false;
+                    this._addPowerup.destroy();
+                    this.performEffect();
+
+                }
+                break;
+
+
+            case YD.POWERUP_TYPE.OPPOSITGRAVITY:
+                {
+                    this._haspowerupOnScreen = false;
+                    this._addPowerup.destroy();
+                    this.performEffect();
+
+                }
+                break;
+        }
+
+
+    },
+
 
     getWeather: function() {
         var backgroundTop = s_play_background_top_png;
@@ -494,7 +637,15 @@ var PlayLayer = cc.Layer.extend({
             this._duckVelocity = 0;
         }
 
-        this._duckVelocity -= GRAVITY;
+        if (!this._isLight) {
+            this._duckVelocity -= GRAVITY;
+        }
+                                else
+                                {
+                                this._duckVelocity -= GRAVITY/2;
+                                }
+
+
 
         if (this._duckVelocity < 0 && this._isDuckJumping) {
             this.turnDuckBack();
@@ -518,11 +669,26 @@ var PlayLayer = cc.Layer.extend({
         }
 
         //powerup
-        if (getRandomInt(0, 40) === 0 && !this._haspowerup) {
+        if (getRandomInt(0, 40) === 0 && !this._haspowerupOnScreen) {
             var dice = getRandomInt(0, 3);
             this.addPowerupToGame(dice);
-            this._haspowerup = true;
+            this._haspowerupOnScreen = true;
         }
+
+        if (this._haspowerup) {
+
+            this._timerPowerup += delta;
+
+            if (this._timerPowerup > 5) {
+
+
+                this.removeEffect();
+
+                this._timerPowerup = 0;
+
+            }
+        }
+
 
     },
 
@@ -604,16 +770,21 @@ var PlayLayer = cc.Layer.extend({
             this.gameOver(false);
         }
         var walls = this._walls;
-        for (var i = 0; i < walls.length; i++) {
-            if (this.isObjTouched(this._duck, this._walls[i])) {
-                this.gameOver(true);
+
+        if (this._isHeavy == false) {
+
+            for (var i = 0; i < walls.length; i++) {
+                if (this.isObjTouched(this._duck, this._walls[i])) {
+                    this.gameOver(true);
+                }
             }
         }
+
         if (this._addPowerup != null) {
 
             if (this.isObjTouched(this._duck, this._addPowerup)) {
-                this._haspowerup = false;
-                this._addPowerup.destroy();
+
+                this.powerup();
             }
         }
 
