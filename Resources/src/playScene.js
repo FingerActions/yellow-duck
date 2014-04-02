@@ -612,6 +612,7 @@ var PlayLayer = cc.Layer.extend({
         if (this._addPowerup != null) {
 
             if (this.isObjTouched(this._duck, this._addPowerup)) {
+                this._haspowerup = false;
                 this._addPowerup.destroy();
             }
         }
@@ -683,6 +684,7 @@ var PlayLayer = cc.Layer.extend({
         director.pushScene(cc.TransitionFade.create(0.1, scene));
     },
 
+
     isObjTouched: function(firstObj, secondObj) {
         var firstObjSize = firstObj.getContentSize();
         var firstObjPos = firstObj.getPosition();
@@ -694,7 +696,14 @@ var PlayLayer = cc.Layer.extend({
         var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width - 5, secondObjSize.height - 5);
 
         if (cc.rectIntersectsRect(firstCollideRect, secondCollideRect)) {
-            audioEngin.playEffect(s_poped_effect);
+
+            if (secondObj == this._addPowerup) {
+
+
+            } else {
+                audioEngin.playEffect(s_poped_effect);
+            }
+
             return true;
         }
     },

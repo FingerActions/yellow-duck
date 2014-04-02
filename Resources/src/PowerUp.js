@@ -31,8 +31,9 @@ var PowerUp = cc.Sprite.extend({
     },
     destroy: function() {
 
-        this.visible = false;
+        this.setVisible(false);
         this.active = false;
+                                this.stopAllActions();
 
     },
 
