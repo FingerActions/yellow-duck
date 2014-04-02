@@ -51,6 +51,10 @@ var PlayLayer = cc.Layer.extend({
     //sound
     audioEngin: null,
 
+
+    //powerup
+    _addPowerup: null,
+
     ctor: function() {
         this._super();
         cc.associateWithNative(this, cc.Layer);
@@ -167,28 +171,28 @@ var PlayLayer = cc.Layer.extend({
 
     addPowerupToGame: function(powerupType) {
 
-        var addPowerup = PowerUp.getOrCreatePowerUp(PowerUpType[powerupType]);
-        var contentSize = addPowerup.getContentSize();
-        switch (addPowerup.effectMode) {
+        this._addPowerup = PowerUp.getOrCreatePowerUp(PowerUpType[powerupType]);
+        var contentSize = this._addPowerup.getContentSize();
+        switch (this._addPowerup.effectMode) {
 
             case YD.POWERUP_TYPE.HEAVY:
                 {
-                    addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
+                    this._addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
                     var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
                     var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
                     var wait = cc.MoveBy.create(2, cc.p(0, -20 * SCALE_FACTOR));
 
                     var callfunc = cc.CallFunc.create(function() {
-                        addPowerup.destroy();
+                        this._addPowerup.destroy();
                         this._haspowerup = false;
                     }.bind(this));
 
                     var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
-                    addPowerup.runAction(flowWithCallfunc);
+                    this._addPowerup.runAction(flowWithCallfunc);
                     var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
                     var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
                     var bounce = cc.Sequence.create(bounceUp, bounceDown);
-                    addPowerup.runAction(cc.RepeatForever.create(bounce));
+                    this._addPowerup.runAction(cc.RepeatForever.create(bounce));
 
 
 
@@ -198,68 +202,68 @@ var PlayLayer = cc.Layer.extend({
 
             case YD.POWERUP_TYPE.LIGHT:
                 {
-                    addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
+                    this._addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
                     var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
                     var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
                     var wait = cc.MoveBy.create(2, cc.p(0, -20 * SCALE_FACTOR));
 
                     var callfunc = cc.CallFunc.create(function() {
-                        addPowerup.destroy();
+                        this._addPowerup.destroy();
                         this._haspowerup = false;
                     }.bind(this));
 
 
                     var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
-                    addPowerup.runAction(flowWithCallfunc);
+                    this._addPowerup.runAction(flowWithCallfunc);
                     var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
                     var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
                     var bounce = cc.Sequence.create(bounceUp, bounceDown);
-                    addPowerup.runAction(cc.RepeatForever.create(bounce));
+                    this._addPowerup.runAction(cc.RepeatForever.create(bounce));
                 }
                 break;
 
             case YD.POWERUP_TYPE.LOSEGRAVITY:
                 {
-                    addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
+                    this._addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
                     var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
                     var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
                     var wait = cc.MoveBy.create(2, cc.p(0, -20 * SCALE_FACTOR));
 
                     var callfunc = cc.CallFunc.create(function() {
-                        addPowerup.destroy();
+                        this._addPowerup.destroy();
                         this._haspowerup = false;
                     }.bind(this));
 
 
                     var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
-                    addPowerup.runAction(flowWithCallfunc);
+                    this._addPowerup.runAction(flowWithCallfunc);
                     var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
                     var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
                     var bounce = cc.Sequence.create(bounceUp, bounceDown);
-                    addPowerup.runAction(cc.RepeatForever.create(bounce));
+                    this._addPowerup.runAction(cc.RepeatForever.create(bounce));
                 }
                 break;
 
 
             case YD.POWERUP_TYPE.OPPOSITGRAVITY:
                 {
-                    addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
+                    this._addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
                     var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
                     var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
                     var wait = cc.MoveBy.create(2, cc.p(0, -20 * SCALE_FACTOR));
 
                     var callfunc = cc.CallFunc.create(function() {
-                        addPowerup.destroy();
+                        this._addPowerup.destroy();
                         this._haspowerup = false;
                     }.bind(this));
 
 
                     var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
-                    addPowerup.runAction(flowWithCallfunc);
+                    this._addPowerup.runAction(flowWithCallfunc);
                     var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
                     var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
                     var bounce = cc.Sequence.create(bounceUp, bounceDown);
-                    addPowerup.runAction(cc.RepeatForever.create(bounce));
+                    this._addPowerup.runAction(cc.RepeatForever.create(bounce));
                 }
                 break;
 
@@ -605,6 +609,13 @@ var PlayLayer = cc.Layer.extend({
                 this.gameOver(true);
             }
         }
+        if (this._addPowerup != null) {
+
+            if (this.isObjTouched(this._duck, this._addPowerup)) {
+                this._addPowerup.destroy();
+            }
+        }
+
     },
 
     gameOver: function(hitWall) {

@@ -26,7 +26,7 @@ var PowerUp = cc.Sprite.extend({
         this.effectMode = arg.effectMode;
         this.powerupType = arg.type;
         this.initWithSpriteFrameName(arg.textureName);
-        this.shine();
+        //this.shine();
 
     },
     destroy: function() {
@@ -45,42 +45,40 @@ var PowerUp = cc.Sprite.extend({
 
         this.addChild(this._emitter, 100001);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_stars1));
-                               
-        if (this._emitter.setShapeType)
-            this._emitter.setShapeType(cc.PARTICLE_STAR_SHAPE);
-                               
-        this._emitter.setDuration(-1);
 
-        // gravity
-        this._emitter.setGravity(cc.p(0, 0));
+        // duration
+        this._emitter.setDuration(cc.PARTICLE_DURATION_INFINITY);
+
+        // radius mode
+        this._emitter.setEmitterMode(cc.PARTICLE_MODE_RADIUS);
+
+        // radius mode: start and end radius in pixels
+        this._emitter.setStartRadius(0);
+        this._emitter.setStartRadiusVar(0);
+        this._emitter.setEndRadius(160);
+        this._emitter.setEndRadiusVar(0);
+
+        // radius mode: degrees per second
+        this._emitter.setRotatePerSecond(180);
+        this._emitter.setRotatePerSecondVar(0);
+
 
         // angle
         this._emitter.setAngle(90);
-        this._emitter.setAngleVar(360);
-
-        // speed of particles
-        this._emitter.setSpeed(160);
-        this._emitter.setSpeedVar(20);
-
-        // radial
-        this._emitter.setRadialAccel(-120);
-        this._emitter.setRadialAccelVar(0);
-
-        // tagential
-        this._emitter.setTangentialAccel(30);
-        this._emitter.setTangentialAccelVar(0);
+        this._emitter.setAngleVar(0);
 
         // emitter position
-        this._emitter.setPosition(160, 240);
+        var size = director.getWinSize();
+        this._emitter.setPosition(size.width / 2, size.height / 2);
         this._emitter.setPosVar(cc.p(0, 0));
 
         // life of particles
-        this._emitter.setLife(4);
-        this._emitter.setLifeVar(1);
+        this._emitter.setLife(5);
+        this._emitter.setLifeVar(0);
 
         // spin of particles
         this._emitter.setStartSpin(0);
-        this._emitter.setStartSizeVar(0);
+        this._emitter.setStartSpinVar(0);
         this._emitter.setEndSpin(0);
         this._emitter.setEndSpinVar(0);
 
@@ -98,15 +96,15 @@ var PowerUp = cc.Sprite.extend({
         this._emitter.setEndColorVar(endColorVar);
 
         // size, in pixels
-        this._emitter.setStartSize(80.0);
-        this._emitter.setStartSizeVar(40.0);
+        this._emitter.setStartSize(32);
+        this._emitter.setStartSizeVar(0);
         this._emitter.setEndSize(cc.PARTICLE_START_SIZE_EQUAL_TO_END_SIZE);
 
         // emits per second
         this._emitter.setEmissionRate(this._emitter.getTotalParticles() / this._emitter.getLife());
 
         // additive
-        this._emitter.setBlendAdditive(true);
+        this._emitter.setBlendAdditive(false);
         this._emitter.setPosition(90, 90);
 
     },
