@@ -56,6 +56,9 @@ var s_decoration_easter_eggs_plist = "res/decorations/easter_eggs/easter_eggs.pl
 var s_score_easter_1_png = "res/backgrounds/score_easter_1.png";
 var s_score_easter_2_png = "res/backgrounds/score_easter_2.png";
 
+var s_powerup_png = "res/powerup/powerup.png";
+var s_powerup_plist = "res/powerup/powerup.plist";
+
 var s_duck = "res/duck/duck.png";
 var s_duck_wing = "res/duck/duck_wing.png";
 
@@ -64,6 +67,14 @@ var s_drowned_effect = "res/sound_effects/drowned.mp3";
 var s_poped_effect = "res/sound_effects/poped.mp3";
 var s_jump_effect = "res/sound_effects/jump.mp3";
 var s_wall = "res/walls/wall.png";
+
+
+//particle system
+
+var s_stars1 = "res/decorations/stars.png";
+
+var s_stars2 = "res/decorations/stars2.png";
+
 
 var g_ressources = [
     //image
@@ -86,6 +97,8 @@ var g_ressources = [
     }, {
         src: s_decoration_globefish_png
     }, {
+        src: s_powerup_png
+    }, {
         src: s_decoration_little_devi_png
     }, {
         src: s_decoration_seahorse_png
@@ -97,6 +110,8 @@ var g_ressources = [
     //plist
     {
         src: s_decoration_seashell_plist
+    }, {
+        src: s_powerup_plist
     },
     //fnt
 

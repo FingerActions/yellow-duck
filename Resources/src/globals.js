@@ -48,3 +48,12 @@ function getRandomInt(min, max) {
 function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
+
+
+// Returns bool value of an event according to occurence rate
+// rate should be 1 - 100
+function getRandomOccurence(rate) {
+
+    return getRandomInt(1, 100) <= rate ? true : false;
+
+}
