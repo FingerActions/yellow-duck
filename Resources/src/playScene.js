@@ -228,7 +228,7 @@ var PlayLayer = cc.Layer.extend({
         this._addPowerup = PowerUp.getOrCreatePowerUp(PowerUpType[powerupType]);
         var contentSize = this._addPowerup.getContentSize();
         switch (this._addPowerup.effectMode) {
-                                
+
             case YD.POWERUP_TYPE.HEAVY:
                 {
                     this._addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
@@ -1110,18 +1110,6 @@ var PlayLayer = cc.Layer.extend({
         }
     },
 });
-
-
-PlayLayer.create = function() {
-
-    var sg = new PlayLayer();
-    if (sg && sg.init()) {
-
-        return sg;
-    }
-
-    return null;
-};
 
 PlayLayer.scene = function() {
 
