@@ -1095,18 +1095,6 @@ var PlayLayer = cc.Layer.extend({
     },
 });
 
-
-PlayLayer.create = function() {
-
-    var sg = new PlayLayer();
-    if (sg && sg.init()) {
-
-        return sg;
-    }
-
-    return null;
-};
-
 PlayLayer.scene = function() {
 
     var scene = cc.Scene.create();
