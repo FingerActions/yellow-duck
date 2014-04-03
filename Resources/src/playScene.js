@@ -35,6 +35,7 @@ var PlayLayer = cc.Layer.extend({
     _fingerActions: null,
     _gameover: null,
     _powerUpBatch: null,
+
     //timers
     _timerScore: null,
     _timerWall: null,
@@ -42,7 +43,7 @@ var PlayLayer = cc.Layer.extend({
     _timerFish: null,
     _timerLeaf: null,
     _timerSeashell: null,
-    _timerPowerup: null,
+    _timerPowerUp: null,
     _isSpawningFish: null,
     _isSpawningBubbles: null,
     _isSpawningLeafs: null,
@@ -209,7 +210,7 @@ var PlayLayer = cc.Layer.extend({
     },
 
 
-    addPowerupToGame: function(powerUpType) {
+    addPowerUpToGame: function(powerUpType) {
 
         this._addPowerup = PowerUp.getOrCreatePowerUp(PowerUpType[powerUpType]);
         var contentSize = this._addPowerup.getContentSize();
@@ -562,7 +563,6 @@ var PlayLayer = cc.Layer.extend({
         var mermaid = cc.Sprite.create(s_decoration_mermaid_png);
         mermaid.setScale(DECORATION_SCALE_FACTOR);
         var contentSize = mermaid.getContentSize();
-        // console.log(this);
         mermaid.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2));
         this.addChild(mermaid, 0);
         var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2));
@@ -760,7 +760,7 @@ var PlayLayer = cc.Layer.extend({
         var seaweed = cc.Sprite.create(s_decoration_seaweed_png);
         seaweed.setScale(DECORATION_SCALE_FACTOR);
         var contentSize = seaweed.getContentSize();
-        seaweed.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, getRandomArbitrary(0, 50 * SCALE_FACTOR)));
+        seaweed.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, getRandomArbitrary(0, 40 * SCALE_FACTOR)));
         this.addChild(seaweed, 0);
 
         var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-contentSize.width * DECORATION_SCALE_FACTOR - this._screenSize.width, 0));
@@ -795,7 +795,6 @@ var PlayLayer = cc.Layer.extend({
         if (this._timerSeashell > 1) {
             this.spawnSeaShells();
             this._timerSeashell = 0;
-            // this.addPowerupToGame(0);
         }
 
         if (this._isSpawningBubbles) {
@@ -890,21 +889,21 @@ var PlayLayer = cc.Layer.extend({
         //powerup
         if (getRandomInt(0, 40) === 0 && !this._hasPowerUpOnScreen) {
             var dice = getRandomInt(0, 3);
-            this.addPowerupToGame(dice);
+            this.addPowerUpToGame(dice);
             this._hasPowerUpOnScreen = true;
         }
 
         if (this._hasPowerUp == true) {
 
-            this._timerPowerup += delta;
+            this._timerPowerUp += delta;
 
-            cc.log(this._timerPowerup);
+            cc.log(this._timerPowerUp);
 
-            if (this._timerPowerup > 5.0) {
+            if (this._timerPowerUp > 5.0) {
 
                 this.removeEffect();
 
-                this._timerPowerup = 0;
+                this._timerPowerUp = 0;
             }
         }
 
