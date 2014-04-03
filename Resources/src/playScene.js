@@ -54,6 +54,7 @@ var PlayLayer = cc.Layer.extend({
     _hasPowerUp: null,
     _hasPowerUpOnScreen: null,
     _isLight: null,
+    _currentMode: null,
 
     //sound
     audioEngin: null,
@@ -317,13 +318,14 @@ var PlayLayer = cc.Layer.extend({
 
     performEffect: function() {
 
-        switch (this._addPowerup.effectMode) {
+        switch (this._currentMode) {
 
             case YD.POWERUP_TYPE.HEAVY:
                 {
                     this._isHeavy = true;
                     this._duck.setScale(3);
                     this._hasPowerUp = true;
+
                 }
                 break;
 
@@ -332,6 +334,7 @@ var PlayLayer = cc.Layer.extend({
                     this._isLight = true;
                     this._duck.setScale(0.2);
                     this._hasPowerUp = true;
+
 
                 }
                 break;
@@ -359,13 +362,14 @@ var PlayLayer = cc.Layer.extend({
 
     removeEffect: function() {
 
-        switch (this._addPowerup.effectMode) {
+        switch (this._currentMode) {
 
             case YD.POWERUP_TYPE.HEAVY:
                 {
                     this._isHeavy = false;
                     this._duck.setScale(1);
                     this._hasPowerUp = false;
+                    this._currentMode = null;
                 }
                 break;
 
@@ -374,26 +378,27 @@ var PlayLayer = cc.Layer.extend({
                     this._duck.setScale(1);
                     this._hasPowerUp = false;
                     this._isLight = false;
+                    this._currentMode = null;
                 }
                 break;
 
             case YD.POWERUP_TYPE.LOSEGRAVITY:
                 {
                     this._hasPowerUp = false;
+                    this._currentMode = null;
 
                 }
                 break;
-
 
             case YD.POWERUP_TYPE.OPPOSITGRAVITY:
                 {
 
                     this._hasPowerUp = false;
+                    this._currentMode = null;
 
                 }
                 break;
         }
-
 
     },
 
@@ -403,7 +408,7 @@ var PlayLayer = cc.Layer.extend({
 
             case YD.POWERUP_TYPE.HEAVY:
                 {
-
+                    this._currentMode = this._addPowerup.effectMode;
                     this._hasPowerUpOnScreen = false;
                     this._addPowerup.destroy();
                     this.performEffect();
@@ -413,7 +418,7 @@ var PlayLayer = cc.Layer.extend({
 
             case YD.POWERUP_TYPE.LIGHT:
                 {
-
+                    this._currentMode = this._addPowerup.effectMode;
                     this._hasPowerUpOnScreen = false;
                     this._addPowerup.destroy();
                     this.performEffect();
@@ -423,6 +428,7 @@ var PlayLayer = cc.Layer.extend({
 
             case YD.POWERUP_TYPE.LOSEGRAVITY:
                 {
+                    this._currentMode = this._addPowerup.effectMode;
                     this._hasPowerUpOnScreen = false;
                     this._addPowerup.destroy();
                     this.performEffect();
@@ -433,6 +439,7 @@ var PlayLayer = cc.Layer.extend({
 
             case YD.POWERUP_TYPE.OPPOSITGRAVITY:
                 {
+                    this._currentMode = this._addPowerup.effectMode;
                     this._hasPowerUpOnScreen = false;
                     this._addPowerup.destroy();
                     this.performEffect();
@@ -901,7 +908,9 @@ var PlayLayer = cc.Layer.extend({
 
             this._timerPowerup += delta;
 
-            if (this._timerPowerup > 5) {
+            cc.log(this._timerPowerup);
+
+            if (this._timerPowerup > 5.0) {
 
                 this.removeEffect();
 
@@ -1082,14 +1091,11 @@ var PlayLayer = cc.Layer.extend({
         var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width - 5, secondObjSize.height - 5);
 
         if (cc.rectIntersectsRect(firstCollideRect, secondCollideRect)) {
-
             if (secondObj == this._addPowerup) {
                 audioEngin.playEffect(s_poped_effect);
-
             } else {
                 audioEngin.playEffect(s_poped_effect);
             }
-
             return true;
         }
     },
