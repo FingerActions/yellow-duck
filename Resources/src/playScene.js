@@ -35,7 +35,6 @@ var PlayLayer = cc.Layer.extend({
     _fingerActions: null,
     _gameover: null,
     _powerupBatch: null,
-
     //timers
     _timerScore: null,
     _timerWall: null,
@@ -49,18 +48,16 @@ var PlayLayer = cc.Layer.extend({
     _isSpawningBubbles: null,
     _isSpawningLeafs: null,
 
-
     //powerups
     _powerups: null,
     _emitter: null,
     _isHeavy: false,
-                                _haspowerup:null,
+    _haspowerup: null,
     _haspowerupOnScreen: null,
     _isLight: null,
 
     //sound
     audioEngin: null,
-
 
     //powerup
     _addPowerup: null,
@@ -81,7 +78,7 @@ var PlayLayer = cc.Layer.extend({
         this.scheduleUpdate();
 
         this._haspowerupOnScreen = false;
-                                this._haspowerup=false;
+        this._haspowerup = false;
 
         //touch
         if ('touches' in sys.capabilities) {
@@ -231,7 +228,7 @@ var PlayLayer = cc.Layer.extend({
         this._addPowerup = PowerUp.getOrCreatePowerUp(PowerUpType[powerupType]);
         var contentSize = this._addPowerup.getContentSize();
         switch (this._addPowerup.effectMode) {
-
+                                
             case YD.POWERUP_TYPE.HEAVY:
                 {
                     this._addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
@@ -250,9 +247,6 @@ var PlayLayer = cc.Layer.extend({
                     var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
                     var bounce = cc.Sequence.create(bounceUp, bounceDown);
                     this._addPowerup.runAction(cc.RepeatForever.create(bounce));
-
-
-
 
                 }
                 break;
@@ -323,9 +317,6 @@ var PlayLayer = cc.Layer.extend({
                     this._addPowerup.runAction(cc.RepeatForever.create(bounce));
                 }
                 break;
-
-
-
         }
     },
 
@@ -335,28 +326,25 @@ var PlayLayer = cc.Layer.extend({
 
             case YD.POWERUP_TYPE.HEAVY:
                 {
-
                     this._isHeavy = true;
                     this._duck.setScale(3);
-                                this._haspowerup = true;
-
+                    this._haspowerup = true;
                 }
                 break;
 
             case YD.POWERUP_TYPE.LIGHT:
                 {
                     this._isLight = true;
-                                this._duck.setScale(0.2);
-                                this._haspowerup = true;
-
+                    this._duck.setScale(0.2);
+                    this._haspowerup = true;
 
                 }
                 break;
 
             case YD.POWERUP_TYPE.LOSEGRAVITY:
                 {
-                                
-                                this._haspowerup = true;
+
+                    this._haspowerup = true;
 
                 }
                 break;
@@ -364,8 +352,8 @@ var PlayLayer = cc.Layer.extend({
 
             case YD.POWERUP_TYPE.OPPOSITGRAVITY:
                 {
-                                
-                                this._haspowerup = true;
+
+                    this._haspowerup = true;
 
                 }
                 break;
@@ -382,28 +370,21 @@ var PlayLayer = cc.Layer.extend({
                 {
                     this._isHeavy = false;
                     this._duck.setScale(1);
-
-                                this._haspowerup = false;
-
+                    this._haspowerup = false;
                 }
                 break;
 
             case YD.POWERUP_TYPE.LIGHT:
                 {
-
                     this._duck.setScale(1);
-                                
-                                this._haspowerup = false;
-                                this._isLight=false;
-
+                    this._haspowerup = false;
+                    this._isLight = false;
                 }
                 break;
 
             case YD.POWERUP_TYPE.LOSEGRAVITY:
                 {
-                                
-                                this._haspowerup = false;
-
+                    this._haspowerup = false;
 
                 }
                 break;
@@ -411,8 +392,8 @@ var PlayLayer = cc.Layer.extend({
 
             case YD.POWERUP_TYPE.OPPOSITGRAVITY:
                 {
-                                
-                                this._haspowerup = false;
+
+                    this._haspowerup = false;
 
                 }
                 break;
@@ -589,7 +570,7 @@ var PlayLayer = cc.Layer.extend({
         var mermaid = cc.Sprite.create(s_decoration_mermaid_png);
         mermaid.setScale(DECORATION_SCALE_FACTOR);
         var contentSize = mermaid.getContentSize();
-       // console.log(this);
+        // console.log(this);
         mermaid.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2));
         this.addChild(mermaid, 0);
         var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2 * DECORATION_SCALE_FACTOR, this._screenSize.height / 2));
@@ -861,11 +842,9 @@ var PlayLayer = cc.Layer.extend({
 
         if (!this._isLight) {
             this._duckVelocity -= GRAVITY;
+        } else {
+            this._duckVelocity -= GRAVITY / 2;
         }
-                                else
-                                {
-                                this._duckVelocity -= GRAVITY/2;
-                                }
 
 
 

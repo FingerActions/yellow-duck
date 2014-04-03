@@ -101,6 +101,14 @@ var IntroLayer = cc.Layer.extend({
             this._seashells.push(seashell);
         }
 
+        this.generateParticleFlower();
+
+        return true;
+    },
+
+
+    generateParticleFlower: function() {
+
         this._emitter = cc.ParticleSystem.createWithTotalParticles(50);
 
         this.addChild(this._emitter, 100001);
@@ -169,7 +177,7 @@ var IntroLayer = cc.Layer.extend({
         this._emitter.setBlendAdditive(true);
         this._emitter.setPosition(this._screenSize.width / 2 + 60 * SCALE_FACTOR, this._screenSize.height / 2 - 60 * SCALE_FACTOR);
 
-        return true;
+
     },
 
     spawnSeaShells: function() {
@@ -291,7 +299,6 @@ var IntroScene = cc.Scene.extend({
             } else {
                 s_weather = 1;
             }
-
             var layer = new IntroLayer();
             this.addChild(layer, 10);
 
