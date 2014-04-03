@@ -120,16 +120,6 @@ var PlayLayer = cc.Layer.extend({
             this._walls.push(wall);
         }
 
-        //sea shells
-        this._seashells = [];
-        for (i = 1; i < MAX_SEA_SHEELS; i++) {
-            var seashell = cc.Sprite.createWithSpriteFrameName(i + ".png");
-            this.addChild(seashell);
-            seashell.setVisible(false);
-            this._seashells.push(seashell);
-
-        }
-
         //score
         this._score = 0;
         this._scoreLabel = cc.LabelTTF.create(this._score, "Marker Felt", 33 * SCALE_FACTOR);
