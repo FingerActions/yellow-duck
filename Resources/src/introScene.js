@@ -103,6 +103,9 @@ var IntroLayer = cc.Layer.extend({
 
         this.generateParticleFlower();
 
+        //easter eggs
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_decoration_easter_eggs_plist, s_decoration_easter_eggs_png);
+
         return true;
     },
 

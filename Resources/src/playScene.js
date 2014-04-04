@@ -47,10 +47,12 @@ var PlayLayer = cc.Layer.extend({
     _timerEasterEggs: null,
     _timerSeashell: null,
     _timerPowerUp: null,
+    _timerThrowingEasterEggs: null,
+
     _isSpawningFish: null,
     _isSpawningBubbles: null,
     _isSpawningLeafs: null,
-    _isPouringEasterEggs: null,
+    _isThrowingEasterEggs: null,
 
     //powerUps
     _powerUps: null,
@@ -145,10 +147,11 @@ var PlayLayer = cc.Layer.extend({
         this._timerFish = 0;
         this._timerLeaf = 0;
         this._timerEasterEggs = 0;
+        this._timerThrowingEasterEggs = 0;
+
         _bubbleSpawnFrequency = 0;
         this._hasHugeDecoration = false;
         this.spawnRandomDecoration();
-        this._isPouringEasterEggs = true;
 
         //init bubbles
         this._bubbles = [];
@@ -183,12 +186,12 @@ var PlayLayer = cc.Layer.extend({
         this._seashells = [];
         for (i = 1; i < MAX_SEA_SHEELS + 1; i++) {
             var seashell = cc.Sprite.createWithSpriteFrameName(i + ".png");
-            this.addChild(seashell);
+            this.addChild(seashell, 0);
             seashell.setVisible(false);
             this._seashells.push(seashell);
         }
 
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_decoration_easter_eggs_plist, s_decoration_easter_eggs_png);
+        //easter eggs
         this._easterEggs = [];
         for (i = 0; i < MAX_EASTER_EGGS; i++) {
             var easterEgg = cc.Sprite.createWithSpriteFrameName("easter_egg_" + (i % 10 + 1).toString() + ".png");
@@ -506,7 +509,7 @@ var PlayLayer = cc.Layer.extend({
                 fish.setVisible(true);
 
                 this.reorderChild(fish, distanceParam);
-                fish.setScale(DECORATION_SCALE_FACTOR * distanceParam / 2);
+                fish.setScale(DECORATION_SCALE_FACTOR / 3 * distanceParam);
 
                 positionY = getRandomArbitrary(100 * SCALE_FACTOR, this._screenSize.height - 100 * SCALE_FACTOR);
                 fish.setPosition(cc.p(this._screenSize.width, positionY));
@@ -555,23 +558,35 @@ var PlayLayer = cc.Layer.extend({
         });
     },
 
-    pourEasterEgg: function() {
+    throwEasterEgg: function() {
         var that = this;
+        var distanceParam = getRandomInt(1, 3);
         this._easterEggs.some(function(easterEgg) {
             if (!easterEgg.isVisible()) {
                 easterEgg.setVisible(true);
                 var easterEggSpawnPositionX = getRandomArbitrary(0, that._screenSize.width);
-                //var randomScale = getRandomArbitrary(1.5, DECORATION_SCALE_FACTOR);
-                easterEgg.setScale(DECORATION_SCALE_FACTOR);
-                easterEgg.setPosition(cc.p(easterEggSpawnPositionX, that._screenSize.height));
+
+                that.reorderChild(easterEgg, distanceParam);
+                easterEgg.setScale(DECORATION_SCALE_FACTOR / 3 * distanceParam);
+                easterEgg.setPosition(cc.p(easterEggSpawnPositionX, 0));
 
                 var callfunc = cc.CallFunc.create(function() {
                     easterEgg.setVisible(false);
                 });
-                var pour = cc.MoveBy.create(1, cc.p(0, -that._screenSize.height));
-                var flowWithCallfunc = cc.Sequence.create(pour, callfunc);
+                var jump = cc.JumpBy.create(1.5, cc.p(-50 * distanceParam * SCALE_FACTOR, 0), 50 * SCALE_FACTOR * distanceParam, 1);
+                var flowWithCallfunc = cc.Sequence.create(jump, callfunc);
                 easterEgg.runAction(flowWithCallfunc);
 
+                var dice = getRandomInt(0, 1);
+                var degree;
+                if (dice === 1) {
+                    degree = 360;
+                } else {
+                    degree = -360;
+                }
+
+                var rotate = cc.EaseInOut.create(cc.RotateBy.create(1.5, degree), 3);
+                easterEgg.runAction(rotate);
                 return true;
             }
         });
@@ -811,6 +826,8 @@ var PlayLayer = cc.Layer.extend({
         this._timerSeashell += delta;
         this._timerEasterEggs += delta;
 
+        var fpsFactor = DESIGN_FPS * delta;
+
         //decorations
         if (this._timerSeashell > 1) {
             this.spawnSeaShells();
@@ -825,6 +842,7 @@ var PlayLayer = cc.Layer.extend({
                 this._bubbleSpawnFrequency = getRandomArbitrary(1.5, 5);
             }
         }
+
         if (this._isSpawningFish) {
             this._timerFish += delta;
             if (this._timerFish > 0.2) {
@@ -841,15 +859,21 @@ var PlayLayer = cc.Layer.extend({
             }
         }
 
-        if (this._isPouringEasterEggs) {
+        if (getRandomInt(0, 1000 / fpsFactor) === 0) {
+            this._isThrowingEasterEggs = true;
+            this._timerThrowingEasterEggs = 0;
+        }
+
+        if (this._isThrowingEasterEggs) {
             this._timerEasterEggs += delta;
+            this._timerThrowingEasterEggs += delta;
             if (this._timerEasterEggs > 0.04) {
-                this.pourEasterEgg();
+                this.throwEasterEgg();
                 this._timerEasterEggs = 0;
             }
-        }
-        if (this._timer > 1) {
-            this._isPouringEasterEggs = false;
+            if (this._timerThrowingEasterEggs > 2) {
+                this._isThrowingEasterEggs = false;
+            }
         }
 
         if (this._timerWall > WALL_GAP_TIME) {
@@ -870,7 +894,6 @@ var PlayLayer = cc.Layer.extend({
             gravity = GRAVITY / 2;
         }
 
-        var fpsFactor = DESIGN_FPS * delta;
         this._duckVelocity -= gravity * fpsFactor;
 
         if (this._duckVelocity < 0 && this._isDuckJumping) {
@@ -933,10 +956,7 @@ var PlayLayer = cc.Layer.extend({
         }
 
         if (this._hasPowerUp == true) {
-
             this._timerPowerUp += delta;
-
-            cc.log(this._timerPowerUp);
 
             if (this._timerPowerUp > 5.0) {
                 this.removeEffect();

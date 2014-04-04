@@ -17,7 +17,6 @@ var ScoreLayer = cc.Layer.extend({
 
     _background: null,
     _menuHolder: null,
-    _timer: null,
     _bestLabel: null,
     _scoreLabel: null,
     _highScoreLabel: null,
@@ -26,6 +25,15 @@ var ScoreLayer = cc.Layer.extend({
     _tapToContinueLabel: null,
     _highScore: null,
     _fingerActions: null,
+
+    //timers
+    _timer: null,
+    _timerEasterEggs: null,
+
+    _isThrowingEasterEggs: null,
+    _isPouringEasterEggs: null,
+
+    _easterEggs: null,
 
     ctor: function() {
         this._super();
@@ -38,6 +46,8 @@ var ScoreLayer = cc.Layer.extend({
 
         //update()
         this._timer = 0;
+        this._timerEasterEggs = 0;
+        this._isPouringEasterEggs = true;
         this.scheduleUpdate();
 
         if ('touches' in sys.capabilities) {
@@ -133,6 +143,14 @@ var ScoreLayer = cc.Layer.extend({
         leaderboardMenu.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 245 * SCALE_FACTOR));
         this.addChild(leaderboardMenu, 5);
 
+        //easter eggs
+        this._easterEggs = [];
+        for (i = 0; i < MAX_EASTER_EGGS; i++) {
+            var easterEgg = cc.Sprite.createWithSpriteFrameName("easter_egg_" + (i % 10 + 1).toString() + ".png");
+            this.addChild(easterEgg, 1000);
+            easterEgg.setVisible(false);
+            this._easterEggs.push(easterEgg);
+        }
         return true;
     },
 
@@ -143,6 +161,42 @@ var ScoreLayer = cc.Layer.extend({
         this._fingerActions.pushScore(this._highScore, "YellowDuck");
         this._fingerActions.showLeaderboard();
         this._fingerActions.pushEventName("Menu", "click", "leaderboard");
+    },
+
+    update: function(delta) {
+        if (this._isPouringEasterEggs) {
+            this._timer += delta;
+            this._timerEasterEggs += delta;
+            if (this._timerEasterEggs > 0.1) {
+                this.pourEasterEgg();
+                this._timerEasterEggs = 0;
+            }
+
+            if (this._timer > 2) {
+                this._isPouringEasterEggs = false;
+            }
+        }
+    },
+
+    pourEasterEgg: function() {
+        var that = this;
+        this._easterEggs.some(function(easterEgg) {
+            if (!easterEgg.isVisible()) {
+                easterEgg.setVisible(true);
+                var easterEggSpawnPositionX = getRandomArbitrary(0, that._screenSize.width);
+                easterEgg.setScale(DECORATION_SCALE_FACTOR);
+                easterEgg.setPosition(cc.p(easterEggSpawnPositionX, that._screenSize.height));
+
+                var callfunc = cc.CallFunc.create(function() {
+                    easterEgg.setVisible(false);
+                });
+                var pour = cc.MoveBy.create(1, cc.p(0, -that._screenSize.height));
+                var flowWithCallfunc = cc.Sequence.create(pour, callfunc);
+                easterEgg.runAction(flowWithCallfunc);
+
+                return true;
+            }
+        });
     },
 
     onTouchesBegan: function(touches, event) {
