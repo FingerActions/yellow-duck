@@ -849,12 +849,12 @@ var PlayLayer = cc.Layer.extend({
         this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity * fpsFactor));
 
         //treasure
-        if (getRandomInt(0, 200000) === 0) {
+        if (getRandomInt(0, 200000 / fpsFactor) === 0) {
             this.spawnTreasure();
         }
 
         //seaweed
-        if (getRandomInt(0, 400) === 0) {
+        if (getRandomInt(0, 400 / fpsFactor) === 0) {
             this.spawnSeaweed();
         }
 
