@@ -1035,16 +1035,9 @@ var PlayLayer = cc.Layer.extend({
         this._duck.runAction(duckRotate);
         this._isDuckJumping = true;
 
-        if (getRandomInt(0, 14) === 0) {
-            var swimA = cc.RotateBy.create(0.6, 720);
-            var swimB = cc.RotateTo.create(0.2, -80);
-        } else if (getRandomInt(0, 14) <= 3) {
-            var swimA = cc.RotateBy.create(0.4, 360);
-            var swimB = cc.RotateTo.create(0.2, -80);
-        } else {
-            var swimA = cc.RotateTo.create(0.2, 20);
-            var swimB = cc.RotateTo.create(0.2, -80);
-        }
+        //swim animation
+        var swimA = cc.RotateTo.create(0.2, 20);
+        var swimB = cc.RotateTo.create(0.2, -80);
         var swim = cc.Sequence.create(swimA, swimB);
         this._duckWing.runAction(swim);
     },
