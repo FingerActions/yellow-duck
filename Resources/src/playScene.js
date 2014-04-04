@@ -19,6 +19,7 @@ var g_sharedGameLayer;
 var PlayLayer = cc.Layer.extend({
     _flyingAction: null,
     _duck: null,
+    _duckWing: null,
     _background: null,
     _walls: null,
     _screenSize: null,
@@ -106,15 +107,12 @@ var PlayLayer = cc.Layer.extend({
         this._isDuckJumping = false;
         this._duck = cc.Sprite.create(s_duck);
         this._duck.setPosition(cc.p(85 * SCALE_FACTOR, this._screenSize.height / 2));
-        var duckWing = cc.Sprite.create(s_duck_wing);
-        var wingSize = duckWing.getContentSize();
-        duckWing.setPosition(cc.p(18 * SCALE_FACTOR - wingSize.width / 2 + wingSize.width * 0.75, 12 * SCALE_FACTOR - wingSize.height / 2 + wingSize.height * 0.6));
-        var swimA = cc.RotateTo.create(0.5, -80);
-        var swimB = cc.RotateTo.create(0.5, 20);
-        var swim = cc.Sequence.create(swimA, swimB);
-        duckWing.setAnchorPoint(cc.p(0.75, 0.6));
-        duckWing.runAction(cc.RepeatForever.create(swim));
-        this._duck.addChild(duckWing);
+        this._duckWing = cc.Sprite.create(s_duck_wing);
+        var wingSize = this._duckWing.getContentSize();
+        this._duckWing.setPosition(cc.p(18 * SCALE_FACTOR - wingSize.width / 2 + wingSize.width * 0.75, 12 * SCALE_FACTOR - wingSize.height / 2 + wingSize.height * 0.6));
+        this._duckWing.setAnchorPoint(cc.p(0.75, 0.6));
+
+        this._duck.addChild(this._duckWing);
 
         this._duckVelocity = 0;
         this.addChild(this._duck, 1000);
@@ -1028,15 +1026,27 @@ var PlayLayer = cc.Layer.extend({
         }
         audioEngin.playEffect(s_jump_effect);
         this._duckVelocity = JUMP_VELOCITY;
-        var swimActionKind = getRandomInt(0, 9);
         var duckRotate;
-        if (swimActionKind === 0) {
+        if (getRandomInt(0, 14) === 0) {
             duckRotate = cc.RotateBy.create(0.5, -400);
         } else {
             duckRotate = cc.RotateTo.create(0.1, -25);
         }
         this._duck.runAction(duckRotate);
         this._isDuckJumping = true;
+
+        if (getRandomInt(0, 14) === 0) {
+            var swimA = cc.RotateBy.create(0.6, 720);
+            var swimB = cc.RotateTo.create(0.2, -80);
+        } else if (getRandomInt(0, 14) <= 3) {
+            var swimA = cc.RotateBy.create(0.4, 360);
+            var swimB = cc.RotateTo.create(0.2, -80);
+        } else {
+            var swimA = cc.RotateTo.create(0.2, 20);
+            var swimB = cc.RotateTo.create(0.2, -80);
+        }
+        var swim = cc.Sequence.create(swimA, swimB);
+        this._duckWing.runAction(swim);
     },
 
     checkGameOver: function() {
