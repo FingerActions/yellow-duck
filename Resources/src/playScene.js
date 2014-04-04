@@ -31,22 +31,26 @@ var PlayLayer = cc.Layer.extend({
     _fish: null,
     _leafs: null,
     _seashells: null,
+    _easterEggs: null,
     _isDuckJumping: null,
     _fingerActions: null,
     _gameover: null,
     _powerUpBatch: null,
 
     //timers
+    _timer: null,
     _timerScore: null,
     _timerWall: null,
     _timerBubble: null,
     _timerFish: null,
     _timerLeaf: null,
+    _timerEasterEggs: null,
     _timerSeashell: null,
     _timerPowerUp: null,
     _isSpawningFish: null,
     _isSpawningBubbles: null,
     _isSpawningLeafs: null,
+    _isPouringEasterEggs: null,
 
     //powerUps
     _powerUps: null,
@@ -136,12 +140,15 @@ var PlayLayer = cc.Layer.extend({
         this.addChild(this._scoreLabel, 500);
 
         //decorations
+        this._timer = 0;
         this._timerBubble = 0;
         this._timerFish = 0;
         this._timerLeaf = 0;
+        this._timerEasterEggs = 0;
         _bubbleSpawnFrequency = 0;
         this._hasHugeDecoration = false;
         this.spawnRandomDecoration();
+        this._isPouringEasterEggs = true;
 
         //init bubbles
         this._bubbles = [];
@@ -174,16 +181,21 @@ var PlayLayer = cc.Layer.extend({
 
         //sea shells
         this._seashells = [];
-        for (i = 1; i < MAX_SEA_SHEELS; i++) {
+        for (i = 1; i < MAX_SEA_SHEELS + 1; i++) {
             var seashell = cc.Sprite.createWithSpriteFrameName(i + ".png");
             this.addChild(seashell);
             seashell.setVisible(false);
             this._seashells.push(seashell);
         }
 
-        _isSpawningFish = false;
-        _isSpawningBubbles = false;
-        _isSpawningLeafs = false;
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_decoration_easter_eggs_plist, s_decoration_easter_eggs_png);
+        this._easterEggs = [];
+        for (i = 0; i < MAX_EASTER_EGGS; i++) {
+            var easterEgg = cc.Sprite.createWithSpriteFrameName("easter_egg_" + (i % 10 + 1).toString() + ".png");
+            this.addChild(easterEgg);
+            easterEgg.setVisible(false);
+            this._easterEggs.push(easterEgg);
+        }
 
         this._passedFirstWall = false;
         this._gameover = false;
@@ -295,7 +307,6 @@ var PlayLayer = cc.Layer.extend({
                         this._hasPowerUpOnScreen = false;
                     }.bind(this));
 
-
                     var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
                     this._addPowerup.runAction(flowWithCallfunc);
                     var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
@@ -325,30 +336,22 @@ var PlayLayer = cc.Layer.extend({
                     this._isLight = true;
                     this._duck.setScale(0.2);
                     this._hasPowerUp = true;
-
-
                 }
                 break;
 
             case YD.POWERUP_TYPE.LOSEGRAVITY:
                 {
-
                     this._hasPowerUp = true;
-
                 }
                 break;
 
 
             case YD.POWERUP_TYPE.OPPOSITGRAVITY:
                 {
-
                     this._hasPowerUp = true;
-
                 }
                 break;
         }
-
-
     },
 
     removeEffect: function() {
@@ -377,20 +380,16 @@ var PlayLayer = cc.Layer.extend({
                 {
                     this._hasPowerUp = false;
                     this._currentMode = null;
-
                 }
                 break;
 
             case YD.POWERUP_TYPE.OPPOSITGRAVITY:
                 {
-
                     this._hasPowerUp = false;
                     this._currentMode = null;
-
                 }
                 break;
         }
-
     },
 
     powerUp: function() {
@@ -403,7 +402,6 @@ var PlayLayer = cc.Layer.extend({
                     this._hasPowerUpOnScreen = false;
                     this._addPowerup.destroy();
                     this.performEffect();
-
                 }
                 break;
 
@@ -438,8 +436,6 @@ var PlayLayer = cc.Layer.extend({
                 }
                 break;
         }
-
-
     },
 
 
@@ -554,6 +550,28 @@ var PlayLayer = cc.Layer.extend({
                 var driftTo = cc.RotateBy.create(getRandomArbitrary(0.6, 0.9), getRandomArbitrary(-35, -75));
                 var drift = cc.Sequence.create(driftFrom, driftTo);
                 leaf.runAction(cc.RepeatForever.create(drift));
+                return true;
+            }
+        });
+    },
+
+    pourEasterEgg: function() {
+        var that = this;
+        this._easterEggs.some(function(easterEgg) {
+            if (!easterEgg.isVisible()) {
+                easterEgg.setVisible(true);
+                var easterEggSpawnPositionX = getRandomArbitrary(0, that._screenSize.width);
+                //var randomScale = getRandomArbitrary(1.5, DECORATION_SCALE_FACTOR);
+                easterEgg.setScale(DECORATION_SCALE_FACTOR);
+                easterEgg.setPosition(cc.p(easterEggSpawnPositionX, that._screenSize.height));
+
+                var callfunc = cc.CallFunc.create(function() {
+                    easterEgg.setVisible(false);
+                });
+                var pour = cc.MoveBy.create(1, cc.p(0, -that._screenSize.height));
+                var flowWithCallfunc = cc.Sequence.create(pour, callfunc);
+                easterEgg.runAction(flowWithCallfunc);
+
                 return true;
             }
         });
@@ -787,9 +805,11 @@ var PlayLayer = cc.Layer.extend({
     },
 
     update: function(delta) {
+        this._timer += delta;
         this._timerWall += delta;
         this._timerScore += delta;
         this._timerSeashell += delta;
+        this._timerEasterEggs += delta;
 
         //decorations
         if (this._timerSeashell > 1) {
@@ -819,6 +839,17 @@ var PlayLayer = cc.Layer.extend({
                 this.spawnLeaf();
                 this._timerLeaf = 0;
             }
+        }
+
+        if (this._isPouringEasterEggs) {
+            this._timerEasterEggs += delta;
+            if (this._timerEasterEggs > 0.04) {
+                this.pourEasterEgg();
+                this._timerEasterEggs = 0;
+            }
+        }
+        if (this._timer > 1) {
+            this._isPouringEasterEggs = false;
         }
 
         if (this._timerWall > WALL_GAP_TIME) {
@@ -908,13 +939,10 @@ var PlayLayer = cc.Layer.extend({
             cc.log(this._timerPowerUp);
 
             if (this._timerPowerUp > 5.0) {
-
                 this.removeEffect();
-
                 this._timerPowerUp = 0;
             }
         }
-
     },
 
     turnDuckBack: function() {

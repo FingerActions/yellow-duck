@@ -27,10 +27,11 @@ var JUMP_VELOCITY = 7 * SCALE_FACTOR;
 var MAX_NUM_BUBBLES = 5;
 var MAX_NUM_FISH = 20;
 var MAX_NUM_LEAFS = 5;
+var MAX_EASTER_EGGS = 30;
 var MAX_NUM_WALLS = 6;
 var WALL_GAP_TIME = 1.5;
 var WALL_APPEAR_TIME = 2.5;
-var MAX_SEA_SHEELS = 7;
+var MAX_SEA_SHEELS = 6;
 var DESIGN_FPS = 60;
 
 // static variables
@@ -50,11 +51,8 @@ function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-
 // Returns bool value of an event according to occurence rate
 // rate should be 1 - 100
 function getRandomOccurence(rate) {
-
     return getRandomInt(1, 100) <= rate ? true : false;
-
 }
