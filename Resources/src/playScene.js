@@ -826,30 +826,38 @@ var PlayLayer = cc.Layer.extend({
             this._timerWall = 0;
         }
 
+        //duck position
         var duckPrePosition = this._duck.getPosition();
         if (duckPrePosition.y > this._screenSize.height) {
             this._duckVelocity = 0;
         }
 
+        var gravity;
         if (!this._isLight) {
-            this._duckVelocity -= GRAVITY;
+            gravity = GRAVITY;
         } else {
-            this._duckVelocity -= GRAVITY / 2;
+            gravity = GRAVITY / 2;
         }
+
+        var fpsFactor = DESIGN_FPS * delta;
+        this._duckVelocity -= gravity * fpsFactor;
 
         if (this._duckVelocity < 0 && this._isDuckJumping) {
             this.turnDuckBack();
         }
 
+        this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity * fpsFactor));
+
+        //treasure
         if (getRandomInt(0, 200000) === 0) {
             this.spawnTreasure();
         }
 
+        //seaweed
         if (getRandomInt(0, 400) === 0) {
             this.spawnSeaweed();
         }
 
-        this._duck.setPosition(cc.p(duckPrePosition.x, duckPrePosition.y + this._duckVelocity));
         this.checkGameOver();
         this._scoreLabel.setString(this._score);
 
