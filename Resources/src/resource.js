@@ -12,25 +12,27 @@
 //
 /////////////////////////////////////////////////////////////////////
 
+//backgrounds
 var s_play_background_top_png = "res/backgrounds/play_top.png";
 var s_play_background_bottom_png = "res/backgrounds/play_bottom.png";
 var s_play_background_dark_top_png = "res/backgrounds/play_dark_top.png";
 var s_play_background_dark_bottom_png = "res/backgrounds/play_dark_bottom.png";
 
+//score scene backgrounds
 var s_score_background_1_png = "res/backgrounds/score_1.png";
 var s_score_background_2_png = "res/backgrounds/score_2.png";
 var s_score_background_3_png = "res/backgrounds/score_3.png";
 var s_high_score_background_png = "res/backgrounds/high_score.png";
 
+//buttons
 var s_tap_to_start_png = "res/buttons/tap_to_start.png";
 var s_leaderboard_png = "res/buttons/leaderboard.png";
 
+//decorations
 var s_decoration_bubble_png = "res/decorations/bubble.png";
 var s_decoration_leaf_png = "res/decorations/leaf.png";
 var s_decoration_fish_png = "res/decorations/fish/fish.png";
 var s_decoration_fish_plist = "res/decorations/fish/fish.plist";
-var s_decoration_easter_eggs_png = "res/decorations/easter_eggs/easter_eggs.png";
-var s_decoration_easter_eggs_plist = "res/decorations/easter_eggs/easter_eggs.plist";
 var s_decoration_mermaid_png = "res/decorations/mermaid.png";
 var s_decoration_snowman_png = "res/decorations/snowman.png";
 var s_decoration_crab_png = "res/decorations/crab.png";
@@ -58,25 +60,23 @@ var s_decoration_easter_eggs_plist = "res/decorations/easter_eggs/easter_eggs.pl
 var s_score_easter_1_png = "res/backgrounds/score_easter_1.png";
 var s_score_easter_2_png = "res/backgrounds/score_easter_2.png";
 
+//power-ups
 var s_powerup_png = "res/powerup/powerup.png";
 var s_powerup_plist = "res/powerup/powerup.plist";
 
+//duck
 var s_duck = "res/duck/duck.png";
 var s_duck_wing = "res/duck/duck_wing.png";
 
+//sound effects
 var s_drowned_effect = "res/sound_effects/drowned.mp3";
-
 var s_poped_effect = "res/sound_effects/poped.mp3";
 var s_jump_effect = "res/sound_effects/jump.mp3";
 var s_wall = "res/walls/wall.png";
 
-
 //particle system
-
 var s_stars1 = "res/decorations/stars.png";
-
 var s_stars2 = "res/decorations/stars2.png";
-
 
 var g_ressources = [
     //image
