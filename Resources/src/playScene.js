@@ -224,6 +224,29 @@ var PlayLayer = cc.Layer.extend({
 
         return true;
     },
+                                
+                                
+    generateSmoke: function(obj) {
+                                
+        this._emitter = cc.ParticleSmoke.create();
+        obj.addChild(this._emitter, 10);
+        this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_decoration_particle_fire_png));
+        this._emitter.setPosition(0, 0);
+    },
+
+    generateSun: function(obj) {
+
+        this._emitter = cc.ParticleSun.create();
+        obj.addChild(this._emitter, 10);
+        var myTexture = cc.TextureCache.getInstance().addImage(s_decoration_particle_fire_png);
+        this._emitter.setTexture(myTexture);
+        if (this._emitter.setShapeType)
+            this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
+        this._emitter.setPosition(0, 0);
+
+    },
+
+
 
     //power up
     addPowerUpToGame: function(powerUpType) {
@@ -261,8 +284,8 @@ var PlayLayer = cc.Layer.extend({
         switch (this._currentMode) {
             case YD.POWERUP_TYPE.BIG:
                 {
+                                
                     this._isBig = true;
-
                     var blink = cc.Blink.create(2, 4);
                     var callfunc = cc.CallFunc.create(function() {
                         var deamonTexture = cc.TextureCache.getInstance().addImage(s_duck_deamon_png);
@@ -273,12 +296,12 @@ var PlayLayer = cc.Layer.extend({
                     var grow = cc.ScaleBy.create(3, 3);
                     var blinkGrowWithCallfunc = cc.Sequence.create(blink, callfunc, grow);
                     this._duck.runAction(blinkGrowWithCallfunc);
-
+                    this.generateSun(this._duck);
                     var moveForward = cc.MoveTo.create(3, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
                     this._duck.runAction(moveForward);
                     this._hasPowerUpEffect = true;
                     this.popTextOnScreen("Heavy!");
-
+                                
                 }
                 break;
 

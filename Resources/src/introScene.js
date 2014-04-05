@@ -109,7 +109,14 @@ var IntroLayer = cc.Layer.extend({
         return true;
     },
 
+    generateSmoke: function() {
 
+        this._emitter = cc.ParticleSmoke.create();
+        this.addChild(this._emitter, 100001);
+        this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_decoration_particle_fire_png));
+        this._emitter.setPosition(this._screenSize.width / 2 + 60 * SCALE_FACTOR, this._screenSize.height / 2 - 60 * SCALE_FACTOR);
+
+    },
     generateParticleFlower: function() {
         this._emitter = cc.ParticleSystem.createWithTotalParticles(50);
 
