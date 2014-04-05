@@ -41,6 +41,7 @@ var PlayLayer = cc.Layer.extend({
     _timer: null,
     _timerScore: null,
     _timerWall: null,
+    _timerKnockWall: null,
     _timerBubble: null,
     _timerFish: null,
     _timerLeaf: null,
@@ -60,11 +61,13 @@ var PlayLayer = cc.Layer.extend({
     _emitter: null,
 
     _isBig: false,
+    _isHeavy: false,
     _isSmall: null,
     _isOppositGravity: null,
     _hasPowerUpEffect: null,
     _hasPowerUpOnScreen: null,
     _currentMode: null,
+    _heavyGravity: null,
 
     //sound
     audioEngin: null,
@@ -114,7 +117,7 @@ var PlayLayer = cc.Layer.extend({
 
         this._duck.addChild(this._duckWing);
 
-        this._duckVelocity = 0;
+        this._duckVelocity = JUMP_VELOCITY;
         this.addChild(this._duck, 1000);
 
         //walls
@@ -209,6 +212,8 @@ var PlayLayer = cc.Layer.extend({
         //reset global values
         YD.CONTAINER.POWERUP = [];
 
+        this._heavyGravity = GRAVITY;
+        this._isSmall = false;
         //TransparentBatch
         var powerUp = cc.TextureCache.getInstance().addImage(s_powerup_png);
         this._powerUpBatch = cc.SpriteBatchNode.createWithTexture(powerUp);
@@ -231,14 +236,13 @@ var PlayLayer = cc.Layer.extend({
         this._powerUp.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
         var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
         var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
-        var wait = cc.MoveBy.create(2, cc.p(0, -20 * SCALE_FACTOR));
 
         var callfunc = cc.CallFunc.create(function() {
             this._powerUp.destroy();
             this._hasPowerUpOnScreen = false;
         }.bind(this));
 
-        var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
+        var flowWithCallfunc = cc.Sequence.create(jumpIn, flow, callfunc);
         this._powerUp.runAction(flowWithCallfunc);
         var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
         var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
@@ -254,25 +258,23 @@ var PlayLayer = cc.Layer.extend({
     },
 
     performPowerUpEffect: function() {
-        cc.log('performPowerUpEffect');
-        cc.log(this._currentMode);
-
         switch (this._currentMode) {
             case YD.POWERUP_TYPE.BIG:
                 {
                     this._isBig = true;
 
-                    var blink = cc.Blink.create(0.5, 3);
+                    var blink = cc.Blink.create(2, 4);
                     var callfunc = cc.CallFunc.create(function() {
                         var deamonTexture = cc.TextureCache.getInstance().addImage(s_duck_deamon_png);
                         this._duck.setTexture(deamonTexture);
                         this._duckWing.setVisible(false);
+                        this._isHeavy = true;
                     }.bind(this));
-                    var grow = cc.ScaleBy.create(1, 3);
+                    var grow = cc.ScaleBy.create(3, 3);
                     var blinkGrowWithCallfunc = cc.Sequence.create(blink, callfunc, grow);
                     this._duck.runAction(blinkGrowWithCallfunc);
 
-                    var moveForward = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
+                    var moveForward = cc.MoveTo.create(3, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
                     this._duck.runAction(moveForward);
                     this._hasPowerUpEffect = true;
 
@@ -284,10 +286,10 @@ var PlayLayer = cc.Layer.extend({
                 {
                     this._isSmall = true;
 
-                    var shrink = cc.ScaleBy.create(1, 0.5);
+                    var shrink = cc.ScaleBy.create(2, 0.2);
                     this._duck.runAction(shrink);
                     this._hasPowerUpEffect = true;
-
+                    this._duckVelocity = 0;
                     this.popTextOnScreen("Small!");
                 }
                 break;
@@ -323,9 +325,11 @@ var PlayLayer = cc.Layer.extend({
     },
 
     removeEffect: function() {
+        this._heavyGravity = GRAVITY;
         var scaleBack = cc.ScaleTo.create(1, 1);
         var callfunc = cc.CallFunc.create(function() {
             this._isBig = false;
+            this._isHeavy = false;
             this._isSmall = false;
             this._isOppositGravity = false;
             this._hasPowerUpEffect = false;
@@ -333,7 +337,7 @@ var PlayLayer = cc.Layer.extend({
 
             this._duckWing.setVisible(true);
             var duckTexture = cc.TextureCache.getInstance().addImage(s_duck);
-            this._duck.setTexture(duckTexture)
+            this._duck.setTexture(duckTexture);
         }.bind(this));
 
         var scaleBackWithCallfunc = cc.Sequence.create(scaleBack, callfunc);
@@ -740,6 +744,7 @@ var PlayLayer = cc.Layer.extend({
         this._timerScore += delta;
         this._timerSeashell += delta;
         this._timerEasterEggs += delta;
+        this._timerKnockWall += delta;
 
         var fpsFactor = DESIGN_FPS * delta;
 
@@ -803,10 +808,14 @@ var PlayLayer = cc.Layer.extend({
         }
 
         var gravity;
+
         if (this._isSmall) {
             gravity = 0;
-        } else if (this._isBig) {
-            gravity = GRAVITY * 3;
+        } else if (this._isHeavy) {
+            if (this._heavyGravity < GRAVITY * 3) {
+                this._heavyGravity += 2 * GRAVITY / 3 * delta;
+            }
+            gravity = this._heavyGravity;
         } else if (this._isOppositGravity) {
             gravity = -GRAVITY;
         } else {
@@ -871,7 +880,6 @@ var PlayLayer = cc.Layer.extend({
         //powerup
         if (getRandomInt(0, 40 / fpsFactor) === 0 && !this._hasPowerUpOnScreen && !this._hasPowerUpEffect) {
             dice = getRandomInt(0, 2);
-            dice = 0;
             this.addPowerUpToGame(dice);
             this._hasPowerUpOnScreen = true;
         }
@@ -879,7 +887,7 @@ var PlayLayer = cc.Layer.extend({
         if (this._hasPowerUpEffect === true) {
             this._timerPowerUp += delta;
 
-            if (this._timerPowerUp > 5.0) {
+            if (this._timerPowerUp > 15.0) {
                 this.removeEffect();
                 this._timerPowerUp = 0;
             }
@@ -916,12 +924,16 @@ var PlayLayer = cc.Layer.extend({
                 break;
             }
         }
+
         var wallWidth = thisWalls[0].getContentSize().width;
         var wallHeight = thisWalls[0].getContentSize().height;
 
         thisWalls[1].setRotation(180);
+        thisWalls[1].isTop = false;
         thisWalls[0].setPosition(cc.p(this._screenSize.width + wallWidth / 2, this._screenSize.height + wallHeight / 2));
+        thisWalls[0].isTop = true;
         var flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - wallWidth, 0));
+        flow.setTag(0);
         var wallTopHeight = getRandomArbitrary(50, 300);
         var spawn = cc.MoveBy.create(0.5, cc.p(0, -wallTopHeight * SCALE_FACTOR));
 
@@ -935,19 +947,25 @@ var PlayLayer = cc.Layer.extend({
         thisWalls[0].runAction(flowWithCallfunc);
 
         thisWalls[1].setPosition(cc.p(this._screenSize.width + wallWidth / 2, -wallHeight / 2));
+
         flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - wallWidth, 0));
         flow.setTag(0);
         wallGap = getRandomArbitrary(WALL_MIN_GAP, WALL_MAX_GAP);
         spawn = cc.MoveBy.create(0.5, cc.p(0, this._screenSize.height - wallTopHeight * SCALE_FACTOR - wallGap));
-
         thisWalls[1].runAction(flow);
         thisWalls[1].runAction(spawn);
     },
 
     knockDownWall: function(wall) {
         wall.stopActionByTag(0);
-        var randomY = getRandomArbitrary(0, this._screenSize.height);
-        var moveForward = cc.MoveTo.create(0.1, cc.p(this._screenSize.width + wall.getContentSize().width / 2, randomY));
+        var randomY;
+        if (wall.isTop) {
+            randomY = getRandomArbitrary(this._screenSize.height / 3 * 2, this._screenSize.height);
+        } else {
+            randomY = getRandomArbitrary(0, this._screenSize.height / 3);
+        }
+        var width = wall.getContentSize().width;
+        var moveForward = cc.MoveTo.create(0.5, cc.p(this._screenSize.width + width, randomY));
         var callfunc = cc.CallFunc.create(function() {
             wall.setVisible(false);
         });
@@ -964,10 +982,20 @@ var PlayLayer = cc.Layer.extend({
         audioEngin.playEffect(s_jump_effect);
         if (this._isOppositGravity) {
             this._duckVelocity = -JUMP_VELOCITY;
-        } else if (this._isOppositGravity) {
+        } else if (this._isSmall) {
             var touchPositionY = touches[0].getLocation().y;
-            cc.log('touchPositionY');
             cc.log(touchPositionY);
+            if (touchPositionY < this._screenSize.height / 2) {
+                if (this._duckVelocity > 0) {
+                    this._duckVelocity = 0;
+                }
+                this._duckVelocity -= 10;
+            } else {
+                if (this._duckVelocity < 0) {
+                    this._duckVelocity = 0;
+                }
+                this._duckVelocity += 10;
+            }
         } else {
             this._duckVelocity = JUMP_VELOCITY;
         }
@@ -1004,7 +1032,10 @@ var PlayLayer = cc.Layer.extend({
         for (var i = 0; i < walls.length; i++) {
             if (this.isObjTouched(this._duck, this._walls[i])) {
                 if (this._isBig) {
-                    this.knockDownWall(this._walls[i]);
+                    if (this._timerKnockWall > 0.5) {
+                        this.knockDownWall(this._walls[i]);
+                        this._timerKnockWall = 0;
+                    }
                 } else {
                     this.gameOver(true);
                 }
