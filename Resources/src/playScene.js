@@ -943,7 +943,12 @@ var PlayLayer = cc.Layer.extend({
         if (this._isGameOver) {
             return;
         }
-        audioEngin.playEffect(s_jump_effect);
+
+        if (this._isBig) {
+            audioEngin.playEffect(s_jump_slow_effect);
+        } else {
+            audioEngin.playEffect(s_jump_effect);
+        }
         if (this._isOppositGravity) {
             this._duckVelocity = -JUMP_VELOCITY;
         } else if (this._isOppositGravity) {
