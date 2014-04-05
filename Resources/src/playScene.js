@@ -263,7 +263,7 @@ var PlayLayer = cc.Layer.extend({
 
     performPowerUpEffect: function() {
         this._isInvincible = true;
-        var blink = cc.Blink.create(2, 4);
+        var blink = cc.Blink.create(BLINK_DURATION, BLINK_TIMES);
         switch (this._currentMode) {
             case YD.POWERUP_TYPE.BIG:
                 {
@@ -273,7 +273,7 @@ var PlayLayer = cc.Layer.extend({
                         this._duckWing.setVisible(false);
                         this._isHeavy = true;
                     }.bind(this));
-                    var grow = cc.ScaleBy.create(3, 3);
+                    var grow = cc.ScaleBy.create(GROW_DURATION, 3);
                     var blinkGrowWithCallfunc = cc.Sequence.create(blink, callfunc, grow);
                     this._duck.runAction(blinkGrowWithCallfunc);
 
@@ -288,12 +288,14 @@ var PlayLayer = cc.Layer.extend({
 
             case YD.POWERUP_TYPE.SMALL:
                 {
+                    this._duck.runAction(blink);
+
                     var callfunc = cc.CallFunc.create(function() {
                         this._isInvincible = false;
                     }.bind(this));
-                    var shrink = cc.ScaleBy.create(3, 0.2);
-                    var blinkShrinkWithCallfunc = cc.Sequence.create(blink, callfunc, shrink);
-                    this._duck.runAction(blinkShrinkWithCallfunc);
+                    var shrink = cc.ScaleBy.create(2, 0.2);
+                    var shrinkWithCallfunc = cc.Sequence.create(shrink, callfunc);
+                    this._duck.runAction(shrinkWithCallfunc);
 
                     this._isSmall = true;
                     this._hasPowerUpEffect = true;
@@ -823,7 +825,7 @@ var PlayLayer = cc.Layer.extend({
             gravity = 0;
         } else if (this._isHeavy) {
             if (this._heavyGravity < GRAVITY * 3) {
-                this._heavyGravity += 2 * GRAVITY / 3 * delta;
+                this._heavyGravity += 2 * GRAVITY / GROW_DURATION * delta;
             }
             gravity = this._heavyGravity;
         } else if (this._isOppositGravity) {

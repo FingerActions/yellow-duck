@@ -34,6 +34,10 @@ var WALL_APPEAR_TIME = 2.5;
 var MAX_SEA_SHEELS = 6;
 var DESIGN_FPS = 60;
 
+var BLINK_DURATION = 4;
+var BLINK_TIMES = 8;
+var GROW_DURATION = 5;
+
 // static variables
 var s_currentScore = 0;
 var s_gameStarted = false;
