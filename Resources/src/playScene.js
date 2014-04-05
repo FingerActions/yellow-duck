@@ -217,7 +217,7 @@ var PlayLayer = cc.Layer.extend({
         //TransparentBatch
         var powerUp = cc.TextureCache.getInstance().addImage(s_powerup_png);
         this._powerUpBatch = cc.SpriteBatchNode.createWithTexture(powerUp);
-        this.addChild(this._powerUpBatch);
+        this.addChild(this._powerUpBatch, 1000);
         g_sharedGameLayer = this;
         //pre set
         PowerUp.preSet();
