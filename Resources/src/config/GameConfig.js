@@ -17,22 +17,17 @@ var YD = YD || {};
 
 //power up types
 YD.POWERUP_TYPE = {
-    HEAVY: 1,
-    OPPOSITGRAVITY: 2,
-    LIGHT: 3,
-    LOSEGRAVITY: 4
+    BIG: 1,
+    SMALL: 2,
+    OPPOSIT_GRAVITY: 3
 };
 
 YD.CONTAINER = {
-
     POWERUP: []
-
 };
 
 YD.UNIT_TAG = {
-
     POWERUP: 1000
-
 };
 
 YD.SCREEN_SIZE = null;

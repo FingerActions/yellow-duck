@@ -14,7 +14,6 @@
 
 
 var ScoreLayer = cc.Layer.extend({
-
     _background: null,
     _menuHolder: null,
     _bestLabel: null,

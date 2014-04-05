@@ -58,8 +58,10 @@ var PlayLayer = cc.Layer.extend({
 
     //powerUps
     _emitter: null,
-    _isHeavy: false,
-    _isLight: null,
+
+    _isBig: false,
+    _isSmall: null,
+    _isOppositGravity: null,
     _hasPowerUpEffect: null,
     _hasPowerUpOnScreen: null,
     _currentMode: null,
@@ -252,12 +254,23 @@ var PlayLayer = cc.Layer.extend({
     },
 
     performPowerUpEffect: function() {
+        cc.log('performPowerUpEffect');
+        cc.log(this._currentMode);
+
         switch (this._currentMode) {
-            case YD.POWERUP_TYPE.HEAVY:
+            case YD.POWERUP_TYPE.BIG:
                 {
-                    this._isHeavy = true;
+                    this._isBig = true;
+
+                    var blink = cc.Blink.create(0.5, 3);
+                    var callfunc = cc.CallFunc.create(function() {
+                        var deamonTexture = cc.TextureCache.getInstance().addImage(s_duck_deamon_png);
+                        this._duck.setTexture(deamonTexture);
+                        this._duckWing.setVisible(false);
+                    }.bind(this));
                     var grow = cc.ScaleBy.create(1, 3);
-                    this._duck.runAction(grow);
+                    var blinkGrowWithCallfunc = cc.Sequence.create(blink, callfunc, grow);
+                    this._duck.runAction(blinkGrowWithCallfunc);
 
                     var moveForward = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
                     this._duck.runAction(moveForward);
@@ -265,37 +278,17 @@ var PlayLayer = cc.Layer.extend({
                 }
                 break;
 
-            case YD.POWERUP_TYPE.LIGHT:
+            case YD.POWERUP_TYPE.SMALL:
                 {
-                    this._isLight = true;
+                    this._isSmall = true;
                     var shrink = cc.ScaleBy.create(1, 0.5);
                     this._duck.runAction(shrink);
                     this._hasPowerUpEffect = true;
                 }
                 break;
-
-            case YD.POWERUP_TYPE.LOSEGRAVITY:
+            case YD.POWERUP_TYPE.OPPOSIT_GRAVITY:
                 {
-                    this._isHeavy = true;
-                    var grow = cc.ScaleBy.create(1, 3);
-                    this._duck.runAction(grow);
-                    this._hasPowerUpEffect = true;
-
-                    var moveForward = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
-                    this._duck.runAction(moveForward);
-                }
-                break;
-
-
-            case YD.POWERUP_TYPE.OPPOSITGRAVITY:
-                {
-                    this._isHeavy = true;
-                    var grow = cc.ScaleBy.create(1, 3);
-                    this._duck.runAction(grow);
-                    this._hasPowerUpEffect = true;
-
-                    var moveForward = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
-                    this._duck.runAction(moveForward);
+                    this._isOppositGravity = true;
                 }
                 break;
         }
@@ -304,10 +297,15 @@ var PlayLayer = cc.Layer.extend({
     removeEffect: function() {
         var scaleBack = cc.ScaleTo.create(1, 1);
         var callfunc = cc.CallFunc.create(function() {
-            this._isHeavy = false;
-            this._isLight = false;
+            this._isBig = false;
+            this._isSmall = false;
+            this._isOppositGravity = false;
             this._hasPowerUpEffect = false;
             this._currentMode = null;
+
+            this._duckWing.setVisible(true);
+            var duckTexture = cc.TextureCache.getInstance().addImage(s_duck);
+            this._duck.setTexture(duckTexture)
         }.bind(this));
 
         var scaleBackWithCallfunc = cc.Sequence.create(scaleBack, callfunc);
@@ -777,10 +775,12 @@ var PlayLayer = cc.Layer.extend({
         }
 
         var gravity;
-        if (this._isLight) {
-            gravity = GRAVITY / 2;
-        } else if (this._isHeavy) {
+        if (this._isSmall) {
+            gravity = 0;
+        } else if (this._isBig) {
             gravity = GRAVITY * 3;
+        } else if (this._isOppositGravity) {
+            gravity = -GRAVITY;
         } else {
             gravity = GRAVITY;
         }
@@ -842,7 +842,8 @@ var PlayLayer = cc.Layer.extend({
 
         //powerup
         if (getRandomInt(0, 40 / fpsFactor) === 0 && !this._hasPowerUpOnScreen && !this._hasPowerUpEffect) {
-            dice = getRandomInt(0, 3);
+            dice = getRandomInt(0, 2);
+            dice = 0;
             this.addPowerUpToGame(dice);
             this._hasPowerUpOnScreen = true;
         }
@@ -919,7 +920,15 @@ var PlayLayer = cc.Layer.extend({
             return;
         }
         audioEngin.playEffect(s_jump_effect);
-        this._duckVelocity = JUMP_VELOCITY;
+        if (this._isOppositGravity) {
+            this._duckVelocity = -JUMP_VELOCITY;
+        } else if (this._isOppositGravity) {
+            var touchPositionY = touches[0].getLocation().y;
+            cc.log('touchPositionY');
+            cc.log(touchPositionY);
+        } else {
+            this._duckVelocity = JUMP_VELOCITY;
+        }
         var duckRotate;
         if (getRandomInt(0, 14) === 0) {
             duckRotate = cc.RotateBy.create(0.5, -400);
@@ -949,7 +958,7 @@ var PlayLayer = cc.Layer.extend({
             this.gameOver(false);
         }
         var walls = this._walls;
-        if (this._isHeavy === false) {
+        if (this._isBig === false) {
             for (var i = 0; i < walls.length; i++) {
                 if (this.isObjTouched(this._duck, this._walls[i])) {
                     this.gameOver(true);

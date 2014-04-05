@@ -47,10 +47,6 @@ var s_decoration_seashell_png = "res/decorations/sea_shells/sea_shells.png";
 var s_decoration_seashell_plist = "res/decorations/sea_shells/sea_shells.plist";
 var s_decoration_seaweed_png = "res/decorations/seaweed.png";
 var s_decoration_treasure_png = "res/decorations/treasure.png";
-var s_decoration_globefish_png = "res/decorations/Globefish.png";
-var s_decoration_little_devi_png = "res/decorations/little_devi.png";
-var s_decoration_seahorse_png = "res/decorations/seahorse.png";
-var s_decoration_uglyfish_png = "res/decorations/ugly_fish.png";
 
 //easter
 var s_decoration_happy_easter_png = "res/decorations/happy_easter.png";
@@ -64,9 +60,15 @@ var s_score_easter_2_png = "res/backgrounds/score_easter_2.png";
 var s_powerup_png = "res/powerup/powerup.png";
 var s_powerup_plist = "res/powerup/powerup.plist";
 
+var s_decoration_globefish_png = "res/decorations/Globefish.png";
+var s_decoration_little_devi_png = "res/decorations/little_devi.png";
+var s_decoration_seahorse_png = "res/decorations/seahorse.png";
+var s_decoration_uglyfish_png = "res/decorations/ugly_fish.png";
+
 //duck
 var s_duck = "res/duck/duck.png";
 var s_duck_wing = "res/duck/duck_wing.png";
+var s_duck_deamon_png = "res/duck/duck_deamon.png";
 
 //sound effects
 var s_drowned_effect = "res/sound_effects/drowned.mp3";

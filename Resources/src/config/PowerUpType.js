@@ -12,23 +12,18 @@
 //
 /////////////////////////////////////////////////////////////////////
 
+
 var PowerUpType = [{
     type: 0,
     textureName: "powerup1.png",
-    effectMode: YD.POWERUP_TYPE.HEAVY
-
+    effectMode: YD.POWERUP_TYPE.BIG
 }, {
     type: 1,
     textureName: "powerup2.png",
-    effectMode: YD.POWERUP_TYPE.LIGHT
+    effectMode: YD.POWERUP_TYPE.SMALL
 
 }, {
     type: 2,
     textureName: "powerup3.png",
-    effectMode: YD.POWERUP_TYPE.LOSEGRAVITY
-
-}, {
-    type: 3,
-    textureName: "powerup4.png",
-    effectMode: YD.POWERUP_TYPE.OPPOSITGRAVITY
+    effectMode: YD.POWERUP_TYPE.OPPOSIT_GRAVITY
 }];
