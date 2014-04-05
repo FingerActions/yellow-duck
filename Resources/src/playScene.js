@@ -262,6 +262,7 @@ var PlayLayer = cc.Layer.extend({
                     var moveForward = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
                     this._duck.runAction(moveForward);
                     this._hasPowerUpEffect = true;
+                    this.popTextOnScreen("Heavy!");
                 }
                 break;
 
@@ -271,6 +272,7 @@ var PlayLayer = cc.Layer.extend({
                     var shrink = cc.ScaleBy.create(1, 0.5);
                     this._duck.runAction(shrink);
                     this._hasPowerUpEffect = true;
+                    this.popTextOnScreen("Small!");
                 }
                 break;
 
@@ -283,6 +285,7 @@ var PlayLayer = cc.Layer.extend({
 
                     var moveForward = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
                     this._duck.runAction(moveForward);
+                    this.popTextOnScreen("Heavy!");
                 }
                 break;
 
@@ -296,9 +299,35 @@ var PlayLayer = cc.Layer.extend({
 
                     var moveForward = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
                     this._duck.runAction(moveForward);
+                    this.popTextOnScreen("Heavy!");
                 }
                 break;
         }
+    },
+
+    popTextOnScreen: function(word) {
+                                
+        var wordOnScreen = cc.LabelTTF.create(word, "Marker Felt", 50 * SCALE_FACTOR);
+
+        wordOnScreen.setPosition(cc.p(this._screenSize.width / 2, -20 * SCALE_FACTOR));
+                                
+        this.addChild(wordOnScreen, 1000);
+
+        var flow = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, this._screenSize.height/2 ));
+
+        var flowAway = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, this._screenSize.height + 20*SCALE_FACTOR));
+
+        var callfunc = cc.CallFunc.create(function() {
+
+            this.wordOnScreen.setVisible(false);
+
+        }.bind(this));
+
+        var flowWithCallfunc = cc.Sequence.create(flow, cc.DelayTime.create(2), flowAway, callfunc);
+        wordOnScreen.runAction(flowWithCallfunc);
+
+
+
     },
 
     removeEffect: function() {
