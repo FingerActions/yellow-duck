@@ -79,8 +79,6 @@ var PlayLayer = cc.Layer.extend({
         //super init first
         this._super();
 
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_powerup_plist, s_powerup_png);
-
         //update()
         this._timerWall = 0;
         this.scheduleUpdate();
@@ -210,12 +208,10 @@ var PlayLayer = cc.Layer.extend({
         YD.CONTAINER.POWERUP = [];
 
         //TransparentBatch
-
         var powerUp = cc.TextureCache.getInstance().addImage(s_powerup_png);
         this._powerUpBatch = cc.SpriteBatchNode.createWithTexture(powerUp);
         this.addChild(this._powerUpBatch);
         g_sharedGameLayer = this;
-
         //pre set
         PowerUp.preSet();
 
@@ -1050,7 +1046,6 @@ var PlayLayer = cc.Layer.extend({
 });
 
 PlayLayer.scene = function() {
-
     var scene = cc.Scene.create();
     var layer = PlayLayer.create();
     scene.addChild(layer, 1);
@@ -1058,12 +1053,11 @@ PlayLayer.scene = function() {
 };
 
 
-PlayLayer.prototype.addPowerup = function(powerUp, z, tag) {
+PlayLayer.prototype.addPowerUp = function(powerUp, z, tag) {
     this._powerUpBatch.addChild(powerUp, z, tag);
 };
 
 var PlayScene = cc.Scene.extend({
-
     ctor: function() {
         this._super();
         cc.associateWithNative(this, cc.Scene);
@@ -1087,5 +1081,4 @@ var PlayScene = cc.Scene.extend({
 
         layer.init();
     }
-
 });

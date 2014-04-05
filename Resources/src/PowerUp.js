@@ -14,34 +14,26 @@
 
 
 var PowerUp = cc.Sprite.extend({
-
     active: true,
-    powerupType: 1,
+    powerUpType: null,
     effectMode: null,
     zOrder: 1000,
     _emitter: null,
     ctor: function(arg) {
-
         this._super();
         this.effectMode = arg.effectMode;
-        this.powerupType = arg.type;
+        this.powerUpType = arg.type;
         this.initWithSpriteFrameName(arg.textureName);
-        //this.shine();
-
     },
-    destroy: function() {
 
+    destroy: function() {
         this.setVisible(false);
         this.active = false;
         this.stopAllActions();
-
     },
 
     shine: function() {
-
-
         //particle test
-
         this._emitter = cc.ParticleSystem.createWithTotalParticles(50);
 
         this.addChild(this._emitter, 100001);
@@ -107,51 +99,42 @@ var PowerUp = cc.Sprite.extend({
         // additive
         this._emitter.setBlendAdditive(false);
         this._emitter.setPosition(90, 90);
-
     },
 
     collideRect: function(x, y) {
-
         var w = this.width,
             h = this.height;
         return cc.rect(x - w / 2, y - h / 4, w, h / 2 + 20);
     }
-
-
 });
 
 PowerUp.getOrCreatePowerUp = function(arg) {
-
     var selChild = null;
     for (var j = 0; j < YD.CONTAINER.POWERUP.length; j++) {
         selChild = YD.CONTAINER.POWERUP[j];
-        if (selChild.active == false && selChild.powerupType == arg.type) {
+        if (selChild.active === false && selChild.powerUpType == arg.type) {
             selChild.active = true;
             selChild.effectMode = arg.effectMode;
-            selChild.visible = true;
+            selChild.setVisible(true);
+            cc.log('here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
             return selChild;
         }
-
     }
-
 };
 
 PowerUp.create = function(arg) {
+    var powerUp = new PowerUp(arg);
+    g_sharedGameLayer.addPowerUp(powerUp, powerUp.zOrder, YD.UNIT_TAG.POWERUP);
+    YD.CONTAINER.POWERUP.push(powerUp);
 
-    var powerup = new PowerUp(arg);
-    g_sharedGameLayer.addPowerup(powerup, powerup.zOrder, YD.UNIT_TAG.POWERUP);
-    YD.CONTAINER.POWERUP.push(powerup);
-
-    return powerup;
-
+    return powerUp;
 };
 
 PowerUp.preSet = function() {
-
-    var powerup = null;
+    var powerUp = null;
     for (var i = 0; i < PowerUpType.length; i++) {
-        powerup = PowerUp.create(PowerUpType[i]);
-        powerup.visible = false;
-        powerup.active = false;
+        powerUp = PowerUp.create(PowerUpType[i]);
+        powerUp.setVisible(false);
+        powerUp.active = false;
     }
 };

@@ -24,14 +24,12 @@ var IntroLayer = cc.Layer.extend({
     _fingerActions: null,
     _emitter: null,
 
-
     ctor: function() {
         this._super();
         cc.associateWithNative(this, cc.Layer);
     },
 
     init: function() {
-
         // super init first
         this._super();
 
@@ -40,7 +38,6 @@ var IntroLayer = cc.Layer.extend({
         this.scheduleUpdate();
 
         if ('touches' in sys.capabilities) {
-
             this.setTouchMode(cc.TOUCH_ALL_AT_ONCE);
             this.setTouchEnabled(true);
         }
@@ -94,7 +91,7 @@ var IntroLayer = cc.Layer.extend({
         //sea shells
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_decoration_seashell_plist, s_decoration_seashell_png);
         this._seashells = [];
-        for (i = 1; i < MAX_SEA_SHEELS; i++) {
+        for (i = 1; i < MAX_SEA_SHEELS + 1; i++) {
             var seashell = cc.Sprite.createWithSpriteFrameName(i + ".png");
             this.addChild(seashell);
             seashell.setVisible(false);
@@ -105,6 +102,9 @@ var IntroLayer = cc.Layer.extend({
 
         //easter eggs
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_decoration_easter_eggs_plist, s_decoration_easter_eggs_png);
+
+        //power-ups
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_powerup_plist, s_powerup_png);
 
         return true;
     },
