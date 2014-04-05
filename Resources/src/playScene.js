@@ -306,13 +306,16 @@ var PlayLayer = cc.Layer.extend({
     },
 
     removeEffect: function() {
-        this._isHeavy = false;
-        this._isLight = false;
-        this._hasPowerUpEffect = false;
-        this._currentMode = null;
-
         var scaleBack = cc.ScaleTo.create(1, 1);
-        this._duck.runAction(scaleBack);
+        var callfunc = cc.CallFunc.create(function() {
+            this._isHeavy = false;
+            this._isLight = false;
+            this._hasPowerUpEffect = false;
+            this._currentMode = null;
+        }.bind(this));
+
+        var scaleBackWithCallfunc = cc.Sequence.create(scaleBack, callfunc);
+        this._duck.runAction(scaleBackWithCallfunc);
 
         var moveBack = cc.MoveTo.create(1, cc.p(85 * SCALE_FACTOR, this._screenSize.height / 2));
         this._duck.runAction(moveBack);
