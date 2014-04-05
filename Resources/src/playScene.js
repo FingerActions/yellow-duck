@@ -275,8 +275,8 @@ var PlayLayer = cc.Layer.extend({
                     var moveForward = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
                     this._duck.runAction(moveForward);
                     this._hasPowerUpEffect = true;
+                    this.popTextOnScreen("Heavy!");
 
-                    this.popTextOnScreen("Big!");
                 }
                 break;
 
@@ -288,7 +288,7 @@ var PlayLayer = cc.Layer.extend({
                     this._duck.runAction(shrink);
                     this._hasPowerUpEffect = true;
 
-                    this.popTextOnScreen("Small!");
+                    this.popTextOnScreen("Light!");
                 }
                 break;
             case YD.POWERUP_TYPE.OPPOSIT_GRAVITY:
@@ -304,13 +304,13 @@ var PlayLayer = cc.Layer.extend({
     popTextOnScreen: function(word) {
         var wordOnScreen = cc.LabelTTF.create(word, "Marker Felt", 50 * SCALE_FACTOR);
 
-        wordOnScreen.setPosition(cc.p(this._screenSize.width / 2, -20 * SCALE_FACTOR));
+        wordOnScreen.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height + 20 * SCALE_FACTOR));
 
         this.addChild(wordOnScreen, 1000);
 
         var flow = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, this._screenSize.height / 2));
 
-        var flowAway = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, this._screenSize.height + 20 * SCALE_FACTOR));
+        var flowAway = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, -20 * SCALE_FACTOR));
 
         var callfunc = cc.CallFunc.create(function() {
 
