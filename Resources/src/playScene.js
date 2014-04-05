@@ -35,7 +35,6 @@ var PlayLayer = cc.Layer.extend({
     _easterEggs: null,
     _isDuckJumping: null,
     _fingerActions: null,
-    _gameover: null,
     _powerUpBatch: null,
 
     //timers
@@ -55,20 +54,21 @@ var PlayLayer = cc.Layer.extend({
     _isSpawningLeafs: null,
     _isThrowingEasterEggs: null,
 
+    _isGameOver: null,
+
     //powerUps
-    _powerUps: null,
     _emitter: null,
     _isHeavy: false,
-    _hasPowerUp: null,
-    _hasPowerUpOnScreen: null,
     _isLight: null,
+    _hasPowerUpEffect: null,
+    _hasPowerUpOnScreen: null,
     _currentMode: null,
 
     //sound
     audioEngin: null,
 
     //powerUp
-    _addPowerup: null,
+    _powerUp: null,
 
     ctor: function() {
         this._super();
@@ -86,7 +86,7 @@ var PlayLayer = cc.Layer.extend({
         this.scheduleUpdate();
 
         this._hasPowerUpOnScreen = false;
-        this._hasPowerUp = false;
+        this._hasPowerUpEffect = false;
 
         //touch
         if ('touches' in sys.capabilities) {
@@ -199,7 +199,7 @@ var PlayLayer = cc.Layer.extend({
         }
 
         this._passedFirstWall = false;
-        this._gameover = false;
+        this._isGameOver = false;
 
         //init local storage if not found
         if (!sys.localStorage.getItem('highScore')) {
@@ -222,223 +222,101 @@ var PlayLayer = cc.Layer.extend({
         return true;
     },
 
-
+    //power up
     addPowerUpToGame: function(powerUpType) {
-
-        this._addPowerup = PowerUp.getOrCreatePowerUp(PowerUpType[powerUpType]);
-        var contentSize = this._addPowerup.getContentSize();
-        switch (this._addPowerup.effectMode) {
-
-            case YD.POWERUP_TYPE.HEAVY:
-                {
-                    this._addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
-                    var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
-                    var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
-                    var wait = cc.MoveBy.create(2, cc.p(0, -20 * SCALE_FACTOR));
-
-                    var callfunc = cc.CallFunc.create(function() {
-                        this._addPowerup.destroy();
-                        this._hasPowerUpOnScreen = false;
-                    }.bind(this));
-
-                    var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
-                    this._addPowerup.runAction(flowWithCallfunc);
-                    var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
-                    var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
-                    var bounce = cc.Sequence.create(bounceUp, bounceDown);
-                    this._addPowerup.runAction(cc.RepeatForever.create(bounce));
-
-                }
-                break;
-
-            case YD.POWERUP_TYPE.LIGHT:
-                {
-                    this._addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
-                    var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
-                    var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
-                    var wait = cc.MoveBy.create(2, cc.p(0, -20 * SCALE_FACTOR));
-
-                    var callfunc = cc.CallFunc.create(function() {
-                        this._addPowerup.destroy();
-                        this._hasPowerUpOnScreen = false;
-                    }.bind(this));
-
-
-                    var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
-                    this._addPowerup.runAction(flowWithCallfunc);
-                    var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
-                    var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
-                    var bounce = cc.Sequence.create(bounceUp, bounceDown);
-                    this._addPowerup.runAction(cc.RepeatForever.create(bounce));
-                }
-                break;
-
-            case YD.POWERUP_TYPE.LOSEGRAVITY:
-                {
-                    this._addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
-                    var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
-                    var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
-                    var wait = cc.MoveBy.create(2, cc.p(0, -20 * SCALE_FACTOR));
-
-                    var callfunc = cc.CallFunc.create(function() {
-                        this._addPowerup.destroy();
-                        this._hasPowerUpOnScreen = false;
-                    }.bind(this));
-
-
-                    var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
-                    this._addPowerup.runAction(flowWithCallfunc);
-                    var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
-                    var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
-                    var bounce = cc.Sequence.create(bounceUp, bounceDown);
-                    this._addPowerup.runAction(cc.RepeatForever.create(bounce));
-                }
-                break;
-
-
-            case YD.POWERUP_TYPE.OPPOSITGRAVITY:
-                {
-                    this._addPowerup.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
-                    var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
-                    var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
-                    var wait = cc.MoveBy.create(2, cc.p(0, -20 * SCALE_FACTOR));
-
-                    var callfunc = cc.CallFunc.create(function() {
-                        this._addPowerup.destroy();
-                        this._hasPowerUpOnScreen = false;
-                    }.bind(this));
-
-                    var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
-                    this._addPowerup.runAction(flowWithCallfunc);
-                    var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
-                    var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
-                    var bounce = cc.Sequence.create(bounceUp, bounceDown);
-                    this._addPowerup.runAction(cc.RepeatForever.create(bounce));
-                }
-                break;
-        }
+        this._powerUp = PowerUp.getOrCreatePowerUp(PowerUpType[powerUpType]);
+        this.runRandomPowerUpAnimation(this._powerUp.effectMode);
     },
 
-    performEffect: function() {
+    runRandomPowerUpAnimation: function(effectMode) {
+        var contentSize = this._powerUp.getContentSize();
+        this._powerUp.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
+        var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
+        var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
+        var wait = cc.MoveBy.create(2, cc.p(0, -20 * SCALE_FACTOR));
 
+        var callfunc = cc.CallFunc.create(function() {
+            this._powerUp.destroy();
+            this._hasPowerUpOnScreen = false;
+        }.bind(this));
+
+        var flowWithCallfunc = cc.Sequence.create(jumpIn, wait, flow, callfunc);
+        this._powerUp.runAction(flowWithCallfunc);
+        var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
+        var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
+        var bounce = cc.Sequence.create(bounceUp, bounceDown);
+        this._powerUp.runAction(cc.RepeatForever.create(bounce));
+    },
+
+    duckTouchedPowerUpEffect: function() {
+        this._currentMode = this._powerUp.effectMode;
+        this._hasPowerUpOnScreen = false;
+        this._powerUp.destroy();
+        this.performPowerUpEffect();
+    },
+
+    performPowerUpEffect: function() {
         switch (this._currentMode) {
-
             case YD.POWERUP_TYPE.HEAVY:
                 {
                     this._isHeavy = true;
-                    this._duck.setScale(3);
-                    this._hasPowerUp = true;
+                    var grow = cc.ScaleBy.create(1, 3);
+                    this._duck.runAction(grow);
 
+                    var moveForward = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
+                    this._duck.runAction(moveForward);
+                    this._hasPowerUpEffect = true;
                 }
                 break;
 
             case YD.POWERUP_TYPE.LIGHT:
                 {
                     this._isLight = true;
-                    this._duck.setScale(0.2);
-                    this._hasPowerUp = true;
+                    var shrink = cc.ScaleBy.create(1, 0.5);
+                    this._duck.runAction(shrink);
+                    this._hasPowerUpEffect = true;
                 }
                 break;
 
             case YD.POWERUP_TYPE.LOSEGRAVITY:
                 {
-                    this._hasPowerUp = true;
+                    this._isHeavy = true;
+                    var grow = cc.ScaleBy.create(1, 3);
+                    this._duck.runAction(grow);
+                    this._hasPowerUpEffect = true;
+
+                    var moveForward = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
+                    this._duck.runAction(moveForward);
                 }
                 break;
 
 
             case YD.POWERUP_TYPE.OPPOSITGRAVITY:
                 {
-                    this._hasPowerUp = true;
+                    this._isHeavy = true;
+                    var grow = cc.ScaleBy.create(1, 3);
+                    this._duck.runAction(grow);
+                    this._hasPowerUpEffect = true;
+
+                    var moveForward = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
+                    this._duck.runAction(moveForward);
                 }
                 break;
         }
     },
 
     removeEffect: function() {
+        this._isHeavy = false;
+        this._isLight = false;
+        this._hasPowerUpEffect = false;
+        this._currentMode = null;
 
-        switch (this._currentMode) {
+        var scaleBack = cc.ScaleTo.create(1, 1);
+        this._duck.runAction(scaleBack);
 
-            case YD.POWERUP_TYPE.HEAVY:
-                {
-                    this._isHeavy = false;
-                    this._duck.setScale(1);
-                    this._hasPowerUp = false;
-                    this._currentMode = null;
-                }
-                break;
-
-            case YD.POWERUP_TYPE.LIGHT:
-                {
-                    this._duck.setScale(1);
-                    this._hasPowerUp = false;
-                    this._isLight = false;
-                    this._currentMode = null;
-                }
-                break;
-
-            case YD.POWERUP_TYPE.LOSEGRAVITY:
-                {
-                    this._hasPowerUp = false;
-                    this._currentMode = null;
-                }
-                break;
-
-            case YD.POWERUP_TYPE.OPPOSITGRAVITY:
-                {
-                    this._hasPowerUp = false;
-                    this._currentMode = null;
-                }
-                break;
-        }
+        var moveBack = cc.MoveTo.create(1, cc.p(85 * SCALE_FACTOR, this._screenSize.height / 2));
+        this._duck.runAction(moveBack);
     },
-
-    powerUp: function() {
-
-        switch (this._addPowerup.effectMode) {
-
-            case YD.POWERUP_TYPE.HEAVY:
-                {
-                    this._currentMode = this._addPowerup.effectMode;
-                    this._hasPowerUpOnScreen = false;
-                    this._addPowerup.destroy();
-                    this.performEffect();
-                }
-                break;
-
-            case YD.POWERUP_TYPE.LIGHT:
-                {
-                    this._currentMode = this._addPowerup.effectMode;
-                    this._hasPowerUpOnScreen = false;
-                    this._addPowerup.destroy();
-                    this.performEffect();
-
-                }
-                break;
-
-            case YD.POWERUP_TYPE.LOSEGRAVITY:
-                {
-                    this._currentMode = this._addPowerup.effectMode;
-                    this._hasPowerUpOnScreen = false;
-                    this._addPowerup.destroy();
-                    this.performEffect();
-
-                }
-                break;
-
-
-            case YD.POWERUP_TYPE.OPPOSITGRAVITY:
-                {
-                    this._currentMode = this._addPowerup.effectMode;
-                    this._hasPowerUpOnScreen = false;
-                    this._addPowerup.destroy();
-                    this.performEffect();
-
-                }
-                break;
-        }
-    },
-
 
     getWeather: function() {
         var backgroundTop = s_play_background_top_png;
@@ -900,10 +778,12 @@ var PlayLayer = cc.Layer.extend({
         }
 
         var gravity;
-        if (!this._isLight) {
-            gravity = GRAVITY;
-        } else {
+        if (this._isLight) {
             gravity = GRAVITY / 2;
+        } else if (this._isHeavy) {
+            gravity = GRAVITY * 3;
+        } else {
+            gravity = GRAVITY;
         }
 
         this._duckVelocity -= gravity * fpsFactor;
@@ -925,6 +805,7 @@ var PlayLayer = cc.Layer.extend({
         }
 
         this.checkGameOver();
+        this.checkDuckTouchedPowerUp();
         this._scoreLabel.setString(this._score);
 
         //update score based on time gap
@@ -961,13 +842,13 @@ var PlayLayer = cc.Layer.extend({
         }
 
         //powerup
-        if (getRandomInt(0, 40 / fpsFactor) === 0 && !this._hasPowerUpOnScreen) {
-            var dice = getRandomInt(0, 3);
+        if (getRandomInt(0, 40 / fpsFactor) === 0 && !this._hasPowerUpOnScreen && !this._hasPowerUpEffect) {
+            dice = getRandomInt(0, 3);
             this.addPowerUpToGame(dice);
             this._hasPowerUpOnScreen = true;
         }
 
-        if (this._hasPowerUp == true) {
+        if (this._hasPowerUpEffect === true) {
             this._timerPowerUp += delta;
 
             if (this._timerPowerUp > 5.0) {
@@ -1035,7 +916,7 @@ var PlayLayer = cc.Layer.extend({
     },
 
     onTouchesBegan: function(touches, event) {
-        if (this._gameover) {
+        if (this._isGameOver) {
             return;
         }
         audioEngin.playEffect(s_jump_effect);
@@ -1056,12 +937,20 @@ var PlayLayer = cc.Layer.extend({
         this._duckWing.runAction(swim);
     },
 
+    checkDuckTouchedPowerUp: function() {
+        if (this._powerUp !== null && this._powerUp.active) {
+            if (this.isObjTouched(this._duck, this._powerUp)) {
+                this.duckTouchedPowerUpEffect();
+            }
+        }
+    },
+
     checkGameOver: function() {
         if (this._duck.getPosition().y < -this._duck.getContentSize().width) {
             this.gameOver(false);
         }
         var walls = this._walls;
-        if (this._isHeavy == false) {
+        if (this._isHeavy === false) {
             for (var i = 0; i < walls.length; i++) {
                 if (this.isObjTouched(this._duck, this._walls[i])) {
                     this.gameOver(true);
@@ -1069,22 +958,16 @@ var PlayLayer = cc.Layer.extend({
             }
         }
 
-        if (this._addPowerup != null && this._addPowerup.active) {
-            if (this.isObjTouched(this._duck, this._addPowerup)) {
-                this.powerUp();
-            }
-        }
     },
 
     gameOver: function(hitWall) {
         this.unscheduleUpdate();
         this._fingerActions = new fingerActions.FingerActions();
+        this._isGameOver = true;
         if (hitWall) {
-            this._gameover = true;
             this.gameOverHitWall();
             this._fingerActions.pushEventName("Action", "Die", "Hit Wall");
         } else {
-            this._gameover = true;
             this.gameOverDrowned();
             this._fingerActions.pushEventName("Action", "Die", "Drowned");
         }
@@ -1153,7 +1036,7 @@ var PlayLayer = cc.Layer.extend({
         var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width - 5, secondObjSize.height - 5);
 
         if (cc.rectIntersectsRect(firstCollideRect, secondCollideRect)) {
-            if (secondObj == this._addPowerup) {
+            if (secondObj == this._powerUp) {
                 audioEngin.playEffect(s_poped_effect);
             } else {
                 audioEngin.playEffect(s_poped_effect);
