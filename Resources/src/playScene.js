@@ -275,6 +275,7 @@ var PlayLayer = cc.Layer.extend({
                     var moveForward = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
                     this._duck.runAction(moveForward);
                     this._hasPowerUpEffect = true;
+
                     this.popTextOnScreen("Big!");
                 }
                 break;
@@ -282,15 +283,18 @@ var PlayLayer = cc.Layer.extend({
             case YD.POWERUP_TYPE.SMALL:
                 {
                     this._isSmall = true;
+
                     var shrink = cc.ScaleBy.create(1, 0.5);
                     this._duck.runAction(shrink);
                     this._hasPowerUpEffect = true;
+
                     this.popTextOnScreen("Small!");
                 }
                 break;
             case YD.POWERUP_TYPE.OPPOSIT_GRAVITY:
                 {
                     this._isOppositGravity = true;
+
                     this.popTextOnScreen("Opposit gravity!");
                 }
                 break;
@@ -932,11 +936,25 @@ var PlayLayer = cc.Layer.extend({
 
         thisWalls[1].setPosition(cc.p(this._screenSize.width + wallWidth / 2, -wallHeight / 2));
         flow = cc.MoveBy.create(WALL_APPEAR_TIME, cc.p(-this._screenSize.width - wallWidth, 0));
+        flow.setTag(0);
         wallGap = getRandomArbitrary(WALL_MIN_GAP, WALL_MAX_GAP);
         spawn = cc.MoveBy.create(0.5, cc.p(0, this._screenSize.height - wallTopHeight * SCALE_FACTOR - wallGap));
 
         thisWalls[1].runAction(flow);
         thisWalls[1].runAction(spawn);
+    },
+
+    knockDownWall: function(wall) {
+        wall.stopActionByTag(0);
+        var randomY = getRandomArbitrary(0, this._screenSize.height);
+        var moveForward = cc.MoveTo.create(0.1, cc.p(this._screenSize.width + wall.getContentSize().width / 2, randomY));
+        var callfunc = cc.CallFunc.create(function() {
+            wall.setVisible(false);
+        });
+        var moveForwardWidthCallfunc = cc.Sequence.create(moveForward, callfunc);
+        moveForwardWidthCallfunc.setTag(1);
+
+        wall.runAction(moveForwardWidthCallfunc);
     },
 
     onTouchesBegan: function(touches, event) {
@@ -982,14 +1000,16 @@ var PlayLayer = cc.Layer.extend({
             this.gameOver(false);
         }
         var walls = this._walls;
-        if (this._isBig === false) {
-            for (var i = 0; i < walls.length; i++) {
-                if (this.isObjTouched(this._duck, this._walls[i])) {
+
+        for (var i = 0; i < walls.length; i++) {
+            if (this.isObjTouched(this._duck, this._walls[i])) {
+                if (this._isBig) {
+                    this.knockDownWall(this._walls[i]);
+                } else {
                     this.gameOver(true);
                 }
             }
         }
-
     },
 
     gameOver: function(hitWall) {
