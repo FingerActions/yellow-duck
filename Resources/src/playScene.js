@@ -338,10 +338,12 @@ var PlayLayer = cc.Layer.extend({
                     this._duck.runAction(blinkGrowWithCallfunc);
                     var moveForward = cc.MoveTo.create(3, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
                     this._duck.runAction(moveForward);
-
                     this._isBig = true;
-
                     this.popTextOnScreen("Heavy!", "down");
+                    audioEngin.playMusic(s_heavy_bg_music,true);
+                    audioEngin.setMusicVolume(0.3);
+
+
                 }
                 break;
 
@@ -389,9 +391,10 @@ var PlayLayer = cc.Layer.extend({
     },
 
     removeEffect: function() {
+                                
+       
         this._heavyGravity = GRAVITY;
         this._isHeavy = false;
-
         this._isInvincible = true;
         this._isSmall = false;
         this._isOppositGravity = false;
@@ -414,6 +417,7 @@ var PlayLayer = cc.Layer.extend({
             this._duckWing.setVisible(true);
             var duckTexture = cc.TextureCache.getInstance().addImage(s_duck);
             this._duck.setTexture(duckTexture);
+                                           audioEngin.pauseMusic();
             this._isRemovingPowerUp = false;
         }.bind(this));
 
