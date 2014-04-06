@@ -60,6 +60,9 @@ var s_score_easter_2_png = "res/backgrounds/score_easter_2.png";
 var s_power_ups_png = "res/power_ups/power_ups.png";
 var s_power_ups_plist = "res/power_ups/power_ups.plist";
 
+var s_finger_png = "res/power_ups/finger.png";
+var s_finger_plist = "res/power_ups/finger.plist";
+
 var s_decoration_globefish_png = "res/decorations/Globefish.png";
 var s_decoration_little_devi_png = "res/decorations/little_devi.png";
 var s_decoration_seahorse_png = "res/decorations/seahorse.png";

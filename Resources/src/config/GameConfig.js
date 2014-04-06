@@ -31,3 +31,10 @@ YD.UNIT_TAG = {
 };
 
 YD.SCREEN_SIZE = null;
+
+YD.DIRECTION = {
+    UP: 1,
+    RIGHT: 2,
+    DOWN: 3,
+    LEFT: 4
+};

@@ -76,6 +76,8 @@ var PlayLayer = cc.Layer.extend({
 
     //powerUp
     _powerUp: null,
+    _finger: null,
+    _fingerTipAction: null,
 
     ctor: function() {
         this._super();
@@ -231,7 +233,6 @@ var PlayLayer = cc.Layer.extend({
         return true;
     },
 
-
     popTextOnScreen: function(word, direction) {
 
         var spawnPositionX, spawnPositionY;
@@ -384,6 +385,52 @@ var PlayLayer = cc.Layer.extend({
         this.performPowerUpEffect();
     },
 
+    fingerTips: function(direction) {
+
+
+        var spawnPositionX, spawnPositionY;
+
+        if (direction == "up") {
+
+            spawnPositionX = DUCK_POSITION_X;
+            spawnPositionY = this._screenSize.height / 2 + 50 * SCALE_FACTOR;
+
+            var flow = cc.MoveTo.create(1, cc.p(spawnPositionX, spawnPositionY - 100 * SCALE_FACTOR));
+            var flow2 = cc.MoveTo.create(1, cc.p(spawnPositionX, spawnPositionY));
+
+        } else {
+
+            spawnPositionX = DUCK_POSITION_X;
+            spawnPositionY = this._screenSize.height / 2 - 50 * SCALE_FACTOR;
+
+            var flow = cc.MoveTo.create(1, cc.p(spawnPositionX, spawnPositionY + 100 * SCALE_FACTOR));
+            var flow2 = cc.MoveTo.create(1, cc.p(spawnPositionX, spawnPositionY));
+
+
+        }
+
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_finger_plist);
+        this.fingerSprite = cc.SpriteBatchNode.create(s_finger_png);
+        this.addChild(this.fingerSprite);
+        var animFrames = [];
+        for (var i = 1; i < 5; i++) {
+            var str = "finger" + i + ".png";
+            var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
+            animFrames.push(frame);
+        }
+        var animation = cc.Animation.create(animFrames, 0.1);
+        this._fingerTipAction = cc.RepeatForever.create(cc.Animate.create(animation));
+        this._finger = cc.Sprite.createWithSpriteFrameName("finger1.png");
+        this._finger.setPosition(cc.p(spawnPositionX, spawnPositionY));
+        this._finger.runAction(this._fingerTipAction);
+        this.fingerSprite.addChild(this._finger);
+        var MoveUpDown = cc.Sequence.create(flow, flow2);
+
+        this._finger.runAction(cc.RepeatForever.create(MoveUpDown));
+
+
+    },
+
     performPowerUpEffect: function() {
         this._isInvincible = true;
         this._hasPowerUpEffect = true;
@@ -426,6 +473,9 @@ var PlayLayer = cc.Layer.extend({
                     this._isSmall = true;
                     this._duckVelocity = 0;
                     this.popTextOnScreen("Light!", "up");
+                    this.fingerTips("up");
+
+
                 }
                 break;
             case YD.POWERUP_TYPE.OPPOSIT_GRAVITY:
@@ -1022,7 +1072,7 @@ var PlayLayer = cc.Layer.extend({
         //powerup
         if (getRandomInt(0, 40 / fpsFactor) === 0 && !this._hasPowerUpOnScreen && !this._hasPowerUpEffect) {
             dice = getRandomInt(0, 2);
-            this.addPowerUpOnScreen(dice);
+            this.addPowerUpOnScreen(1);
             this._hasPowerUpOnScreen = true;
         }
 
