@@ -283,9 +283,24 @@ var PlayLayer = cc.Layer.extend({
     },
 
     //power up
-    addPowerUpToGame: function(powerUpType) {
+    addPowerUpOnScreen: function(powerUpType) {
+        var particles = [];
+        particles.push(cc.ParticleFireworks);
+        particles.push(cc.ParticleMeteor);
+        particles.push(cc.ParticleSmoke);
+        particles.push(cc.ParticleFire);
+        particles.push(cc.ParticleSun);
+        particles.push(cc.ParticleSpiral);
+        particles.push(cc.ParticleSun);
+
+        var dice = getRandomInt(0, particles.length - 1);
+        var emitter = particles[dice].create();
+        this._timerPowerUpEmitter = 0;
+        emitter.setTag(200);
+        this.addChild(emitter);
+
         this._powerUp = PowerUp.getOrCreatePowerUp(PowerUpType[powerUpType]);
-        this.runRandomPowerUpAnimation(this._powerUp.effectMode);
+        this.runRandomPowerUpAnimation(this._powerUp.effectMode, emitter);
     },
 
     randomBounceUpDown: function() {
@@ -302,7 +317,7 @@ var PlayLayer = cc.Layer.extend({
         return cc.RepeatForever.create(bounce);
     },
 
-    runRandomPowerUpAnimation: function(effectMode) {
+    runRandomPowerUpAnimation: function(effectMode, emitter) {
         var contentSize = this._powerUp.getContentSize(),
             startRandomX, startRandomY, finishRandomX, finishRandomY,
             dice = getRandomInt(0, 2),
@@ -334,17 +349,21 @@ var PlayLayer = cc.Layer.extend({
         }
 
         this._powerUp.setPosition(cc.p(startRandomX, startRandomY));
+        emitter.setPosition(this._powerUp.getPosition());
         var flow = cc.MoveTo.create(6, cc.p(finishRandomX, finishRandomY));
 
         var callfunc = cc.CallFunc.create(function() {
             this._powerUp.destroy();
+            this.removeChild(emitter, null);
             this._hasPowerUpOnScreen = false;
         }.bind(this));
 
         var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
-        this._powerUp.runAction(flowWithCallfunc);
 
-        this._powerUp.runAction(randomBounce());
+        this._powerUp.runAction(flowWithCallfunc.clone());
+        emitter.runAction(flowWithCallfunc);
+        this._powerUp.runAction(randomBounce().clone());
+        emitter.runAction(randomBounce());
     },
 
     duckTouchedPowerUpEffect: function() {
@@ -361,8 +380,8 @@ var PlayLayer = cc.Layer.extend({
         this.addChild(emitter);
 
         this._powerUp.destroy();
+        this.removeChildByTag(200);
         this.performPowerUpEffect();
-
     },
 
     performPowerUpEffect: function() {
@@ -433,8 +452,6 @@ var PlayLayer = cc.Layer.extend({
     },
 
     removeEffect: function() {
-
-
         this._heavyGravity = GRAVITY;
         this._isHeavy = false;
         this._isInvincible = true;
@@ -1005,7 +1022,7 @@ var PlayLayer = cc.Layer.extend({
         //powerup
         if (getRandomInt(0, 40 / fpsFactor) === 0 && !this._hasPowerUpOnScreen && !this._hasPowerUpEffect) {
             dice = getRandomInt(0, 2);
-            this.addPowerUpToGame(dice);
+            this.addPowerUpOnScreen(dice);
             this._hasPowerUpOnScreen = true;
         }
 
