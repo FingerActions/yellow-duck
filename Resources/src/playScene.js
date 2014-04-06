@@ -235,6 +235,8 @@ var PlayLayer = cc.Layer.extend({
         var spawnPositionX, spawnPositionY;
         var destinationX, destinationY;
 
+        var wordOnScreen = cc.LabelTTF.create(word, "res/fonts/FeastofFleshBB.ttf", 50 * SCALE_FACTOR);
+
         switch (direction) {
 
             case 'down':
@@ -242,9 +244,9 @@ var PlayLayer = cc.Layer.extend({
 
                     spawnPositionX = this._screenSize.width / 2;
                     spawnPositionY = this._screenSize.height + 20 * SCALE_FACTOR;
-
                     destinationX = this._screenSize.width / 2;
                     destinationY = -30 * SCALE_FACTOR;
+                    wordOnScreen.setColor(cc.c3b(255, 110, 0));
 
                 }
                 break;
@@ -256,15 +258,12 @@ var PlayLayer = cc.Layer.extend({
                     spawnPositionY = -30 * SCALE_FACTOR;
                     destinationX = this._screenSize.width / 2;
                     destinationY = this._screenSize.height + 20 * SCALE_FACTOR;
+                    wordOnScreen.setColor(cc.c3b(0, 153, 255));
                 }
         }
 
-        var wordOnScreen = cc.LabelTTF.create(word, "res/fonts/FeastofFleshBB.ttf", 50 * SCALE_FACTOR);
-                                
-        wordOnScreen.setColor(cc.c3b(255, 110, 0));
-
         wordOnScreen.setPosition(cc.p(spawnPositionX, spawnPositionY));
-                                
+
         this.addChild(wordOnScreen, 1000);
 
         var flow = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, this._screenSize.height / 2));
