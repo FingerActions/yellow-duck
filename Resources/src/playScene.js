@@ -332,11 +332,7 @@ var PlayLayer = cc.Layer.extend({
 
             randomBounce = this.randomBounceUpDown;
         }
-        cc.log(startRandomX);
-        cc.log(startRandomY);
-        cc.log(finishRandomX);
-        cc.log(finishRandomY);
-        cc.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
         this._powerUp.setPosition(cc.p(startRandomX, startRandomY));
         var flow = cc.MoveTo.create(6, cc.p(finishRandomX, finishRandomY));
 
