@@ -780,6 +780,8 @@ var PlayLayer = cc.Layer.extend({
     },
 
     update: function(delta) {
+        cc.log(this._duck.getBoundingBox().width);
+
         this._timer += delta;
         this._timerWall += delta;
         this._timerScore += delta;
@@ -1021,7 +1023,9 @@ var PlayLayer = cc.Layer.extend({
         }
 
         if (this._isBig) {
-            audioEngin.playEffect(s_jump_slow_effect);
+            audioEngin.playEffect(s_jump_big_effect);
+        } else if (this._isSmall) {
+            audioEngin.playEffect(s_jump_small_effect);
         } else {
             audioEngin.playEffect(s_jump_effect);
         }
@@ -1075,7 +1079,13 @@ var PlayLayer = cc.Layer.extend({
         var walls = this._walls;
 
         for (var i = 0; i < walls.length; i++) {
-            if (this.isObjTouched(this._duck, this._walls[i])) {
+            var isTouched;
+            if (this._isSmall) {
+                isTouched = this.isObjTouched(this._duck, this._walls[i], true);
+            } else {
+                isTouched = this.isObjTouched(this._duck, this._walls[i]);
+            }
+            if (isTouched) {
                 if (this._isInvincible) {
                     if (this._timerKnockWall > 0.5) {
                         this.knockDownWall(this._walls[i]);
@@ -1116,6 +1126,7 @@ var PlayLayer = cc.Layer.extend({
 
         var shrinkRotateDie = cc.Sequence.create(shrinkAction, rotateAction);
         this._duck.runAction(shrinkRotateDie);
+        audioEngin.playEffect(s_poped_effect);
     },
 
     gameOverDrowned: function() {
@@ -1159,22 +1170,23 @@ var PlayLayer = cc.Layer.extend({
     },
 
 
-    isObjTouched: function(firstObj, secondObj) {
-        var firstObjSize = firstObj.getContentSize();
-        var firstObjPos = firstObj.getPosition();
-        var firstCollideRect = cc.rect(firstObjPos.x - firstObjSize.width / 2, firstObjPos.y - firstObjSize.height / 2, firstObjSize.width, firstObjSize.height);
+    isObjTouched: function(firstObj, secondObj, useBoundingBox) {
+        var firstObjSize,
+            firstObjPos = firstObj.getPosition(),
+            secondObjSize,
+            secondObjPos = secondObj.getPosition();
+        if (useBoundingBox) {
+            firstObjSize = firstObj.getBoundingBox();
+            secondObjSize = secondObj.getBoundingBox();
+        } else {
+            firstObjSize = firstObj.getContentSize();
+            secondObjSize = secondObj.getContentSize();
+        }
 
-        //below normally used as Wall, make object little bit smaller to maker game easier
-        var secondObjSize = secondObj.getContentSize();
-        var secondObjPos = secondObj.getPosition();
-        var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width - 5, secondObjSize.height - 5);
+        var firstCollideRect = cc.rect(firstObjPos.x - firstObjSize.width / 2, firstObjPos.y - firstObjSize.height / 2, firstObjSize.width, firstObjSize.height);
+        var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width, secondObjSize.height);
 
         if (cc.rectIntersectsRect(firstCollideRect, secondCollideRect)) {
-            if (secondObj == this._powerUp) {
-                audioEngin.playEffect(s_poped_effect);
-            } else {
-                audioEngin.playEffect(s_poped_effect);
-            }
             return true;
         }
     },

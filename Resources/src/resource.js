@@ -70,13 +70,16 @@ var s_duck = "res/duck/duck.png";
 var s_duck_wing = "res/duck/duck_wing.png";
 var s_duck_deamon_png = "res/duck/duck_deamon.png";
 
+//wall
+var s_wall = "res/walls/wall.png";
+
 //sound effects
 var s_drowned_effect = "res/sound_effects/drowned.mp3";
 var s_drowned_big_effect = "res/sound_effects/drowned_big.mp3";
 var s_poped_effect = "res/sound_effects/poped.mp3";
 var s_jump_effect = "res/sound_effects/jump.mp3";
-var s_wall = "res/walls/wall.png";
-var s_jump_slow_effect = "res/sound_effects/jump-slow.mp3";
+var s_jump_big_effect = "res/sound_effects/jump_big.mp3";
+var s_jump_small_effect = "res/sound_effects/jump_small.mp3";
 
 //particle system
 var s_stars1 = "res/decorations/stars.png";
@@ -133,6 +136,6 @@ var g_ressources = [
     }, {
         src: s_jump_effect
     }, {
-        src: s_jump_slow_effect
+        src: s_jump_big_effect
     },
 ];
