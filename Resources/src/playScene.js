@@ -230,16 +230,49 @@ var PlayLayer = cc.Layer.extend({
     },
 
 
-    popTextOnScreen: function(word) {
+    popTextOnScreen: function(word, direction) {
+
+        var spawnPositionX, spawnPositionY;
+        var destinationX, destinationY;
+
+        switch (direction) {
+
+            case 'down':
+                {
+
+                    spawnPositionX = this._screenSize.width / 2;
+                    spawnPositionY = this._screenSize.height + 20 * SCALE_FACTOR;
+
+                    destinationX = this._screenSize.width / 2;
+                    destinationY = -20 * SCALE_FACTOR;
+
+                }
+                break;
+
+            case 'up':
+                {
+
+
+                    spawnPositionX = this._screenSize.width / 2;
+                    spawnPositionY = -20 * SCALE_FACTOR;
+                    destinationX = this._screenSize.width / 2;
+                    destinationY = this._screenSize.height + 20 * SCALE_FACTOR;
+
+
+                }
+
+
+        }
+
         var wordOnScreen = cc.LabelTTF.create(word, "Marker Felt", 50 * SCALE_FACTOR);
 
-        wordOnScreen.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height + 20 * SCALE_FACTOR));
+        wordOnScreen.setPosition(cc.p(spawnPositionX, spawnPositionY));
 
         this.addChild(wordOnScreen, 1000);
 
         var flow = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, this._screenSize.height / 2));
 
-        var flowAway = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, -20 * SCALE_FACTOR));
+        var flowAway = cc.MoveTo.create(1, cc.p(destinationX, destinationY));
 
         var callfunc = cc.CallFunc.create(function() {
 
@@ -325,7 +358,7 @@ var PlayLayer = cc.Layer.extend({
                     this._isBig = true;
                     cc.log('performPowerUpEffect');
                     this._hasPowerUpEffect = true;
-                    this.popTextOnScreen("Heavy!");
+                    this.popTextOnScreen("Heavy!", "down");
                 }
                 break;
 
@@ -343,7 +376,7 @@ var PlayLayer = cc.Layer.extend({
                     this._isSmall = true;
                     this._hasPowerUpEffect = true;
                     this._duckVelocity = 0;
-                    this.popTextOnScreen("Light!");
+                    this.popTextOnScreen("Light!", "up");
                 }
                 break;
             case YD.POWERUP_TYPE.OPPOSIT_GRAVITY:
@@ -357,7 +390,7 @@ var PlayLayer = cc.Layer.extend({
                     this._isOppositGravity = true;
                     this._hasPowerUpEffect = true;
                     this._duckVelocity = 0;
-                    this.popTextOnScreen("Opposit gravity!");
+                    this.popTextOnScreen("Opposit gravity!", "up");
                 }
                 break;
         }
