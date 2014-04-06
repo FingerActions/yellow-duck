@@ -374,6 +374,9 @@ var PlayLayer = cc.Layer.extend({
                     var shrink = cc.ScaleBy.create(2, 0.2);
                     this._duck.runAction(shrink);
 
+                    var rotate = cc.RotateTo.create(1.5, 720 * 2);
+                    this._duck.runAction(rotate);
+
                     this._isSmall = true;
                     this._duckVelocity = 0;
                     this.popTextOnScreen("Light!", "up");
