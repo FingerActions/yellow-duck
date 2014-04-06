@@ -729,6 +729,7 @@
 		EE2749D218C1EA6D00C18B44 /* jsb_fingerActions_auto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jsb_fingerActions_auto.h; sourceTree = "<group>"; };
 		EE34A6C418F0FDF00015982F /* FeastofFleshBB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FeastofFleshBB.ttf; sourceTree = "<group>"; };
 		EE34A6C518F0FDF00015982F /* FeastofFleshBBItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FeastofFleshBBItalic.ttf; sourceTree = "<group>"; };
+		EE34A6D118F16B490015982F /* MarkerFelt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MarkerFelt.ttf; sourceTree = "<group>"; };
 		EE61DC6518CAB5920068365C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		EE61DC6618CAB5A20068365C /* icon-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-2x.png"; sourceTree = "<group>"; };
 		EE61DC6718CAB5CE0068365C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = flappy/Images.xcassets; sourceTree = "<group>"; };
@@ -807,6 +808,7 @@
 		15628F5B15F0F5C2000CF24B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EE34A6D118F16B490015982F /* MarkerFelt.ttf */,
 				EE34A6C418F0FDF00015982F /* FeastofFleshBB.ttf */,
 				EE34A6C518F0FDF00015982F /* FeastofFleshBBItalic.ttf */,
 				EE61DC6718CAB5CE0068365C /* Images.xcassets */,

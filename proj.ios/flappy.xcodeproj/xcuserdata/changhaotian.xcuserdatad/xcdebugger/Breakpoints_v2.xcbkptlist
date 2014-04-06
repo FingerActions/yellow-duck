@@ -207,78 +207,6 @@
             endingLineNumber = "37"
             landmarkName = "-addAdMob"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AdMobObject addAdMob]"
-                  moduleName = "flappy"
-                  urlString = "file:///Users/changhaotian/cocos2d-x/Projects/flappy/proj.ios/AdMobObject.mm"
-                  timestampString = "415869842.652899"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "41"
-                  endingLineNumber = "41"
-                  offsetFromSymbolStart = "94">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AdMobObject addAdMob]"
-                  moduleName = "flappy"
-                  urlString = "file:///Users/changhaotian/cocos2d-x/Projects/flappy/proj.ios/AdMobObject.mm"
-                  timestampString = "415869842.653375"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "41"
-                  endingLineNumber = "41"
-                  offsetFromSymbolStart = "108">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AdMobObject addAdMob]"
-                  moduleName = "flappy"
-                  urlString = "file:///Users/changhaotian/cocos2d-x/Projects/flappy/proj.ios/AdMobObject.mm"
-                  timestampString = "415869842.655366"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "41"
-                  endingLineNumber = "41"
-                  offsetFromSymbolStart = "182">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AdMobObject addAdMob]"
-                  moduleName = "flappy"
-                  urlString = "file:///Users/changhaotian/cocos2d-x/Projects/flappy/proj.ios/AdMobObject.mm"
-                  timestampString = "415869842.653923"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "41"
-                  endingLineNumber = "41"
-                  offsetFromSymbolStart = "162">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[AdMobObject addAdMob]"
-                  moduleName = "flappy"
-                  urlString = "file:///Users/changhaotian/cocos2d-x/Projects/flappy/proj.ios/AdMobObject.mm"
-                  timestampString = "415869842.654397"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "41"
-                  endingLineNumber = "41"
-                  offsetFromSymbolStart = "168">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -295,36 +223,6 @@
             endingLineNumber = "129"
             landmarkName = "ls::GameCenterBridge::showAddAtBottom()"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ls::GameCenterBridge::showAddAtBottom()"
-                  moduleName = "flappy"
-                  urlString = "file:///Users/changhaotian/cocos2d-x/Projects/flappy/proj.ios/GameCenterBridge.mm"
-                  timestampString = "415869842.673715"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "129"
-                  endingLineNumber = "129"
-                  offsetFromSymbolStart = "2">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ls::GameCenterBridge::showAddAtBottom()"
-                  moduleName = "flappy"
-                  urlString = "file:///Users/changhaotian/cocos2d-x/Projects/flappy/proj.ios/GameCenterBridge.mm"
-                  timestampString = "415869842.674154"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "129"
-                  endingLineNumber = "129"
-                  offsetFromSymbolStart = "8">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -363,13 +261,13 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[AppController application:didFinishLaunchingWithOptions:]"
-                  moduleName = "flappy"
+                  moduleName = "Yellow Duck"
                   urlString = "file:///Users/changhaotian/cocos2d-x/Projects/flappy/proj.ios/AppController.mm"
-                  timestampString = "415869842.67617"
+                  timestampString = "418465179.764459"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80"
                   offsetFromSymbolStart = "590">
                </Location>
                <Location
@@ -377,16 +275,30 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "-[AppController application:didFinishLaunchingWithOptions:]"
-                  moduleName = "flappy"
+                  moduleName = "Yellow Duck"
                   urlString = "file:///Users/changhaotian/cocos2d-x/Projects/flappy/proj.ios/AppController.mm"
-                  timestampString = "415869839.092193"
+                  timestampString = "418465183.246199"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "640">
+                  startingLineNumber = "80"
+                  endingLineNumber = "80"
+                  offsetFromSymbolStart = "588">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Resources/src/playScene.js"
+            timestampString = "418464349.511904"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "288"
+            endingLineNumber = "288">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
