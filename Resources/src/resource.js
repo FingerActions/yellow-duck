@@ -80,6 +80,7 @@ var s_poped_effect = "res/sound_effects/poped.mp3";
 var s_jump_effect = "res/sound_effects/jump.mp3";
 var s_jump_big_effect = "res/sound_effects/jump_big.mp3";
 var s_jump_small_effect = "res/sound_effects/jump_small.mp3";
+var s_heavy_bg_music = "res/sound_effects/heavybgmusic.mp3";
 
 //particle system
 var s_stars1 = "res/decorations/stars.png";
