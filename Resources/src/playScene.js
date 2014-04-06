@@ -244,7 +244,7 @@ var PlayLayer = cc.Layer.extend({
                     spawnPositionY = this._screenSize.height + 20 * SCALE_FACTOR;
 
                     destinationX = this._screenSize.width / 2;
-                    destinationY = -20 * SCALE_FACTOR;
+                    destinationY = -30 * SCALE_FACTOR;
 
                 }
                 break;
@@ -254,7 +254,7 @@ var PlayLayer = cc.Layer.extend({
 
 
                     spawnPositionX = this._screenSize.width / 2;
-                    spawnPositionY = -20 * SCALE_FACTOR;
+                    spawnPositionY = -30 * SCALE_FACTOR;
                     destinationX = this._screenSize.width / 2;
                     destinationY = this._screenSize.height + 20 * SCALE_FACTOR;
 
@@ -390,7 +390,7 @@ var PlayLayer = cc.Layer.extend({
                     this._isOppositGravity = true;
                     this._hasPowerUpEffect = true;
                     this._duckVelocity = 0;
-                    this.popTextOnScreen("Opposit gravity!", "up");
+                    this.popTextOnScreen("Opposit!", "up");
                 }
                 break;
         }
