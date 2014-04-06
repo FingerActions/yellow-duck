@@ -110,10 +110,12 @@ var ScoreLayer = cc.Layer.extend({
         this.addChild(this._currentScoreLabel, 5);
 
         // create and initialize game over label
+        this._gameover = cc.LabelTTF.create("GAME OVER", s_marker_felt_ttf, 28 * SCALE_FACTOR);
         if (s_isHighScore) {
-            this._gameover = cc.LabelTTF.create("HIGH SCORE", s_marker_felt_ttf, 28 * SCALE_FACTOR);
+            this.popTextOnScreen("New Score!", "up");
+
         } else {
-            this._gameover = cc.LabelTTF.create("GAME OVER", s_marker_felt_ttf, 28 * SCALE_FACTOR);
+
         }
         this._gameover.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 95 * SCALE_FACTOR));
         this.addChild(this._gameover, 5);
@@ -166,7 +168,7 @@ var ScoreLayer = cc.Layer.extend({
         if (this._isPouringEasterEggs) {
             this._timer += delta;
             this._timerEasterEggs += delta;
-            if (this._timerEasterEggs > 0.1) {
+            if (this._timerEasterEggs > 0.1 && s_isHighScore) {
                 this.pourEasterEgg();
                 this._timerEasterEggs = 0;
             }
@@ -210,6 +212,57 @@ var ScoreLayer = cc.Layer.extend({
         s_gameStarted = false;
         director.pushScene(cc.TransitionFade.create(0.1, scene));
     },
+
+    popTextOnScreen: function(word, direction) {
+
+        var spawnPositionX, spawnPositionY;
+        var destinationX, destinationY;
+
+        var wordOnScreen = cc.LabelTTF.create(word, s_feastof_flesh_BB_ttf, 50 * SCALE_FACTOR);
+
+        switch (direction) {
+
+            case 'down':
+                {
+
+                    spawnPositionX = this._screenSize.width / 2;
+                    spawnPositionY = this._screenSize.height + 20 * SCALE_FACTOR;
+                    destinationX = this._screenSize.width / 2;
+                    destinationY = -30 * SCALE_FACTOR;
+                    wordOnScreen.setColor(cc.c3b(255, 110, 0));
+
+                }
+                break;
+
+            case 'up':
+                {
+
+                    spawnPositionX = this._screenSize.width / 2;
+                    spawnPositionY = -30 * SCALE_FACTOR;
+                    destinationX = this._screenSize.width / 2;
+                    destinationY = this._screenSize.height + 20 * SCALE_FACTOR;
+                    wordOnScreen.setColor(cc.c3b(0, 153, 255));
+                }
+        }
+
+        wordOnScreen.setPosition(cc.p(spawnPositionX, spawnPositionY));
+
+        this.addChild(wordOnScreen, 1000);
+
+        var flow = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, this._screenSize.height / 2 + 180 * SCALE_FACTOR));
+
+        var flowAway = cc.MoveTo.create(1, cc.p(destinationX, destinationY));
+
+        var callfunc = cc.CallFunc.create(function() {
+
+            wordOnScreen.setVisible(false);
+
+        }.bind(this));
+
+        var flowWithCallfunc = cc.Sequence.create(flow, cc.DelayTime.create(2), flowAway, callfunc);
+        wordOnScreen.runAction(flowWithCallfunc);
+    },
+
 });
 
 var ScoreScene = cc.Scene.extend({
