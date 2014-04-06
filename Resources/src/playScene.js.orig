@@ -228,61 +228,10 @@ var PlayLayer = cc.Layer.extend({
 
         return true;
     },
-
-
-    popTextOnScreen: function(word, direction) {
-
-        var spawnPositionX, spawnPositionY;
-        var destinationX, destinationY;
-
-        switch (direction) {
-
-            case 'down':
-                {
-
-                    spawnPositionX = this._screenSize.width / 2;
-                    spawnPositionY = this._screenSize.height + 20 * SCALE_FACTOR;
-
-                    destinationX = this._screenSize.width / 2;
-                    destinationY = -30 * SCALE_FACTOR;
-
-                }
-                break;
-
-            case 'up':
-                {
-
-                    spawnPositionX = this._screenSize.width / 2;
-                    spawnPositionY = -30 * SCALE_FACTOR;
-                    destinationX = this._screenSize.width / 2;
-                    destinationY = this._screenSize.height + 20 * SCALE_FACTOR;
-                }
-        }
-
-        var wordOnScreen = cc.LabelTTF.create(word, "res/fonts/FeastofFleshBB.ttf", 50 * SCALE_FACTOR);
                                 
-        wordOnScreen.setColor(cc.c3b(255, 110, 0));
-
-        wordOnScreen.setPosition(cc.p(spawnPositionX, spawnPositionY));
                                 
-        this.addChild(wordOnScreen, 1000);
-
-        var flow = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, this._screenSize.height / 2));
-
-        var flowAway = cc.MoveTo.create(1, cc.p(destinationX, destinationY));
-
-        var callfunc = cc.CallFunc.create(function() {
-
-            this.wordOnScreen.setVisible(false);
-
-        }.bind(this));
-
-        var flowWithCallfunc = cc.Sequence.create(flow, cc.DelayTime.create(2), flowAway, callfunc);
-        wordOnScreen.runAction(flowWithCallfunc);
-    },
-
     generateSmoke: function(obj) {
-
+                                
         this._emitter = cc.ParticleSmoke.create();
         obj.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_decoration_particle_fire_png));
@@ -300,6 +249,8 @@ var PlayLayer = cc.Layer.extend({
         this._emitter.setPosition(0, 0);
 
     },
+
+
 
     //power up
     addPowerUpToGame: function(powerUpType) {
@@ -335,17 +286,23 @@ var PlayLayer = cc.Layer.extend({
 
     performPowerUpEffect: function() {
         this._isInvincible = true;
-        var blink = cc.Blink.create(BLINK_DURATION, BLINK_TIMES);
+        var blink = cc.Blink.create(2, 4);
         switch (this._currentMode) {
             case YD.POWERUP_TYPE.BIG:
                 {
+<<<<<<< HEAD
+                                
+                    this._isBig = true;
+                    var blink = cc.Blink.create(2, 4);
+=======
+>>>>>>> 04827771506fb35be6332a65b6c08ecabe08e1ef
                     var callfunc = cc.CallFunc.create(function() {
                         var deamonTexture = cc.TextureCache.getInstance().addImage(s_duck_deamon_png);
                         this._duck.setTexture(deamonTexture);
                         this._duckWing.setVisible(false);
                         this._isHeavy = true;
                     }.bind(this));
-                    var grow = cc.ScaleBy.create(GROW_DURATION, 3);
+                    var grow = cc.ScaleBy.create(3, 3);
                     var blinkGrowWithCallfunc = cc.Sequence.create(blink, callfunc, grow);
                     this._duck.runAction(blinkGrowWithCallfunc);
                     this.generateSun(this._duck);
@@ -353,27 +310,28 @@ var PlayLayer = cc.Layer.extend({
                     this._duck.runAction(moveForward);
 
                     this._isBig = true;
-                    cc.log('performPowerUpEffect');
                     this._hasPowerUpEffect = true;
-                    this.popTextOnScreen("Heavy!", "down");
+                    this.popTextOnScreen("Heavy!");
+<<<<<<< HEAD
+                                
+=======
+>>>>>>> 04827771506fb35be6332a65b6c08ecabe08e1ef
                 }
                 break;
 
             case YD.POWERUP_TYPE.SMALL:
                 {
-                    this._duck.runAction(blink);
-
                     var callfunc = cc.CallFunc.create(function() {
                         this._isInvincible = false;
                     }.bind(this));
-                    var shrink = cc.ScaleBy.create(2, 0.2);
-                    var shrinkWithCallfunc = cc.Sequence.create(shrink, callfunc);
-                    this._duck.runAction(shrinkWithCallfunc);
+                    var shrink = cc.ScaleBy.create(3, 0.2);
+                    var blinkShrinkWithCallfunc = cc.Sequence.create(blink, callfunc, shrink);
+                    this._duck.runAction(blinkShrinkWithCallfunc);
 
                     this._isSmall = true;
                     this._hasPowerUpEffect = true;
                     this._duckVelocity = 0;
-                    this.popTextOnScreen("Light!", "up");
+                    this.popTextOnScreen("Light!");
                 }
                 break;
             case YD.POWERUP_TYPE.OPPOSIT_GRAVITY:
@@ -387,19 +345,39 @@ var PlayLayer = cc.Layer.extend({
                     this._isOppositGravity = true;
                     this._hasPowerUpEffect = true;
                     this._duckVelocity = 0;
-                    this.popTextOnScreen("Opposit!", "up");
+                    this.popTextOnScreen("Opposit gravity!");
                 }
                 break;
         }
     },
 
+    popTextOnScreen: function(word) {
+        var wordOnScreen = cc.LabelTTF.create(word, "Marker Felt", 50 * SCALE_FACTOR);
+
+        wordOnScreen.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height + 20 * SCALE_FACTOR));
+
+        this.addChild(wordOnScreen, 1000);
+
+        var flow = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, this._screenSize.height / 2));
+
+        var flowAway = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, -20 * SCALE_FACTOR));
+
+        var callfunc = cc.CallFunc.create(function() {
+
+            this.wordOnScreen.setVisible(false);
+
+        }.bind(this));
+
+        var flowWithCallfunc = cc.Sequence.create(flow, cc.DelayTime.create(2), flowAway, callfunc);
+        wordOnScreen.runAction(flowWithCallfunc);
+    },
+
     removeEffect: function() {
         this._heavyGravity = GRAVITY;
-        this._isHeavy = false;
-
-        var scaleBack = cc.ScaleTo.create(3, 1);
+        var scaleBack = cc.ScaleTo.create(2, 1);
         var callfunc = cc.CallFunc.create(function() {
             this._isBig = false;
+            this._isHeavy = false;
             this._isSmall = false;
             this._isOppositGravity = false;
             this._hasPowerUpEffect = false;
@@ -878,7 +856,7 @@ var PlayLayer = cc.Layer.extend({
             gravity = 0;
         } else if (this._isHeavy) {
             if (this._heavyGravity < GRAVITY * 3) {
-                this._heavyGravity += 2 * GRAVITY / GROW_DURATION * delta;
+                this._heavyGravity += 2 * GRAVITY / 3 * delta;
             }
             gravity = this._heavyGravity;
         } else if (this._isOppositGravity) {
@@ -957,7 +935,7 @@ var PlayLayer = cc.Layer.extend({
         if (this._hasPowerUpEffect === true) {
             this._timerPowerUp += delta;
 
-            if (this._timerPowerUp > POWER_UP_EFFECT_DURATION) {
+            if (this._timerPowerUp > 15.0) {
                 this.removeEffect();
                 this._timerPowerUp = 0;
             }
@@ -1051,9 +1029,7 @@ var PlayLayer = cc.Layer.extend({
         }
 
         if (this._isBig) {
-            audioEngin.playEffect(s_jump_big_effect);
-        } else if (this._isSmall) {
-            audioEngin.playEffect(s_jump_small_effect);
+            audioEngin.playEffect(s_jump_slow_effect);
         } else {
             audioEngin.playEffect(s_jump_effect);
         }
@@ -1107,13 +1083,7 @@ var PlayLayer = cc.Layer.extend({
         var walls = this._walls;
 
         for (var i = 0; i < walls.length; i++) {
-            var isTouched;
-            if (this._isSmall) {
-                isTouched = this.isObjTouched(this._duck, this._walls[i], true);
-            } else {
-                isTouched = this.isObjTouched(this._duck, this._walls[i]);
-            }
-            if (isTouched) {
+            if (this.isObjTouched(this._duck, this._walls[i])) {
                 if (this._isInvincible) {
                     if (this._timerKnockWall > 0.5) {
                         this.knockDownWall(this._walls[i]);
@@ -1154,25 +1124,18 @@ var PlayLayer = cc.Layer.extend({
 
         var shrinkRotateDie = cc.Sequence.create(shrinkAction, rotateAction);
         this._duck.runAction(shrinkRotateDie);
-        audioEngin.playEffect(s_poped_effect);
     },
 
     gameOverDrowned: function() {
         var that = this;
-
+        audioEngin.playEffect(s_drowned_effect);
         var enoughBubble = false;
         this._bubbles.some(function(bubble) {
             if (!bubble.isVisible()) {
                 bubble.setVisible(true);
                 var size = bubble.getContentSize();
                 bubble.setPosition(cc.p(325, -size.height));
-                if (that._isBig) {
-                    bubble.setScale(0.35 * 3);
-                    audioEngin.playEffect(s_drowned_big_effect);
-                } else {
-                    bubble.setScale(0.35);
-                    audioEngin.playEffect(s_drowned_effect);
-                }
+                bubble.setScale(0.35);
                 var flow = cc.MoveTo.create(getRandomArbitrary(1, 2.5), cc.p(getRandomArbitrary(30 * SCALE_FACTOR, 100 * SCALE_FACTOR), that._screenSize.height));
 
                 var callfunc = cc.CallFunc.create(function() {
@@ -1198,23 +1161,22 @@ var PlayLayer = cc.Layer.extend({
     },
 
 
-    isObjTouched: function(firstObj, secondObj, useBoundingBox) {
-        var firstObjSize,
-            firstObjPos = firstObj.getPosition(),
-            secondObjSize,
-            secondObjPos = secondObj.getPosition();
-        if (useBoundingBox) {
-            firstObjSize = firstObj.getBoundingBox();
-            secondObjSize = secondObj.getBoundingBox();
-        } else {
-            firstObjSize = firstObj.getContentSize();
-            secondObjSize = secondObj.getContentSize();
-        }
-
+    isObjTouched: function(firstObj, secondObj) {
+        var firstObjSize = firstObj.getContentSize();
+        var firstObjPos = firstObj.getPosition();
         var firstCollideRect = cc.rect(firstObjPos.x - firstObjSize.width / 2, firstObjPos.y - firstObjSize.height / 2, firstObjSize.width, firstObjSize.height);
-        var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width, secondObjSize.height);
+
+        //below normally used as Wall, make object little bit smaller to maker game easier
+        var secondObjSize = secondObj.getContentSize();
+        var secondObjPos = secondObj.getPosition();
+        var secondCollideRect = cc.rect(secondObjPos.x - secondObjSize.width / 2, secondObjPos.y - secondObjSize.height / 2, secondObjSize.width - 5, secondObjSize.height - 5);
 
         if (cc.rectIntersectsRect(firstCollideRect, secondCollideRect)) {
+            if (secondObj == this._powerUp) {
+                audioEngin.playEffect(s_poped_effect);
+            } else {
+                audioEngin.playEffect(s_poped_effect);
+            }
             return true;
         }
     },
