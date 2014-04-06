@@ -346,10 +346,6 @@ var PlayLayer = cc.Layer.extend({
                     this._duck.runAction(moveForward);
                     this._isBig = true;
                     this.popTextOnScreen("Heavy!", "down");
-                    audioEngin.playMusic(s_heavy_bg_music, true);
-                    audioEngin.setMusicVolume(0.3);
-
-
                 }
                 break;
 
@@ -423,7 +419,7 @@ var PlayLayer = cc.Layer.extend({
             this._duckWing.setVisible(true);
             var duckTexture = cc.TextureCache.getInstance().addImage(s_duck);
             this._duck.setTexture(duckTexture);
-            audioEngin.pauseMusic();
+
             this._isRemovingPowerUp = false;
         }.bind(this));
 
