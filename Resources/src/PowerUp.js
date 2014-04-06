@@ -112,8 +112,6 @@ PowerUp.getOrCreatePowerUp = function(arg) {
     var selChild = null;
     for (var j = 0; j < YD.CONTAINER.POWERUP.length; j++) {
         selChild = YD.CONTAINER.POWERUP[j];
-        cc.log('getOrCreatePowerUp');
-        cc.log(arg.type);
         if (selChild.active === false && selChild.powerUpType === arg.type) {
             selChild.active = true;
             selChild.effectMode = arg.effectMode;

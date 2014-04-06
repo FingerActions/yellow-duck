@@ -67,6 +67,8 @@ var PlayLayer = cc.Layer.extend({
     _isInvincible: null,
     _hasPowerUpEffect: null,
     _hasPowerUpOnScreen: null,
+    _isRemovingPowerUp: null,
+
     _currentMode: null,
     _heavyGravity: null,
 
@@ -91,6 +93,7 @@ var PlayLayer = cc.Layer.extend({
 
         this._hasPowerUpOnScreen = false;
         this._hasPowerUpEffect = false;
+        this._isRemovingPowerUp = false;
 
         //touch
         if ('touches' in sys.capabilities) {
@@ -276,7 +279,7 @@ var PlayLayer = cc.Layer.extend({
 
         var callfunc = cc.CallFunc.create(function() {
 
-            this.wordOnScreen.setVisible(false);
+            wordOnScreen.setVisible(false);
 
         }.bind(this));
 
@@ -338,6 +341,8 @@ var PlayLayer = cc.Layer.extend({
 
     performPowerUpEffect: function() {
         this._isInvincible = true;
+        this._hasPowerUpEffect = true;
+
         var blink = cc.Blink.create(BLINK_DURATION, BLINK_TIMES);
         switch (this._currentMode) {
             case YD.POWERUP_TYPE.BIG:
@@ -356,8 +361,7 @@ var PlayLayer = cc.Layer.extend({
                     this._duck.runAction(moveForward);
 
                     this._isBig = true;
-                    cc.log('performPowerUpEffect');
-                    this._hasPowerUpEffect = true;
+
                     this.popTextOnScreen("Heavy!", "down");
                 }
                 break;
@@ -374,7 +378,6 @@ var PlayLayer = cc.Layer.extend({
                     this._duck.runAction(shrinkWithCallfunc);
 
                     this._isSmall = true;
-                    this._hasPowerUpEffect = true;
                     this._duckVelocity = 0;
                     this.popTextOnScreen("Light!", "up");
                 }
@@ -388,9 +391,15 @@ var PlayLayer = cc.Layer.extend({
                     this._duck.runAction(blinkWithCallfunc);
 
                     this._isOppositGravity = true;
-                    this._hasPowerUpEffect = true;
                     this._duckVelocity = 0;
                     this.popTextOnScreen("Opposit!", "up");
+
+                    var shakeFrom = cc.RotateTo.create(0.3, 200);
+                    var shakeTo = cc.RotateTo.create(0.3, 160);
+                    var shake = cc.Sequence.create(shakeFrom, shakeTo);
+                    var shakeForever = cc.RepeatForever.create(shake);
+                    shakeForever.setTag(0);
+                    this._duck.runAction(shakeForever);
                 }
                 break;
         }
@@ -400,11 +409,23 @@ var PlayLayer = cc.Layer.extend({
         this._heavyGravity = GRAVITY;
         this._isHeavy = false;
 
-        var scaleBack = cc.ScaleTo.create(3, 1);
+        this._isInvincible = true;
+        this._isSmall = false;
+        this._isOppositGravity = false;
+        this._duck.stopActionByTag(0);
+        if (!this._isbig) {
+            if (this._duckVelocity < 0) {
+                this._duckVelocity = -this._duckVelocity;
+            }
+        }
+        this._isRemovingPowerUp = true;
+        var blink = cc.Blink.create(BLINK_DURATION, BLINK_TIMES);
+        this._duck.runAction(blink);
+
+        var scaleBack = cc.ScaleTo.create(BLINK_DURATION, 1);
         var callfunc = cc.CallFunc.create(function() {
             this._isBig = false;
-            this._isSmall = false;
-            this._isOppositGravity = false;
+
             this._hasPowerUpEffect = false;
             this._currentMode = null;
             this._isInvincible = false;
@@ -412,7 +433,13 @@ var PlayLayer = cc.Layer.extend({
             this._duckWing.setVisible(true);
             var duckTexture = cc.TextureCache.getInstance().addImage(s_duck);
             this._duck.setTexture(duckTexture);
+            this._isRemovingPowerUp = false;
         }.bind(this));
+
+        if (this._currentMode === YD.POWERUP_TYPE.OPPOSIT_GRAVITY) {
+            var rotateBack = cc.RotateTo.create(1, 1);
+            this._duck.runAction(rotateBack);
+        }
 
         var scaleBackWithCallfunc = cc.Sequence.create(scaleBack, callfunc);
         this._duck.runAction(scaleBackWithCallfunc);
@@ -732,9 +759,9 @@ var PlayLayer = cc.Layer.extend({
         var easterBunny = cc.Sprite.create(s_decoration_easter_bunny_png);
         easterBunny.setScale(DECORATION_SCALE_FACTOR);
         var contentSize = easterBunny.getContentSize();
-        easterBunny.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, 150 * SCALE_FACTOR));
+        easterBunny.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, 100 * SCALE_FACTOR));
         this.addChild(easterBunny, 0);
-        var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2 * DECORATION_SCALE_FACTOR, 150 * SCALE_FACTOR));
+        var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2 * DECORATION_SCALE_FACTOR, 100 * SCALE_FACTOR));
         var callfunc = cc.CallFunc.create(function() {
             this.removeChild(easterBunny);
         }.bind(this));
@@ -887,14 +914,16 @@ var PlayLayer = cc.Layer.extend({
         } else if (this._isOppositGravity) {
             gravity = -GRAVITY;
         } else {
-            gravity = GRAVITY;
+            if (gravity < GRAVITY) {
+                gravity += 2 * GRAVITY / BLINK_DURATION * delta;
+            } else {
+                gravity = GRAVITY;
+            }
         }
 
         this._duckVelocity -= gravity * fpsFactor;
 
-        if (this._duckVelocity < 0 && this._isDuckJumping) {
-            this.turnDuckBack();
-        }
+        this.turnDuckBack();
 
         //duck position
         var duckPrePosition = this._duck.getPosition();
@@ -957,9 +986,8 @@ var PlayLayer = cc.Layer.extend({
             this._hasPowerUpOnScreen = true;
         }
 
-        if (this._hasPowerUpEffect === true) {
+        if (this._hasPowerUpEffect === true && !this._isRemovingPowerUp) {
             this._timerPowerUp += delta;
-
             if (this._timerPowerUp > POWER_UP_EFFECT_DURATION) {
                 this.removeEffect();
                 this._timerPowerUp = 0;
@@ -968,7 +996,15 @@ var PlayLayer = cc.Layer.extend({
     },
 
     turnDuckBack: function() {
-        var turnbackAction = cc.RotateTo.create(0.1, 0);
+        var turnbackAction;
+        if (!this._isOppositGravity && this._duckVelocity < 0 && this._isDuckJumping) {
+            turnbackAction = cc.RotateTo.create(0.1, 0);
+        } else if (this._isOppositGravity && this._duckVelocity > 0 && this._isDuckJumping) {
+            turnbackAction = cc.RotateTo.create(0.1, 180);
+        } else {
+            return;
+        }
+
         this._duck.runAction(turnbackAction);
         this._isDuckJumping = false;
     },
@@ -1079,14 +1115,18 @@ var PlayLayer = cc.Layer.extend({
         } else {
             this._duckVelocity = JUMP_VELOCITY;
         }
-        var duckRotate;
-        if (getRandomInt(0, 14) === 0) {
-            duckRotate = cc.RotateBy.create(0.5, -400);
-        } else {
-            duckRotate = cc.RotateTo.create(0.1, -25);
+
+        //duck rotate
+        if (!this._isOppositGravity) {
+            var duckRotate;
+            if (getRandomInt(0, 14) === 0) {
+                duckRotate = cc.RotateBy.create(0.5, -400);
+            } else {
+                duckRotate = cc.RotateBy.create(0.1, -25);
+            }
+            this._duck.runAction(duckRotate);
+            this._isDuckJumping = true;
         }
-        this._duck.runAction(duckRotate);
-        this._isDuckJumping = true;
 
         //swim animation
         var swimA = cc.RotateTo.create(0.2, 20);
