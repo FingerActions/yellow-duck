@@ -245,6 +245,8 @@
 		EE2749CC18C1DD4200C18B44 /* FingerActions.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE2749CA18C1DD4200C18B44 /* FingerActions.mm */; };
 		EE2749CF18C1DF5F00C18B44 /* FingerActionsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = EE2749CD18C1DF5F00C18B44 /* FingerActionsManager.mm */; };
 		EE2749D318C1EA6D00C18B44 /* jsb_fingerActions_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EE2749D118C1EA6D00C18B44 /* jsb_fingerActions_auto.cpp */; };
+		EE34A6C618F0FDF00015982F /* FeastofFleshBB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE34A6C418F0FDF00015982F /* FeastofFleshBB.ttf */; };
+		EE34A6C718F0FDF00015982F /* FeastofFleshBBItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE34A6C518F0FDF00015982F /* FeastofFleshBBItalic.ttf */; };
 		EE61DC6818CAB5CE0068365C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE61DC6718CAB5CE0068365C /* Images.xcassets */; };
 		EEA5067C18BCABCF00BBF285 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEA5067A18BCABCF00BBF285 /* README.txt */; };
 		EEA5067E18BCAC5C00BBF285 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5067D18BCAC5C00BBF285 /* AdSupport.framework */; };
@@ -725,6 +727,8 @@
 		EE2749CE18C1DF5F00C18B44 /* FingerActionsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FingerActionsManager.h; sourceTree = "<group>"; };
 		EE2749D118C1EA6D00C18B44 /* jsb_fingerActions_auto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_fingerActions_auto.cpp; sourceTree = "<group>"; };
 		EE2749D218C1EA6D00C18B44 /* jsb_fingerActions_auto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jsb_fingerActions_auto.h; sourceTree = "<group>"; };
+		EE34A6C418F0FDF00015982F /* FeastofFleshBB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FeastofFleshBB.ttf; sourceTree = "<group>"; };
+		EE34A6C518F0FDF00015982F /* FeastofFleshBBItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FeastofFleshBBItalic.ttf; sourceTree = "<group>"; };
 		EE61DC6518CAB5920068365C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		EE61DC6618CAB5A20068365C /* icon-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-2x.png"; sourceTree = "<group>"; };
 		EE61DC6718CAB5CE0068365C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = flappy/Images.xcassets; sourceTree = "<group>"; };
@@ -803,6 +807,8 @@
 		15628F5B15F0F5C2000CF24B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EE34A6C418F0FDF00015982F /* FeastofFleshBB.ttf */,
+				EE34A6C518F0FDF00015982F /* FeastofFleshBBItalic.ttf */,
 				EE61DC6718CAB5CE0068365C /* Images.xcassets */,
 				46513EB7187C034200B5ABE1 /* cocos2d-jsb.js */,
 				1AE4B40116D1FECD003C6D1C /* res */,
@@ -1858,6 +1864,7 @@
 				1A5E740017F0870800B9ACAE /* jsb_deprecated.js in Resources */,
 				1AA51AEB16F71C3D000FDF05 /* jsb_chipmunk_constants.js in Resources */,
 				1AA51AEC16F71C3D000FDF05 /* jsb_cocos2d_constants.js in Resources */,
+				EE34A6C618F0FDF00015982F /* FeastofFleshBB.ttf in Resources */,
 				1AA51AED16F71C3D000FDF05 /* jsb_opengl_constants.js in Resources */,
 				1A4B645416EE24A80025FE93 /* jsb_cocos2d_extension.js in Resources */,
 				EEA5067C18BCABCF00BBF285 /* README.txt in Resources */,
@@ -1867,6 +1874,7 @@
 				1A2757BF1697FBE500504026 /* jsb_cocos2d.js in Resources */,
 				46513EB9187C03D300B5ABE1 /* cocos2d-jsb.js in Resources */,
 				1A2757C01697FBE500504026 /* jsb_cocosbuilder.js in Resources */,
+				EE34A6C718F0FDF00015982F /* FeastofFleshBBItalic.ttf in Resources */,
 				1A2757C11697FBE500504026 /* jsb_debugger.js in Resources */,
 				1A2757C21697FBE500504026 /* jsb_opengl.js in Resources */,
 				1A2757C31697FBE500504026 /* jsb_sys.js in Resources */,
