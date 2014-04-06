@@ -228,10 +228,31 @@ var PlayLayer = cc.Layer.extend({
 
         return true;
     },
-                                
-                                
+
+
+    popTextOnScreen: function(word) {
+        var wordOnScreen = cc.LabelTTF.create(word, "Marker Felt", 50 * SCALE_FACTOR);
+
+        wordOnScreen.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height + 20 * SCALE_FACTOR));
+
+        this.addChild(wordOnScreen, 1000);
+
+        var flow = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, this._screenSize.height / 2));
+
+        var flowAway = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, -20 * SCALE_FACTOR));
+
+        var callfunc = cc.CallFunc.create(function() {
+
+            this.wordOnScreen.setVisible(false);
+
+        }.bind(this));
+
+        var flowWithCallfunc = cc.Sequence.create(flow, cc.DelayTime.create(2), flowAway, callfunc);
+        wordOnScreen.runAction(flowWithCallfunc);
+    },
+
     generateSmoke: function(obj) {
-                                
+
         this._emitter = cc.ParticleSmoke.create();
         obj.addChild(this._emitter, 10);
         this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_decoration_particle_fire_png));
@@ -249,8 +270,6 @@ var PlayLayer = cc.Layer.extend({
         this._emitter.setPosition(0, 0);
 
     },
-
-
 
     //power up
     addPowerUpToGame: function(powerUpType) {
@@ -304,6 +323,7 @@ var PlayLayer = cc.Layer.extend({
                     this._duck.runAction(moveForward);
 
                     this._isBig = true;
+                    cc.log('performPowerUpEffect');
                     this._hasPowerUpEffect = true;
                     this.popTextOnScreen("Heavy!");
                 }
@@ -343,33 +363,13 @@ var PlayLayer = cc.Layer.extend({
         }
     },
 
-    popTextOnScreen: function(word) {
-        var wordOnScreen = cc.LabelTTF.create(word, "Marker Felt", 50 * SCALE_FACTOR);
-
-        wordOnScreen.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height + 20 * SCALE_FACTOR));
-
-        this.addChild(wordOnScreen, 1000);
-
-        var flow = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, this._screenSize.height / 2));
-
-        var flowAway = cc.MoveTo.create(1, cc.p(this._screenSize.width / 2, -20 * SCALE_FACTOR));
-
-        var callfunc = cc.CallFunc.create(function() {
-
-            this.wordOnScreen.setVisible(false);
-
-        }.bind(this));
-
-        var flowWithCallfunc = cc.Sequence.create(flow, cc.DelayTime.create(2), flowAway, callfunc);
-        wordOnScreen.runAction(flowWithCallfunc);
-    },
-
     removeEffect: function() {
         this._heavyGravity = GRAVITY;
-        var scaleBack = cc.ScaleTo.create(2, 1);
+        this._isHeavy = false;
+
+        var scaleBack = cc.ScaleTo.create(3, 1);
         var callfunc = cc.CallFunc.create(function() {
             this._isBig = false;
-            this._isHeavy = false;
             this._isSmall = false;
             this._isOppositGravity = false;
             this._hasPowerUpEffect = false;
@@ -927,7 +927,7 @@ var PlayLayer = cc.Layer.extend({
         if (this._hasPowerUpEffect === true) {
             this._timerPowerUp += delta;
 
-            if (this._timerPowerUp > 15.0) {
+            if (this._timerPowerUp > POWER_UP_EFFECT_DURATION) {
                 this.removeEffect();
                 this._timerPowerUp = 0;
             }
@@ -1120,14 +1120,20 @@ var PlayLayer = cc.Layer.extend({
 
     gameOverDrowned: function() {
         var that = this;
-        audioEngin.playEffect(s_drowned_effect);
+
         var enoughBubble = false;
         this._bubbles.some(function(bubble) {
             if (!bubble.isVisible()) {
                 bubble.setVisible(true);
                 var size = bubble.getContentSize();
                 bubble.setPosition(cc.p(325, -size.height));
-                bubble.setScale(0.35);
+                if (that._isBig) {
+                    bubble.setScale(0.35 * 3);
+                    audioEngin.playEffect(s_drowned_big_effect);
+                } else {
+                    bubble.setScale(0.35);
+                    audioEngin.playEffect(s_drowned_effect);
+                }
                 var flow = cc.MoveTo.create(getRandomArbitrary(1, 2.5), cc.p(getRandomArbitrary(30 * SCALE_FACTOR, 100 * SCALE_FACTOR), that._screenSize.height));
 
                 var callfunc = cc.CallFunc.create(function() {

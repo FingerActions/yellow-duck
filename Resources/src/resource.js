@@ -72,6 +72,7 @@ var s_duck_deamon_png = "res/duck/duck_deamon.png";
 
 //sound effects
 var s_drowned_effect = "res/sound_effects/drowned.mp3";
+var s_drowned_big_effect = "res/sound_effects/drowned_big.mp3";
 var s_poped_effect = "res/sound_effects/poped.mp3";
 var s_jump_effect = "res/sound_effects/jump.mp3";
 var s_wall = "res/walls/wall.png";
