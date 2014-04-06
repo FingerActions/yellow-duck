@@ -85,6 +85,10 @@ var s_jump_small_effect = "res/sound_effects/jump_small.mp3";
 var s_stars1 = "res/decorations/stars.png";
 var s_stars2 = "res/decorations/stars2.png";
 
+//fonts
+var s_feastof_flesh_BB_ttf = "res/fonts/FeastofFleshBB.ttf";
+var s_marker_felt_ttf = "res/fonts/MarkerFelt.ttf";
+
 var g_ressources = [
     //image
     {

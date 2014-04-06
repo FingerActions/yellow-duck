@@ -55,7 +55,7 @@ var IntroLayer = cc.Layer.extend({
 
         // add a label shows "Yellow Duck"
         // create and initialize a label
-        this._titleLabel = cc.LabelTTF.create("Yellow Duck", "Marker Felt", 30 * SCALE_FACTOR);
+        this._titleLabel = cc.LabelTTF.create("Yellow Duck", s_marker_felt_ttf, 30 * SCALE_FACTOR);
         // position the label on the center of the screen
         this._titleLabel.setPosition(cc.p(this._screenSize.width / 2, this._screenSize.height - 100 * SCALE_FACTOR));
         // add the label as a child to this layer

@@ -135,7 +135,7 @@ var PlayLayer = cc.Layer.extend({
 
         //score
         this._score = 0;
-        this._scoreLabel = cc.LabelTTF.create(this._score, "Marker Felt", 33 * SCALE_FACTOR);
+        this._scoreLabel = cc.LabelTTF.create(this._score, s_marker_felt_ttf, 33 * SCALE_FACTOR);
 
         if (s_weather === 0) {
             this._scoreLabel.setFontFillColor(cc.c4b(243, 174, 142, 255));
@@ -238,7 +238,7 @@ var PlayLayer = cc.Layer.extend({
         var spawnPositionX, spawnPositionY;
         var destinationX, destinationY;
 
-        var wordOnScreen = cc.LabelTTF.create(word, "res/fonts/FeastofFleshBB.ttf", 50 * SCALE_FACTOR);
+        var wordOnScreen = cc.LabelTTF.create(word, s_feastof_flesh_BB_ttf, 50 * SCALE_FACTOR);
 
         switch (direction) {
 
