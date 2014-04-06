@@ -58,8 +58,6 @@ var PlayLayer = cc.Layer.extend({
     _isGameOver: null,
 
     //powerUps
-    _emitter: null,
-
     _isBig: false,
     _isHeavy: false,
     _isSmall: null,
@@ -283,26 +281,6 @@ var PlayLayer = cc.Layer.extend({
         wordOnScreen.runAction(flowWithCallfunc);
     },
 
-    generateSmoke: function(obj) {
-
-        this._emitter = cc.ParticleSmoke.create();
-        obj.addChild(this._emitter, 10);
-        this._emitter.setTexture(cc.TextureCache.getInstance().addImage(s_decoration_particle_fire_png));
-        this._emitter.setPosition(0, 0);
-    },
-
-    generateSun: function(obj) {
-
-        this._emitter = cc.ParticleSun.create();
-        obj.addChild(this._emitter, 10);
-        var myTexture = cc.TextureCache.getInstance().addImage(s_decoration_particle_fire_png);
-        this._emitter.setTexture(myTexture);
-        if (this._emitter.setShapeType)
-            this._emitter.setShapeType(cc.PARTICLE_BALL_SHAPE);
-        this._emitter.setPosition(0, 0);
-
-    },
-
     //power up
     addPowerUpToGame: function(powerUpType) {
         this._powerUp = PowerUp.getOrCreatePowerUp(PowerUpType[powerUpType]);
@@ -331,15 +309,21 @@ var PlayLayer = cc.Layer.extend({
     duckTouchedPowerUpEffect: function() {
         this._currentMode = this._powerUp.effectMode;
         this._hasPowerUpOnScreen = false;
+
+        var emitter = cc.ParticleExplosion.create();
+        emitter.setPosition(this._powerUp.getPosition());
+        this.addChild(emitter);
+
         this._powerUp.destroy();
         this.performPowerUpEffect();
+
     },
 
     performPowerUpEffect: function() {
         this._isInvincible = true;
         this._hasPowerUpEffect = true;
 
-        var blink = cc.Blink.create(BLINK_DURATION, BLINK_TIMES);
+        var blink = cc.Sequence.create(cc.DelayTime.create(0.5), cc.Blink.create(BLINK_DURATION, BLINK_TIMES));
         switch (this._currentMode) {
             case YD.POWERUP_TYPE.BIG:
                 {
@@ -352,7 +336,6 @@ var PlayLayer = cc.Layer.extend({
                     var grow = cc.ScaleBy.create(GROW_DURATION, 3);
                     var blinkGrowWithCallfunc = cc.Sequence.create(blink, callfunc, grow);
                     this._duck.runAction(blinkGrowWithCallfunc);
-                    this.generateSun(this._duck);
                     var moveForward = cc.MoveTo.create(3, cc.p(this._screenSize.width / 2 - this._duck.getContentSize().width / 2, this._screenSize.height / 2));
                     this._duck.runAction(moveForward);
 
@@ -976,6 +959,7 @@ var PlayLayer = cc.Layer.extend({
         //powerup
         if (getRandomInt(0, 40 / fpsFactor) === 0 && !this._hasPowerUpOnScreen && !this._hasPowerUpEffect) {
             dice = getRandomInt(0, 2);
+            dice = 0;
             this.addPowerUpToGame(dice);
             this._hasPowerUpOnScreen = true;
         }
