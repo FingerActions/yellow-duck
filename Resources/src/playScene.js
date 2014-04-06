@@ -364,14 +364,15 @@ var PlayLayer = cc.Layer.extend({
 
             case YD.POWERUP_TYPE.SMALL:
                 {
-                    this._duck.runAction(blink);
 
                     var callfunc = cc.CallFunc.create(function() {
                         this._isInvincible = false;
                     }.bind(this));
+                    var blinkWithCallfunc = cc.Sequence.create(blink, callfunc);
+                    this._duck.runAction(blinkWithCallfunc);
+
                     var shrink = cc.ScaleBy.create(2, 0.2);
-                    var shrinkWithCallfunc = cc.Sequence.create(shrink, callfunc);
-                    this._duck.runAction(shrinkWithCallfunc);
+                    this._duck.runAction(shrink);
 
                     this._isSmall = true;
                     this._duckVelocity = 0;
@@ -410,9 +411,7 @@ var PlayLayer = cc.Layer.extend({
         this._isOppositGravity = false;
         this._duck.stopActionByTag(0);
         if (!this._isbig) {
-            if (this._duckVelocity < 0) {
-                this._duckVelocity = -this._duckVelocity;
-            }
+            this._duckVelocity = JUMP_VELOCITY;
         }
         this._isRemovingPowerUp = true;
         var blink = cc.Blink.create(BLINK_DURATION, BLINK_TIMES);
@@ -910,11 +909,7 @@ var PlayLayer = cc.Layer.extend({
         } else if (this._isOppositGravity) {
             gravity = -GRAVITY;
         } else {
-            if (gravity < GRAVITY) {
-                gravity += 2 * GRAVITY / BLINK_DURATION * delta;
-            } else {
-                gravity = GRAVITY;
-            }
+            gravity = GRAVITY;
         }
 
         this._duckVelocity -= gravity * fpsFactor;
@@ -1115,7 +1110,7 @@ var PlayLayer = cc.Layer.extend({
         //duck rotate
         if (!this._isOppositGravity) {
             var duckRotate;
-            if (getRandomInt(0, 14) === 0) {
+            if (getRandomInt(0, 14) === 0 && !this._isBig) {
                 duckRotate = cc.RotateBy.create(0.5, -400);
             } else {
                 duckRotate = cc.RotateBy.create(0.1, -25);
