@@ -813,8 +813,6 @@ var PlayLayer = cc.Layer.extend({
     },
 
     update: function(delta) {
-        cc.log(this._duck.getBoundingBox().width);
-
         this._timer += delta;
         this._timerWall += delta;
         this._timerScore += delta;
