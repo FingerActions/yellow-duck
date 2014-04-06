@@ -759,9 +759,9 @@ var PlayLayer = cc.Layer.extend({
         var easterBunny = cc.Sprite.create(s_decoration_easter_bunny_png);
         easterBunny.setScale(DECORATION_SCALE_FACTOR);
         var contentSize = easterBunny.getContentSize();
-        easterBunny.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, 100 * SCALE_FACTOR));
+        easterBunny.setPosition(cc.p(this._screenSize.width + contentSize.width / 2 * DECORATION_SCALE_FACTOR, 90 * SCALE_FACTOR));
         this.addChild(easterBunny, 0);
-        var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2 * DECORATION_SCALE_FACTOR, 100 * SCALE_FACTOR));
+        var flow = cc.MoveTo.create(20, cc.p(-contentSize.width / 2 * DECORATION_SCALE_FACTOR, 90 * SCALE_FACTOR));
         var callfunc = cc.CallFunc.create(function() {
             this.removeChild(easterBunny);
         }.bind(this));
