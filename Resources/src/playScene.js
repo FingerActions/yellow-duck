@@ -49,6 +49,7 @@ var PlayLayer = cc.Layer.extend({
     _timerSeashell: null,
     _timerPowerUp: null,
     _timerThrowingEasterEggs: null,
+    _timerPowerUpEmitter: null,
 
     _isSpawningFish: null,
     _isSpawningBubbles: null,
@@ -220,7 +221,7 @@ var PlayLayer = cc.Layer.extend({
         this._isOppositGravity = false;
 
         //TransparentBatch
-        var powerUp = cc.TextureCache.getInstance().addImage(s_powerup_png);
+        var powerUp = cc.TextureCache.getInstance().addImage(s_power_ups_png);
         this._powerUpBatch = cc.SpriteBatchNode.createWithTexture(powerUp);
         this.addChild(this._powerUpBatch, 1000);
         g_sharedGameLayer = this;
@@ -310,8 +311,13 @@ var PlayLayer = cc.Layer.extend({
         this._currentMode = this._powerUp.effectMode;
         this._hasPowerUpOnScreen = false;
 
-        var emitter = cc.ParticleExplosion.create();
+        var particles = [];
+        particles.push(cc.ParticleExplosion);
+        var dice = getRandomInt(0, particles.length - 1);
+        var emitter = particles[dice].create();
         emitter.setPosition(this._powerUp.getPosition());
+        this._timerPowerUpEmitter = 0;
+        emitter.setTag(100);
         this.addChild(emitter);
 
         this._powerUp.destroy();
@@ -340,7 +346,7 @@ var PlayLayer = cc.Layer.extend({
                     this._duck.runAction(moveForward);
                     this._isBig = true;
                     this.popTextOnScreen("Heavy!", "down");
-                    audioEngin.playMusic(s_heavy_bg_music,true);
+                    audioEngin.playMusic(s_heavy_bg_music, true);
                     audioEngin.setMusicVolume(0.3);
 
 
@@ -391,8 +397,8 @@ var PlayLayer = cc.Layer.extend({
     },
 
     removeEffect: function() {
-                                
-       
+
+
         this._heavyGravity = GRAVITY;
         this._isHeavy = false;
         this._isInvincible = true;
@@ -417,7 +423,7 @@ var PlayLayer = cc.Layer.extend({
             this._duckWing.setVisible(true);
             var duckTexture = cc.TextureCache.getInstance().addImage(s_duck);
             this._duck.setTexture(duckTexture);
-                                           audioEngin.pauseMusic();
+            audioEngin.pauseMusic();
             this._isRemovingPowerUp = false;
         }.bind(this));
 
@@ -963,7 +969,6 @@ var PlayLayer = cc.Layer.extend({
         //powerup
         if (getRandomInt(0, 40 / fpsFactor) === 0 && !this._hasPowerUpOnScreen && !this._hasPowerUpEffect) {
             dice = getRandomInt(0, 2);
-            dice = 0;
             this.addPowerUpToGame(dice);
             this._hasPowerUpOnScreen = true;
         }
@@ -973,6 +978,14 @@ var PlayLayer = cc.Layer.extend({
             if (this._timerPowerUp > POWER_UP_EFFECT_DURATION) {
                 this.removeEffect();
                 this._timerPowerUp = 0;
+            }
+        }
+
+        if (this.getChildByTag(100)) {
+            this._timerPowerUpEmitter += delta;
+            if (this._timerPowerUpEmitter > 5) {
+                this.removeChildByTag(100);
+                this._timerPowerUpEmitter = 0;
             }
         }
     },

@@ -57,8 +57,8 @@ var s_score_easter_1_png = "res/backgrounds/score_easter_1.png";
 var s_score_easter_2_png = "res/backgrounds/score_easter_2.png";
 
 //power-ups
-var s_powerup_png = "res/powerup/powerup.png";
-var s_powerup_plist = "res/powerup/powerup.plist";
+var s_power_ups_png = "res/power_ups/power_ups.png";
+var s_power_ups_plist = "res/power_ups/power_ups.plist";
 
 var s_decoration_globefish_png = "res/decorations/Globefish.png";
 var s_decoration_little_devi_png = "res/decorations/little_devi.png";
@@ -111,7 +111,7 @@ var g_ressources = [
     }, {
         src: s_decoration_globefish_png
     }, {
-        src: s_powerup_png
+        src: s_power_ups_png
     }, {
         src: s_decoration_little_devi_png
     }, {
@@ -125,7 +125,7 @@ var g_ressources = [
     {
         src: s_decoration_seashell_plist
     }, {
-        src: s_powerup_plist
+        src: s_power_ups_plist
     },
     //fnt
 

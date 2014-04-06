@@ -15,15 +15,15 @@
 
 var PowerUpType = [{
     type: 0,
-    textureName: "powerup1.png",
+    textureName: "power_up_1.png",
     effectMode: YD.POWERUP_TYPE.BIG
 }, {
     type: 1,
-    textureName: "powerup2.png",
+    textureName: "power_up_2.png",
     effectMode: YD.POWERUP_TYPE.SMALL
 
 }, {
     type: 2,
-    textureName: "powerup3.png",
+    textureName: "power_up_3.png",
     effectMode: YD.POWERUP_TYPE.OPPOSIT_GRAVITY
 }];

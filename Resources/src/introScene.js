@@ -104,7 +104,7 @@ var IntroLayer = cc.Layer.extend({
         cc.SpriteFrameCache.getInstance().addSpriteFrames(s_decoration_easter_eggs_plist, s_decoration_easter_eggs_png);
 
         //power-ups
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_powerup_plist, s_powerup_png);
+        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_power_ups_plist, s_power_ups_png);
 
         return true;
     },
