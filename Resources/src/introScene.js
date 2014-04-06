@@ -62,7 +62,7 @@ var IntroLayer = cc.Layer.extend({
         this.addChild(this._titleLabel, 5);
 
         this._duck = cc.Sprite.create(s_duck);
-        this._duck.setPosition(cc.p(85 * SCALE_FACTOR, this._screenSize.height / 2));
+        this._duck.setPosition(cc.p(DUCK_POSITION_X, this._screenSize.height / 2));
         var duckWing = cc.Sprite.create(s_duck_wing);
         var wingSize = duckWing.getContentSize();
         duckWing.setPosition(cc.p(18 * SCALE_FACTOR - wingSize.width / 2 + wingSize.width * 0.75, 12 * SCALE_FACTOR - wingSize.height / 2 + wingSize.height * 0.6));

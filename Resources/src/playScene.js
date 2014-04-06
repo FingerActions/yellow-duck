@@ -112,7 +112,7 @@ var PlayLayer = cc.Layer.extend({
         //duck is not falling
         this._isDuckJumping = false;
         this._duck = cc.Sprite.create(s_duck);
-        this._duck.setPosition(cc.p(85 * SCALE_FACTOR, this._screenSize.height / 2));
+        this._duck.setPosition(cc.p(DUCK_POSITION_X, this._screenSize.height / 2));
         this._duckWing = cc.Sprite.create(s_duck_wing);
         var wingSize = this._duckWing.getContentSize();
         this._duckWing.setPosition(cc.p(18 * SCALE_FACTOR - wingSize.width / 2 + wingSize.width * 0.75, 12 * SCALE_FACTOR - wingSize.height / 2 + wingSize.height * 0.6));
@@ -288,23 +288,67 @@ var PlayLayer = cc.Layer.extend({
         this.runRandomPowerUpAnimation(this._powerUp.effectMode);
     },
 
+    randomBounceUpDown: function() {
+        var bounceUp = cc.MoveBy.create(0.9, cc.p(0, getRandomArbitrary(15, 40) * SCALE_FACTOR));
+        var bounceDown = cc.MoveBy.create(0.9, cc.p(0, -getRandomArbitrary(15, 40) * SCALE_FACTOR));
+        var bounce = cc.Sequence.create(bounceUp, bounceDown);
+        return cc.RepeatForever.create(bounce);
+    },
+
+    randomBounceLeftRight: function() {
+        var bounceLeft = cc.MoveBy.create(0.9, cc.p(getRandomArbitrary(15, 40) * SCALE_FACTOR, 0));
+        var bounceRight = cc.MoveBy.create(0.9, cc.p(-getRandomArbitrary(15, 40) * SCALE_FACTOR, 0));
+        var bounce = cc.Sequence.create(bounceLeft, bounceRight);
+        return cc.RepeatForever.create(bounce);
+    },
+
     runRandomPowerUpAnimation: function(effectMode) {
-        var contentSize = this._powerUp.getContentSize();
-        this._powerUp.setPosition(cc.p(this._screenSize.width / 3 * 2, this._screenSize.height + contentSize.height / 2));
-        var jumpIn = cc.EaseBounceIn.create(cc.MoveBy.create(2, cc.p(0, -this._screenSize.height / 3)));
-        var flow = cc.MoveBy.create(5, cc.p(-this._screenSize.width / 3 * 2 - contentSize.width / 2, 0));
+        var contentSize = this._powerUp.getContentSize(),
+            startRandomX, startRandomY, finishRandomX, finishRandomY,
+            dice = getRandomInt(0, 2),
+            randomBounce;
+        if (dice === 0) {
+            startRandomX = getRandomArbitrary(this._screenSize.width / 2, this._screenSize.width);
+            startRandomY = this._screenSize.height;
+
+            finishRandomX = getRandomArbitrary(0, DUCK_POSITION_X - 10 * SCALE_FACTOR);
+            finishRandomY = 0;
+
+            randomBounce = this.randomBounceLeftRight;
+        } else if (dice === 1) {
+            startRandomX = getRandomArbitrary(this._screenSize.width / 2, this._screenSize.width);
+            startRandomY = 0;
+
+            finishRandomX = getRandomArbitrary(0, DUCK_POSITION_X - 10 * SCALE_FACTOR);
+            finishRandomY = this._screenSize.height;
+
+            randomBounce = this.randomBounceLeftRight;
+        } else {
+            startRandomX = this._screenSize.width;
+            startRandomY = getRandomArbitrary(0, this._screenSize.height);
+
+            finishRandomX = 0;
+            finishRandomY = getRandomArbitrary(0, this._screenSize.height);
+
+            randomBounce = this.randomBounceUpDown;
+        }
+        cc.log(startRandomX);
+        cc.log(startRandomY);
+        cc.log(finishRandomX);
+        cc.log(finishRandomY);
+        cc.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        this._powerUp.setPosition(cc.p(startRandomX, startRandomY));
+        var flow = cc.MoveTo.create(6, cc.p(finishRandomX, finishRandomY));
 
         var callfunc = cc.CallFunc.create(function() {
             this._powerUp.destroy();
             this._hasPowerUpOnScreen = false;
         }.bind(this));
 
-        var flowWithCallfunc = cc.Sequence.create(jumpIn, flow, callfunc);
+        var flowWithCallfunc = cc.Sequence.create(flow, callfunc);
         this._powerUp.runAction(flowWithCallfunc);
-        var bounceUp = cc.MoveBy.create(1, cc.p(0, 20 * SCALE_FACTOR));
-        var bounceDown = cc.MoveBy.create(1, cc.p(0, -20 * SCALE_FACTOR));
-        var bounce = cc.Sequence.create(bounceUp, bounceDown);
-        this._powerUp.runAction(cc.RepeatForever.create(bounce));
+
+        this._powerUp.runAction(randomBounce());
     },
 
     duckTouchedPowerUpEffect: function() {
@@ -431,7 +475,7 @@ var PlayLayer = cc.Layer.extend({
         var scaleBackWithCallfunc = cc.Sequence.create(scaleBack, callfunc);
         this._duck.runAction(scaleBackWithCallfunc);
 
-        var moveBack = cc.MoveTo.create(1, cc.p(85 * SCALE_FACTOR, this._screenSize.height / 2));
+        var moveBack = cc.MoveTo.create(1, cc.p(DUCK_POSITION_X, this._screenSize.height / 2));
         this._duck.runAction(moveBack);
     },
 
