@@ -409,25 +409,29 @@ var PlayLayer = cc.Layer.extend({
 
         }
 
-        cc.SpriteFrameCache.getInstance().addSpriteFrames(s_finger_plist);
-        this.fingerSprite = cc.SpriteBatchNode.create(s_finger_png);
-        this.addChild(this.fingerSprite);
-        var animFrames = [];
-        for (var i = 1; i < 5; i++) {
-            var str = "finger" + i + ".png";
-            var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
-            animFrames.push(frame);
+        if (this._finger == null) {
+            cc.SpriteFrameCache.getInstance().addSpriteFrames(s_finger_plist);
+            this.fingerSprite = cc.SpriteBatchNode.create(s_finger_png);
+            this.addChild(this.fingerSprite);
+            var animFrames = [];
+            for (var i = 1; i < 5; i++) {
+                var str = "finger" + i + ".png";
+                var frame = cc.SpriteFrameCache.getInstance().getSpriteFrame(str);
+                animFrames.push(frame);
+            }
+            var animation = cc.Animation.create(animFrames, 0.1);
+            this._fingerTipAction = cc.RepeatForever.create(cc.Animate.create(animation));
+            this._finger = cc.Sprite.createWithSpriteFrameName("finger1.png");
+            this._finger.setPosition(cc.p(spawnPositionX, spawnPositionY));
+            this._finger.runAction(this._fingerTipAction);
+            this.fingerSprite.addChild(this._finger);
+            var MoveUpDown = cc.Sequence.create(flow, flow2);
+            this._finger.runAction(cc.RepeatForever.create(MoveUpDown));
+        } else {
+
+            this._finger.setVisible(true);
+
         }
-        var animation = cc.Animation.create(animFrames, 0.1);
-        this._fingerTipAction = cc.RepeatForever.create(cc.Animate.create(animation));
-        this._finger = cc.Sprite.createWithSpriteFrameName("finger1.png");
-        this._finger.setPosition(cc.p(spawnPositionX, spawnPositionY));
-        this._finger.runAction(this._fingerTipAction);
-        this.fingerSprite.addChild(this._finger);
-        var MoveUpDown = cc.Sequence.create(flow, flow2);
-
-        this._finger.runAction(cc.RepeatForever.create(MoveUpDown));
-
 
     },
 
@@ -535,11 +539,16 @@ var PlayLayer = cc.Layer.extend({
             this._duck.runAction(rotateBack);
         }
 
+        if (this._finger.isVisible) {
+            this._finger.setVisible(false);
+        }
+
         var scaleBackWithCallfunc = cc.Sequence.create(scaleBack, callfunc);
         this._duck.runAction(scaleBackWithCallfunc);
 
         var moveBack = cc.MoveTo.create(1, cc.p(DUCK_POSITION_X, this._screenSize.height / 2));
         this._duck.runAction(moveBack);
+
     },
 
     getWeather: function() {
