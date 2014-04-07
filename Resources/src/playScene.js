@@ -541,8 +541,9 @@ var PlayLayer = cc.Layer.extend({
             this._duck.runAction(rotateBack);
         }
 
-        if (this._finger.isVisible) {
-            this._finger.setVisible(false);
+        if (this._finger != null) {
+            if (this._finger.isVisible)
+                this._finger.setVisible(false);
         }
 
         var scaleBackWithCallfunc = cc.Sequence.create(scaleBack, callfunc);
