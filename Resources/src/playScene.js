@@ -1199,7 +1199,7 @@ var PlayLayer = cc.Layer.extend({
         } else if (this._isSmall) {
             var touchPositionY = touches[0].getLocation().y;
             cc.log(touchPositionY);
-            if (touchPositionY < this._screenSize.height / 2) {
+            if (touchPositionY < this._duck.getPosition().y) {
                 if (this._duckVelocity > 0) {
                     this._duckVelocity = 0;
                 }
