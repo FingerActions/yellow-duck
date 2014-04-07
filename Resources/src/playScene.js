@@ -305,15 +305,15 @@ var PlayLayer = cc.Layer.extend({
     },
 
     randomBounceUpDown: function() {
-        var bounceUp = cc.MoveBy.create(0.9, cc.p(0, getRandomArbitrary(15, 40) * SCALE_FACTOR));
-        var bounceDown = cc.MoveBy.create(0.9, cc.p(0, -getRandomArbitrary(15, 40) * SCALE_FACTOR));
+        var bounceUp = cc.MoveBy.create(0.9, cc.p(0, getRandomArbitrary(15, 15) * SCALE_FACTOR));
+        var bounceDown = cc.MoveBy.create(0.9, cc.p(0, -getRandomArbitrary(15, 15) * SCALE_FACTOR));
         var bounce = cc.Sequence.create(bounceUp, bounceDown);
         return cc.RepeatForever.create(bounce);
     },
 
     randomBounceLeftRight: function() {
-        var bounceLeft = cc.MoveBy.create(0.9, cc.p(getRandomArbitrary(15, 40) * SCALE_FACTOR, 0));
-        var bounceRight = cc.MoveBy.create(0.9, cc.p(-getRandomArbitrary(15, 40) * SCALE_FACTOR, 0));
+        var bounceLeft = cc.MoveBy.create(0.9, cc.p(getRandomArbitrary(15, 15) * SCALE_FACTOR, 0));
+        var bounceRight = cc.MoveBy.create(0.9, cc.p(-getRandomArbitrary(15, 15) * SCALE_FACTOR, 0));
         var bounce = cc.Sequence.create(bounceLeft, bounceRight);
         return cc.RepeatForever.create(bounce);
     },
@@ -350,7 +350,9 @@ var PlayLayer = cc.Layer.extend({
         }
 
         this._powerUp.setPosition(cc.p(startRandomX, startRandomY));
-        emitter.setPosition(this._powerUp.getPosition());
+
+        emitter.setPosition(cc.p(startRandomX, startRandomY));
+
         var flow = cc.MoveTo.create(6, cc.p(finishRandomX, finishRandomY));
 
         var callfunc = cc.CallFunc.create(function() {
