@@ -1082,7 +1082,7 @@ var PlayLayer = cc.Layer.extend({
         }
 
         //powerup
-        if (getRandomInt(0, 40 / fpsFactor) === 0 && !this._hasPowerUpOnScreen && !this._hasPowerUpEffect) {
+        if (getRandomInt(0, 300 / fpsFactor) === 0 && !this._hasPowerUpOnScreen && !this._hasPowerUpEffect) {
             dice = getRandomInt(0, 2);
             this.addPowerUpOnScreen(dice);
             this._hasPowerUpOnScreen = true;
