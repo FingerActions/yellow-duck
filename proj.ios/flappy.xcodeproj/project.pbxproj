@@ -248,6 +248,7 @@
 		EE34A6C618F0FDF00015982F /* FeastofFleshBB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE34A6C418F0FDF00015982F /* FeastofFleshBB.ttf */; };
 		EE34A6C718F0FDF00015982F /* FeastofFleshBBItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE34A6C518F0FDF00015982F /* FeastofFleshBBItalic.ttf */; };
 		EE34A6D318F2DA880015982F /* MarkerFelt.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE34A6D218F2DA880015982F /* MarkerFelt.ttf */; };
+		EE42C48418F443260023851D /* App Icon [Squared] in Resources */ = {isa = PBXBuildFile; fileRef = EE42C48318F443260023851D /* App Icon [Squared] */; };
 		EE61DC6818CAB5CE0068365C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE61DC6718CAB5CE0068365C /* Images.xcassets */; };
 		EEA5067C18BCABCF00BBF285 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EEA5067A18BCABCF00BBF285 /* README.txt */; };
 		EEA5067E18BCAC5C00BBF285 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEA5067D18BCAC5C00BBF285 /* AdSupport.framework */; };
@@ -731,6 +732,7 @@
 		EE34A6C418F0FDF00015982F /* FeastofFleshBB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FeastofFleshBB.ttf; sourceTree = "<group>"; };
 		EE34A6C518F0FDF00015982F /* FeastofFleshBBItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FeastofFleshBBItalic.ttf; sourceTree = "<group>"; };
 		EE34A6D218F2DA880015982F /* MarkerFelt.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MarkerFelt.ttf; sourceTree = "<group>"; };
+		EE42C48318F443260023851D /* App Icon [Squared] */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "App Icon [Squared]"; sourceTree = "<group>"; };
 		EE61DC6518CAB5920068365C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		EE61DC6618CAB5A20068365C /* icon-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-2x.png"; sourceTree = "<group>"; };
 		EE61DC6718CAB5CE0068365C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = flappy/Images.xcassets; sourceTree = "<group>"; };
@@ -738,7 +740,6 @@
 		EE61DC6B18CB54ED0068365C /* icon-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-2x.png"; sourceTree = "<group>"; };
 		EE61DC6C18CB56450068365C /* icon-2x-120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-2x-120x120.png"; sourceTree = "<group>"; };
 		EE61DC6F18CB5E600068365C /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
-		EE61DC7018CB5E760068365C /* icon-2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-2x.png"; sourceTree = "<group>"; };
 		EE61DC7118CB5E890068365C /* icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-120.png"; sourceTree = "<group>"; };
 		EE61DC7218CB5E9D0068365C /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		EEA5067018BCABCF00BBF285 /* GADAdMobExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADAdMobExtras.h; sourceTree = "<group>"; };
@@ -1632,15 +1633,16 @@
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
+				EE42C48318F443260023851D /* App Icon [Squared] */,
 				C2A59AA418D3333E0005B589 /* FingerActions */,
 				EE61DC7218CB5E9D0068365C /* Icon-72.png */,
 				EE61DC7118CB5E890068365C /* icon-120.png */,
-				EE61DC7018CB5E760068365C /* icon-2x.png */,
 				EE61DC6F18CB5E600068365C /* icon.png */,
 				EE61DC6C18CB56450068365C /* icon-2x-120x120.png */,
 				EE61DC6B18CB54ED0068365C /* icon-2x.png */,
 				EE61DC6A18CB54DD0068365C /* icon.png */,
 				EE61DC6618CAB5A20068365C /* icon-2x.png */,
+				EE61DC6B18CB54ED0068365C /* icon-2x.png */,
 				EE61DC6518CAB5920068365C /* icon.png */,
 				15A3D2EC1682F076002FB0C5 /* cocos2dx.xcodeproj */,
 				15A3D2F81682F0A0002FB0C5 /* bindings */,
@@ -1888,6 +1890,7 @@
 				EE34A6D318F2DA880015982F /* MarkerFelt.ttf in Resources */,
 				15A3D3231682F0A0002FB0C5 /* README in Resources */,
 				15A3D38D1682F0B6002FB0C5 /* CMakeLists.txt in Resources */,
+				EE42C48418F443260023851D /* App Icon [Squared] in Resources */,
 				1AE4B40416D1FECD003C6D1C /* res in Resources */,
 				1AE4B40516D1FECD003C6D1C /* src in Resources */,
 			);
@@ -2172,7 +2175,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-YellowDuck";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2240,7 +2242,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-YellowDuck";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
