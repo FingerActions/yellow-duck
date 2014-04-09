@@ -397,16 +397,16 @@ var PlayLayer = cc.Layer.extend({
             spawnPositionX = DUCK_POSITION_X;
             spawnPositionY = this._screenSize.height / 2 + 50 * SCALE_FACTOR;
 
-            var flow = cc.MoveTo.create(1, cc.p(spawnPositionX, spawnPositionY - 100 * SCALE_FACTOR));
-            var flow2 = cc.MoveTo.create(1, cc.p(spawnPositionX, spawnPositionY));
+            var flow = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY - 100 * SCALE_FACTOR));
+            var flow2 = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY));
 
         } else {
 
             spawnPositionX = DUCK_POSITION_X;
             spawnPositionY = this._screenSize.height / 2 - 50 * SCALE_FACTOR;
 
-            var flow = cc.MoveTo.create(1, cc.p(spawnPositionX, spawnPositionY + 100 * SCALE_FACTOR));
-            var flow2 = cc.MoveTo.create(1, cc.p(spawnPositionX, spawnPositionY));
+            var flow = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY + 100 * SCALE_FACTOR));
+            var flow2 = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY));
 
 
         }
@@ -427,7 +427,7 @@ var PlayLayer = cc.Layer.extend({
             this._finger.setPosition(cc.p(spawnPositionX, spawnPositionY));
             this._finger.runAction(this._fingerTipAction);
             this.fingerSprite.addChild(this._finger);
-            var MoveUpDown = cc.Sequence.create(flow, flow2);
+            var MoveUpDown = cc.Sequence.create(flow, cc.DelayTime.create(1), flow2, cc.DelayTime.create(1));
             this._finger.runAction(cc.RepeatForever.create(MoveUpDown));
         } else {
 
