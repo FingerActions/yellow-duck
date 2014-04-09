@@ -62,7 +62,7 @@ var PlayLayer = cc.Layer.extend({
     _isBig: false,
     _isHeavy: false,
     _isSmall: null,
-    _isOppositGravity: null,
+    _isOppositeGravity: null,
     _isInvincible: null,
     _hasPowerUpEffect: null,
     _hasPowerUpOnScreen: null,
@@ -220,7 +220,7 @@ var PlayLayer = cc.Layer.extend({
         this._heavyGravity = GRAVITY;
         this._isSmall = false;
         this._isInvincible = false;
-        this._isOppositGravity = false;
+        this._isOppositeGravity = false;
 
         //TransparentBatch
         var powerUp = cc.TextureCache.getInstance().addImage(s_power_ups_png);
@@ -395,17 +395,17 @@ var PlayLayer = cc.Layer.extend({
         if (direction == "up") {
 
             spawnPositionX = DUCK_POSITION_X;
-            spawnPositionY = this._screenSize.height / 2 + 50 * SCALE_FACTOR;
+            spawnPositionY = this._screenSize.height / 2;
 
             var flow = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY - 100 * SCALE_FACTOR));
-            var flow2 = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY));
+            var flow2 = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY + 100 * SCALE_FACTOR));
 
         } else {
 
             spawnPositionX = DUCK_POSITION_X;
             spawnPositionY = this._screenSize.height / 2 - 50 * SCALE_FACTOR;
 
-            var flow = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY + 100 * SCALE_FACTOR));
+            var flow = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY + 150 * SCALE_FACTOR));
             var flow2 = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY));
 
 
@@ -484,7 +484,7 @@ var PlayLayer = cc.Layer.extend({
 
                 }
                 break;
-            case YD.POWERUP_TYPE.OPPOSIT_GRAVITY:
+            case YD.POWERUP_TYPE.OPPOSITE_GRAVITY:
                 {
                     var callfunc = cc.CallFunc.create(function() {
                         this._isInvincible = false;
@@ -492,9 +492,9 @@ var PlayLayer = cc.Layer.extend({
                     var blinkWithCallfunc = cc.Sequence.create(blink, callfunc);
                     this._duck.runAction(blinkWithCallfunc);
 
-                    this._isOppositGravity = true;
+                    this._isOppositeGravity = true;
                     this._duckVelocity = 0;
-                    this.popTextOnScreen("Opposit!", "up");
+                    this.popTextOnScreen("Opposite!", "up");
 
                     var shakeFrom = cc.RotateTo.create(0.3, 200);
                     var shakeTo = cc.RotateTo.create(0.3, 160);
@@ -512,7 +512,7 @@ var PlayLayer = cc.Layer.extend({
         this._isHeavy = false;
         this._isInvincible = true;
         this._isSmall = false;
-        this._isOppositGravity = false;
+        this._isOppositeGravity = false;
         this._duck.stopActionByTag(0);
         if (!this._isbig) {
             this._duckVelocity = JUMP_VELOCITY;
@@ -536,7 +536,7 @@ var PlayLayer = cc.Layer.extend({
             this._isRemovingPowerUp = false;
         }.bind(this));
 
-        if (this._currentMode === YD.POWERUP_TYPE.OPPOSIT_GRAVITY) {
+        if (this._currentMode === YD.POWERUP_TYPE.OPPOSITE_GRAVITY) {
             var rotateBack = cc.RotateTo.create(1, 1);
             this._duck.runAction(rotateBack);
         }
@@ -1017,7 +1017,7 @@ var PlayLayer = cc.Layer.extend({
                 this._heavyGravity += 2 * GRAVITY / GROW_DURATION * delta;
             }
             gravity = this._heavyGravity;
-        } else if (this._isOppositGravity) {
+        } else if (this._isOppositeGravity) {
             gravity = -GRAVITY;
         } else {
             gravity = GRAVITY;
@@ -1082,7 +1082,7 @@ var PlayLayer = cc.Layer.extend({
         }
 
         //powerup
-        if (getRandomInt(0, 150 / fpsFactor) === 0 && !this._hasPowerUpOnScreen && !this._hasPowerUpEffect) {
+        if (!this._hasPowerUpOnScreen && !this._hasPowerUpEffect && getRandomInt(0, 300 / fpsFactor) === 0) {
             dice = getRandomInt(0, 2);
             this.addPowerUpOnScreen(dice);
             this._hasPowerUpOnScreen = true;
@@ -1107,9 +1107,9 @@ var PlayLayer = cc.Layer.extend({
 
     turnDuckBack: function() {
         var turnbackAction;
-        if (!this._isOppositGravity && this._duckVelocity < 0 && this._isDuckJumping) {
+        if (!this._isOppositeGravity && this._duckVelocity < 0 && this._isDuckJumping) {
             turnbackAction = cc.RotateTo.create(0.1, 0);
-        } else if (this._isOppositGravity && this._duckVelocity > 0 && this._isDuckJumping) {
+        } else if (this._isOppositeGravity && this._duckVelocity > 0 && this._isDuckJumping) {
             turnbackAction = cc.RotateTo.create(0.1, 180);
         } else {
             return;
@@ -1206,7 +1206,7 @@ var PlayLayer = cc.Layer.extend({
         } else {
             audioEngin.playEffect(s_jump_effect);
         }
-        if (this._isOppositGravity) {
+        if (this._isOppositeGravity) {
             this._duckVelocity = -JUMP_VELOCITY;
         } else if (this._isSmall) {
             var touchPositionY = touches[0].getLocation().y;
@@ -1227,7 +1227,7 @@ var PlayLayer = cc.Layer.extend({
         }
 
         //duck rotate
-        if (!this._isOppositGravity) {
+        if (!this._isOppositeGravity) {
             var duckRotate;
             if (getRandomInt(0, 14) === 0 && !this._isBig) {
                 duckRotate = cc.RotateBy.create(0.5, -400);

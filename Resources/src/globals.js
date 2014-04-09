@@ -38,7 +38,7 @@ var DUCK_POSITION_X = 85 * SCALE_FACTOR;
 
 var POWER_UP_EFFECT_DURATION = 15;
 var BLINK_DURATION = 4;
-var BLINK_TIMES = 8;
+var BLINK_TIMES = 4;
 var GROW_DURATION = 4;
 
 // static variables
