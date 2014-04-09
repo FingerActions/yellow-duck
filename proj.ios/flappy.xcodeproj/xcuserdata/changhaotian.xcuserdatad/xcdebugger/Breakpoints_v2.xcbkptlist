@@ -263,7 +263,7 @@
                   symbolName = "-[AppController application:didFinishLaunchingWithOptions:]"
                   moduleName = "Yellow Duck"
                   urlString = "file:///Users/changhaotian/cocos2d-x/Projects/flappy/proj.ios/AppController.mm"
-                  timestampString = "418465179.764459"
+                  timestampString = "418739589.553315"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "80"
@@ -277,7 +277,7 @@
                   symbolName = "-[AppController application:didFinishLaunchingWithOptions:]"
                   moduleName = "Yellow Duck"
                   urlString = "file:///Users/changhaotian/cocos2d-x/Projects/flappy/proj.ios/AppController.mm"
-                  timestampString = "418465183.246199"
+                  timestampString = "418739593.132214"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "80"
@@ -299,6 +299,22 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "288"
             endingLineNumber = "288">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../FingerActions/ios/FingerActions.mm"
+            timestampString = "418738922.188699"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "fingerActions::FingerActions::hideAd()"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
