@@ -112,7 +112,7 @@ var ScoreLayer = cc.Layer.extend({
         // create and initialize game over label
         this._gameover = cc.LabelTTF.create("GAME OVER", s_marker_felt_ttf, 28 * SCALE_FACTOR);
         if (s_isHighScore) {
-            this.popTextOnScreen("New Score!", "up");
+            this.popTextOnScreen("High Score!", "up");
 
         } else {
 
