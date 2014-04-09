@@ -19,7 +19,7 @@ var YD = YD || {};
 YD.POWERUP_TYPE = {
     BIG: 1,
     SMALL: 2,
-    OPPOSIT_GRAVITY: 3
+    OPPOSITE_GRAVITY: 3
 };
 
 YD.CONTAINER = {

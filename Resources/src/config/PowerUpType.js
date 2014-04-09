@@ -25,5 +25,5 @@ var PowerUpType = [{
 }, {
     type: 2,
     textureName: "power_up_3.png",
-    effectMode: YD.POWERUP_TYPE.OPPOSIT_GRAVITY
+    effectMode: YD.POWERUP_TYPE.OPPOSITE_GRAVITY
 }];
