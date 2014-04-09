@@ -395,17 +395,17 @@ var PlayLayer = cc.Layer.extend({
         if (direction == "up") {
 
             spawnPositionX = DUCK_POSITION_X;
-            spawnPositionY = this._screenSize.height / 2 + 50 * SCALE_FACTOR;
+            spawnPositionY = this._screenSize.height / 2;
 
             var flow = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY - 100 * SCALE_FACTOR));
-            var flow2 = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY));
+            var flow2 = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY + 100 * SCALE_FACTOR));
 
         } else {
 
             spawnPositionX = DUCK_POSITION_X;
             spawnPositionY = this._screenSize.height / 2 - 50 * SCALE_FACTOR;
 
-            var flow = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY + 100 * SCALE_FACTOR));
+            var flow = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY + 150 * SCALE_FACTOR));
             var flow2 = cc.MoveTo.create(0.1, cc.p(spawnPositionX, spawnPositionY));
 
 
@@ -1082,7 +1082,7 @@ var PlayLayer = cc.Layer.extend({
         }
 
         //powerup
-        if (getRandomInt(0, 150 / fpsFactor) === 0 && !this._hasPowerUpOnScreen && !this._hasPowerUpEffect) {
+        if (!this._hasPowerUpOnScreen && !this._hasPowerUpEffect && getRandomInt(0, 300 / fpsFactor) === 0) {
             dice = getRandomInt(0, 2);
             this.addPowerUpOnScreen(dice);
             this._hasPowerUpOnScreen = true;
