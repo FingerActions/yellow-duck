@@ -36,7 +36,7 @@ public class YellowDuck extends Cocos2dxActivity{
 	    super.onCreate(savedInstanceState);
 		
 		FingerActions.initLibrary(this);
-		FingerActions.addAdMob("portrait");
+		FingerActions.createAdMob("portrait");
 	}
 	
 	@Override
