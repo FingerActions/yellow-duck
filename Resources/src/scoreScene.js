@@ -56,7 +56,7 @@ var ScoreLayer = cc.Layer.extend({
 
         //game bridge
         this._fingerActions = new fingerActions.FingerActions();
-        this._fingerActions.showAdAtBottom();
+        this._fingerActions.showAds("bottom");
         this._fingerActions.pushSceneName("score scene");
 
         //add background image

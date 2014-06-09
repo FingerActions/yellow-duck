@@ -104,7 +104,7 @@ var PlayLayer = cc.Layer.extend({
 
         //create _fingerActions Manager instance
         this._fingerActions = new fingerActions.FingerActions();
-        this._fingerActions.hideAd();
+        this._fingerActions.hideAds();
         this._fingerActions.pushSceneName("play scene");
 
         //screen size

@@ -44,7 +44,7 @@ var IntroLayer = cc.Layer.extend({
 
         //init _fingerActions
         this._fingerActions = new fingerActions.FingerActions();
-        this._fingerActions.showAdAtTop();
+        this._fingerActions.showAds("top");
         this._fingerActions.pushSceneName("Intro scene");
 
         // screen size
