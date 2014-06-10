@@ -54,10 +54,9 @@ var ScoreLayer = cc.Layer.extend({
             this.setTouchEnabled(true);
         }
 
-        //game bridge
         this._fingerActions = new fingerActions.FingerActions();
         this._fingerActions.showAds("bottom");
-        this._fingerActions.pushSceneName("score scene");
+        this._fingerActions.sendSceneName("score scene", GA_PROPERTY_ID);
 
         //add background image
         var background = '';
@@ -156,12 +155,11 @@ var ScoreLayer = cc.Layer.extend({
     },
 
     showLeaderboard: function() {
-        cc.log('js showLeaderboard');
-        //push highScore everytime, in case player has a high localscore but didn't connect to internet
+        //send highScore everytime, in case player has a high localscore but didn't connect to internet
         this._fingerActions = new fingerActions.FingerActions();
-        this._fingerActions.pushScore(this._highScore, "YellowDuck");
+        this._fingerActions.reportScore(this._highScore, "YellowDuck");
         this._fingerActions.showLeaderboard();
-        this._fingerActions.pushEventName("Menu", "click", "leaderboard");
+        this._fingerActions.sendEventName("Menu", "click", "leaderboard", GA_PROPERTY_ID);
     },
 
     update: function(delta) {

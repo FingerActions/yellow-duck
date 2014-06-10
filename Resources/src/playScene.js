@@ -105,7 +105,7 @@ var PlayLayer = cc.Layer.extend({
         //create _fingerActions Manager instance
         this._fingerActions = new fingerActions.FingerActions();
         this._fingerActions.hideAds();
-        this._fingerActions.pushSceneName("play scene");
+        this._fingerActions.sendSceneName("play scene", GA_PROPERTY_ID);
 
         //screen size
         this._screenSize = cc.Director.getInstance().getWinSize();
@@ -1127,7 +1127,7 @@ var PlayLayer = cc.Layer.extend({
 
             //Game Bridge Class
             this._fingerActions = new fingerActions.FingerActions();
-            this._fingerActions.pushScore(this._score, "YellowDuck");
+            this._fingerActions.reportScore(this._score, "YellowDuck");
         }
     },
 
@@ -1285,10 +1285,10 @@ var PlayLayer = cc.Layer.extend({
         this._isGameOver = true;
         if (hitWall) {
             this.gameOverHitWall();
-            this._fingerActions.pushEventName("Action", "Die", "Hit Wall");
+            this._fingerActions.sendEventName("Action", "Die", "Hit Wall", GA_PROPERTY_ID);
         } else {
             this.gameOverDrowned();
-            this._fingerActions.pushEventName("Action", "Die", "Drowned");
+            this._fingerActions.sendEventName("Action", "Die", "Drowned", GA_PROPERTY_ID);
         }
     },
 
